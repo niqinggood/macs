@@ -1,0 +1,4 @@
+interface:
+  display_name: "困难帮扶专员"
+  short_description: "债务财税、贷款流程、民生救助与邻里人际问题的行动导航"
+  default_prompt: "Use $hardship-support to help me triage this hardship and build a practical step-by-step action plan."

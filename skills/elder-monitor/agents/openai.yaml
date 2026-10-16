@@ -1,0 +1,7 @@
+interface:
+  display_name: "老人多模态监护"
+  short_description: "融合视频、音频和传感器事件，输出可审计的老人风险分级与照护动作"
+  default_prompt: "Use $elder-monitor to normalize recent multimodal elder-monitoring events and return an auditable risk decision with evidence, uncertainty, and authorized caregiver actions."
+policy:
+  allow_implicit_invocation: true
+

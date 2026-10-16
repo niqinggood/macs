@@ -1,0 +1,1706 @@
+openapi: 3.1.0
+info:
+  title: MACS AgentOS Data API
+  version: 1.0.0
+  summary: 面向企业服务调用的异步 Agent 任务数据面契约
+  description: |
+    本契约覆盖服务身份可调用的 AgentOS 数据面：岗位发现、异步任务、
+    任务事件和人工审批。
+
+    本文档严格描述当前 MACS AgentOS 运行时。岗位在任务接收时解析为
+    不可变的 `role_revision`；任务列表使用稳定的不透明游标；错误响应同时
+    提供兼容字段 `error` 和结构化字段 `code/message/request_id/retryable`。
+
+    数据面使用宿主认证后的服务身份确定租户、调用方和岗位权限。
+    客户端不得使用自报的租户 Header 绕过身份绑定。
+  contact:
+    name: MACS AgentOS
+  license:
+    name: Proprietary
+jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
+servers:
+  - url: https://openkitty.example.com
+    description: 生产环境示例
+  - url: http://127.0.0.1:8080
+    description: 本地开发示例
+security:
+  - serviceBearer: []
+  - serviceAPIKey: []
+  - tenantSession: []
+x-openkitty-service-scopes:
+  'tasks:submit': 允许提交任务。
+  'tasks:read:own': 允许读取当前服务身份创建的任务。
+  'tasks:read:role': 允许读取租户内、且位于服务身份 allowed_roles 边界内的岗位任务。
+  'tasks:read:any': 允许读取租户内任务，但 allowed_roles 仍是不可突破的上界。
+  'tasks:cancel:own': 允许取消当前服务身份创建的任务。
+  'tasks:cancel:any': 允许取消租户内任务，但 allowed_roles 仍是不可突破的上界。
+  'tasks:followup:own': 允许向当前服务身份创建的运行中任务追加指令。
+  'tasks:followup:any': 允许向租户内任务追加指令，但 allowed_roles 仍是不可突破的上界。
+  'approvals:read': 允许读取租户和岗位边界内的审批记录。
+  'approvals:decide': 允许批准或拒绝租户和岗位边界内的审批。
+  'users:act_as': 允许受信服务通过 X-OpenKitty-User-ID 委托自然人身份。
+tags:
+  - name: Roles
+    description: 已发布、且当前服务身份有权调用的 Agent 岗位
+  - name: Tasks
+    description: 持久化异步任务
+  - name: Events
+    description: 单任务实时事件流
+  - name: Approvals
+    description: 一次性工具调用审批
+
+paths:
+  /api/v1/agent/roles:
+    get:
+      tags: [Roles]
+      operationId: listAgentRoles
+      summary: 发现可调用的 Agent 岗位
+      description: |
+        返回当前服务身份在其绑定租户中可调用的已发布岗位及版本、输入输出
+        Schema。岗位发现由服务身份的租户、`allowed_roles` 以及岗位的
+        `allowed_tenants/allowed_callers` 共同约束。
+      parameters:
+        - $ref: '#/components/parameters/RequestID'
+        - $ref: '#/components/parameters/Traceparent'
+      responses:
+        '200':
+          description: 可调用岗位列表
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks:
+    parameters:
+      - $ref: '#/components/parameters/ActAsUserID'
+    post:
+      tags: [Tasks]
+      operationId: submitAgentTask
+      summary: 提交异步 Agent 任务
+      description: |
+        任务持久化成功后返回 `202 Accepted`。相同服务身份为同一自然人在
+        同一租户内使用相同 `Idempotency-Key` 重放时返回原任务和 `200 OK`。
+
+        `role_id` 是推荐的岗位选择方式。`agent_name` 仅用于兼容名称选择。
+        省略 `role_revision` 时，服务端在接收时解析当前已发布版本并固定到
+        任务；显式版本与当前版本不一致时返回 `409 role_revision_conflict`。
+
+        配置了 `users:act_as` 的服务客户端可通过 `X-OpenKitty-User-ID`
+        传稳定的自然人标识。服务凭证标识调用者（actor），Header 标识数据
+        归属人（subject）；提交体中的 `user_id` 若存在必须与 Header 一致。
+      x-openkitty-required-scopes: [tasks:submit]
+      parameters:
+        - $ref: '#/components/parameters/RequestID'
+        - $ref: '#/components/parameters/Traceparent'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskSubmitRequest'
+            examples:
+              customerResearch:
+                summary: 调用客户研究岗位
+                value:
+                  role_id: customer-research
+                  role_revision: r1-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+                  user_id: person-42
+                  session_id: customer-follow-up
+                  message: 核验客户 42 的公司背景并给出三条跟进建议
+                  parameters:
+                    customer_id: '42'
+      responses:
+        '202':
+          description: 已创建并持久化新任务
+          headers:
+            Location:
+              $ref: '#/components/headers/TaskLocation'
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '200':
+          description: 幂等重放，返回此前创建的任务
+          headers:
+            Location:
+              $ref: '#/components/headers/TaskLocation'
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+    get:
+      tags: [Tasks]
+      operationId: listAgentTasks
+      summary: 列出任务
+      description: |
+        返回当前服务身份可见的任务，按 `created_at DESC, task_id DESC`
+        稳定排序。支持 `caller_id`、`role_id`、`status`、`cursor` 和
+        `limit`；授权过滤在分页之前完成。没有任何任务读取 Scope 时返回
+        空列表。
+      x-openkitty-required-scopes-any-of:
+        - tasks:read:own
+        - tasks:read:role
+        - tasks:read:any
+      parameters:
+        - $ref: '#/components/parameters/RequestID'
+        - $ref: '#/components/parameters/Traceparent'
+        - name: caller_id
+          in: query
+          description: 按规范化调用方 ID 过滤
+          schema:
+            type: string
+            maxLength: 128
+        - name: status
+          in: query
+          description: 按任务状态过滤
+          schema:
+            $ref: '#/components/schemas/TaskStatus'
+        - name: role_id
+          in: query
+          description: 按岗位 ID 过滤
+          schema:
+            type: string
+            maxLength: 128
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: 任务列表
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    get:
+      tags: [Tasks]
+      operationId: getAgentTask
+      summary: 查询任务
+      x-openkitty-required-scopes-any-of:
+        - tasks:read:own
+        - tasks:read:role
+        - tasks:read:any
+      responses:
+        '200':
+          description: 当前任务快照
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      tags: [Tasks]
+      operationId: cancelAgentTaskByDelete
+      summary: 取消任务（兼容别名）
+      description: |
+        与 `POST /api/v1/agent/tasks/{task_id}/cancel` 等价。新客户端应使用
+        显式的 cancel 动作端点。
+      deprecated: true
+      x-openkitty-required-scopes-any-of:
+        - tasks:cancel:own
+        - tasks:cancel:any
+      responses:
+        '200':
+          description: 任务已进入 `stopped`
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    post:
+      tags: [Tasks]
+      operationId: cancelAgentTask
+      summary: 取消尚未终止的任务
+      description: |
+        可取消 `pending`、`running` 或 `waiting_approval` 任务。任务已经
+        终止时返回 `409 Conflict`。
+      x-openkitty-required-scopes-any-of:
+        - tasks:cancel:own
+        - tasks:cancel:any
+      responses:
+        '200':
+          description: 任务已进入 `stopped`
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      tags: [Tasks]
+      operationId: cancelAgentTaskByActionDelete
+      summary: 取消尚未终止的任务（兼容方法）
+      description: |
+        与此路径的 `POST` 方法等价；保留用于兼容已有客户端。
+      deprecated: true
+      x-openkitty-required-scopes-any-of:
+        - tasks:cancel:own
+        - tasks:cancel:any
+      responses:
+        '200':
+          description: 任务已进入 `stopped`
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/followups:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    post:
+      tags: [Tasks]
+      operationId: addAgentTaskFollowup
+      summary: 向运行中的任务追加指令
+      description: |
+        为 `pending` 或 `running` 的单 Agent 对话/Skill Run 持久化一条追加
+        指令并返回独立回执。Worker 会在任务租约下认领该指令，原子写入会话后
+        中断当前模型生成并携带补充内容重新推理。
+
+        追加与任务完成/取消共享数据库输入闸门：若完成先提交则返回 `409`；
+        若追加先提交，任务不得越过未处理指令进入终态。`collaboration`、显式
+        AI Employee/Pipeline 和 `waiting_approval` 当前不接受新追加指令。
+        同一任务内重试应复用同一个 `Idempotency-Key`。
+      x-openkitty-required-scopes-any-of:
+        - tasks:followup:own
+        - tasks:followup:any
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskFollowupRequest'
+            example:
+              message: 改用样品 B，并在结果中保留审计编号
+      responses:
+        '202':
+          description: 新追加指令已持久化
+          headers:
+            Location:
+              $ref: '#/components/headers/FollowupLocation'
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskFollowup'
+        '200':
+          description: 幂等重放，返回原追加指令回执
+          headers:
+            Location:
+              $ref: '#/components/headers/FollowupLocation'
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskFollowup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    get:
+      tags: [Tasks]
+      operationId: listAgentTaskFollowups
+      summary: 列出任务的追加指令回执
+      x-openkitty-required-scopes-any-of:
+        - tasks:read:own
+        - tasks:read:role
+        - tasks:read:any
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: 按接收时间正序排列的持久回执
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskFollowupListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/followups/{followup_id}:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/FollowupID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    get:
+      tags: [Tasks]
+      operationId: getAgentTaskFollowup
+      summary: 查询一条追加指令的持久回执
+      x-openkitty-required-scopes-any-of:
+        - tasks:read:own
+        - tasks:read:role
+        - tasks:read:any
+      responses:
+        '200':
+          description: 追加指令回执
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskFollowup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/events:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    get:
+      tags: [Events]
+      operationId: streamAgentTaskEvents
+      summary: 订阅单任务 SSE 事件
+      description: |
+        建立连接后先发送 `connected`，随后可能发送 `task_update`、
+        `progress`、`followup_accepted`、`followup_applied` 和数据库轮询
+        产生的 `task_snapshot`。
+
+        实时任务事件带 SSE `id`。客户端可通过 `Last-Event-ID` Header 或
+        `last_event_id` 查询参数续接当前实例保留的最近事件。若实例变化、
+        游标无效或超过有界窗口，服务端发送 `replay_reset`，并继续使用
+        `task_snapshot` 返回持久任务状态。任务查询接口始终是最终事实来源。
+      x-openkitty-required-scopes-any-of:
+        - tasks:read:own
+        - tasks:read:role
+        - tasks:read:any
+      parameters:
+        - name: client_id
+          in: query
+          description: 可选的客户端连接标识
+          schema:
+            type: string
+            maxLength: 128
+        - name: Last-Event-ID
+          in: header
+          description: 可选的最近已处理 SSE 事件 ID，用于有界断线重放
+          schema:
+            type: string
+            maxLength: 128
+        - name: last_event_id
+          in: query
+          description: 无法设置 Last-Event-ID Header 时使用的兼容游标
+          schema:
+            type: string
+            maxLength: 128
+      responses:
+        '200':
+          description: Server-Sent Events 流
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+              description: 固定为 `no-cache`
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            text/event-stream:
+              schema:
+                type: string
+              examples:
+                connected:
+                  summary: 连接建立
+                  value: |
+                    event: connected
+                    data: {"task_id":"agt_260726120000_a1b2c3d4","client_id":"crm-1","replay_supported":true}
+
+                progress:
+                  summary: 带游标的实时进度
+                  value: |
+                    id: 9f9ad173aeed84a1:db535b796fac9f42:12
+                    event: progress
+                    data: {"type":"tool_start","task_id":"agt_260726120000_a1b2c3d4","step_name":"整理资料","step_index":2,"step_total":5,"message":"正在读取输入文件","status":"running"}
+
+                taskSnapshot:
+                  summary: 持久任务快照
+                  value: |
+                    event: task_snapshot
+                    data: {"task_id":"agt_260726120000_a1b2c3d4","status":"running","phase":"model"}
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/approvals:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    get:
+      tags: [Approvals]
+      operationId: listAgentTaskApprovals
+      summary: 列出任务审批
+      description: |
+        返回指定任务的全部审批记录。`approvals:read` 独立于任务读取 Scope，
+        但仍受服务身份的租户和 `allowed_roles` 边界限制；是否能做出决定
+        由 `approvals:decide` 另外判断。
+      x-openkitty-required-scopes: [approvals:read]
+      responses:
+        '200':
+          description: 审批列表
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/approvals/{approval_id}/approve:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/ApprovalID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    post:
+      tags: [Approvals]
+      operationId: approveAgentTaskToolCall
+      summary: 批准一次工具调用
+      description: |
+        仅拥有审批权限且岗位范围匹配的服务身份可调用。批准后任务重新进入
+        `pending` 队列；批准只对相同任务、工具和参数的一次执行有效。
+      x-openkitty-required-scopes: [approvals:decide]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalDecisionRequest'
+      responses:
+        '200':
+          description: 审批成功，返回审批和更新后的任务
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalDecisionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+  /api/v1/agent/tasks/{task_id}/approvals/{approval_id}/deny:
+    parameters:
+      - $ref: '#/components/parameters/TaskID'
+      - $ref: '#/components/parameters/ApprovalID'
+      - $ref: '#/components/parameters/RequestID'
+      - $ref: '#/components/parameters/Traceparent'
+      - $ref: '#/components/parameters/ActAsUserID'
+    post:
+      tags: [Approvals]
+      operationId: denyAgentTaskToolCall
+      summary: 拒绝一次工具调用
+      description: |
+        拒绝后任务进入 `failed`，`phase` 为 `approval_denied`，工具不会执行。
+      x-openkitty-required-scopes: [approvals:decide]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalDecisionRequest'
+      responses:
+        '200':
+          description: 审批已拒绝，返回审批和更新后的任务
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/RequestID'
+            traceparent:
+              $ref: '#/components/headers/Traceparent'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalDecisionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+
+components:
+  securitySchemes:
+    serviceBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque-service-token
+      description: |
+        `service_clients[].token`、租户 Token 或控制面 Token。服务端从
+        凭证解析 `service_id`、`tenant_id`、允许岗位和 Scopes；客户端
+        自报的租户或调用方标识不得覆盖该身份。未显式配置 `scopes` 时，默认授予
+        `tasks:submit`、`tasks:read:own`、`tasks:cancel:own`、
+        `tasks:followup:own`。
+        `can_approve: true` 为兼容配置，会追加 `approvals:read` 和
+        `approvals:decide`。任何 `*:any` 或 `tasks:read:role` 权限都不能
+        突破服务身份的租户和 `allowed_roles` 边界。
+      x-openkitty-scopes:
+        'tasks:submit': 提交任务
+        'tasks:read:own': 读取当前服务创建的任务
+        'tasks:read:role': 读取 allowed_roles 范围内的岗位任务
+        'tasks:read:any': 读取租户内、仍受 allowed_roles 限制的任务
+        'tasks:cancel:own': 取消当前服务创建的任务
+        'tasks:cancel:any': 取消租户内、仍受 allowed_roles 限制的任务
+        'tasks:followup:own': 向当前服务创建的运行中任务追加指令
+        'tasks:followup:any': 向租户内、仍受 allowed_roles 限制的任务追加指令
+        'approvals:read': 读取审批记录
+        'approvals:decide': 批准或拒绝审批
+    serviceAPIKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: |
+        Bearer 的 Header 兼容形式，可承载服务客户端、租户或控制面 Token。
+    tenantSession:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+      description: |
+        已登录租户用户的会话 Token。服务端从会话解析租户和用户名。
+        只有未配置任何认证且监听地址为回环地址时才允许无凭证调用；非回环
+        AgentOS 数据面启动时会强制要求认证。
+
+  parameters:
+    ActAsUserID:
+      name: X-OpenKitty-User-ID
+      in: header
+      required: false
+      description: |
+        受信业务服务当前代表的稳定自然人标识，最大 128 UTF-8 字节。仅具有
+        `users:act_as` 的服务客户端可以使用。提供后，提交、任务列表、单任务
+        查询、SSE、追加指令、取消和审批都会被精确限制到该 `subject_id`。
+        `require_user_id: true` 的服务客户端调用任务 API 时必须提供。
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    RequestID:
+      name: X-Request-ID
+      in: header
+      required: false
+      description: |
+        调用方生成的关联 ID。合法字符为字母、数字、`-_.:`，最大 128
+        字符；缺失或不合法时由服务端生成。响应始终通过同名 Header 回显
+        实际使用的 ID。
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+        pattern: '^[A-Za-z0-9_.:-]+$'
+    Traceparent:
+      name: traceparent
+      in: header
+      required: false
+      description: |
+        W3C Trace Context version 00。合法值会持久化到任务并传递到 Worker，
+        响应通过同名 Header 回显；不合法的值会被忽略且不回显。
+      schema:
+        type: string
+        pattern: '^00-(?!0{32})[0-9A-Fa-f]{32}-(?!0{16})[0-9A-Fa-f]{16}-[0-9A-Fa-f]{2}$'
+        example: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: |
+        推荐每次业务操作都提供。唯一性范围是认证后的
+        `tenant + service caller + delegated subject + key`，最大 256 字符；
+        未委托自然人时 subject 分区为空。
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 256
+    TaskID:
+      name: task_id
+      in: path
+      required: true
+      description: 服务端生成的任务 ID
+      schema:
+        type: string
+        pattern: '^agt_[A-Za-z0-9_-]+$'
+        maxLength: 64
+    FollowupID:
+      name: followup_id
+      in: path
+      required: true
+      description: 服务端生成的追加指令回执 ID
+      schema:
+        type: string
+        pattern: '^fup_[A-Za-z0-9_-]+$'
+        maxLength: 64
+    ApprovalID:
+      name: approval_id
+      in: path
+      required: true
+      description: 服务端生成的一次性审批 ID
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 64
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      description: 服务端生成的不透明下一页游标
+      schema:
+        type: string
+        maxLength: 1024
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: 每页条数，默认 50，最大 100
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 50
+
+  headers:
+    RequestID:
+      description: 本次请求的关联 ID
+      schema:
+        type: string
+        maxLength: 128
+        pattern: '^[A-Za-z0-9_.:-]+$'
+    Traceparent:
+      description: |
+        服务端接受并贯穿本次调用的 W3C `traceparent`。仅当请求值合法时返回。
+      schema:
+        type: string
+        pattern: '^00-(?!0{32})[0-9a-f]{32}-(?!0{16})[0-9a-f]{16}-[0-9a-f]{2}$'
+    TaskLocation:
+      description: 新建或重放任务的查询地址
+      schema:
+        type: string
+        example: /api/v1/agent/tasks/agt_260726120000_a1b2c3d4
+    FollowupLocation:
+      description: 新建或幂等重放的追加指令回执地址
+      schema:
+        type: string
+        example: /api/v1/agent/tasks/agt_260726120000_a1b2c3d4/followups/fup_260726120030_e5f6a7b8
+    RetryAfter:
+      description: 建议等待秒数
+      schema:
+        type: integer
+        minimum: 0
+
+  responses:
+    BadRequest:
+      description: 请求格式或字段校验失败
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error: message or attachments are required
+            code: invalid_request
+            message: message or attachments are required
+            request_id: req_01K12ABCDEF
+            retryable: false
+    Unauthorized:
+      description: 服务凭证缺失、无效或已失效
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: 身份有效，但无权执行该操作
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: 资源不存在，或当前身份无权获知资源是否存在
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: 幂等、会话、审批或任务状态冲突
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: 队列或调用配额已满
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/RetryAfter'
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: 服务端发生不可恢复的内部错误；响应不会暴露内部实现细节
+      headers:
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServiceUnavailable:
+      description: 数据库、队列或当前实例暂时不可用
+      headers:
+        Retry-After:
+          $ref: '#/components/headers/RetryAfter'
+        X-Request-ID:
+          $ref: '#/components/headers/RequestID'
+        traceparent:
+          $ref: '#/components/headers/Traceparent'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [error, code, message, request_id, retryable]
+      description: AgentOS 数据面的统一错误结构。
+      properties:
+        error:
+          type: string
+          description: 与 `message` 相同的兼容错误字段
+        code:
+          type: string
+          description: 稳定、可供程序判断的错误码
+          pattern: '^[a-z][a-z0-9_]*$'
+          examples: [invalid_request, unauthorized, not_found, queue_full, role_revision_conflict]
+        message:
+          type: string
+          description: 面向开发者的安全错误说明
+        request_id:
+          type: string
+          description: 与响应 Header 一致的请求关联 ID
+          maxLength: 128
+          pattern: '^[A-Za-z0-9_.:-]+$'
+        retryable:
+          type: boolean
+          description: 在请求内容不变时是否建议重试
+
+    RoleListResponse:
+      type: object
+      additionalProperties: false
+      required: [roles, count]
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentRole'
+        count:
+          type: integer
+          minimum: 0
+
+    AgentRole:
+      type: object
+      additionalProperties: false
+      required: [role_id, role_revision, agent_name, enabled, links]
+      properties:
+        role_id:
+          type: string
+          maxLength: 128
+          examples: [customer-research]
+        role_revision:
+          type: string
+          minLength: 67
+          maxLength: 67
+          description: 不可变的已发布岗位版本
+          pattern: '^r1-[a-f0-9]{64}$'
+          examples:
+            - r1-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+        agent_name:
+          type: string
+          maxLength: 100
+          examples: [CustomerResearchAgent]
+        description:
+          type: string
+          maxLength: 2048
+        enabled:
+          type: boolean
+        input_schema:
+          type: [object, 'null']
+          description: 岗位 `parameters` 的 JSON Schema
+          additionalProperties: true
+        output_schema:
+          type: [object, 'null']
+          description: 岗位结构化结果的 JSON Schema
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: false
+          required: [submit]
+          properties:
+            submit:
+              type: string
+              example: /api/v1/agent/tasks
+
+    TaskSubmitRequest:
+      type: object
+      additionalProperties: false
+      anyOf:
+        - required: [message]
+          properties:
+            message:
+              type: string
+              minLength: 1
+        - required: [attachments]
+          properties:
+            attachments:
+              type: array
+              minItems: 1
+      properties:
+        role_id:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 已发布岗位 ID；推荐使用
+        role_revision:
+          type: string
+          minLength: 67
+          maxLength: 67
+          pattern: '^r1-[a-f0-9]{64}$'
+          description: |
+            指定不可变岗位版本；省略时由服务端在接收时解析当前发布版本。
+            与当前发布版本不一致时返回 `409 role_revision_conflict`。
+        agent_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          deprecated: true
+          description: 名称选择兼容字段；不得与发布岗位解析出的 Agent 不一致
+        message:
+          type: string
+          description: |
+            用户消息。整个 JSON 请求体（含附件元数据）最大为 1 MiB。
+        session_id:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: |
+            省略时创建新会话；输入最大 64 UTF-8 字节。认证身份下服务端会按
+            tenant_id + subject_id 加不可伪造的个人前缀，并在 64 字节存储
+            边界内安全截断。该字段不是用户身份。
+        user_id:
+          type: string
+          maxLength: 128
+          description: |
+            兼容和审计字段。受信服务客户端代表自然人时应使用
+            X-OpenKitty-User-ID；本字段若存在必须与 Header 一致。租户会话
+            使用登录身份中已绑定的 subject，不能由请求体覆盖。本地无认证
+            兼容模式仍允许仅提供本字段。
+        caller_id:
+          type: string
+          maxLength: 128
+          deprecated: true
+          description: Bearer 认证模式下忽略，不得覆盖认证后的服务 ID
+        idempotency_key:
+          type: string
+          maxLength: 256
+          deprecated: true
+          description: 请求体兼容字段；Header `Idempotency-Key` 优先
+        attachments:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/Attachment'
+        parameters:
+          description: 岗位定义的结构化输入；应按岗位 `input_schema` 校验
+        skill_run:
+          $ref: '#/components/schemas/SkillRunRequest'
+          description: |
+            将本任务绑定到一个已安装的具体 Skill。绑定只影响本任务，不改变后续会话模式。
+            Skill Run 与 collaboration 是两个独立执行模式，不能在同一请求中同时使用。
+        initial_messages:
+          type: array
+          maxItems: 4
+          description: |
+            仅用于空会话首轮的少量、已在宿主界面展示的 assistant 欢迎消息。
+            消息会在当前 user 消息之前按顺序原子持久化，并作为 role-aware
+            history 进入模型。非空会话返回
+            `409 initial_messages_require_empty_session`。协作任务不支持该字段。
+          items:
+            $ref: '#/components/schemas/InitialAssistantMessage'
+        assistant_identity:
+          $ref: '#/components/schemas/AssistantIdentity'
+
+    InitialAssistantMessage:
+      type: object
+      additionalProperties: false
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [assistant]
+        content:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: 单条欢迎消息；允许普通换行和制表符，拒绝其他控制字符
+
+    AssistantIdentity:
+      type: object
+      additionalProperties: false
+      required: [name, role]
+      description: |
+        每任务的用户可见助手身份，只包含受限的显示名称和岗位标签，不接受
+        instructions、prompt 或其他自由指令字段。MACS 仍是宿主平台而非助手名称。
+        协作任务不支持该字段。
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 48
+        role:
+          type: string
+          minLength: 1
+          maxLength: 96
+
+    Attachment:
+      type: object
+      additionalProperties: false
+      required: [path]
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        path:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          description: 当前租户工作区内的相对路径
+        mime_type:
+          type: string
+          maxLength: 255
+        size:
+          type: integer
+          minimum: 0
+        kind:
+          type: string
+          enum: [image, file]
+
+    SkillRunRequest:
+      type: object
+      additionalProperties: false
+      required: [skill_name]
+      properties:
+        skill_name:
+          type: string
+          minLength: 1
+          maxLength: 128
+          description: 已安装 Skill 的名称或别名
+        version:
+          type: string
+          maxLength: 80
+          description: 可选的精确版本约束；与已安装版本不一致时拒绝执行
+        parameters:
+          type: object
+          additionalProperties: true
+          description: 按 Skill 参数定义校验并补齐默认值的结构化参数
+        client_reference:
+          type: string
+          maxLength: 128
+          description: 客户端用于关联本次运行的可选引用
+
+    SkillRunSnapshot:
+      type: object
+      additionalProperties: false
+      required: [name, type, content_sha256]
+      properties:
+        name:
+          type: string
+          maxLength: 128
+        version:
+          type: string
+          maxLength: 80
+        author:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [builtin, python, node, js, shell, http]
+        source:
+          type: string
+        content_sha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        runtime_digest:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        requires_runtime:
+          type: boolean
+        has_support_files:
+          type: boolean
+
+    SkillRunVerification:
+      type: object
+      additionalProperties: false
+      required: [name, status]
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum: [passed, failed]
+        detail:
+          type: string
+        checked_at:
+          type: string
+          format: date-time
+
+    SkillRunReceipt:
+      type: object
+      additionalProperties: false
+      required: [run_id, task_id, phase, skill, activation_count]
+      properties:
+        run_id:
+          type: string
+          maxLength: 96
+        task_id:
+          type: string
+          maxLength: 64
+        phase:
+          type: string
+          enum: [resolving, activated, running, verifying, completed, failed, stopped]
+        skill:
+          $ref: '#/components/schemas/SkillRunSnapshot'
+        parameters:
+          type: object
+          additionalProperties: true
+        activation_id:
+          type: string
+          maxLength: 128
+        activation_count:
+          type: integer
+          minimum: 0
+        artifacts:
+          type: array
+          items:
+            type: string
+        verification:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillRunVerification'
+        started_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        duration_ms:
+          type: integer
+          minimum: 0
+        client_reference:
+          type: string
+          maxLength: 128
+
+    TaskStatus:
+      type: string
+      enum:
+        - pending
+        - running
+        - waiting_approval
+        - completed
+        - degraded
+        - failed
+        - stopped
+      description: |
+        `completed`、`degraded`、`failed` 和 `stopped` 为终态。
+
+    TaskListResponse:
+      type: object
+      additionalProperties: false
+      required: [tasks, count]
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        count:
+          type: integer
+          minimum: 0
+          description: 本页返回条数
+        next_cursor:
+          type: string
+          maxLength: 1024
+          description: 下一页的不透明游标；省略表示没有下一页
+
+    Task:
+      type: object
+      additionalProperties: false
+      required:
+        - task_id
+        - tenant_id
+        - role_id
+        - role_revision
+        - status
+        - phase
+        - run_attempt
+        - created_at
+        - idempotent_replay
+        - links
+      properties:
+        task_id:
+          type: string
+          maxLength: 64
+        tenant_id:
+          type: string
+          maxLength: 64
+        subject_id:
+          type: string
+          maxLength: 128
+          description: 服务端确定并持久化的数据归属自然人
+        user_id:
+          type: string
+          maxLength: 128
+          description: 当前任务的业务用户标识；通常与 subject_id 相同
+        role_id:
+          type: string
+          maxLength: 128
+        role_revision:
+          type: string
+          minLength: 67
+          maxLength: 67
+          pattern: '^r1-[a-f0-9]{64}$'
+          description: 任务接收时绑定的不可变岗位版本
+        agent_name:
+          type: string
+          maxLength: 100
+        session_id:
+          type: string
+          maxLength: 64
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        phase:
+          type: string
+          maxLength: 64
+          examples: [queued, starting, model, 'tool:write_file', approval_denied]
+        run_attempt:
+          type: integer
+          minimum: 0
+        last_tool_call_id:
+          type: string
+          maxLength: 128
+        heartbeat_at:
+          type: [string, 'null']
+          format: date-time
+        heartbeat_age_ms:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: [string, 'null']
+          format: date-time
+        queue:
+          type: string
+          maxLength: 32
+        worker_id:
+          type: string
+          maxLength: 160
+        lease_until:
+          type: [string, 'null']
+          format: date-time
+        available_at:
+          type: [string, 'null']
+          format: date-time
+        idempotent_replay:
+          type: boolean
+        skill_run_request:
+          $ref: '#/components/schemas/SkillRunRequest'
+        skill_run:
+          $ref: '#/components/schemas/SkillRunReceipt'
+        result:
+          description: 岗位执行结果；结构化岗位应符合其 `output_schema`
+        error:
+          type: string
+          description: 任务执行失败说明；与 HTTP `ErrorResponse` 不同
+        pending_approval:
+          $ref: '#/components/schemas/Approval'
+        links:
+          $ref: '#/components/schemas/TaskLinks'
+
+    TaskLinks:
+      type: object
+      additionalProperties: false
+      required: [self, events, cancel, followups, approvals]
+      properties:
+        self:
+          type: string
+        events:
+          type: string
+        cancel:
+          type: string
+        followups:
+          type: string
+        approvals:
+          type: string
+
+    TaskFollowupRequest:
+      type: object
+      additionalProperties: false
+      required: [message]
+      properties:
+        message:
+          type: string
+          minLength: 1
+          description: 去除首尾空白后不得为空，最大 60 KiB UTF-8 字节。
+        idempotency_key:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: |
+            Header `Idempotency-Key` 的请求体兼容形式；同时存在时以 Header
+            为准。同一任务内一次业务追加必须在重试时保持不变。
+
+    TaskFollowupStatus:
+      type: string
+      enum: [pending, delivering, applied, cancelled]
+      description: |
+        `pending` 表示已持久化待认领，`delivering` 表示已由当前任务租约认领，
+        `applied` 表示已原子写入任务会话，`cancelled` 表示随父任务取消且未应用。
+
+    TaskFollowupLinks:
+      type: object
+      additionalProperties: false
+      required: [self, task, events]
+      properties:
+        self:
+          type: string
+        task:
+          type: string
+        events:
+          type: string
+
+    TaskFollowup:
+      type: object
+      additionalProperties: false
+      required:
+        - followup_id
+        - task_id
+        - status
+        - message
+        - delivery_attempt
+        - created_at
+        - claimed_at
+        - applied_at
+        - cancelled_at
+        - idempotent_replay
+        - links
+      properties:
+        followup_id:
+          type: string
+          maxLength: 64
+        task_id:
+          type: string
+          maxLength: 64
+        status:
+          $ref: '#/components/schemas/TaskFollowupStatus'
+        message:
+          type: string
+        delivery_attempt:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        claimed_at:
+          type: [string, 'null']
+          format: date-time
+        applied_at:
+          type: [string, 'null']
+          format: date-time
+        cancelled_at:
+          type: [string, 'null']
+          format: date-time
+        idempotent_replay:
+          type: boolean
+        links:
+          $ref: '#/components/schemas/TaskFollowupLinks'
+
+    TaskFollowupListResponse:
+      type: object
+      additionalProperties: false
+      required: [followups, count]
+      properties:
+        followups:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskFollowup'
+        count:
+          type: integer
+          minimum: 0
+
+    ApprovalStatus:
+      type: string
+      enum: [pending, approved, denied, consumed, expired, cancelled]
+
+    Approval:
+      type: object
+      additionalProperties: false
+      required:
+        - approval_id
+        - generation
+        - task_id
+        - tenant_id
+        - role_revision
+        - tool_name
+        - arguments_hash
+        - reason
+        - status
+        - requested_at
+        - created_at
+        - updated_at
+      properties:
+        approval_id:
+          type: string
+          maxLength: 64
+        generation:
+          type: integer
+          minimum: 1
+        task_id:
+          type: string
+          maxLength: 64
+        tenant_id:
+          type: string
+          maxLength: 64
+        role_id:
+          type: string
+          maxLength: 128
+        role_revision:
+          type: string
+          minLength: 67
+          maxLength: 67
+          pattern: '^r1-[a-f0-9]{64}$'
+          description: 产生该审批的任务岗位版本
+        tool_call_id:
+          type: string
+          maxLength: 128
+        tool_name:
+          type: string
+          maxLength: 128
+        arguments_hash:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        arguments_preview:
+          type: string
+          description: 已脱敏、可能被截断的参数摘要
+        reason:
+          type: string
+        status:
+          $ref: '#/components/schemas/ApprovalStatus'
+        requested_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: [string, 'null']
+          format: date-time
+        decided_at:
+          type: [string, 'null']
+          format: date-time
+        decided_by:
+          type: string
+          maxLength: 128
+        decision_reason:
+          type: string
+          maxLength: 1024
+        consumed_at:
+          type: [string, 'null']
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ApprovalListResponse:
+      type: object
+      additionalProperties: false
+      required: [task_id, approvals, count]
+      properties:
+        task_id:
+          type: string
+          maxLength: 64
+        approvals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Approval'
+        count:
+          type: integer
+          minimum: 0
+
+    ApprovalDecisionRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        reason:
+          type: string
+          maxLength: 1024
+          description: 审批原因，最大 1024 UTF-8 字节；超限返回 400。
+
+    ApprovalDecisionResponse:
+      type: object
+      additionalProperties: false
+      required: [approval, task]
+      properties:
+        approval:
+          $ref: '#/components/schemas/Approval'
+        task:
+          $ref: '#/components/schemas/Task'

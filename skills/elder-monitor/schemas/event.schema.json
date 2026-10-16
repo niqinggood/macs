@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/elder-monitor/event.schema.json",
+  "title": "Elder monitoring event window",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "person_id", "window", "observations"],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "person_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Pseudonymous identifier; never use a name, phone number, or government identifier."
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "string", "format": "date-time"},
+        "end": {"type": "string", "format": "date-time"}
+      }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "value", "confidence", "source"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "posture",
+              "motion_level",
+              "distress_vocalization",
+              "fall_suspected",
+              "help_request",
+              "no_response",
+              "device_health"
+            ]
+          },
+          "value": {},
+          "count": {"type": "integer", "minimum": 0},
+          "duration_sec": {"type": "number", "minimum": 0},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "source": {"type": "string", "minLength": 1, "maxLength": 128},
+          "evidence_ref": {"type": "string", "maxLength": 256},
+          "metadata": {"type": "object"}
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "room": {"type": "string", "maxLength": 64},
+        "time_period": {
+          "type": "string",
+          "enum": ["morning", "afternoon", "evening", "night", "unknown"]
+        },
+        "responded_to_voice_check": {"type": ["boolean", "null"]},
+        "voice_check_intent": {
+          "type": ["string", "null"],
+          "enum": ["okay", "need_help", "unknown", null]
+        },
+        "voice_check_confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "voice_check_service_status": {
+          "type": ["string", "null"],
+          "enum": ["ok", "timeout", "error", null]
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mobility": {
+          "type": "string",
+          "enum": ["independent", "assisted", "limited", "unknown"]
+        },
+        "known_risks": {
+          "type": "array",
+          "items": {"type": "string", "maxLength": 64},
+          "uniqueItems": true
+        },
+        "normal_sitting_minutes": {"type": "number", "exclusiveMinimum": 0},
+        "normal_inactive_minutes": {"type": "number", "exclusiveMinimum": 0}
+      }
+    }
+  }
+}
+

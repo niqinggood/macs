@@ -1,0 +1,145 @@
+<!-- System Status Panel — embedded in index.html via modal -->
+<div id="statusModal" class="modal" style="display:none">
+<div class="modal-content" style="max-width:800px;max-height:85vh;overflow-y:auto">
+<div class="modal-header">
+  <h3>📊 系统状态</h3>
+  <button onclick="closeStatusPanel()" style="border:none;background:none;font-size:calc(22px * var(--macs-font-scale, 1));cursor:pointer">&times;</button>
+</div>
+<div class="modal-body" id="statusBody">
+  <div style="text-align:center;padding:40px;color:#9ca3af">
+    <div class="spinner"></div>
+    <p>正在获取系统状态...</p>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+var statusRefreshTimer = null;
+
+async function openStatusPanel() {
+  var m = document.getElementById('statusModal');
+  if (!m) {
+    // Load the panel HTML if not yet embedded
+    var div = document.createElement('div');
+    div.innerHTML = document.getElementById('statusPanelTemplate')?.innerHTML || '';
+    document.body.appendChild(div);
+    m = document.getElementById('statusModal');
+  }
+  if (m) {
+    m.style.display = 'flex';
+    await refreshStatus();
+    statusRefreshTimer = setInterval(refreshStatus, 30000); // auto-refresh every 30s
+  }
+}
+
+function closeStatusPanel() {
+  var m = document.getElementById('statusModal');
+  if (m) m.style.display = 'none';
+  if (statusRefreshTimer) { clearInterval(statusRefreshTimer); statusRefreshTimer = null; }
+}
+
+async function refreshStatus() {
+  var body = document.getElementById('statusBody');
+  if (!body) return;
+
+  try {
+    var resp = await fetch('/api/status');
+    var data = await resp.json();
+
+    var permMode = data.mode || 'default';
+    var permColors = {default:'#6b7280', acceptEdits:'#22c55e', bypassPermissions:'#ef4444', plan:'#3b82f6'};
+    var permLabels = {default:'默认', acceptEdits:'自动编辑', bypassPermissions:'全部放行', plan:'计划模式'};
+
+    body.innerHTML =
+      '<div class="status-grid">'+
+
+      // Permission Mode
+      '<div class="status-card">'+
+        '<div class="status-card-header">🔐 权限模式</div>'+
+        '<div class="status-card-body">'+
+          '<span style="display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:calc(15.4px * var(--macs-font-scale, 1));background:'+(permColors[permMode]||'#6b7280')+';color:#fff">'+(permLabels[permMode]||permMode)+'</span>'+
+          (data.plan?'<span style="display:inline-block;margin-left:8px;padding:3px 10px;border-radius:12px;background:#3b82f6;color:#fff;font-size:calc(13.2px * var(--macs-font-scale, 1))">📋 PLAN MODE</span>':'')+
+          '<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">'+
+            ['default','acceptEdits','bypassPermissions','plan'].map(function(m){ return '<button onclick="switchPermMode(\''+m+'\')" style="padding:4px 12px;border-radius:15px;border:1px solid #ddd;cursor:pointer;background:'+(permMode===m?'#f0f0f0':'#fff')+';font-size:calc(13.2px * var(--macs-font-scale, 1))">'+(permLabels[m]||m)+'</button>' }).join('')+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+
+      // Quick Stats
+      '<div class="status-card">'+
+        '<div class="status-card-header">📈 快速统计</div>'+
+        '<div class="status-card-body">'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:calc(14.3px * var(--macs-font-scale, 1))">'+
+            '<div><strong>Agents:</strong> '+(data.agents||0)+'</div>'+
+            '<div><strong>Hooks:</strong> '+(data.hooks||0)+'</div>'+
+            '<div><strong>Tools:</strong> '+(data.tools||0)+'</div>'+
+            '<div><strong>Version:</strong> '+(data.version||'?')+'</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+
+      // Doctor Report
+      '<div class="status-card" style="grid-column:span 2">'+
+        '<div class="status-card-header">🏥 健康检查 <button onclick="runDoctorCheck()" style="margin-left:8px;padding:2px 8px;border-radius:10px;border:1px solid #ddd;cursor:pointer;font-size:calc(12.1px * var(--macs-font-scale, 1))">🔄 刷新</button></div>'+
+        '<div class="status-card-body" id="doctorReport" style="max-height:200px;overflow-y:auto;font-size:calc(13.2px * var(--macs-font-scale, 1));font-family:monospace">'+
+          '<span style="color:#9ca3af">点击刷新运行诊断...</span>'+
+        '</div>'+
+      '</div>'+
+
+      '</div>';
+  } catch(e) {
+    body.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px">获取状态失败: '+e.message+'</div>';
+  }
+}
+
+async function switchPermMode(mode) {
+  try {
+    // Send a system message to change permission mode
+    // This is a simplified approach — in production, this would call a dedicated API
+    var resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: '/manage_permissions action=set mode='+mode,
+        session_id: localStorage.getItem('sessionId')||'status',
+        stream: false
+      })
+    });
+    await refreshStatus();
+  } catch(e) {
+    alert('切换失败: '+e.message);
+  }
+}
+
+async function runDoctorCheck() {
+  var el = document.getElementById('doctorReport');
+  if (!el) return;
+  el.innerHTML = '<span style="color:#f59e0b">⏳ 运行中...</span>';
+  try {
+    var resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: '请运行 doctor 工具检查所有子系统健康状态',
+        session_id: 'doctor-check',
+        stream: false
+      })
+    });
+    var data = await resp.json();
+    el.innerHTML = '<pre style="white-space:pre-wrap;margin:0;font-size:calc(12.1px * var(--macs-font-scale, 1))">'+escapeHtml(data.result||'检查完成')+'</pre>';
+  } catch(e) {
+    el.innerHTML = '<span style="color:#ef4444">诊断失败: '+e.message+'</span>';
+  }
+}
+
+function escapeHtml(s) { return (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+
+<style>
+.status-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.status-card { background:#fff; border:1px solid #e5e7eb; border-radius:10px; overflow:hidden; }
+.status-card-header { background:#f9fafb; padding:10px 14px; font-weight:600; font-size:calc(15.4px * var(--macs-font-scale, 1)); border-bottom:1px solid #e5e7eb; }
+.status-card-body { padding:14px; }
+@media (max-width:600px) { .status-grid { grid-template-columns:1fr; } }
+</style>

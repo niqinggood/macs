@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT Art Director"
+  short_description: "统一判断模板保真、编辑性与高级PPT生成路线并完成视觉验收"
+  default_prompt: "Use $ppt-art-director to choose the template intent and renderer, build the deck, and complete visual QA."

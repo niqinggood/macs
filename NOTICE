@@ -1,0 +1,23 @@
+macs — Multi-Agent Collaboration System
+麦卡斯·多智能体协作系统
+
+Copyright (c) 2026 Silicon Surge Technology. All rights reserved.
+
+MACS source code is made available under the MACS Source Available License 1.0
+unless a file or component states otherwise. Commercial use may require a
+separate written license. See LICENSE and COMMERCIAL-LICENSE.md.
+
+MACS, 麦卡斯, and the MACS logos are trademarks or claimed trademarks of their
+respective owner. See TRADEMARKS.md.
+
+openkitty is the product nickname and a historical compatibility name.
+The current public product and copyright application name is macs.
+
+Third-party components retain their own copyright and license notices. Nothing
+in the MACS license replaces or limits rights granted under those licenses.
+
+Component records and accompanying license texts are listed in
+THIRD-PARTY-NOTICES.md and third_party/. Include these files when distributing
+macs. Copyright registration and private source archive guidance is available
+in docs/legal/README.md.
+

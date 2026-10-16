@@ -1,0 +1,16 @@
+{
+  "name": "skills",
+  "version": "1.0.0",
+  "description": "",
+  "main": "image_process.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "jsdom": "^29.1.1"
+  }
+}

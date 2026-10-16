@@ -1,0 +1,8 @@
+/* Smooth theme transition */
+* { transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease; }
+
+/* Progress timeline scrollbar — thin & subtle */
+.log-stream::-webkit-scrollbar { width: 4px; }
+.log-stream::-webkit-scrollbar-track { background: transparent; }
+.log-stream::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.06); border-radius: 2px; }
+.log-stream::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.15); }

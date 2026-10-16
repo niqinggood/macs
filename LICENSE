@@ -1,0 +1,146 @@
+MACS SOURCE AVAILABLE LICENSE 1.0
+
+Effective date: 13 September 2026
+
+Copyright (c) 2026 Silicon Surge Technology. All rights reserved.
+
+This license governs the MACS software made available with this license (the
+"Software"), except for files or components that contain a different license
+notice. This is a source-available license, not an open-source license.
+
+1. Acceptance
+
+By using, copying, modifying, building, or distributing any part of the
+Software, you agree to this license. If you do not agree, you may only inspect
+the source code and must not otherwise use it.
+
+2. Free License Grant
+
+Subject to this license, the Licensor grants you a non-exclusive,
+non-transferable, non-sublicensable, worldwide, royalty-free license to use,
+copy, modify, and build the Software solely for one or more of these purposes:
+
+  a. personal learning, experimentation, or other non-commercial use by an
+     individual;
+  b. teaching, non-commercial academic research, or evaluation of whether to
+     purchase a commercial license; or
+  c. internal use by a Qualified Small Business.
+
+The grant in this section does not include a right to distribute, sublicense,
+resell, white-label, host, or provide the Software to third parties.
+
+3. Qualified Small Business
+
+A "Qualified Small Business" is an organization that, together with every
+entity controlling, controlled by, or under common control with it, satisfies
+all of the following at the time of use:
+
+  a. registered capital is less than CNY 3,000,000, or the closest legally
+     comparable measure where registered capital does not apply;
+  b. gross revenue for the preceding fiscal year is less than CNY 10,000,000;
+     and
+  c. it has fewer than 30 employees and individual contractors in aggregate.
+
+If any threshold is met or exceeded, the organization is not a Qualified Small
+Business and must obtain a commercial license before continuing production
+use. The Licensor may request reasonable information to verify eligibility.
+
+4. Uses Requiring a Commercial License
+
+You must obtain a separate written commercial license before you:
+
+  a. use the Software in production for an organization that is not a
+     Qualified Small Business;
+  b. provide any substantial feature or functionality of the Software to a
+     third party as a hosted, managed, outsourced, bureau, or software service;
+  c. distribute, sell, lease, sublicense, white-label, OEM, or otherwise make
+     the Software or a derivative work available to a third party;
+  d. use the Software to build or operate a product or service that competes
+     with MACS; or
+  e. use source code or non-public interfaces from a separately identified
+     MACS commercial component.
+
+Commercial rights are granted only by a separate agreement signed or otherwise
+expressly accepted by the Licensor. COMMERCIAL-LICENSE.md is an explanatory
+notice and is not itself a commercial license grant.
+
+5. License Keys and Protected Features
+
+You may not move, change, disable, defeat, or circumvent license-key
+functionality. You may not remove or obscure functionality protected by a
+license key or falsely cause the Software to report that a commercial feature
+is licensed.
+
+6. Notices and Attribution
+
+You may not alter, remove, or obscure this license, copyright notices,
+attribution notices, or other legal notices included with the Software. If you
+modify the Software, every permitted copy must prominently state that it has
+been modified and is not an official build unless the Licensor has expressly
+authorized it as one.
+
+7. Trademarks
+
+This license does not grant any right to use the names MACS or 麦卡斯, any MACS
+logo, or any confusingly similar mark, except for truthful, nominative reference
+to the unmodified Software. Trademark use is also governed by TRADEMARKS.md and
+applicable law.
+
+8. Contractors
+
+You may allow your employees and contractors to access the Software solely on
+your behalf for a permitted use, provided they are bound by terms at least as
+protective as this license. You remain responsible for their compliance. This
+does not permit providing the Software as a service to your customers.
+
+9. Third-Party Components
+
+Third-party components remain governed by their own license terms and notices.
+This license does not restrict rights separately granted by those third-party
+licenses, and it does not relicense third-party material as MACS Software.
+
+10. Contributions
+
+Unless a separate contribution agreement applies, any contribution intentionally
+submitted to the Licensor for inclusion in the Software is licensed to the
+Licensor under terms that allow the Licensor to use, modify, distribute,
+sublicense, and commercially license the contribution. Merely reporting an
+issue or discussing an idea is not a contribution of code.
+
+11. No Other Rights
+
+No patent, trademark, trade-secret, commercial deployment, redistribution, or
+other right is granted except as expressly stated in this license. All rights
+not expressly granted are reserved by the Licensor.
+
+12. Termination
+
+If you violate this license, your rights terminate automatically. If this is
+your first violation and you cure it within 30 days after receiving written
+notice from the Licensor, your rights are reinstated retroactively. A later
+violation after reinstatement terminates your rights permanently unless the
+Licensor agrees otherwise in writing.
+
+13. Disclaimer of Warranty
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS" AND
+WITHOUT WARRANTY OR CONDITION OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+
+14. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE LICENSOR WILL NOT BE LIABLE FOR ANY
+INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES,
+OR FOR LOSS OF DATA, PROFITS, REVENUE, BUSINESS, OR GOODWILL, ARISING FROM THE
+SOFTWARE OR THIS LICENSE, UNDER ANY LEGAL THEORY.
+
+15. Definitions
+
+"Licensor" means the copyright holder or entity offering the Software under
+these terms. "Organization" includes a legal entity, sole proprietorship,
+partnership, institution, or other group acting for a common business purpose.
+"Control" means direct or indirect ownership of substantially all assets or the
+power to direct management or policies. "Production use" means use for ordinary
+business operations, customer delivery, or another purpose other than personal
+learning, non-commercial research, teaching, or time-limited evaluation.
+

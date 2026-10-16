@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信视频号提取"
+  short_description: "下载视频号媒体并完成 OCR、ASR 与结构化笔记"
+  default_prompt: "使用 $wx-video-account-notes 实际下载并提取这个微信视频号，完成 OCR/ASR 后基于可审计材料整理结果。"

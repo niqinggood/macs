@@ -1,0 +1,121 @@
+/* Channel help entries are separate from buttons that change connection settings. */
+#channelsConfig .settings-connection-guide {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    margin-bottom: 20px;
+    padding: 15px 16px;
+    border: 1px solid var(--mac-modal-border, #dce6e0);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--mac-modal-accent, #47755b) 5%, var(--mac-modal-surface, #fff));
+    color: var(--mac-modal-text, #334155);
+}
+
+#channelsConfig .settings-connection-guide > div {
+    flex: 1 1 240px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#channelsConfig .settings-connection-guide strong {
+    display: block;
+    font-size: calc(15.4px * var(--macs-font-scale, 1));
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+#channelsConfig .settings-connection-guide p {
+    margin: 5px 0 0;
+    color: var(--mac-modal-muted, #64748b);
+    font-size: calc(14.3px * var(--macs-font-scale, 1));
+    line-height: 1.7;
+}
+
+#channelsConfig .settings-app-picker .settings-app-tile {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--mac-modal-border, #e2e8f0);
+    border-radius: 11px;
+    background: var(--mac-modal-surface, #fff);
+}
+
+#channelsConfig .settings-app-picker .settings-app-choice {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+    border: 0;
+    border-radius: 0;
+    box-sizing: border-box;
+    background: transparent;
+    color: var(--mac-modal-text, #334155);
+}
+
+#channelsConfig .settings-app-picker .settings-app-choice span {
+    color: var(--mac-modal-muted, #64748b);
+}
+
+#channelsConfig .settings-channel-guide-btn,
+#channelsConfig .settings-connection-guide > .settings-action-btn,
+#channelsConfig .settings-email-guide {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 31px;
+    padding: 6px 10px;
+    border: 1px solid var(--mac-modal-border, #d3ded7);
+    border-radius: 8px;
+    background: var(--mac-modal-chrome, #f6f8f7);
+    color: var(--mac-modal-accent, #47755b);
+    font: inherit;
+    font-size: calc(13.2px * var(--macs-font-scale, 1));
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#channelsConfig .settings-connection-guide > .settings-action-btn { flex: 0 0 auto; }
+#channelsConfig .settings-email-guide { margin: 0 0 18px; }
+
+#channelsConfig .settings-app-picker .settings-channel-guide-btn {
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 35px;
+    padding: 8px 14px;
+    border-width: 1px 0 0;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+#channelsConfig .settings-app-picker .settings-app-choice:hover,
+#channelsConfig .settings-channel-guide-btn:hover,
+#channelsConfig .settings-connection-guide > .settings-action-btn:hover,
+#channelsConfig .settings-email-guide:hover {
+    background: color-mix(in srgb, var(--mac-modal-accent, #47755b) 9%, var(--mac-modal-surface, #fff));
+}
+
+#channelsConfig .settings-app-picker .settings-app-choice:focus-visible,
+#channelsConfig .settings-channel-guide-btn:focus-visible,
+#channelsConfig .settings-connection-guide > .settings-action-btn:focus-visible,
+#channelsConfig .settings-email-guide:focus-visible {
+    outline: 2px solid var(--mac-modal-accent, #47755b);
+    outline-offset: -3px;
+}
+
+#channelsConfig #channelsList .settings-card-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+@media (max-width: 420px) {
+    #channelsConfig .settings-connection-guide { padding: 13px 14px; }
+    #channelsConfig .settings-app-picker { gap: 8px; }
+    #channelsConfig .settings-app-picker .settings-app-choice { padding: 12px; }
+    #channelsConfig .settings-app-picker .settings-channel-guide-btn { padding: 8px 12px; }
+    #channelsConfig #channelsList .settings-card-actions { justify-content: flex-start; }
+}

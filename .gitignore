@@ -1,0 +1,204 @@
+# Binaries
+*.exe
+*.exe~
+*.upx
+*.syso
+kitty_intel.app/
+kitty_mac_*
+openkitty_mac_*
+openkitty_intel.app/
+
+
+# Backup / original copies
+*.bak
+*.orig
+
+# Archives
+*.rar
+*.zip
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+
+# IDE
+.idea/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Temp / backup
+tmp/
+bak/
+oldversion/
+/23-old/
+
+# External references and historical source belong in a sibling archive.
+/reference/
+bioSkills-main/
+scientific-agent-skills-main/
+
+# Misc
+givememoney.jpg
+skills/**/.skill_metrics.json
+skills/OPENKITTY_INDEX.json
+
+# Runtime data
+captures/
+deliveries/
+agent_deliveries/
+email_data/
+minutes/
+memories/
+storage/
+/knowledge/
+/knowledge_chunks/
+worklog/
+
+# Secrets
+*.cookie
+api_key.txt
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# Test / misc output
+stress_test_results.json
+test_summary.json
+search_results.json
+deep_search_results.json
+social_media_search_results.json
+/pipeline_metrics.json
+/.openkitty_go_test.json
+/outputs/
+
+# Local release binaries and task/reference artifacts
+/openkitty-*-mac-intel
+/openkitty-*-mac-apple
+/场馆Agent系统_*.pdf
+/winres/*.pdf
+/patrick.jpg
+/sicurrent.jpg
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+prompt_dump/
+openkitty_linux
+dist/
+openkitty.000
+openkitty-config.yaml
+/config.json
+skills/node_modules
+openkitty-skills/
+.openkitty/
+.claude/
+.codex-tmp/
+.tmp/
+nul
+
+# Local-only workspace archive. One-off QA runs, machine-specific deployment
+# history, generated previews, private notes, binaries, and reference material
+# are kept here so they remain recoverable without being uploaded to GitHub.
+/.local/
+/.deploy/
+/output/
+/交付材料/
+/备案/
+/_extract_softcopyright_*/
+/memory/
+/.ruff_cache/
+
+# One-off local integration checks can contain operator credentials.
+/test/test_elder_apikey.py
+
+# Private legal filings and signed product licenses are not source assets.
+/author/
+/licenses/*.lic
+/macs软件说明书_*.pdf
+
+# Recreated local caches and runtime workspaces
+/.pytest_cache/
+/agent_workspace/
+/external_sessions/
+/debug/
+/runs/
+/tenants/
+
+# Legacy root-level local artifacts. New files belong under .local/ instead.
+/.qa-*
+/.openkitty-*
+/.openkitty_*
+/huanhuan/
+/image/
+/imagereference/
+/pic_reference/
+/*.log
+
+# Generated documentation deliverables and visual QA output. Keep the source
+# builders in docs/, and publish reviewed binaries as release assets instead.
+/docs/*.docx
+/docs/*.pdf
+/docs/_*_assets/
+/docs/_*_qa*/
+/docs/~$*.docx
+
+# One-off execution screenshots are local evidence, not product resources.
+/winres/exec-*.png
+
+# Archived one-off operations and superseded private document builders.
+/data/english-words.txt.gz
+/scripts/research/
+/scripts/dev/extract_api.py
+/scripts/dev/extract_api2.py
+/scripts/dev/extract_go_index.py
+/scripts/dev/post_forum.py
+/scripts/dev/post_simple.py
+/scripts/chatroom_step2_list_topics.py
+/scripts/chatroom_step3_post.py
+/test/test-apikey.py
+/tools/add_manual_pages.py
+/tools/extend_manual.py
+/tools/final_append.py
+/tools/gen_collab_doc.py
+/tools/gen_copyright_pdf.py
+/tools/gen_manual_doc.py
+/docs/worklogs/
+/docs/project/
+/docs/archive/
+/docs/prototypes/
+/docs/agent-evaluation-worklog-2026-07-24.md
+/docs/build_agentos_guide.py
+/docs/build_openkitty_relearning_guide.py
+/docs/build_openkitty_system_manual.py
+/docs/export_agentos_guide_pdf.ps1
+/docs/export_openkitty_manual_pdf.ps1
+/docs/engineering/HERMES_ANALYSIS.md
+/docs/engineering/HERMES_LEARNINGS.md
+/docs/engineering/RAG_CHANGES.md
+/docs/engineering/RAG_IMPROVEMENTS.md
+/docs/engineering/generate_code_review.md
+/docs/engineering/google-agent-capability-review-2026-09-13.md
+/docs/engineering/system-flow-review-2026-09-29.md

@@ -1,0 +1,99 @@
+#helpModal .help-usage-note {
+    margin-top: 12px;
+    padding: 10px 0 0;
+    border-top: 1px solid var(--mac-modal-border);
+    color: var(--mac-modal-muted);
+    background: transparent;
+}
+#helpModal .help-usage-note strong { color: var(--mac-modal-text); }
+#helpModal .help-export-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 0 2px; }
+#helpModal .help-export-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid var(--mac-modal-border);
+    border-radius: 7px;
+    color: var(--mac-modal-text);
+    background: var(--mac-modal-surface);
+    font: inherit;
+    font-size: calc(15.4px * var(--macs-font-scale, 1));
+    cursor: pointer;
+}
+#helpModal .help-export-actions button:hover { border-color: var(--mac-modal-accent); color: var(--mac-modal-accent); }
+#helpModal .help-export-actions button:focus-visible { outline: 2px solid var(--mac-modal-accent); outline-offset: 2px; }
+#helpModal .help-export-actions button:disabled { opacity: .6; cursor: wait; }
+#helpModal .help-export-actions svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.macs-help-export {
+    --macs-font-scale: 1;
+    --mac-modal-text: #253044;
+    --mac-modal-muted: #526174;
+    --mac-modal-accent: #7f2638;
+    --mac-modal-surface: #fff;
+    --mac-modal-chrome: #f7f8fa;
+    --mac-modal-border: #dfe4eb;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 28px 32px;
+    margin: 0;
+    color: #253044;
+    background: #fff;
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    color-scheme: light;
+}
+.macs-help-export * { box-sizing: border-box; max-width: 100%; }
+.macs-help-export h1 { font-size: 26px; margin: 0 0 16px; color: #7f2638; }
+.macs-help-export h4 { font-size: 20px; margin: 18px 0 6px; color: #253044; }
+.macs-help-export h5 { font-size: 18px; margin: 12px 0 6px; }
+.macs-help-export p { margin: 6px 0; }
+.macs-help-export a { color: #7f2638; }
+.macs-help-export ul, .macs-help-export ol { padding-left: 24px; margin: 6px 0; }
+.macs-help-export li { margin: 3px 0; }
+.macs-help-export table { width: 100%; border-collapse: collapse; margin: 10px 0; table-layout: fixed; font-size: 14px; }
+.macs-help-export th, .macs-help-export td { padding: 7px 9px; border: 1px solid #dfe4eb; text-align: left; vertical-align: top; }
+.macs-help-export th { background: #f4f6f8; }
+.macs-help-export pre { padding: 10px 12px; border: 1px solid #dfe4eb; border-radius: 6px; background: #f7f8fa; color: #334155; white-space: pre-wrap; overflow-wrap: anywhere; }
+.macs-help-export code { font-family: Consolas, monospace; font-size: 13px; background: #f1f4f7; color: #334155; }
+.macs-help-export pre code { background: transparent; }
+.macs-help-export details { margin: 10px 0; padding: 8px 0; border-top: 1px solid #e5e9ef; }
+.macs-help-export summary { font-weight: 600; }
+.macs-help-export svg { width: 18px; height: 18px; }
+.macs-help-export .help-section { margin: 12px 0; }
+.macs-help-export .help-agentos-overview { margin: 16px 0; padding: 14px; border: 1px solid #dfe4eb; border-radius: 8px; }
+.macs-help-export .help-agentos-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 12px 0; border-block: 1px solid #dfe4eb; }
+.macs-help-export .help-agentos-modes > div { padding: 10px; border-left: 1px solid #dfe4eb; }
+.macs-help-export .help-agentos-modes > div:first-child { border-left: 0; }
+.macs-help-export .help-agentos-service-flow { display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid #dfe4eb; border-radius: 8px; }
+.macs-help-export .help-service-node { display: flex; align-items: center; gap: 8px; flex: 1; }
+.macs-help-export .help-service-node > div { display: grid; gap: 3px; }
+.macs-help-export .help-service-node small { color: #526174; font-size: 12px; }
+.macs-help-export .help-service-node svg { flex-shrink: 0; fill: none; stroke: #31594a; stroke-width: 1.6; }
+.macs-help-export .help-service-arrow { flex-shrink: 0; fill: none; stroke: #31594a; stroke-width: 1.6; }
+.macs-help-export .help-agentos-part { padding: 12px 14px; margin: 16px 0; border: 1px solid #dfe4eb; border-radius: 8px; }
+.macs-help-export .help-agentos-part > h5 { padding-bottom: 10px; border-bottom: 1px solid #dfe4eb; }
+.macs-help-export .help-agentos-steps > li { padding: 7px 0; border-bottom: 1px solid #e5e9ef; }
+.macs-help-export .help-agentos-steps > li:last-child { border-bottom: 0; }
+.macs-help-export .help-agentos-note { padding: 12px 14px; margin: 12px 0; border: 1px solid #dfe4eb; border-left: 3px solid #31594a; border-radius: 6px; }
+.macs-help-export .help-code-frame { margin: 12px 0; border: 1px solid #dfe4eb; border-radius: 6px; overflow: hidden; }
+.macs-help-export .help-code-toolbar { padding: 6px 12px; border-bottom: 1px solid #dfe4eb; background: #f7f8fa; color: #526174; font-size: 12px; }
+.macs-help-export .help-code-frame pre { margin: 0; border: 0; border-radius: 0; }
+.macs-help-export .help-product-hero { padding: 14px 0; border-bottom: 1px solid #dfe4eb; }
+.macs-help-export .help-product-eyebrow, .macs-help-export .help-product-names { color: #526174; font-size: 14px; }
+.macs-help-export .help-product-names { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.macs-help-export .help-developer-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding: 10px 0; border-bottom: 1px solid #dfe4eb; background: transparent; }
+.macs-help-export .help-developer-kicker { display: block; font-size: 13px; color: #526174; }
+.macs-help-export .help-developer-identity p, .macs-help-export .help-developer-links { font-size: 14px; }
+.macs-help-export .help-developer-links { display: grid; align-content: center; gap: 4px; }
+.macs-help-export .help-usage-note { padding-top: 10px; border-top: 1px solid #dfe4eb; color: #526174; font-size: 14px; }
+.macs-help-export .help-export-footer { padding-top: 10px; color: #667085; border-top: 1px solid #dfe4eb; font-size: 13px; }
+@media print {
+    @page { size: A4; margin: 14mm; }
+    .macs-help-export { padding: 0; font-size: 11pt; }
+    .macs-help-export h4, .macs-help-export h5, .macs-help-export summary { break-after: avoid; }
+    .macs-help-export tr { break-inside: avoid; }
+    .macs-help-export thead { display: table-header-group; }
+    .macs-help-export pre { box-decoration-break: clone; }
+}

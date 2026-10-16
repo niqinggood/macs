@@ -1,0 +1,60 @@
+{
+  "RT_GROUP_ICON": {
+    "APP": {
+      "0409": [
+        "kitty.png"
+      ]
+    }
+  },
+  "RT_MANIFEST": {
+    "#1": {
+      "0409": {
+        "identity": {
+          "name": "MACS",
+          "version": "1.1.8"
+        },
+        "description": "MACS Multi-Agent Collaboration System",
+        "minimum-os": "win7",
+        "execution-level": "as invoker",
+        "ui-access": false,
+        "auto-elevate": false,
+        "dpi-awareness": "system",
+        "disable-theming": false,
+        "disable-window-filtering": false,
+        "high-resolution-scrolling-aware": false,
+        "ultra-high-resolution-scrolling-aware": false,
+        "long-path-aware": false,
+        "printer-driver-isolation": false,
+        "gdi-scaling": false,
+        "segment-heap": false,
+        "use-common-controls-v6": false
+      }
+    }
+  },
+  "RT_VERSION": {
+    "#1": {
+      "0000": {
+        "fixed": {
+          "file_version": "1.1.8",
+          "product_version": "1.1.8"
+        },
+        "info": {
+          "0409": {
+            "Comments": "",
+            "CompanyName": "Silicon Surge Technology",
+            "FileDescription": "MACS Multi-Agent Collaboration System",
+            "FileVersion": "1.1.8",
+            "InternalName": "MACS",
+            "LegalCopyright": "Copyright (c) 2026 Silicon Surge Technology. All rights reserved.",
+            "LegalTrademarks": "MACS and 麦卡斯 are trademarks or claimed trademarks of their respective owner.",
+            "OriginalFilename": "openkitty.exe",
+            "PrivateBuild": "",
+            "ProductName": "MACS",
+            "ProductVersion": "1.1.8",
+            "SpecialBuild": ""
+          }
+        }
+      }
+    }
+  }
+}

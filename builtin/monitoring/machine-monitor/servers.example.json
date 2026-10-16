@@ -1,0 +1,13 @@
+{
+  "servers": [
+    {
+      "name": "production-a",
+      "host": "openkitty-production-a",
+      "user": "openkitty-deploy",
+      "port": 22,
+      "identity_env": "OPENKITTY_SSH_IDENTITY_FILE",
+      "service": "openkitty",
+      "ready_url": "http://127.0.0.1:8080/readyz"
+    }
+  ]
+}

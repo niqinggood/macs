@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="/web/font_size.js?v=20261012-font-control-v26" defer></script>
+<style>html { font-size: calc(110% * var(--macs-font-scale, 1)); }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <title>MACS 工作台</title>
+    <link rel="stylesheet" href="/web/workbench-v2.css?v=20261012-font-control-v26">
+</head>
+<body>
+    <a class="skip-link" href="#mainContent">跳到任务内容</a>
+
+    <div class="workbench-shell" id="workbenchShell" data-view="welcome">
+        <div class="mobile-scrim" id="mobileScrim" hidden></div>
+
+        <aside class="sidebar" id="sidebar" aria-label="任务导航">
+            <div class="sidebar-brand">
+                <a class="brand-wordmark" href="/web-v2" aria-label="MACS 工作台首页">MACS</a>
+                <button class="icon-button sidebar-close" id="sidebarClose" type="button" aria-label="关闭导航">
+                    <i data-lucide="panel-left-close" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <button class="new-task-button" id="newTaskButton" type="button">
+                <i data-lucide="plus" aria-hidden="true"></i>
+                <span>新任务</span>
+            </button>
+
+            <button class="sidebar-search" id="searchButton" type="button" aria-label="搜索任务" title="搜索任务（Ctrl+K）">
+                <i data-lucide="search" aria-hidden="true"></i>
+                <span>搜索</span>
+                <kbd>Ctrl K</kbd>
+            </button>
+
+            <nav class="primary-nav" aria-label="项目">
+                <div class="section-label-row sidebar-section-label">
+                    <h2>项目</h2>
+                </div>
+                <button class="nav-row project-row is-active" type="button" data-nav="project">
+                    <i data-lucide="folder" aria-hidden="true"></i>
+                    <span id="workspaceName">默认工作区</span>
+                    <i class="row-chevron" data-lucide="chevron-right" aria-hidden="true"></i>
+                </button>
+            </nav>
+
+            <section class="recent-section" aria-labelledby="recentHeading">
+                <div class="section-label-row">
+                    <h2 id="recentHeading">最近</h2>
+                    <div class="section-label-actions">
+                        <button class="running-shortcut" type="button" data-nav="running" aria-label="查看运行中的任务">
+                            <span class="nav-count" id="runningCount" hidden>0</span>
+                        </button>
+                        <button class="small-icon-button" id="refreshSessionsButton" type="button" aria-label="刷新最近任务">
+                            <i data-lucide="refresh-cw" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="session-list" id="sessionList" aria-live="polite">
+                    <div class="sidebar-skeleton" aria-label="正在加载任务">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="sidebar-footer">
+                <a class="nav-row" href="/web/" title="打开经典界面的完整设置">
+                    <i data-lucide="settings" aria-hidden="true"></i>
+                    <span>设置</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="workspace" id="mainContent">
+            <header class="topbar">
+                <div class="topbar-leading">
+                    <button class="icon-button mobile-menu-button" id="mobileMenuButton" type="button" aria-label="打开导航" aria-controls="sidebar" aria-expanded="false">
+                        <i data-lucide="menu" aria-hidden="true"></i>
+                    </button>
+                    <span class="mobile-wordmark" aria-hidden="true">MACS</span>
+                    <div class="task-context">
+                        <div class="task-title-line">
+                            <h1 id="taskTitle">新任务</h1>
+                            <span class="task-state" id="taskState" data-status="idle">
+                                <span class="status-dot" aria-hidden="true"></span>
+                                <span>已就绪</span>
+                            </span>
+                        </div>
+                        <p id="taskSubtitle">在当前工作区中持续完成并保存成果。</p>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="service-status" id="serviceStatus" type="button" aria-label="服务状态：正在检查" title="查看服务状态">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        <span class="service-label">检查服务</span>
+                    </button>
+                    <button class="workspace-switcher" id="projectButton" type="button" aria-haspopup="dialog" aria-controls="projectDialog">
+                        <i data-lucide="folder" aria-hidden="true"></i>
+                        <span id="topbarWorkspaceName">默认工作区</span>
+                        <i data-lucide="chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <span class="topbar-separator" aria-hidden="true"></span>
+                    <button class="quiet-action artifacts-top-button" id="artifactsButton" type="button" aria-label="查看产物" title="查看产物">
+                        <i data-lucide="panel-right-open" aria-hidden="true"></i>
+                        <span>产物</span>
+                    </button>
+                    <button class="icon-button task-details-button" id="taskMoreButton" type="button" aria-label="查看任务详情" title="查看任务详情">
+                        <i data-lucide="info" aria-hidden="true"></i>
+                    </button>
+                    <div class="more-menu-wrap">
+                        <button class="icon-button" id="moreButton" type="button" aria-label="更多操作" aria-haspopup="menu" aria-expanded="false">
+                            <i data-lucide="ellipsis" aria-hidden="true"></i>
+                        </button>
+                        <div class="compact-menu" id="moreMenu" role="menu" hidden>
+                            <button type="button" role="menuitem" data-menu-action="refresh">
+                                <i data-lucide="refresh-cw" aria-hidden="true"></i>
+                                刷新工作台
+                            </button>
+                            <a href="/web/status.html" role="menuitem">
+                                <i data-lucide="circle-gauge" aria-hidden="true"></i>
+                                系统状态
+                            </a>
+                            <a href="/web/" role="menuitem">
+                                <i data-lucide="layout-dashboard" aria-hidden="true"></i>
+                                经典界面
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="workspace-body">
+                <section class="welcome-intro" id="welcomeView" aria-labelledby="welcomeTitle">
+                    <h2 id="welcomeTitle">今天想推进什么？</h2>
+                </section>
+
+                <section class="conversation-view" id="conversationView" aria-label="任务对话" hidden>
+                    <div class="conversation-column">
+                        <div class="message-timeline" id="messageTimeline" aria-live="polite"></div>
+                        <div class="timeline-sentinel" id="timelineSentinel" aria-hidden="true"></div>
+                    </div>
+                </section>
+
+                <div class="composer-dock" id="composerDock">
+                    <form class="composer" id="composerForm">
+                        <div class="attachment-strip" id="attachmentStrip" aria-live="polite" hidden></div>
+                        <label class="sr-only" for="taskInput">描述你要完成的任务</label>
+                        <textarea id="taskInput" rows="2" placeholder="描述任务，或拖入文件" autocomplete="off"></textarea>
+                        <div class="composer-toolbar">
+                            <div class="composer-tools">
+                                <button class="composer-tool" id="attachButton" type="button">
+                                    <i data-lucide="paperclip" aria-hidden="true"></i>
+                                    <span>附件</span>
+                                </button>
+                                <button class="composer-tool" id="capabilityButton" type="button" aria-haspopup="dialog" aria-controls="capabilityDialog">
+                                    <i data-lucide="blocks" aria-hidden="true"></i>
+                                    <span>能力</span>
+                                </button>
+                                <button class="composer-tool model-tool" id="modelButton" type="button" aria-haspopup="dialog" aria-controls="capabilityDialog">
+                                    <i data-lucide="box" aria-hidden="true"></i>
+                                    <span id="modelLabel">Assistant</span>
+                                </button>
+                                <button class="composer-tool stop-tool" id="stopTaskButton" type="button" hidden>
+                                    <i data-lucide="square" aria-hidden="true"></i>
+                                    <span>停止</span>
+                                </button>
+                            </div>
+                            <div class="composer-actions">
+                                <span class="composer-hint" id="composerHint">Enter 发送 · Shift+Enter 换行</span>
+                                <button class="send-button" id="sendButton" type="submit" aria-label="发送任务">
+                                    <i data-lucide="arrow-up" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <section class="welcome-examples" id="welcomeExamples" aria-label="任务示例">
+                    <button type="button" data-example="分析一份文档并整理重点">
+                        <i data-lucide="file-text" aria-hidden="true"></i>
+                        <span>分析一份文档</span>
+                        <i class="example-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" data-example="检查项目代码并给出修复方案">
+                        <i data-lucide="code-xml" aria-hidden="true"></i>
+                        <span>检查项目代码</span>
+                        <i class="example-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" data-example="整理研究结果并生成一份报告">
+                        <i data-lucide="chart-no-axes-column" aria-hidden="true"></i>
+                        <span>整理研究结果</span>
+                        <i class="example-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i>
+                    </button>
+                </section>
+
+                <footer class="ready-line" id="readyLine" hidden>
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span>服务正常</span>
+                </footer>
+            </div>
+        </main>
+
+        <aside class="inspector" id="inspector" aria-label="任务侧栏" aria-hidden="true">
+            <header class="inspector-header">
+                <div class="inspector-tabs" role="tablist" aria-label="任务信息">
+                    <button id="artifactsTab" type="button" role="tab" aria-selected="true" aria-controls="artifactsPanel">产物</button>
+                    <button id="detailsTab" type="button" role="tab" aria-selected="false" aria-controls="detailsPanel">详情</button>
+                </div>
+                <button class="icon-button" id="closeInspectorButton" type="button" aria-label="关闭侧栏">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <section class="inspector-panel" id="artifactsPanel" role="tabpanel" aria-labelledby="artifactsTab">
+                <div class="inspector-section-heading">
+                    <h2>最近产物</h2>
+                    <button class="small-text-button" id="refreshArtifactsButton" type="button">刷新</button>
+                </div>
+                <div class="artifact-list-v2" id="artifactList"></div>
+            </section>
+            <section class="inspector-panel" id="detailsPanel" role="tabpanel" aria-labelledby="detailsTab" hidden>
+                <div class="inspector-section-heading">
+                    <h2>任务详情</h2>
+                </div>
+                <dl class="detail-list" id="detailList"></dl>
+                <a class="secondary-action" id="progressLogLink" href="#" hidden>
+                    <i data-lucide="download" aria-hidden="true"></i>
+                    下载执行日志
+                </a>
+            </section>
+        </aside>
+    </div>
+
+    <input id="fileInput" type="file" multiple hidden>
+
+    <dialog class="command-dialog" id="searchDialog">
+        <form method="dialog" class="dialog-shell search-shell">
+            <div class="search-field">
+                <i data-lucide="search" aria-hidden="true"></i>
+                <label class="sr-only" for="searchInput">搜索任务</label>
+                <input id="searchInput" type="search" placeholder="搜索任务或会话…" autocomplete="off">
+                <kbd>Esc</kbd>
+            </div>
+            <div class="dialog-results" id="searchResults"></div>
+        </form>
+    </dialog>
+
+    <dialog class="command-dialog capability-dialog" id="capabilityDialog">
+        <div class="dialog-shell capability-shell">
+            <header class="dialog-header">
+                <div>
+                    <h2>选择能力</h2>
+                    <p>只为当前任务选择执行主体，不改变全局配置。</p>
+                </div>
+                <button class="icon-button" type="button" data-close-dialog="capabilityDialog" aria-label="关闭">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <section class="capability-section">
+                <label for="agentSelect">执行 Agent</label>
+                <select id="agentSelect"><option value="">自动选择</option></select>
+                <p class="field-help" id="agentHelp">MACS 会使用当前可用的默认 Agent。</p>
+            </section>
+            <section class="capability-section">
+                <div class="capability-heading">
+                    <h3>AI 员工</h3>
+                    <span id="employeeCount">0</span>
+                </div>
+                <div class="capability-list" id="employeeList"></div>
+            </section>
+            <section class="capability-section">
+                <div class="capability-heading">
+                    <h3>Skills</h3>
+                    <span id="skillCount">0</span>
+                </div>
+                <div class="capability-list" id="skillList"></div>
+            </section>
+        </div>
+    </dialog>
+
+    <dialog class="command-dialog project-dialog" id="projectDialog">
+        <div class="dialog-shell project-shell">
+            <header class="dialog-header">
+                <div>
+                    <h2>当前项目</h2>
+                    <p>会话、任务和产物都绑定在这个工作区。</p>
+                </div>
+                <button class="icon-button" type="button" data-close-dialog="projectDialog" aria-label="关闭">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+            </header>
+            <dl class="project-summary" id="projectSummary"></dl>
+            <button class="primary-action" id="projectNewTaskButton" type="button">
+                <i data-lucide="plus" aria-hidden="true"></i>
+                在此项目中新建任务
+            </button>
+        </div>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="/web/marked.min.js"></script>
+    <script src="/web/lucide.min.js"></script>
+    <script src="/web/workbench-v2.js?v=20261012-font-control-v26"></script>
+</body>
+</html>

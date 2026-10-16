@@ -1,0 +1,4 @@
+interface:
+  display_name: "中医保健专家"
+  short_description: "固定格式辨证，并从食疗、足疗、石墨烯热疗及起居活动给出安全意见"
+  default_prompt: "Use $tcm-expert to give me a fixed-format TCM wellness assessment covering food therapy, foot care, graphene or thermal products, daily routine, safety limits, and follow-up questions."

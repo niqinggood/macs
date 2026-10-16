@@ -1,0 +1,29 @@
+# Keep repository text stable across Windows, macOS, and Linux checkouts.
+* text=auto eol=lf
+
+*.go text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp3 binary
+*.mp4 binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.syso binary

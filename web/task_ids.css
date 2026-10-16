@@ -1,0 +1,165 @@
+/* Native IDs stay selectable; copying never activates the task row. */
+#taskModal .work-center-header,
+#taskModal .work-center-toolbar,
+#taskModal .work-center-stats {
+    flex-shrink: 0;
+}
+
+#taskModal #taskContent { margin: 0; }
+
+#taskModal .work-center-table-head,
+#taskModal .work-center-row-main {
+    grid-template-columns: minmax(145px, 1.6fr) minmax(150px, 1.45fr) 86px 88px minmax(100px, 1fr) 84px 96px 84px 52px;
+    column-gap: 10px;
+}
+
+#taskModal .work-center-table-head > span {
+    display: block;
+    min-width: 0;
+}
+
+#taskModal .work-center-task-toggle {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+#taskModal .work-center-task-cell {
+    width: 100%;
+}
+
+#taskModal .work-center-task-cell > strong,
+#taskModal .work-center-task-cell > small {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#taskModal .work-center-action-cell.work-center-task-toggle {
+    color: var(--wc-blue);
+}
+
+#taskModal .work-center-id-cell {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px;
+    gap: 5px;
+    align-items: center;
+    cursor: text;
+}
+
+#taskModal .work-center-id-value {
+    min-width: 0;
+    color: var(--wc-ink);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: calc(12.1px * var(--macs-font-scale, 1));
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+#taskModal .work-center-id-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 5px;
+    border: 1px solid var(--wc-border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--wc-muted);
+    cursor: pointer;
+}
+
+#taskModal .work-center-id-copy:hover {
+    color: var(--wc-blue);
+    background: var(--wc-blue-soft);
+}
+
+#taskModal .work-center-id-copy svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+#taskModal .work-center-id-feedback {
+    grid-column: 1 / -1;
+    color: var(--wc-muted);
+    font-size: calc(12.1px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#taskModal .work-center-id-feedback[hidden] {
+    display: none;
+}
+
+#taskModal .work-center-task-toggle:focus-visible,
+#taskModal .work-center-id-copy:focus-visible,
+#taskModal .work-center-id-value:focus-visible {
+    outline: 2px solid var(--wc-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+@media (max-width: 1050px) and (min-width: 821px) {
+    #taskModal .work-center-table-head,
+    #taskModal .work-center-row-main {
+        grid-template-columns: minmax(125px, 1.5fr) minmax(135px, 1.4fr) 78px 78px minmax(88px, 1fr) 78px 88px 46px;
+        column-gap: 8px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #taskModal .work-center-table-head > span:nth-child(8),
+    #taskModal .work-center-artifact-cell {
+        display: none;
+    }
+}
+
+@media (max-width: 820px) {
+    #taskModal .work-center-header { gap: 8px; }
+    #taskModal .work-center-header > div { min-width: 0; flex: 1; }
+    #taskModal .work-center-header p { margin-left: -78px; }
+    #taskModal .work-center-header .mac-window-controls { top: 34px; }
+    #taskModal .work-center-tabs {
+        display: flex;
+        flex: 0 0 100%;
+        min-width: 0;
+        margin: 0 !important;
+        gap: 0 !important;
+        overflow-x: auto;
+    }
+    #taskModal .work-center-tabs .task-tab {
+        flex: 0 0 auto;
+        min-width: 0;
+        padding: 8px 10px !important;
+    }
+
+    #taskModal .work-center-row-main {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas: "task task" "id id" "source status" "owner action" "progress progress" "time time";
+        gap: 9px 12px;
+    }
+
+    #taskModal .work-center-task-cell { grid-area: task; }
+    #taskModal .work-center-id-cell { grid-area: id; }
+    #taskModal .work-center-source-cell { grid-area: source; }
+    #taskModal .work-center-owner-cell { grid-area: owner; }
+    #taskModal .work-center-progress-cell { grid-area: progress; }
+    #taskModal .work-center-status-cell { grid-area: status; justify-self: end; }
+    #taskModal .work-center-time-cell { grid-area: time; }
+    #taskModal .work-center-action-cell { grid-area: action; justify-self: end; }
+    #taskModal .work-center-id-value { font-size: calc(13.2px * var(--macs-font-scale, 1)); }
+}

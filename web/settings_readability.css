@@ -1,0 +1,204 @@
+/* Settings alone use the available viewport and comfortable reading sizes. */
+#configModal {
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: calc(16.5px * var(--macs-font-scale, 1));
+    line-height: 1.55;
+}
+
+#configModal .settings-surface {
+    /* Override the inline 88vh cap; window controls retain inline !important priority. */
+    height: calc(100dvh - 40px);
+    max-height: calc(100dvh - 40px) !important;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#configModal .settings-header {
+    flex-shrink: 0;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+#configModal .settings-header h3 {
+    margin: 0;
+    font-size: calc(22px * var(--macs-font-scale, 1));
+    line-height: 1.4;
+}
+
+#configModal .settings-header-actions {
+    min-width: 0;
+    gap: 10px;
+}
+
+#configModal #settingsSaveState {
+    font-size: calc(15.4px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+}
+
+#configModal .settings-layout {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: 166px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+}
+
+#configModal .settings-nav {
+    min-height: 0;
+    padding: 16px 12px;
+    gap: 6px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+#configModal .settings-nav .config-tab {
+    padding: 10px 12px;
+    font-size: calc(16.5px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+}
+
+#configModal .settings-advanced-tab { margin-top: 12px; }
+
+#configModal .settings-page {
+    min-height: 0;
+    max-height: none;
+    padding: 18px 22px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+#configModal .settings-page-intro { margin-bottom: 14px; }
+#configModal .settings-page-intro h2 { font-size: calc(22px * var(--macs-font-scale, 1)); line-height: 1.4; margin-bottom: 5px; }
+#configModal .settings-page-intro p { font-size: calc(16.5px * var(--macs-font-scale, 1)); line-height: 1.55; }
+
+#configModal .config-card {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+#configModal .config-card-title {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    font-size: calc(17.6px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+}
+
+#configModal .config-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
+#configModal .config-field { min-width: 0; margin-bottom: 14px; }
+#configModal .config-field:last-child { margin-bottom: 0; }
+#configModal .config-grid > .config-field { margin-bottom: 0; }
+#configModal .config-field label,
+#configModal .settings-editor-field label { font-size: calc(16.5px * var(--macs-font-scale, 1)); line-height: 1.5; margin-bottom: 6px; }
+
+#configModal .config-field input:not([type="checkbox"]):not([type="radio"]),
+#configModal .config-field select,
+#configModal .config-field textarea,
+#configModal .settings-editor-field input:not([type="checkbox"]):not([type="radio"]),
+#configModal .settings-editor-field select,
+#configModal .settings-editor-field textarea {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: calc(17.6px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+}
+
+#configModal .config-hint,
+#configModal .settings-editor-hint {
+    display: block;
+    margin-top: 5px;
+    font-size: calc(15.4px * var(--macs-font-scale, 1));
+    line-height: 1.55;
+    color: var(--mac-modal-muted, #64748b);
+    overflow-wrap: anywhere;
+}
+
+#configModal .switch-label { gap: 16px; padding: 8px 0; }
+#configModal .switch-label > span { min-width: 0; font-size: calc(16.5px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal .switch-label small { font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal .switch { flex-shrink: 0; }
+
+#configModal .settings-quickstart { padding: 12px 14px; margin-bottom: 14px; font-size: calc(16.5px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal .settings-quickstart strong { font-size: calc(17.6px * var(--macs-font-scale, 1)); }
+#configModal .settings-quickstart p { margin: 5px 0; }
+#configModal .settings-quickstart span { font-size: calc(15.4px * var(--macs-font-scale, 1)); }
+#configModal .settings-health { padding: 10px 12px; font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal .settings-health ul { margin-top: 6px; }
+
+#configModal .settings-model-sources { margin-bottom: 12px; }
+#configModal .settings-summary-list { gap: 10px; }
+#configModal .settings-summary-card { padding: 12px 14px; gap: 12px; }
+#configModal .settings-card-title { font-size: calc(17.6px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal .settings-card-subtitle { margin-top: 4px; font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal .settings-card-meta { gap: 5px; margin-top: 7px; }
+#configModal .settings-chip,
+#configModal .settings-badge { font-size: calc(14.3px * var(--macs-font-scale, 1)); line-height: 1.4; }
+#configModal .settings-badge { max-width: 100%; overflow-wrap: anywhere; }
+
+#configModal .settings-action-btn,
+#configModal #configForm > .config-section > button {
+    max-width: 100%;
+    min-height: 38px;
+    font-size: calc(16.5px * var(--macs-font-scale, 1));
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#configModal .settings-backup-actions { flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+#configModal .settings-details { margin-bottom: 10px; }
+#configModal .settings-details > summary { padding: 11px 14px; font-size: calc(16.5px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal .settings-details-body { padding: 12px 14px; }
+
+#configModal .settings-capability-list { gap: 10px; }
+#configModal .settings-capability-card { padding: 12px 14px; gap: 16px; }
+#configModal .settings-capability-card > div { min-width: 0; }
+#configModal .settings-capability-card strong { font-size: calc(17.6px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal .settings-capability-card p { margin: 4px 0 6px; font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.55; }
+
+#configModal .settings-app-heading { margin: 16px 0 10px; font-size: calc(17.6px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal .settings-app-choices { margin-bottom: 14px; }
+#configModal .settings-app-choice strong { font-size: calc(17.6px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal .settings-app-choice span { margin-top: 5px; font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal #channelsConfig .settings-app-picker .settings-app-choice { padding: 12px; }
+#configModal #channelsConfig .settings-channel-guide-btn,
+#configModal #channelsConfig .settings-email-guide { font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.5; white-space: normal; }
+#configModal #channelsConfig .settings-connection-guide { padding: 12px 14px; margin-bottom: 14px; }
+#configModal #channelsConfig .settings-connection-guide strong { font-size: calc(17.6px * var(--macs-font-scale, 1)); line-height: 1.5; }
+#configModal #channelsConfig .settings-connection-guide p { font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.55; }
+#configModal #channelsConfig .settings-connection-guide .settings-action-btn { font-size: calc(16.5px * var(--macs-font-scale, 1)); }
+#configModal #channelsConfig .settings-email-guide { margin-bottom: 12px; }
+
+@media (max-width: 720px) {
+    #configModal { padding: 12px; }
+    #configModal .settings-surface {
+        /* The generic mobile modal width is important; keep this override local. */
+        width: calc(100vw - 24px) !important;
+        max-width: calc(100vw - 24px) !important;
+        height: calc(100dvh - 24px);
+        max-height: calc(100dvh - 24px) !important;
+    }
+    #configModal .settings-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    #configModal .settings-nav { padding: 8px; overflow-x: auto; overflow-y: hidden; }
+    #configModal .settings-nav .config-tab { padding: 8px 10px; }
+    #configModal .settings-page { padding: 16px 14px; }
+    #configModal .config-grid { grid-template-columns: minmax(0, 1fr); }
+    #configModal .config-card { padding: 12px 14px; }
+    #configModal .settings-header-actions { flex-wrap: wrap; gap: 6px 8px; }
+    #configModal .settings-backup-actions > button { flex: 1 1 120px; }
+}
+
+@media (max-width: 440px) {
+    #configModal .settings-header h3 { font-size: calc(19.8px * var(--macs-font-scale, 1)); }
+    #configModal #settingsSaveState { white-space: normal; text-align: right; }
+    #configModal .settings-page { padding: 14px 12px; scrollbar-gutter: auto; }
+    #configModal .settings-summary-card,
+    #configModal .settings-capability-card { padding: 11px 12px; }
+    #configModal .settings-card-actions { gap: 6px; }
+    #configModal .settings-card-actions .settings-action-btn { font-size: calc(15.4px * var(--macs-font-scale, 1)); }
+    #configModal #channelsConfig .settings-app-picker .settings-app-choice { padding: 10px 11px; }
+    #configModal #channelsConfig .settings-app-picker .settings-channel-guide-btn { padding: 7px 11px; }
+    #configModal #channelsConfig .settings-connection-guide { padding: 11px 12px; }
+}

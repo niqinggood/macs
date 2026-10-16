@@ -1,0 +1,4 @@
+python-pptx>=1.0
+matplotlib>=3.8,<4
+numpy>=1.25
+Pillow>=9

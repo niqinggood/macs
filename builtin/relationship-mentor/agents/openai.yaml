@@ -1,0 +1,4 @@
+interface:
+  display_name: "情感导师"
+  short_description: "情感支持、关系分析、沟通修复与可执行回复建议"
+  default_prompt: "Use $relationship-mentor to help me understand this relationship situation and choose a respectful, practical next step."

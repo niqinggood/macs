@@ -1,0 +1,4 @@
+interface:
+  display_name: "专业法律顾问"
+  short_description: "基于权威现行法源的法律检索、合同审查与合规分析"
+  default_prompt: "Use $legal-assistant to research this legal issue with current official sources and give me an actionable analysis."

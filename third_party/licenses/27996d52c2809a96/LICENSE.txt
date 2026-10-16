@@ -1,0 +1,4 @@
+This directory contains documentation independently authored for macs.
+It is governed by the repository root LICENSE (MACS Source Available License 1.0).
+It does not contain or relicense the previously bundled third-party skill.
+External tools and libraries retain their own licenses.

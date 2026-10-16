@@ -1,0 +1,4 @@
+upstream=luonghaianh1208/PPTmaster@v2.2.0
+scope=skills/ppt-master (non-cache runtime subtree)
+file_count=865
+tree_sha256=f86b84ab69e71fe14c99686e559146d41b71e7ae2a54fd90c2eabb307a27b0fc

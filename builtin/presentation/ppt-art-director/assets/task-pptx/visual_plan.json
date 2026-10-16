@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "needs_customization": true,
+  "communication_job": "Replace with what this audience should understand, believe, decide, or do",
+  "reference_owned": false,
+  "selected_direction": {
+    "id": "direction-a",
+    "name": "Replace with a specific visual world, not a generic theme label",
+    "visual_thesis": "Replace with one sentence connecting material, image, type, and composition to the audience",
+    "rationale": "Replace with why this direction best serves the communication job",
+    "palette": {
+      "navy": "#111820",
+      "ink": "#20252B",
+      "muted": "#626A73",
+      "line": "#D9DDE1",
+      "paper": "#F4F1EA",
+      "white": "#FFFFFF",
+      "accent": "#C26D3A",
+      "accent_soft": "#F2DED0",
+      "positive": "#47735A",
+      "positive_soft": "#DDEAE1",
+      "warning": "#B17A25",
+      "warning_soft": "#F4E8CB",
+      "negative": "#A44945",
+      "negative_soft": "#F0DAD8"
+    },
+    "typography": {
+      "font_cn": "Microsoft YaHei",
+      "font_en": "Arial",
+      "deck_title_pt": 50,
+      "slide_title_pt": 35,
+      "subhead_pt": 24,
+      "body_pt": 16
+    },
+    "image_style": "Replace with subject, framing, lighting, texture, and exclusions",
+    "chart_style": "Replace with direct-label, low-ink rules and the semantic role of accent colors",
+    "background_rhythm": ["hero-dark", "evidence-light", "evidence-light", "contrast-anchor", "evidence-light", "closing-dark"]
+  },
+  "candidates": [
+    {
+      "id": "direction-a",
+      "name": "Replace with candidate A",
+      "visual_thesis": "Replace with a concrete candidate direction",
+      "differentiator": "Replace with what makes this direction visually distinct"
+    },
+    {
+      "id": "direction-b",
+      "name": "Replace with candidate B",
+      "visual_thesis": "Replace with a genuinely different candidate direction",
+      "differentiator": "Replace with the tradeoff against candidate A"
+    }
+  ],
+  "slides": [
+    {
+      "slide": 1,
+      "narrative_job": "Set the visual world and communication promise",
+      "composition": "cinematic-cover",
+      "density": "light",
+      "focal_anchor": "One title and one relevant hero asset",
+      "asset": {
+        "type": "photo",
+        "purpose": "Establish the subject and emotional register",
+        "source": "Replace with licensed, user-supplied, generated, or public source attribution",
+        "path": "assets/replace-cover-image.png",
+        "prompt": "If generated, preserve the exact generation prompt here",
+        "crop": "cover",
+        "focal_x": 0.5,
+        "focal_y": 0.5
+      }
+    },
+    {
+      "slide": 2,
+      "narrative_job": "Frame the decisive change",
+      "composition": "asymmetric-claim-with-annotated-exhibit",
+      "density": "medium",
+      "focal_anchor": "One annotated exhibit",
+      "asset": {
+        "type": "diagram",
+        "purpose": "Make the change legible as a relationship",
+        "source": "source-bound deck evidence",
+        "path": "",
+        "prompt": "",
+        "crop": "contain"
+      }
+    },
+    {
+      "slide": 3,
+      "narrative_job": "Compare the strongest evidence",
+      "composition": "direct-label-comparison",
+      "density": "medium",
+      "focal_anchor": "One comparison graphic",
+      "asset": {
+        "type": "chart",
+        "purpose": "Show the comparison direction without a remote legend",
+        "source": "source-bound deck evidence",
+        "path": "",
+        "prompt": "",
+        "crop": "contain"
+      }
+    },
+    {
+      "slide": 4,
+      "narrative_job": "Explain how the system works",
+      "composition": "spatial-system-map",
+      "density": "medium",
+      "focal_anchor": "One causal or architectural map",
+      "asset": {
+        "type": "diagram",
+        "purpose": "Explain mechanism and dependency",
+        "source": "source-bound deck evidence",
+        "path": "",
+        "prompt": "",
+        "crop": "contain"
+      }
+    },
+    {
+      "slide": 5,
+      "narrative_job": "Synthesize implications for the audience",
+      "composition": "editorial-synthesis",
+      "density": "medium",
+      "focal_anchor": "One dominant implication with supporting proof",
+      "asset": {
+        "type": "typographic",
+        "purpose": "Turn evidence into a memorable decision implication",
+        "source": "source-bound deck evidence",
+        "path": "",
+        "prompt": "",
+        "crop": "contain"
+      }
+    },
+    {
+      "slide": 6,
+      "narrative_job": "Resolve the opening with a decision or next action",
+      "composition": "closing-manifesto",
+      "density": "light",
+      "focal_anchor": "One memorable synthesis",
+      "asset": {
+        "type": "typographic",
+        "purpose": "Land the final decision and action",
+        "source": "no new factual claims",
+        "path": "",
+        "prompt": "",
+        "crop": "contain"
+      }
+    }
+  ]
+}

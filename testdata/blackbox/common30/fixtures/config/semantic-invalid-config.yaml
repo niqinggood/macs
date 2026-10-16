@@ -1,0 +1,7 @@
+team_name: Recovery Test
+agents:
+  - name: Assistant
+    type: custom
+    model: missing_model
+model_cfg: {}
+workspace: .

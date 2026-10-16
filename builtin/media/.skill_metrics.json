@@ -1,0 +1,65 @@
+{
+  "skills": {
+    "funasr-speech": {
+      "name": "funasr-speech",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7173493+08:00",
+      "created_at": "2026-06-25T20:14:37.4863375+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "media-capture": {
+      "name": "media-capture",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7173493+08:00",
+      "created_at": "2026-06-25T20:14:37.4873648+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "melodylab-ai-song": {
+      "name": "melodylab-ai-song",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.724624+08:00",
+      "created_at": "2026-06-26T15:21:30.2244516+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "ocr-document": {
+      "name": "ocr-document",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7256617+08:00",
+      "created_at": "2026-06-25T20:14:37.4879306+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "video-note": {
+      "name": "video-note",
+      "load_count": 3,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7279056+08:00",
+      "created_at": "2026-06-30T18:08:40.8757353+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

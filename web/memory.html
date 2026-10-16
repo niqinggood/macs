@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>记忆 · macs</title>
+  <link rel="stylesheet" href="/web/font_size.css?v=20261013-memory-runtime-v49">
+  <link rel="stylesheet" href="/web/memory.css?v=20261014-memory-flow-v55">
+  <script src="/web/i18n.js?v=20261013-memory-runtime-v49" defer></script>
+  <script src="/web/font_size.js?v=20261013-memory-runtime-v49" defer></script>
+  <script src="/web/theme.js?v=20261013-memory-runtime-v49" defer></script>
+  <script src="/web/marked.min.js?v=20261013-memory-runtime-v49" defer></script>
+  <script src="/web/memory_reader.js?v=20261013-memory-runtime-v49" defer></script>
+  <script src="/web/memory_groups.js?v=20261014-memory-flow-v55" defer></script>
+  <script src="/web/memory.js?v=20261014-memory-flow-v55" defer></script>
+</head>
+<body>
+  <main class="memory-shell">
+    <header class="memory-header">
+      <div class="memory-heading"><a class="back" href="/web/" data-memory-label="back">‹ 工作台</a><h1 data-memory-label="title">记忆</h1><span class="memory-brand">macs</span></div>
+      <div class="header-tools">
+        <button id="fontSizeToggle" class="font-size-toggle" type="button" aria-label="字体大小" aria-haspopup="menu" aria-expanded="false" aria-controls="fontSizeMenu">Aa</button>
+        <button id="themeToggle" class="icon-button" type="button" onclick="toggleTheme()" aria-label="切换主题"><span data-theme-icon>◐</span></button>
+        <button id="languageToggle" type="button" onclick="toggleLanguage()"><span data-language-toggle-label>中文 / EN</span></button>
+      </div>
+    </header>
+    <section id="memory-prompt-view" class="memory-input-view" aria-labelledby="memory-prompt-title">
+      <div class="memory-overview-header">
+      <div class="input-view-heading"><h2 id="memory-prompt-title" data-memory-label="promptTitle">会进入提示词的历史信息</h2><p data-memory-label="promptBoundary">按当前代码的注入机制展示原始记录；直接带入或按问题召回，不等于每条都在某次调用中使用。</p></div>
+      <form id="memory-prompt-controls" class="memory-input-controls">
+        <label><span data-memory-label="agent">Agent</span><select id="prompt-agent" disabled></select></label>
+        <label hidden><span data-memory-label="inputCategory">来源分类</span><select id="prompt-category"><option value="" data-memory-label="inputAllCategories">全部来源</option></select></label>
+        <button id="prompt-refresh" type="submit" data-memory-label="refresh">刷新</button>
+      </form>
+      </div>
+      <div class="prompt-organized-layout">
+        <nav id="prompt-groups" class="prompt-groups" aria-label="记忆分类"></nav>
+        <div class="prompt-group-workspace">
+          <div class="prompt-group-heading"><h3 id="prompt-group-title">全部记忆</h3><div class="actions"><button id="prompt-add-preference" type="button" hidden data-memory-label="organizeAddPreference">新增偏好</button><button id="prompt-add-memory" type="button" data-memory-label="memoryAdd">新增记忆</button></div></div>
+          <p id="prompt-group-description" class="prompt-group-description"></p>
+          <details class="memory-reading-summary"><summary data-memory-label="memoryUseGuide">AI 如何使用这些内容</summary><p id="prompt-group-use" class="prompt-group-use"></p></details>
+          <div id="prompt-library-controls" class="prompt-library-controls" hidden></div>
+          <div id="prompt-summary" class="input-summary" aria-live="polite"></div>
+      <div id="prompt-browser" class="memory-browser input-browser">
+        <section id="prompt-sources" class="memory-cards" aria-label="提示词历史来源" aria-busy="true"></section>
+        <section id="prompt-detail" class="memory-detail input-detail" aria-label="历史信息详情" aria-live="polite" hidden></section>
+      </div>
+      <p id="prompt-message" class="message" role="status"></p>
+        </div>
+      </div>
+      <details id="prompt-providers" class="memory-help prompt-providers"><summary data-memory-label="promptProviders">这些信息如何进入提示词</summary><div id="prompt-provider-list"></div></details>
+    </section>
+    <details id="recorded-model-inputs" class="other-memory-storage" hidden>
+      <summary data-memory-label="recordedInputs">查看某次实际调用</summary>
+    <section id="memory-input-view" class="memory-input-view" aria-labelledby="memory-input-title">
+      <div class="input-view-heading"><h2 id="memory-input-title" data-memory-label="inputTitle">模型输入引用的记忆</h2><p data-memory-label="inputBoundary">这里记录本次模型请求包含的已存内容。是否送达请看调用状态，不代表模型一定采用。</p></div>
+      <form id="memory-input-controls" class="memory-input-controls">
+        <label><span data-memory-label="agent">Agent</span><select id="input-agent" disabled></select></label>
+        <label class="input-session-label"><span data-memory-label="session">任务</span><select id="input-session" disabled></select></label>
+        <label><span data-memory-label="inputCall">模型调用</span><select id="input-call" disabled></select></label>
+        <label><span data-memory-label="inputCategory">来源分类</span><select id="input-category"><option value="" data-memory-label="inputAllCategories">全部来源</option></select></label>
+        <button id="input-refresh" type="submit" data-memory-label="refresh">刷新</button>
+      </form>
+      <div id="input-summary" class="input-summary" aria-live="polite"></div>
+      <div id="input-browser" class="memory-browser input-browser">
+        <section id="input-sources" class="memory-cards" aria-label="输入引用列表" aria-busy="true"></section>
+        <section id="input-detail" class="memory-detail input-detail" aria-label="输入引用详情" aria-live="polite" hidden></section>
+      </div>
+      <p id="input-message" class="message" role="status"></p>
+    </section>
+    </details>
+    <details id="other-memory-storage" class="other-memory-storage" hidden>
+      <summary data-memory-label="otherStorage">旧记录核对</summary>
+      <p class="other-storage-note" data-memory-label="otherStorageNote">这里用于核对旧记录。需要继续使用的明确要求，可以另存为记忆。</p>
+      <button id="close-old-records" type="button" data-memory-label="closeOldRecords">收起旧记录</button>
+    <div class="memory-layout">
+      <nav class="memory-categories" aria-label="记忆分类" id="memory-categories">
+        <button type="button" data-category="preferences" aria-current="page"><span class="category-mark" aria-hidden="true">♡</span><span data-memory-label="preferences">用户偏好</span></button>
+        <button type="button" data-category="project"><span class="category-mark" aria-hidden="true">▱</span><span data-memory-label="project">项目记忆</span></button>
+        <button type="button" data-category="global"><span class="category-mark" aria-hidden="true">◎</span><span data-memory-label="global">全局记忆</span></button>
+        <button type="button" data-category="knowledge"><span class="category-mark" aria-hidden="true">▥</span><span data-memory-label="knowledge">知识库</span></button>
+        <button type="button" data-category="history"><span class="category-mark" aria-hidden="true">↶</span><span data-memory-label="history">历史任务</span></button>
+        <p class="category-note" data-memory-label="localNote">本机管理 · 使用真实记录</p>
+      </nav>
+      <section class="memory-workspace" aria-labelledby="view-title">
+        <div class="view-header"><div><h2 id="view-title">用户偏好</h2><p id="view-description" class="view-description"></p></div><button id="new-memory" class="primary" type="button" disabled data-memory-label="new">新增记忆</button></div>
+        <section class="memory-recollection" aria-labelledby="memory-recollection-title">
+          <details id="memory-recall-explanation" class="memory-recall-explanation">
+            <summary><h3 id="memory-recollection-title" data-memory-label="recollectionTitle">回想是怎么发生的</h3><span class="recollection-flow" data-memory-label="recallExplainBrief">按当前问题选择参考</span></summary>
+            <p class="recollection-intro" data-memory-label="recollectionIntro">浏览记录不会让它自动成为回答依据；实际引用需要核对来源、范围和相关性。</p>
+            <div class="recollection-steps" id="recollection-steps"></div>
+            <p class="catalog-boundary" data-memory-label="catalogBoundary">资料已保存不等于每次都会使用；当前问题、归属、相关性和上下文长度都会影响选择。</p>
+            <details id="memory-catalog" class="memory-catalog">
+              <summary><span data-memory-label="catalogTitle">高级：存储来源与位置</span><span id="catalog-summary" class="catalog-summary"></span></summary>
+              <p id="catalog-context" class="catalog-context"></p>
+              <div id="catalog-sources" class="catalog-sources" aria-live="polite"></div>
+            </details>
+          </details>
+        </section>
+        <form id="search-form" class="memory-toolbar" role="search">
+          <label class="search-label"><span class="sr-only" data-memory-label="search">搜索</span><input id="search" type="search" maxlength="100" autocomplete="off" placeholder="搜索标题或内容"></label>
+          <label class="agent-label"><span data-memory-label="agent">Agent</span><select id="agent" disabled></select></label>
+          <label id="session-label" class="session-label" hidden><span data-memory-label="session">任务</span><select id="session"></select></label>
+          <label id="scope-label"><span class="sr-only" data-memory-label="scope">范围</span><select id="scope"><option value="" data-memory-label="allScopes">全部范围</option><option value="user" data-memory-label="personal">个人</option><option value="project" data-memory-label="project">项目记忆</option></select></label>
+          <label id="knowledge-source-label" hidden><span class="sr-only" data-memory-label="knowledgeSource">知识来源</span><select id="knowledge-source"><option value="curated" data-memory-label="knowledgeCurated">可核对资料</option><option value="learning" data-memory-label="knowledgeLearning">任务学习知识</option><option value="rag" data-memory-label="knowledgeRag">上传资料</option><option value="graph" data-memory-label="knowledgeGraph">历史提取记录</option><option value="quotes" data-memory-label="knowledgeQuotes">历史原文片段</option><option value="all" data-memory-label="knowledgeAll">所有资料（含历史）</option></select></label>
+          <label id="state-label"><span class="sr-only" data-memory-label="state">状态</span><select id="state"><option value="" data-memory-label="allStates">全部状态</option><option value="active" data-memory-label="active">已生效</option><option value="candidate" data-memory-label="candidate">待确认</option></select></label>
+          <a id="manage-knowledge" class="manage-link" href="/web/?panel=knowledge" hidden data-memory-label="manageKnowledge">打开知识库管理</a>
+          <button id="refresh" type="submit" data-memory-label="refresh">刷新</button>
+        </form>
+        <div class="list-heading"><span id="count" aria-live="polite"></span><button id="clear-filters" class="text-button" type="button" hidden data-memory-label="clearFilters">清除筛选</button></div>
+        <p id="view-notes" class="view-source-notice" role="status" hidden></p>
+        <div id="memory-browser" class="memory-browser">
+          <section id="entries" class="memory-cards" aria-label="记录列表" aria-busy="true"></section>
+          <section id="memory-detail" class="memory-detail" aria-label="记录详情" aria-live="polite"></section>
+        </div>
+        <footer class="pager" id="pager" hidden><span id="page-number"></span><button id="previous" type="button" data-memory-label="previous">上一页</button><button id="next" type="button" data-memory-label="next">下一页</button></footer>
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+        <footer class="memory-footer">
+          <details class="memory-help"><summary data-memory-label="how">记忆如何使用</summary><p data-memory-label="howBody">短期记录用于当前任务；长期记忆按问题选作参考。待确认内容不会自动用于对话，原始任务记录不随“遗忘记忆”删除。</p></details>
+          <a id="export" href="#" download="macs-memory.json" aria-disabled="true" data-memory-label="export">导出长期记忆</a>
+        </footer>
+        <details id="recall-panel" class="memory-help advanced-help"><summary data-memory-label="recalls">高级：查看记忆参考记录</summary><div class="recall-header"><p data-memory-label="recallHint">最近 7 天的 20 次记录。选入参考不代表模型实际采用；记录不包含问题或记忆正文。</p><button id="refresh-recalls" type="button" data-memory-label="refresh">刷新</button></div><div id="recall-traces"></div></details>
+      </section>
+    </div>
+    </details>
+    <dialog id="memory-conversation" aria-labelledby="conversation-title">
+      <header class="conversation-toolbar"><div class="conversation-heading"><span class="conversation-heading-icon" aria-hidden="true">“</span><div><h2 id="conversation-title" data-memory-label="preferenceConversation">原始对话</h2><p id="conversation-count"></p></div></div><button id="conversation-close" class="icon-button" type="button" aria-label="关闭">×</button></header>
+      <p id="conversation-reference" class="conversation-reference"></p>
+      <div id="conversation-messages" class="preference-conversation-messages" aria-live="polite"></div>
+      <footer class="conversation-footer"><span class="conversation-footer-dot" aria-hidden="true"></span><p id="conversation-note"></p></footer>
+    </dialog>
+    <dialog id="memory-source-editor" aria-labelledby="source-editor-title">
+      <form id="source-editor-form">
+        <div class="dialog-header"><h2 id="source-editor-title" data-memory-label="inputEditSource">修改原来源</h2><button id="source-editor-close" class="icon-button" type="button" aria-label="关闭">×</button></div>
+        <p id="source-editor-location" class="detail-note"></p>
+        <label><span data-memory-label="inputCurrentContent">当前来源内容</span><textarea id="source-editor-value" required rows="7"></textarea></label>
+        <p id="source-editor-note" class="hint">直接修改原记录。历史输入片段保持不变。</p>
+        <p id="source-editor-error" class="error" role="alert" hidden></p>
+        <div class="dialog-actions"><button id="source-editor-cancel" type="button" data-memory-label="cancel">取消</button><button id="source-editor-save" class="primary" type="submit" data-memory-label="inputSaveSource">保存原来源</button></div>
+      </form>
+    </dialog>
+    <dialog id="memory-editor" aria-labelledby="editor-title">
+      <form id="editor-form">
+        <div class="dialog-header"><h2 id="editor-title">新增记忆</h2><button id="editor-close" class="icon-button" type="button" aria-label="关闭">×</button></div>
+        <section id="editor-preference-original" class="preference-evidence" hidden>
+          <h3 data-memory-label="preferenceOriginal">核对保存前的依据</h3>
+          <p class="detail-note" data-memory-label="preferenceOriginalClaim">旧提取内容</p><p id="editor-preference-claim"></p>
+          <p class="detail-note" data-memory-label="preferenceOriginalQuote">对应用户原话</p><blockquote id="editor-preference-quote"></blockquote>
+        </section>
+        <label><span data-memory-label="name">标题</span><input id="editor-key" required maxlength="256"></label>
+        <label><span data-memory-label="content">内容</span><textarea id="editor-value" required maxlength="8000" rows="5"></textarea></label>
+        <div class="editor-options">
+          <label><span data-memory-label="scope">范围</span><select id="editor-scope"><option value="user" data-memory-label="personal">个人</option><option value="project" data-memory-label="project">项目记忆</option><option value="global" data-memory-label="global">全局记忆</option><option value="session" data-memory-label="short">当前对话记录</option></select></label>
+          <label><span data-memory-label="kind">类型</span><select id="editor-kind"><option value="preference" data-memory-label="preference">偏好</option><option value="fact" data-memory-label="fact">事实</option><option value="decision" data-memory-label="decision">决定</option><option value="experience" data-memory-label="experience">经验</option></select></label>
+        </div>
+        <p id="editor-note" class="hint"></p><p id="editor-error" class="error" role="alert" hidden></p>
+        <div class="dialog-actions"><button id="editor-cancel" type="button" data-memory-label="cancel">取消</button><button id="editor-save" class="primary" type="submit" data-memory-label="save">保存记忆</button></div>
+      </form>
+    </dialog>
+  </main>
+</body>
+</html>

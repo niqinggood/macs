@@ -1,0 +1,5175 @@
+{
+  "format_version": 1,
+  "software_name": "macs",
+  "scope": "Go module graph, Go runtime, known bundled frontend resources and skill entrypoints; not a legal ownership certification",
+  "limitations": [
+    "License classification is a text hint, not a compatibility decision.",
+    "Bundled JavaScript may contain further dependency notices; review upstream distributions.",
+    "Skills without explicit license evidence remain unresolved; author metadata is not proof.",
+    "Local npm development tools are outside this binary-resource inventory."
+  ],
+  "components": [
+    {
+      "kind": "go-module",
+      "name": "cloud.google.com/go/compute/metadata",
+      "version": "v0.3.0",
+      "source": "https://cloud.google.com/go/compute/metadata",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0f0a9074d7d9bf97/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "filippo.io/edwards25519",
+      "version": "v1.1.0",
+      "source": "https://filippo.io/edwards25519",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3868d01db02a8e4a/LICENSE",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/AlecAivazis/survey/v2",
+      "version": "v2.3.7",
+      "source": "https://github.com/AlecAivazis/survey/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1ded0cc6b59c7054/LICENSE",
+          "sha256": "b97e345ab838c46facf556eff4af93b4068650f8ac9247180e0395e5091baf02",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Azure/azure-sdk-for-go/sdk/azcore",
+      "version": "v1.11.1",
+      "source": "https://github.com/Azure/azure-sdk-for-go/sdk/azcore",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0afc1c78b8acedd9/LICENSE.txt",
+          "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Azure/azure-sdk-for-go/sdk/azidentity",
+      "version": "v1.6.0",
+      "source": "https://github.com/Azure/azure-sdk-for-go/sdk/azidentity",
+      "license_files": [
+        {
+          "file": "third_party/licenses/16f1a5f8042d87f2/LICENSE.txt",
+          "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Azure/azure-sdk-for-go/sdk/internal",
+      "version": "v1.8.0",
+      "source": "https://github.com/Azure/azure-sdk-for-go/sdk/internal",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ed68fcb6a6689086/LICENSE.txt",
+          "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys",
+      "version": "v1.0.1",
+      "source": "https://github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e87e6bafdb3c1f0f/LICENSE.txt",
+          "sha256": "a096a435e19bb6b631da46992c011a39be563e97ce7366879ad516c772904632",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal",
+      "version": "v1.0.0",
+      "source": "https://github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6d61d9c56f82ad62/LICENSE.txt",
+          "sha256": "a096a435e19bb6b631da46992c011a39be563e97ce7366879ad516c772904632",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/AzureAD/microsoft-authentication-library-for-go",
+      "version": "v1.2.2",
+      "source": "https://github.com/AzureAD/microsoft-authentication-library-for-go",
+      "license_files": [
+        {
+          "file": "third_party/licenses/92fd13ad609d5c87/LICENSE",
+          "sha256": "9906940f61b1f0b533fa7d99baf55178b2808fbe113ea51dfbfad8572ccd5f2b",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/Netflix/go-expect",
+      "version": "v0.0.0-20220104043353-73e0943537d2",
+      "source": "https://github.com/Netflix/go-expect",
+      "license_files": [
+        {
+          "file": "third_party/licenses/426d9f67b358c1db/LICENSE",
+          "sha256": "fd8bc81afea2de66c6bbdde91251b8a074866d2f22f91472af61ccddb81574d5",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/PuerkitoBio/goquery",
+      "version": "v1.12.0",
+      "source": "https://github.com/PuerkitoBio/goquery",
+      "license_files": [
+        {
+          "file": "third_party/licenses/aada7317cea6c75c/LICENSE",
+          "sha256": "ab79785bfa235ac1c5e16f75e0f85eb7ce0402fb72f4667fffa0729e694579b8",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/RoaringBitmap/roaring/v2",
+      "version": "v2.14.5",
+      "source": "https://github.com/RoaringBitmap/roaring/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/29242a064571caf4/LICENSE",
+          "sha256": "4de906d3a8209e552fb454c403be1f189f1802dc9d807cc36c57348cae6d6c3f",
+          "classification_hint": "Apache-2.0 (text detected)"
+        },
+        {
+          "file": "third_party/licenses/29242a064571caf4/LICENSE-2.0.txt",
+          "sha256": "39a12eaa486ceca9d7f18994b8e34e3e8ee32fbb7d3663b62752f7cb2eb99c35",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/UserExistsError/conpty",
+      "version": "v0.1.4",
+      "source": "https://github.com/UserExistsError/conpty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3bf53d60bf92d938/LICENSE",
+          "sha256": "e0b206fba86a4f7f0b154ed594dc1b662e41a75ce00a143c576a101ca0626913",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/ZeroHawkeye/wordZero",
+      "version": "v1.6.0",
+      "source": "https://github.com/ZeroHawkeye/wordZero",
+      "license_files": [
+        {
+          "file": "third_party/licenses/cef4e8349a77ffa2/LICENSE",
+          "sha256": "941eefad4c88671705d729f1813fd1d18f5d1abfd2358c53de27d8045144d580",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/andybalholm/brotli",
+      "version": "v1.2.1",
+      "source": "https://github.com/andybalholm/brotli",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0ca964d5587a3b98/LICENSE",
+          "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/andybalholm/cascadia",
+      "version": "v1.3.3",
+      "source": "https://github.com/andybalholm/cascadia",
+      "license_files": [
+        {
+          "file": "third_party/licenses/eaa30a212bba9e36/LICENSE",
+          "sha256": "04a8e475337d6b9959a8c47956bf713dd3362d3aadf839e74b376afb07487167",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/bits-and-blooms/bitset",
+      "version": "v1.24.2",
+      "source": "https://github.com/bits-and-blooms/bitset",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9e67e3e5d93aa6b2/LICENSE",
+          "sha256": "3ef376b769105f14098dd45e9d08ed3568c77d38ad33c470634606048e62119f",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/bleve/v2",
+      "version": "v2.6.0",
+      "source": "https://github.com/blevesearch/bleve/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1775ea0f1ca81334/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/bleve_index_api",
+      "version": "v1.3.11",
+      "source": "https://github.com/blevesearch/bleve_index_api",
+      "license_files": [
+        {
+          "file": "third_party/licenses/75ee78b10a118ffb/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/geo",
+      "version": "v0.2.5",
+      "source": "https://github.com/blevesearch/geo",
+      "license_files": [
+        {
+          "file": "third_party/licenses/233c2b4f672deb37/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/go-faiss",
+      "version": "v1.1.0",
+      "source": "https://github.com/blevesearch/go-faiss",
+      "license_files": [
+        {
+          "file": "third_party/licenses/625d30c73c900489/LICENSE",
+          "sha256": "2bb07f834b48b2ff6e399f3f7c4cb69f5ca9895f5b705324dff228588c0af24d",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/go-metrics",
+      "version": "v0.0.0-20201227073835-cf1acfcdf475",
+      "source": "https://github.com/blevesearch/go-metrics",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0c913eac175f2be2/LICENSE",
+          "sha256": "d2571186acad91c8a3121fb31f1aa5963e82ccd08608d00cef3eb3f3a6c8ad38",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/go-porterstemmer",
+      "version": "v1.0.3",
+      "source": "https://github.com/blevesearch/go-porterstemmer",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e733691d62d03ec8/LICENSE",
+          "sha256": "689a52b19550ab674d9b0105e2fb49140a01d175c83197bee561f9b2375711d8",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/goleveldb",
+      "version": "v1.0.1",
+      "source": "https://github.com/blevesearch/goleveldb",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c214890769164f5f/LICENSE",
+          "sha256": "7df695202f82a52f8891a9913438c7fde15bd71034fd1853b9ed46503ea52a19",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/gtreap",
+      "version": "v0.1.1",
+      "source": "https://github.com/blevesearch/gtreap",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0195cf76fc7a7e68/LICENSE",
+          "sha256": "7e86513ce0a3309ffa01fdb9b5fd6bc6049104bac423fcee97af34c288a0b595",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/mmap-go",
+      "version": "v1.2.0",
+      "source": "https://github.com/blevesearch/mmap-go",
+      "license_files": [
+        {
+          "file": "third_party/licenses/83b99e36beee596e/LICENSE",
+          "sha256": "c2eba69f20d05414538c3a5df7694dde392e065ff70882e1625e90f5d6659fff",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/scorch_segment_api/v2",
+      "version": "v2.4.7",
+      "source": "https://github.com/blevesearch/scorch_segment_api/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/38e99224eb043f1a/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/segment",
+      "version": "v0.9.1",
+      "source": "https://github.com/blevesearch/segment",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1c902b49d1805b28/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/snowball",
+      "version": "v0.6.1",
+      "source": "https://github.com/blevesearch/snowball",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1eb71692966e85e2/LICENSE",
+          "sha256": "d64715c9f769d9a040bfa8c11ceb5f6d7174fbc9a5bd2b4b7368fbf33891028e",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/snowballstem",
+      "version": "v0.9.0",
+      "source": "https://github.com/blevesearch/snowballstem",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6a88cb6abcc76f60/COPYING",
+          "sha256": "f6f9e4c0e737728ca980de8595ded046d5e077017c1bb0ee05dc794a01434dae",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/stempel",
+      "version": "v0.2.0",
+      "source": "https://github.com/blevesearch/stempel",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1fb1c80768acb0b9/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/upsidedown_store_api",
+      "version": "v1.0.2",
+      "source": "https://github.com/blevesearch/upsidedown_store_api",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a96688a33ebf18b2/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/vellum",
+      "version": "v1.2.0",
+      "source": "https://github.com/blevesearch/vellum",
+      "license_files": [
+        {
+          "file": "third_party/licenses/30c6fd4af073b3fc/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v11",
+      "version": "v11.4.3",
+      "source": "https://github.com/blevesearch/zapx/v11",
+      "license_files": [
+        {
+          "file": "third_party/licenses/430ed6ad2233fcb6/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v12",
+      "version": "v12.4.3",
+      "source": "https://github.com/blevesearch/zapx/v12",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6a4eba04e87c3163/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v13",
+      "version": "v13.4.3",
+      "source": "https://github.com/blevesearch/zapx/v13",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2ad57c69db6a9c69/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v14",
+      "version": "v14.4.3",
+      "source": "https://github.com/blevesearch/zapx/v14",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ffda02ed15a18ede/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v15",
+      "version": "v15.4.3",
+      "source": "https://github.com/blevesearch/zapx/v15",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9389e3d455321716/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v16",
+      "version": "v16.3.4",
+      "source": "https://github.com/blevesearch/zapx/v16",
+      "license_files": [
+        {
+          "file": "third_party/licenses/db95010973a9fc56/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/blevesearch/zapx/v17",
+      "version": "v17.1.2",
+      "source": "https://github.com/blevesearch/zapx/v17",
+      "license_files": [
+        {
+          "file": "third_party/licenses/887e25f0768a1c78/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/cespare/xxhash/v2",
+      "version": "v2.2.0",
+      "source": "https://github.com/cespare/xxhash/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/df72dc55d84a29b1/LICENSE.txt",
+          "sha256": "f566a9f97bacdaf00d9f21dd991e81dc11201c4e016c86b470799429a1c9a79c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/chewxy/math32",
+      "version": "v1.11.1",
+      "source": "https://github.com/chewxy/math32",
+      "license_files": [
+        {
+          "file": "third_party/licenses/babf1fd5d1269667/LICENSE",
+          "sha256": "eb26340b6d817419004f4479fdf6c4cc4fc2b129534916bfbfa0317ad1286a96",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/chromedp/cdproto",
+      "version": "v0.0.0-20260321001828-e3e3800016bc",
+      "source": "https://github.com/chromedp/cdproto",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f6a3cbe0127078c0/LICENSE",
+          "sha256": "a0420372ef7d3cf6d111994ee3ed30e606d5043ee9be12b270f6441b60e19bab",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/chromedp/chromedp",
+      "version": "v0.15.1",
+      "source": "https://github.com/chromedp/chromedp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d58f54639e6fc4f0/LICENSE",
+          "sha256": "a0420372ef7d3cf6d111994ee3ed30e606d5043ee9be12b270f6441b60e19bab",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/chromedp/sysutil",
+      "version": "v1.1.0",
+      "source": "https://github.com/chromedp/sysutil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/5556d972e75db1ac/LICENSE",
+          "sha256": "7c3f40700432f459a90770b4108f8526a6a62380c2a2720d8cf279ea8751662a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/couchbase/ghistogram",
+      "version": "v0.1.0",
+      "source": "https://github.com/couchbase/ghistogram",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fc9ad6b9106db5b7/LICENSE",
+          "sha256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/couchbase/moss",
+      "version": "v0.2.0",
+      "source": "https://github.com/couchbase/moss",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f59a0e35f8a40a0e/LICENSE.txt",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/creack/pty",
+      "version": "v1.1.24",
+      "source": "https://github.com/creack/pty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/61d8a03790242954/LICENSE",
+          "sha256": "a2a1cea59d9c2d71908082f516f86bb560abf857646ecf69d70c121ead14aef4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/davecgh/go-spew",
+      "version": "v1.1.1",
+      "source": "https://github.com/davecgh/go-spew",
+      "license_files": [
+        {
+          "file": "third_party/licenses/28f11a96bd6d67b1/LICENSE",
+          "sha256": "1b93a317849ee09d3d7e4f1d20c2b78ddb230b4becb12d7c224c927b9d470251",
+          "classification_hint": "ISC (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/dgryski/go-rendezvous",
+      "version": "v0.0.0-20200823014737-9f7001d12a5f",
+      "source": "https://github.com/dgryski/go-rendezvous",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8d17f9088716b0f2/LICENSE",
+          "sha256": "11f46ac1bc076fc405c06fd087226e5dd87b9c2e6b8dfda5153c79b5b6f01362",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/dnaeon/go-vcr",
+      "version": "v1.2.0",
+      "source": "https://github.com/dnaeon/go-vcr",
+      "license_files": [
+        {
+          "file": "third_party/licenses/7b0b7a4a92d9d12f/LICENSE",
+          "sha256": "7f52b9ab9566f8d6690e738f8ccdbe8c9545abd29962447ea1c7262666a65b56",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/dustin/go-humanize",
+      "version": "v1.0.1",
+      "source": "https://github.com/dustin/go-humanize",
+      "license_files": [
+        {
+          "file": "third_party/licenses/10387c8852023b63/LICENSE",
+          "sha256": "a973b4498c13eb74baa2a8e5c351426a6826f2fcdd909916dbe53ee2e755fd71",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/emersion/go-imap",
+      "version": "v1.2.1",
+      "source": "https://github.com/emersion/go-imap",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b3ab6916ac274a42/LICENSE",
+          "sha256": "ae2fef7b2382c17e5bd9b34b98129c759019838c55ef5bc21967644753addf48",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/emersion/go-message",
+      "version": "v0.15.0",
+      "source": "https://github.com/emersion/go-message",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e2fcb15f2033b53d/LICENSE",
+          "sha256": "9e84a70e67cb6d9e79df2612bd111d5c505b40422ce146afe8477bb1af83155a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/emersion/go-sasl",
+      "version": "v0.0.0-20200509203442-7bfe0ed36a21",
+      "source": "https://github.com/emersion/go-sasl",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f915c166be3f1a42/LICENSE",
+          "sha256": "0e98a5e907c72bd63b5eaf64c662fa146f139931b2608a1427286577b9900cc4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/emersion/go-textwrapper",
+      "version": "v0.0.0-20200911093747-65d896831594",
+      "source": "https://github.com/emersion/go-textwrapper",
+      "license_files": [
+        {
+          "file": "third_party/licenses/94ea371eb4ea493e/LICENSE",
+          "sha256": "0e98a5e907c72bd63b5eaf64c662fa146f139931b2608a1427286577b9900cc4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fatih/color",
+      "version": "v1.19.0",
+      "source": "https://github.com/fatih/color",
+      "license_files": [
+        {
+          "file": "third_party/licenses/baf6ba861a9bc38b/LICENSE.md",
+          "sha256": "de95ed802d2f90e3c72cb3c9a927cca5f2aec234a3ef1250232db0f8178b2d93",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fogfish/golem/hseq",
+      "version": "v1.3.0",
+      "source": "https://github.com/fogfish/golem/hseq",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6b704dbd168ca2c0/LICENSE",
+          "sha256": "be7d0467c92c8ba13fb28abc780f525c5a1acbacd6b3f467182619a3b24b538c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fogfish/golem/optics",
+      "version": "v0.14.0",
+      "source": "https://github.com/fogfish/golem/optics",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c95f1f3a8332aaaa/LICENSE",
+          "sha256": "be7d0467c92c8ba13fb28abc780f525c5a1acbacd6b3f467182619a3b24b538c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fogfish/golem/trait",
+      "version": "v0.3.0",
+      "source": "https://github.com/fogfish/golem/trait",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d504d89f6980e3de/LICENSE",
+          "sha256": "be7d0467c92c8ba13fb28abc780f525c5a1acbacd6b3f467182619a3b24b538c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fogfish/it/v2",
+      "version": "v2.2.1",
+      "source": "https://github.com/fogfish/it/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/442fb5a36da3cfd1/LICENSE",
+          "sha256": "be7d0467c92c8ba13fb28abc780f525c5a1acbacd6b3f467182619a3b24b538c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fogfish/scanner",
+      "version": "v0.0.3",
+      "source": "https://github.com/fogfish/scanner",
+      "license_files": [
+        {
+          "file": "third_party/licenses/355b2fe3b27e8e04/LICENSE",
+          "sha256": "dff1dac796afb6e12a2c86e3715f00e85ce6a76e0e5a3cb3a128756dc43d6419",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/fsnotify/fsnotify",
+      "version": "v1.10.1",
+      "source": "https://github.com/fsnotify/fsnotify",
+      "license_files": [
+        {
+          "file": "third_party/licenses/03ab7f65a1881d42/LICENSE",
+          "sha256": "2dfbe6d2b5eb18b55148f3805d88648a09e0d17e38428123259afb08c8996e37",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/glebarez/go-sqlite",
+      "version": "v1.21.2",
+      "source": "https://github.com/glebarez/go-sqlite",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0b834d283e52dd7f/LICENSE",
+          "sha256": "c6fe05491a60ae13bcd223088d2705e36dede24e5587226231d2459ada5c4822",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/glebarez/sqlite",
+      "version": "v1.11.0",
+      "source": "https://github.com/glebarez/sqlite",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2d6810b181ebfdcf/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-ego/gse",
+      "version": "v1.0.2",
+      "source": "https://github.com/go-ego/gse",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0c089945c1189ad4/LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-json-experiment/json",
+      "version": "v0.0.0-20260214004413-d219187c3433",
+      "source": "https://github.com/go-json-experiment/json",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a8328ace07128f72/LICENSE",
+          "sha256": "14a34c4db2d21bf9cf80d028b802cd22fed9bf597a6c2db7ce30ee6ffd04967a",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-redis/redis/v8",
+      "version": "v8.11.4",
+      "source": "https://github.com/go-redis/redis/v8",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b37fe4d829b56e0d/LICENSE",
+          "sha256": "60f543bf667cb2081ce1aff22e24a4f1d6b2a9119783796551b35ecd6830753a",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-resty/resty/v2",
+      "version": "v2.6.0",
+      "source": "https://github.com/go-resty/resty/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/afa0ebccdd16fa9e/LICENSE",
+          "sha256": "660f14e7253c8262b8abc05e8192641a2eec56fbf77461c97b15a4bd571eda97",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-sql-driver/mysql",
+      "version": "v1.8.1",
+      "source": "https://github.com/go-sql-driver/mysql",
+      "license_files": [
+        {
+          "file": "third_party/licenses/4cf5bb1e8f8d9b8f/LICENSE",
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+          "classification_hint": "Review supplied text"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/go-task/slim-sprig",
+      "version": "v0.0.0-20210107165309-348f09dbbbc0",
+      "source": "https://github.com/go-task/slim-sprig",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c21ddb4a5d74b930/LICENSE.txt",
+          "sha256": "dbad9a1f3fee465db42b92cb8a41ddaae028248fdcc54f46f1e72f7707d21dc2",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/goburrow/modbus",
+      "version": "v0.1.0",
+      "source": "https://github.com/goburrow/modbus",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8ce82e8af5bf95fd/LICENSE",
+          "sha256": "f2830d49dee2fdebc12f15926b379ccc5f4f93f561b176ea0d26616c887d4b45",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/goburrow/serial",
+      "version": "v0.1.0",
+      "source": "https://github.com/goburrow/serial",
+      "license_files": [
+        {
+          "file": "third_party/licenses/cc79866f048c4956/LICENSE",
+          "sha256": "633c13a3c2449846a639d54ad795a5fbcfcc9949f46dc7f442b9e08ef95d87b9",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gobwas/httphead",
+      "version": "v0.1.0",
+      "source": "https://github.com/gobwas/httphead",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9af26d235ce1fa61/LICENSE",
+          "sha256": "7d168561ad5212bf5b3023d55cba37c9594eb011ba74445d99f82055be662589",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gobwas/pool",
+      "version": "v0.2.1",
+      "source": "https://github.com/gobwas/pool",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b39fe353f3d75bf7/LICENSE",
+          "sha256": "bcc745631c0144db2c601650c55d108172c80d601cf2346c71594a0bc32f6f1c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gobwas/ws",
+      "version": "v1.4.0",
+      "source": "https://github.com/gobwas/ws",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ee721f78bea9f4d4/LICENSE",
+          "sha256": "db823214b3ef18274418accda3812faac38a1545b8bd589aeb613a849b949c7a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gogo/protobuf",
+      "version": "v1.3.2",
+      "source": "https://github.com/gogo/protobuf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fd89cddb3501f626/LICENSE",
+          "sha256": "3f571768c0ba2f330e5fee90de89bfe5141f48c1939be8008fa61461c30ca07f",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/golang-jwt/jwt/v5",
+      "version": "v5.3.1",
+      "source": "https://github.com/golang-jwt/jwt/v5",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a56f495673886990/LICENSE",
+          "sha256": "fe26ca41577b9b2b4448050a24b25e5753af66b5d5945d5d36094e7790bfcb2f",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/golang-sql/civil",
+      "version": "v0.0.0-20220223132316-b832511892a9",
+      "source": "https://github.com/golang-sql/civil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/29d325a007887f37/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/golang-sql/sqlexp",
+      "version": "v0.1.0",
+      "source": "https://github.com/golang-sql/sqlexp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/36c52c99494bb820/LICENSE",
+          "sha256": "17b5d209ba8f9684257ecfcff87df6ceda6194143a8fbd074f29727cff6f0c40",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/golang/protobuf",
+      "version": "v1.5.2",
+      "source": "https://github.com/golang/protobuf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/85457a4f9ece59e8/LICENSE",
+          "sha256": "8778a9fc1eaffb03ab873caae251df2d224f6b5502be8777d3cd573a4dd43903",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/golang/snappy",
+      "version": "v1.0.0",
+      "source": "https://github.com/golang/snappy",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3664abc6e7200762/LICENSE",
+          "sha256": "f69f157b0be75da373605dbc8bbf142e8924ee82d8f44f11bcaf351335bf98cf",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gomarkdown/markdown",
+      "version": "v0.0.0-20260417124207-7d523f7318df",
+      "source": "https://github.com/gomarkdown/markdown",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f3051c7793266e8a/LICENSE.txt",
+          "sha256": "f7b377536d149ca0818e1c341aeca76d63f55ca749cfd713484a1672f89714f7",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/google/go-cmp",
+      "version": "v0.7.0",
+      "source": "https://github.com/google/go-cmp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/68154086d1bb97c0/LICENSE",
+          "sha256": "17b5d209ba8f9684257ecfcff87df6ceda6194143a8fbd074f29727cff6f0c40",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/google/gofuzz",
+      "version": "v1.2.0",
+      "source": "https://github.com/google/gofuzz",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3a40882111bc7648/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/google/jsonschema-go",
+      "version": "v0.4.3",
+      "source": "https://github.com/google/jsonschema-go",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8fd6c021619e70d9/LICENSE",
+          "sha256": "2d56c53449691d85d9aea245eb8dac12713e9075d70d5557b82ae1e94805b357",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/google/pprof",
+      "version": "v0.0.0-20240409012703-83162a5b38cd",
+      "source": "https://github.com/google/pprof",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2567e4d84909627e/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/google/uuid",
+      "version": "v1.6.0",
+      "source": "https://github.com/google/uuid",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d0d666767bf9063c/LICENSE",
+          "sha256": "0a8d61ed3cbfd5312326e8126c31ce9c627a283adc99131b56896d29ada04b2d",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gorilla/securecookie",
+      "version": "v1.1.1",
+      "source": "https://github.com/gorilla/securecookie",
+      "license_files": [
+        {
+          "file": "third_party/licenses/5c1ac26a5d1b1ba8/LICENSE",
+          "sha256": "e2b2df1c58a081f27c3b9fa9feec759f2bf2ce430ae02a4f274b2d9ac7e87abd",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gorilla/sessions",
+      "version": "v1.2.1",
+      "source": "https://github.com/gorilla/sessions",
+      "license_files": [
+        {
+          "file": "third_party/licenses/15f01a29a618d2e3/LICENSE",
+          "sha256": "af984eea4080365beb209c62c42e3e197dd0d578a3ccd0a1e5dbbb1c23550211",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/gorilla/websocket",
+      "version": "v1.5.3",
+      "source": "https://github.com/gorilla/websocket",
+      "license_files": [
+        {
+          "file": "third_party/licenses/11713a1d2b26e712/LICENSE",
+          "sha256": "2be1b548b0387ca8948e1bb9434e709126904d15f622cc2d0d8e7f186e4d122d",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/hashicorp/go-uuid",
+      "version": "v1.0.3",
+      "source": "https://github.com/hashicorp/go-uuid",
+      "license_files": [
+        {
+          "file": "third_party/licenses/92a3fe458edc10ea/LICENSE",
+          "sha256": "87b250b11ffadc5f872cb676caa219e2871e454ddd562d9e532d52d5c9b7520d",
+          "classification_hint": "Review supplied text"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/hinshun/vt10x",
+      "version": "v0.0.0-20220119200601-820417d04eec",
+      "source": "https://github.com/hinshun/vt10x",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a4d2590d3ffa7de1/LICENSE",
+          "sha256": "1607f32fc8a4d8c4e86cc570f2f23e7a5fd449a7c4e9c4bb2ad30a42b54e8de9",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/hpcloud/tail",
+      "version": "v1.0.0",
+      "source": "https://github.com/hpcloud/tail",
+      "license_files": [
+        {
+          "file": "third_party/licenses/94b107285399c710/LICENSE.txt",
+          "sha256": "3c2f66483e5dcecbd1633d49d215c77dde71b5608f8df5351ed8e20c891b5ad1",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/inconshreveable/mousetrap",
+      "version": "v1.1.0",
+      "source": "https://github.com/inconshreveable/mousetrap",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ed398141bf73abe6/LICENSE",
+          "sha256": "4819582701f150b28a563a6cd8ed0bf5a754e3c67b90ad38d78ba4131bf77795",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jackc/pgpassfile",
+      "version": "v1.0.0",
+      "source": "https://github.com/jackc/pgpassfile",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2c19d7822f5b0132/LICENSE",
+          "sha256": "adb1663fda031df8f4344aa68f299fd87d80353e31339406742ded21dae65702",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jackc/pgservicefile",
+      "version": "v0.0.0-20240606120523-5a60cdf6a761",
+      "source": "https://github.com/jackc/pgservicefile",
+      "license_files": [
+        {
+          "file": "third_party/licenses/5453b8def606ef73/LICENSE",
+          "sha256": "fc505773403fe869ed64cc2235cdd13988a427bb7e3a7e7004a3f4b27420f8fc",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jackc/pgx/v5",
+      "version": "v5.6.0",
+      "source": "https://github.com/jackc/pgx/v5",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9bb6dae08f161d09/LICENSE",
+          "sha256": "467f95e074fe23079a5623ed652619682692041b8551da27e3c2ddb9659a1507",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jackc/puddle/v2",
+      "version": "v2.2.2",
+      "source": "https://github.com/jackc/puddle/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/80d35ea5c9a9a06f/LICENSE",
+          "sha256": "2d50e98a4900b4d6457a38d39c1432fdc156fc2f7b365f2e33ec9344acbb0057",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/aescts/v2",
+      "version": "v2.0.0",
+      "source": "https://github.com/jcmturner/aescts/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/33f752346498a2e9/LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/dnsutils/v2",
+      "version": "v2.0.0",
+      "source": "https://github.com/jcmturner/dnsutils/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/94c944b863570f68/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/gofork",
+      "version": "v1.7.6",
+      "source": "https://github.com/jcmturner/gofork",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a35403b4d47f119e/LICENSE",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/goidentity/v6",
+      "version": "v6.0.1",
+      "source": "https://github.com/jcmturner/goidentity/v6",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e8983df310dbe9b3/LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/gokrb5/v8",
+      "version": "v8.4.4",
+      "source": "https://github.com/jcmturner/gokrb5/v8",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ed9b64cae94449c4/LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jcmturner/rpc/v2",
+      "version": "v2.0.3",
+      "source": "https://github.com/jcmturner/rpc/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f9f1a89b71299b38/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jinzhu/inflection",
+      "version": "v1.0.0",
+      "source": "https://github.com/jinzhu/inflection",
+      "license_files": [
+        {
+          "file": "third_party/licenses/657dc2549547e5a3/LICENSE",
+          "sha256": "a2e27d9b06edb292d37f31504b59a9f56f5211db26e21873fa060b1184801129",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/jinzhu/now",
+      "version": "v1.1.5",
+      "source": "https://github.com/jinzhu/now",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b87a6a6366e72ff7/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/json-iterator/go",
+      "version": "v0.0.0-20171115153421-f7279a603ede",
+      "source": "https://github.com/json-iterator/go",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b11219654bab3aff/LICENSE",
+          "sha256": "3247931083f058b00760a3c32a9ca0962c05e4d562ad2ffcc1753451fa8d4486",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kballard/go-shellquote",
+      "version": "v0.0.0-20180428030007-95032a82bc51",
+      "source": "https://github.com/kballard/go-shellquote",
+      "license_files": [
+        {
+          "file": "third_party/licenses/580b44056957cbf1/LICENSE",
+          "sha256": "3c0dbd7f2068b713b6784788ffde16a5b91baa86a61a1357e43beb97475a90b3",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kisielk/errcheck",
+      "version": "v1.5.0",
+      "source": "https://github.com/kisielk/errcheck",
+      "license_files": [
+        {
+          "file": "third_party/licenses/4c8ee47f10441a7a/LICENSE",
+          "sha256": "0ce4c88de32a297069615b5f314fbd4c7ffa806e760856a7c79bf908e6236c0a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kisielk/gotool",
+      "version": "v1.0.0",
+      "source": "https://github.com/kisielk/gotool",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1f905f80b98914da/LICENSE",
+          "sha256": "25ad56f47146a8c6e502d5b1eefe145933b460a8b314bbb66bb7fc964b92298b",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kr/pretty",
+      "version": "v0.3.1",
+      "source": "https://github.com/kr/pretty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2c52979daf079d1e/License",
+          "sha256": "283c28b781bc7487bd7bcaf453cbd811f5ee8d7ce625cfcf8dcacae6ba1f4bb5",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kr/pty",
+      "version": "v1.1.1",
+      "source": "https://github.com/kr/pty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/00b5c74c9ec20bf0/License",
+          "sha256": "a2a1cea59d9c2d71908082f516f86bb560abf857646ecf69d70c121ead14aef4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kr/text",
+      "version": "v0.2.0",
+      "source": "https://github.com/kr/text",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a2939ef098e24c16/License",
+          "sha256": "283c28b781bc7487bd7bcaf453cbd811f5ee8d7ce625cfcf8dcacae6ba1f4bb5",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/kylelemons/godebug",
+      "version": "v1.1.0",
+      "source": "https://github.com/kylelemons/godebug",
+      "license_files": [
+        {
+          "file": "third_party/licenses/057d804a4a647513/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/larksuite/oapi-sdk-go/v3",
+      "version": "v3.5.3",
+      "source": "https://github.com/larksuite/oapi-sdk-go/v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b0f47d9ccf6d4d0e/LICENSE",
+          "sha256": "29d16ac53b7f3f8513fb4c6ca4e683bed3f958f9a53f27cb0a840b4f07c5f5b4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/ledongthuc/pdf",
+      "version": "v0.0.0-20250511090121-5959a4027728",
+      "source": "https://github.com/ledongthuc/pdf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/7c7210d0bc6797df/LICENSE",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected",
+      "replacement": "./_lib/ledongthuc-pdf-fixed",
+      "replacement_version": null
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/litao91/goldmark-mathjax",
+      "version": "v0.0.0-20210217064022-a43cf739a50f",
+      "source": "https://github.com/litao91/goldmark-mathjax",
+      "license_files": [],
+      "status": "license_evidence_missing"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mattn/go-colorable",
+      "version": "v0.1.14",
+      "source": "https://github.com/mattn/go-colorable",
+      "license_files": [
+        {
+          "file": "third_party/licenses/541d0d63630231da/LICENSE",
+          "sha256": "88a2379b3ca34bf5c57127aff9dcb802bbb60ece0805cdbda65b3bd115f971d9",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mattn/go-isatty",
+      "version": "v0.0.20",
+      "source": "https://github.com/mattn/go-isatty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b24aeb3102146d70/LICENSE",
+          "sha256": "08eab1118c80885fa1fa6a6dd7303f65a379fcb3733e063d20d1bbc2c76e6fa1",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mattn/go-sqlite3",
+      "version": "v1.14.22",
+      "source": "https://github.com/mattn/go-sqlite3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fe35e78b2a700e1f/LICENSE",
+          "sha256": "afa48e5e64dc610298d80b010ae7a3450f61a79500a9f1d1697ff6dcbbfa1f72",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mdempsky/unconvert",
+      "version": "v0.0.0-20250216222326-4a038b3d31f5",
+      "source": "https://github.com/mdempsky/unconvert",
+      "license_files": [
+        {
+          "file": "third_party/licenses/09d4299f08349e18/LICENSE",
+          "sha256": "dd26a7abddd02e2d0aba97805b31f248ef7835d9e10da289b22e3b8ab78b324d",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mgutz/ansi",
+      "version": "v0.0.0-20170206155736-9520e82c474b",
+      "source": "https://github.com/mgutz/ansi",
+      "license_files": [
+        {
+          "file": "third_party/licenses/7a4e4b1904a5877d/LICENSE",
+          "sha256": "66e8a6491399ee36b111ba6df0af68ee82b375fb6fbfd54c8382c9dc3fbd9c9a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/microsoft/go-mssqldb",
+      "version": "v1.8.2",
+      "source": "https://github.com/microsoft/go-mssqldb",
+      "license_files": [
+        {
+          "file": "third_party/licenses/88bebad7e9f676a3/LICENSE.txt",
+          "sha256": "7d0793489653bfe020de7ea32047bad266f5e2e204ba12025d5300f39555addc",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/modelcontextprotocol/go-sdk",
+      "version": "v1.6.1",
+      "source": "https://github.com/modelcontextprotocol/go-sdk",
+      "license_files": [
+        {
+          "file": "third_party/licenses/92b941191eeb29bb/copyright_test.go",
+          "sha256": "63fdc8779c4dbc95833261e3ed41761b80831cf64cb50e8a4aa4bf812703abcc",
+          "classification_hint": "Review supplied text"
+        },
+        {
+          "file": "third_party/licenses/92b941191eeb29bb/LICENSE",
+          "sha256": "af679003d933f045393a6a029f43da113f9ae364eac651d9ae268392985580f5",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/modocache/gover",
+      "version": "v0.0.0-20171022184752-b58185e213c5",
+      "source": "https://github.com/modocache/gover",
+      "license_files": [
+        {
+          "file": "third_party/licenses/94476c86464f032f/LICENSE",
+          "sha256": "48b11da334439a511670189669e38fb1aa1cb83a0e16d2a74a2220750ba3317a",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/montanaflynn/stats",
+      "version": "v0.7.0",
+      "source": "https://github.com/montanaflynn/stats",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ea0e819e82b7535b/LICENSE",
+          "sha256": "a4b6b141f25c13f5181715fbd5de2e295ebe618627184f12b5f466acad2b135c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/mschoch/smat",
+      "version": "v0.2.0",
+      "source": "https://github.com/mschoch/smat",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8097ef27f37fc923/LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/ncruces/go-strftime",
+      "version": "v0.1.9",
+      "source": "https://github.com/ncruces/go-strftime",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0229085b17a4f868/LICENSE",
+          "sha256": "38ae43959daf953a393a585b2988672cb65a5a541aca0d0be5e72595a0a16883",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/nxadm/tail",
+      "version": "v1.4.8",
+      "source": "https://github.com/nxadm/tail",
+      "license_files": [
+        {
+          "file": "third_party/licenses/960a540c4f96aad1/LICENSE",
+          "sha256": "3c2f66483e5dcecbd1633d49d215c77dde71b5608f8df5351ed8e20c891b5ad1",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/onsi/ginkgo",
+      "version": "v1.16.4",
+      "source": "https://github.com/onsi/ginkgo",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e8edb87171a0b732/LICENSE",
+          "sha256": "3da40f6328f42cbc970672f8129e0ecb6e2cc4f5117a072593ba247276354454",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/onsi/gomega",
+      "version": "v1.16.0",
+      "source": "https://github.com/onsi/gomega",
+      "license_files": [
+        {
+          "file": "third_party/licenses/cf126c6de2d07561/LICENSE",
+          "sha256": "3da40f6328f42cbc970672f8129e0ecb6e2cc4f5117a072593ba247276354454",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/open-dingtalk/dingtalk-stream-sdk-go",
+      "version": "v0.9.1",
+      "source": "https://github.com/open-dingtalk/dingtalk-stream-sdk-go",
+      "license_files": [
+        {
+          "file": "third_party/licenses/91c70c3c02cabb5c/LICENSE",
+          "sha256": "d4560b1cd75490afdef0f84a710745c7be714402e67922cd8cdf196ac2ab13b7",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/orisano/pixelmatch",
+      "version": "v0.0.0-20220722002657-fb0b55479cde",
+      "source": "https://github.com/orisano/pixelmatch",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fa5631d707700e41/LICENSE",
+          "sha256": "fef979ce977dd8bc9e6c9539e276d5bab4cddd29beefb9f8f3816c08c2dbb2b4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/pkg/browser",
+      "version": "v0.0.0-20240102092130-5ac0b6a4141c",
+      "source": "https://github.com/pkg/browser",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2922cd051e8f860b/LICENSE",
+          "sha256": "4801bb0c5d70b980b3e1f63d1d2df8d84fec22548e3d73f03a68df1fb808791f",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/pkg/diff",
+      "version": "v0.0.0-20210226163009-20ebb0f2a09e",
+      "source": "https://github.com/pkg/diff",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b6189eaa441e2cdb/LICENSE",
+          "sha256": "05c39be948a0c170ac196e09bc281cb4d34e6a8661b3a819390325b11aab3c31",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/pmezard/go-difflib",
+      "version": "v1.0.0",
+      "source": "https://github.com/pmezard/go-difflib",
+      "license_files": [
+        {
+          "file": "third_party/licenses/0e664ef15b3bc98c/LICENSE",
+          "sha256": "2eb550be6801c1ea434feba53bf6d12e7c71c90253e0a9de4a4f46cf88b56477",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/razvandimescu/gopdf",
+      "version": "v0.8.1",
+      "source": "https://github.com/razvandimescu/gopdf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8614eb7c5cd97229/LICENSE",
+          "sha256": "58b3d44a415aa95897ca9d10cf9f90aae52eb2493c2f23be088a4c0ad6257021",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/remyoudompheng/bigfft",
+      "version": "v0.0.0-20230129092748-24d4a6f8daec",
+      "source": "https://github.com/remyoudompheng/bigfft",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ccde9cb2b3b92254/LICENSE",
+          "sha256": "dd26a7abddd02e2d0aba97805b31f248ef7835d9e10da289b22e3b8ab78b324d",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/richardlehane/mscfb",
+      "version": "v1.0.6",
+      "source": "https://github.com/richardlehane/mscfb",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6477bb59b7c17ed7/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/richardlehane/msoleps",
+      "version": "v1.0.6",
+      "source": "https://github.com/richardlehane/msoleps",
+      "license_files": [
+        {
+          "file": "third_party/licenses/53ed6fbb659e4f39/LICENSE.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/robfig/cron/v3",
+      "version": "v3.0.0",
+      "source": "https://github.com/robfig/cron/v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e06e5d59f8218a5b/LICENSE",
+          "sha256": "8f650581478707182f3306d9a86676d4e03e2d4edc868344378cf4d6fe6c927a",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/rogpeppe/go-internal",
+      "version": "v1.12.0",
+      "source": "https://github.com/rogpeppe/go-internal",
+      "license_files": [
+        {
+          "file": "third_party/licenses/798e9873e412c603/LICENSE",
+          "sha256": "4835612df0098ca95f8e7d9e3bffcb02358d435dbb38057c844c99d7f725eb20",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/segmentio/asm",
+      "version": "v1.1.3",
+      "source": "https://github.com/segmentio/asm",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b477ab01a906328e/LICENSE",
+          "sha256": "e2a78de21d6d8ded2dff0f3189cd32e011630d785da127ebfbc8949012c0947b",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/segmentio/encoding",
+      "version": "v0.5.4",
+      "source": "https://github.com/segmentio/encoding",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d6f7d28ef6a8851b/LICENSE",
+          "sha256": "d6d71a1f7dc6539e371120cc7af6e3257e55ca79634d473211f217b8965b0f16",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/sirupsen/logrus",
+      "version": "v1.9.4",
+      "source": "https://github.com/sirupsen/logrus",
+      "license_files": [
+        {
+          "file": "third_party/licenses/841c42d84cd105dd/LICENSE",
+          "sha256": "51a0c9ec7f8b7634181b8d4c03e5b5d204ac21d6e72f46c313973424664b2e6b",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/skip2/go-qrcode",
+      "version": "v0.0.0-20200617195104-da1b6568686e",
+      "source": "https://github.com/skip2/go-qrcode",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1d0ae00191f0ef96/LICENSE",
+          "sha256": "4cdab772de606bdf53e174b2f5d6a2c398156380ca1f763122198cece531d02c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/spf13/cobra",
+      "version": "v1.10.2",
+      "source": "https://github.com/spf13/cobra",
+      "license_files": [
+        {
+          "file": "third_party/licenses/11bbffcd17fd6421/LICENSE.txt",
+          "sha256": "5e3400b93bbb099e83e52bab885e7441750673c21f97988ca3f1240639b63283",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.9",
+      "source": "https://github.com/spf13/pflag",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f12d83c223585f80/LICENSE",
+          "sha256": "b8514c577c1c4b46cee454d5a882b15fa411e72c5bd7f801f241591789fce61a",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/stretchr/objx",
+      "version": "v0.5.2",
+      "source": "https://github.com/stretchr/objx",
+      "license_files": [
+        {
+          "file": "third_party/licenses/7c80338ffd881bfb/LICENSE",
+          "sha256": "b2663894033a05fd80261176cd8da1d72546e25842d5c1abcc852ca23b6b61b0",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/stretchr/testify",
+      "version": "v1.11.1",
+      "source": "https://github.com/stretchr/testify",
+      "license_files": [
+        {
+          "file": "third_party/licenses/87bb82a7d12bbd8e/LICENSE",
+          "sha256": "f8e536c1c7b695810427095dc85f5f80d44ff7c10535e8a9486cf393e2599189",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/tencent-connect/botgo",
+      "version": "v0.2.1",
+      "source": "https://github.com/tencent-connect/botgo",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f2441afa4deabeed/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/tidwall/gjson",
+      "version": "v1.9.3",
+      "source": "https://github.com/tidwall/gjson",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fbcabf42edc092a1/LICENSE",
+          "sha256": "be83ad53208d03a9fe08c7fac231cabf79422989ef5706bff217bd35104ebf07",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/tidwall/match",
+      "version": "v1.1.1",
+      "source": "https://github.com/tidwall/match",
+      "license_files": [
+        {
+          "file": "third_party/licenses/8998e411417e0103/LICENSE",
+          "sha256": "be83ad53208d03a9fe08c7fac231cabf79422989ef5706bff217bd35104ebf07",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/tidwall/pretty",
+      "version": "v1.2.0",
+      "source": "https://github.com/tidwall/pretty",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c68434ddc4c3b75b/LICENSE",
+          "sha256": "0ca70311227fe097c662dece3f359e3317fa7f9d41f8d29eb45fc5135e216139",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/tiendc/go-deepcopy",
+      "version": "v1.7.2",
+      "source": "https://github.com/tiendc/go-deepcopy",
+      "license_files": [
+        {
+          "file": "third_party/licenses/24231c772b4b5cd3/LICENSE",
+          "sha256": "790522a8c994c2adf4c35397a0bc2fe68e59feb7b59fba812586403d15692c71",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/vcaesar/cedar",
+      "version": "v0.30.0",
+      "source": "https://github.com/vcaesar/cedar",
+      "license_files": [
+        {
+          "file": "third_party/licenses/df070a2b4490fb5e/LICENSE",
+          "sha256": "074d719e459af6c67b68ae8746a48c824798733a127301d156ce3401e3d399ad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/vcaesar/tt",
+      "version": "v0.20.1",
+      "source": "https://github.com/vcaesar/tt",
+      "license_files": [
+        {
+          "file": "third_party/licenses/82116f792b69d580/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/xavier268/mydocx",
+      "version": "v0.5.0",
+      "source": "https://github.com/xavier268/mydocx",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b1a2d4820ff5ad5d/LICENSE",
+          "sha256": "94549596d23d4c3f54dbd7cdfcbbedcb714c7e1618f04c7761cfb40031da49c9",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/xuri/efp",
+      "version": "v0.0.1",
+      "source": "https://github.com/xuri/efp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/32c0cc33074d436d/LICENSE",
+          "sha256": "80d18b43dabef906fa55655b7bf2b6709ce7c7e0762484cf17b757a4b47590f3",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/xuri/excelize/v2",
+      "version": "v2.10.1",
+      "source": "https://github.com/xuri/excelize/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3e375ea521835b53/LICENSE",
+          "sha256": "0b8e4f8789b88fa44dee713d934e4d36f52854b33670ab4a0ce3de69e8e224cd",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/xuri/nfp",
+      "version": "v0.0.2-0.20250530014748-2ddeb826f9a9",
+      "source": "https://github.com/xuri/nfp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3fde7866cf6ceeae/LICENSE",
+          "sha256": "0de3fcd687652dc103446ce5c0d2aec948fbbb1f9099b3c1958c3fd62ba941a0",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/xyproto/randomstring",
+      "version": "v1.0.5",
+      "source": "https://github.com/xyproto/randomstring",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6ab4d10f70a65eda/LICENSE",
+          "sha256": "600fd527a502cc31df79186bf50db4ed680ec5f57e4ac628e54cbfaa4c8140f2",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/yosida95/uritemplate/v3",
+      "version": "v3.0.2",
+      "source": "https://github.com/yosida95/uritemplate/v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/21341595d074f008/LICENSE",
+          "sha256": "0761aadfb1921103752869ee942d4a71bdd54494697684d4b13dc17ad9781191",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/yuin/goldmark",
+      "version": "v1.7.12",
+      "source": "https://github.com/yuin/goldmark",
+      "license_files": [
+        {
+          "file": "third_party/licenses/946aca34e8457e2f/LICENSE",
+          "sha256": "c1d6f653c38c80294dc7994647ba0dcc508ce64a86996303c804efa2f7982bff",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/zoobz-io/chisel",
+      "version": "v0.0.3",
+      "source": "https://github.com/zoobz-io/chisel",
+      "license_files": [
+        {
+          "file": "third_party/licenses/6b11930a0b8a99af/LICENSE",
+          "sha256": "ae3d3b357ade2edf2a8c81d33bfb45f2c3d2d0042effdefad2c163a4b38be6a4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "github.com/zoobz-io/chisel/golang",
+      "version": "v0.0.3",
+      "source": "https://github.com/zoobz-io/chisel/golang",
+      "license_files": [
+        {
+          "file": "third_party/licenses/94dea7a1221a7cc5/LICENSE",
+          "sha256": "ae3d3b357ade2edf2a8c81d33bfb45f2c3d2d0042effdefad2c163a4b38be6a4",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "go.etcd.io/bbolt",
+      "version": "v1.4.0",
+      "source": "https://go.etcd.io/bbolt",
+      "license_files": [
+        {
+          "file": "third_party/licenses/476ec43c80ef7ffa/LICENSE",
+          "sha256": "c15d721c37e277a11584547de6d618541501f7aa10c4e32a945a4f9ff36cb0f6",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "go.etcd.io/gofail",
+      "version": "v0.2.0",
+      "source": "https://go.etcd.io/gofail",
+      "license_files": [
+        {
+          "file": "third_party/licenses/e9e326a567515b8a/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "classification_hint": "Apache-2.0 (text detected)"
+        },
+        {
+          "file": "third_party/licenses/e9e326a567515b8a/NOTICE",
+          "sha256": "572b159624f1898b40e9f09c9e4cfb65a595044960982aa95126bc28f7d1e6c0",
+          "classification_hint": "Review supplied text"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/crypto",
+      "version": "v0.53.0",
+      "source": "https://golang.org/x/crypto",
+      "license_files": [
+        {
+          "file": "third_party/licenses/31dc18e6d1a8d5ca/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/exp",
+      "version": "v0.0.0-20260312153236-7ab1446f8b90",
+      "source": "https://golang.org/x/exp",
+      "license_files": [
+        {
+          "file": "third_party/licenses/1dfbad810e4c64e4/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/image",
+      "version": "v0.36.0",
+      "source": "https://golang.org/x/image",
+      "license_files": [
+        {
+          "file": "third_party/licenses/82599fe435ee295b/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/mod",
+      "version": "v0.36.0",
+      "source": "https://golang.org/x/mod",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c8486a88000249ba/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/net",
+      "version": "v0.56.0",
+      "source": "https://golang.org/x/net",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b897e7f85d507877/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/oauth2",
+      "version": "v0.35.0",
+      "source": "https://golang.org/x/oauth2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/109339290ce3d234/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/sync",
+      "version": "v0.21.0",
+      "source": "https://golang.org/x/sync",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9d759902cfc1a2b5/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/sys",
+      "version": "v0.46.0",
+      "source": "https://golang.org/x/sys",
+      "license_files": [
+        {
+          "file": "third_party/licenses/794ed82fbf55d655/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/telemetry",
+      "version": "v0.0.0-20240228155512-f48c80bd79b2",
+      "source": "https://golang.org/x/telemetry",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ed7f86feee79b933/LICENSE",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/term",
+      "version": "v0.44.0",
+      "source": "https://golang.org/x/term",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fbd408a68f29d3fb/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/text",
+      "version": "v0.38.0",
+      "source": "https://golang.org/x/text",
+      "license_files": [
+        {
+          "file": "third_party/licenses/65d3e3b44e836053/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/tools",
+      "version": "v0.45.0",
+      "source": "https://golang.org/x/tools",
+      "license_files": [
+        {
+          "file": "third_party/licenses/39fbee21ffc6864d/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/tools/go/expect",
+      "version": "v0.1.1-deprecated",
+      "source": "https://golang.org/x/tools/go/expect",
+      "license_files": [
+        {
+          "file": "third_party/licenses/82565cbcfdcf6ebd/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/tools/go/packages/packagestest",
+      "version": "v0.1.1-deprecated",
+      "source": "https://golang.org/x/tools/go/packages/packagestest",
+      "license_files": [
+        {
+          "file": "third_party/licenses/51c3a4f02945798c/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "golang.org/x/xerrors",
+      "version": "v0.0.0-20200804184101-5ec99f83aff1",
+      "source": "https://golang.org/x/xerrors",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c953f6ff3c7770b7/LICENSE",
+          "sha256": "84d554e7a5d139b7c7b5d6ef0670ae556c4cdcfa354eaad72a1c07c08012c96f",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "google.golang.org/protobuf",
+      "version": "v1.36.6",
+      "source": "https://google.golang.org/protobuf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ab384c4fef8d9878/LICENSE",
+          "sha256": "4835612df0098ca95f8e7d9e3bffcb02358d435dbb38057c844c99d7f725eb20",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/check.v1",
+      "version": "v1.0.0-20201130134442-10cb98267c6c",
+      "source": "https://gopkg.in/check.v1",
+      "license_files": [
+        {
+          "file": "third_party/licenses/9dd335ea47fae73b/LICENSE",
+          "sha256": "69ce77f2b1c9c608d27f2d749b0e7d0c13960ed3b0dc07b973ac940e362e5d9c",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/errgo.v2",
+      "version": "v2.1.0",
+      "source": "https://gopkg.in/errgo.v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/4ee128b0337a53ec/LICENSE",
+          "sha256": "48f2a26323f73cc08dea42719da27d177be39bfbb4c6c2031eb4ae7d7935856f",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/fsnotify.v1",
+      "version": "v1.4.7",
+      "source": "https://gopkg.in/fsnotify.v1",
+      "license_files": [
+        {
+          "file": "third_party/licenses/5849073ac41fdf3b/LICENSE",
+          "sha256": "c8001d18c3dda64c7e72146f1b23d73619fcf426aed6778f447599f5ac8e600a",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/ini.v1",
+      "version": "v1.67.1",
+      "source": "https://gopkg.in/ini.v1",
+      "license_files": [
+        {
+          "file": "third_party/licenses/7ec6bd605f9301e1/LICENSE",
+          "sha256": "f6918bd93ffe07f4b2c61b8287c32cb3122e08aed0be50f1c7d0eddc87877a8f",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/tomb.v1",
+      "version": "v1.0.0-20141024135613-dd632973f1e7",
+      "source": "https://gopkg.in/tomb.v1",
+      "license_files": [
+        {
+          "file": "third_party/licenses/13054968ed060f2f/LICENSE",
+          "sha256": "8407b13e462f755c06db3db3a034dc1fdc9157af19c6ea8986e7d5aecf4126b3",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/yaml.v2",
+      "version": "v2.4.0",
+      "source": "https://gopkg.in/yaml.v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2f0c4a1da39e5511/LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "classification_hint": "Apache-2.0 (text detected)"
+        },
+        {
+          "file": "third_party/licenses/2f0c4a1da39e5511/LICENSE.libyaml",
+          "sha256": "a94710b55e03b5285f77d048c5ba61bb9d6ee04a06c0eb90e68821e11b0c707a",
+          "classification_hint": "MIT (text detected)"
+        },
+        {
+          "file": "third_party/licenses/2f0c4a1da39e5511/NOTICE",
+          "sha256": "f6c2dd3a67b576eafb89b80200b8b1627230bf3821a0c14cb99a22ac19107d00",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gopkg.in/yaml.v3",
+      "version": "v3.0.1",
+      "source": "https://gopkg.in/yaml.v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/491112fe160db255/LICENSE",
+          "sha256": "d18f6323b71b0b768bb5e9616e36da390fbd39369a81807cca352de4e4e6aa0b",
+          "classification_hint": "Apache-2.0 (text detected)"
+        },
+        {
+          "file": "third_party/licenses/491112fe160db255/NOTICE",
+          "sha256": "f6c2dd3a67b576eafb89b80200b8b1627230bf3821a0c14cb99a22ac19107d00",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/datatypes",
+      "version": "v1.0.5",
+      "source": "https://gorm.io/datatypes",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fb4204e59bb83f5f/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/driver/mysql",
+      "version": "v1.6.0",
+      "source": "https://gorm.io/driver/mysql",
+      "license_files": [
+        {
+          "file": "third_party/licenses/4dad593ad59f698c/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/driver/postgres",
+      "version": "v1.6.0",
+      "source": "https://gorm.io/driver/postgres",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fba506e88a610fb9/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/driver/sqlite",
+      "version": "v1.6.0",
+      "source": "https://gorm.io/driver/sqlite",
+      "license_files": [
+        {
+          "file": "third_party/licenses/02df1c287efe4dbc/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/driver/sqlserver",
+      "version": "v1.6.3",
+      "source": "https://gorm.io/driver/sqlserver",
+      "license_files": [
+        {
+          "file": "third_party/licenses/b30abf9b7c347fec/License",
+          "sha256": "59f62caa972078dc1664ce928b5e5d51b78633fc43b78894d2dab83bc504edee",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "gorm.io/gorm",
+      "version": "v1.31.1",
+      "source": "https://gorm.io/gorm",
+      "license_files": [
+        {
+          "file": "third_party/licenses/073190dcc0403ffc/LICENSE",
+          "sha256": "a7535fe9fee1f534b47846eee31be7492c73fb766e6f4fe9433a427e16e147c3",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "lukechampine.com/uint128",
+      "version": "v1.2.0",
+      "source": "https://lukechampine.com/uint128",
+      "license_files": [
+        {
+          "file": "third_party/licenses/c8a02f9c7c73a8e0/LICENSE",
+          "sha256": "1bab848afdf73b64a7d332c4a38316f87e7ac8463d40fdb1152db7172c842990",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/cc/v3",
+      "version": "v3.41.0",
+      "source": "https://modernc.org/cc/v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/aca71e689c93e215/LICENSE",
+          "sha256": "e8bc016fb37cf5052bc3d17da75f1cab56263ccf3471a7b928cead7ab1fe50f5",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/cc/v4",
+      "version": "v4.24.4",
+      "source": "https://modernc.org/cc/v4",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f3a35c8f6ef0e02c/LICENSE",
+          "sha256": "1c77905db36f407e0fdb513f97f1f2a3f2282049ca273637841face982d5d003",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/ccgo/v3",
+      "version": "v3.17.0",
+      "source": "https://modernc.org/ccgo/v3",
+      "license_files": [
+        {
+          "file": "third_party/licenses/2cf6de2891cc89f9/LICENSE",
+          "sha256": "343748b20da2ceb739c1ab7b85fe16f6fe4b67fad88fea40c5835a08383d8ffe",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/ccgo/v4",
+      "version": "v4.23.16",
+      "source": "https://modernc.org/ccgo/v4",
+      "license_files": [
+        {
+          "file": "third_party/licenses/de5cf8b09e1d14da/LICENSE",
+          "sha256": "343748b20da2ceb739c1ab7b85fe16f6fe4b67fad88fea40c5835a08383d8ffe",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/fileutil",
+      "version": "v1.3.0",
+      "source": "https://modernc.org/fileutil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/72de07cdb414e0eb/LICENSE",
+          "sha256": "7dc07397727fc500d5ce768d724e4d555eee8fb7687f421fd40d72249868b0ca",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/gc/v2",
+      "version": "v2.6.3",
+      "source": "https://modernc.org/gc/v2",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d428259e06b79c49/LICENSE",
+          "sha256": "4719790df5e9d33b1cef3a67df8264fb1e3e7f54f3ca900c562e84a951de62d9",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/libc",
+      "version": "v1.61.13",
+      "source": "https://modernc.org/libc",
+      "license_files": [
+        {
+          "file": "third_party/licenses/64c206f664726c3c/COPYRIGHT-MUSL",
+          "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+          "classification_hint": "MIT (text detected)"
+        },
+        {
+          "file": "third_party/licenses/64c206f664726c3c/LICENSE",
+          "sha256": "95ff867eb55a56935fa7492406cfa953fb7c13ca73f4c0a86ae05756b4605600",
+          "classification_hint": "BSD family (review exact text)"
+        },
+        {
+          "file": "third_party/licenses/64c206f664726c3c/LICENSE-GO",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected",
+      "replacement": "modernc.org/libc",
+      "replacement_version": "v1.61.13"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/mathutil",
+      "version": "v1.7.1",
+      "source": "https://modernc.org/mathutil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/bc866d47782e62af/LICENSE",
+          "sha256": "bfa9bf72a72ca009fd62a8f84fca3dca67e51d93af96352723646599898b6cf5",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/memory",
+      "version": "v1.8.2",
+      "source": "https://modernc.org/memory",
+      "license_files": [
+        {
+          "file": "third_party/licenses/27f211ec95b6f296/LICENSE",
+          "sha256": "59895e669f48f168b6b858358f6005779cdf40a265f7828813061b56af67b496",
+          "classification_hint": "BSD family (review exact text)"
+        },
+        {
+          "file": "third_party/licenses/27f211ec95b6f296/LICENSE-GO",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        },
+        {
+          "file": "third_party/licenses/27f211ec95b6f296/LICENSE-MMAP-GO",
+          "sha256": "c2eba69f20d05414538c3a5df7694dde392e065ff70882e1625e90f5d6659fff",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/opt",
+      "version": "v0.1.4",
+      "source": "https://modernc.org/opt",
+      "license_files": [
+        {
+          "file": "third_party/licenses/dab1a2dd07f7b957/LICENSE",
+          "sha256": "7a0dd90f1d1c8fa80d03c1806bdd8e4dca7285fae9b4a34f2c4a8a2552fdd77c",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/sortutil",
+      "version": "v1.2.1",
+      "source": "https://modernc.org/sortutil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/fc6f3ec3f0c03f92/LICENSE",
+          "sha256": "7bc9df688c16dd8e64463ec0ad66728730a0e1a70a1dbda3dcbcd8a9b45bfaab",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/sqlite",
+      "version": "v1.23.1",
+      "source": "https://modernc.org/sqlite",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a5968ccea1a683c6/LICENSE",
+          "sha256": "c6fe05491a60ae13bcd223088d2705e36dede24e5587226231d2459ada5c4822",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected",
+      "replacement": "modernc.org/sqlite",
+      "replacement_version": "v1.36.0"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/strutil",
+      "version": "v1.2.1",
+      "source": "https://modernc.org/strutil",
+      "license_files": [
+        {
+          "file": "third_party/licenses/f1805d91f28d0e49/LICENSE",
+          "sha256": "0f594b710bedb0335b15155204150cb1aac98e76144b52b852b43ce6a65eaaad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "go-module",
+      "name": "modernc.org/token",
+      "version": "v1.1.0",
+      "source": "https://modernc.org/token",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a782ab21768e9b03/LICENSE",
+          "sha256": "2d36597f7117c38b006835ae7f537487207d8ec407aa9d9980794b2030cbc067",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "toolchain-runtime",
+      "name": "Go",
+      "version": "go1.26.0",
+      "source": "https://go.dev/",
+      "license_files": [
+        {
+          "file": "third_party/licenses/430b15e37f84b856/LICENSE",
+          "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "chart.js",
+      "version": "4.4.0",
+      "source": "https://www.npmjs.com/package/chart.js/v/4.4.0",
+      "assets": [
+        {
+          "path": "web/chart.umd.min.js",
+          "sha256": "0e2326c6868072bec1592760c6729043caeea2960a2b46cee6a2192aac6abff0"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ce759eafa556fd72/LICENSE.md",
+          "sha256": "5a0877ad6d818529be4f33009d0942cdf7e2ed7656156f4aba7308459a546030",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/chart.js/4.4.0",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "highlight.js",
+      "version": "11.9.0",
+      "source": "https://www.npmjs.com/package/highlight.js/v/11.9.0",
+      "assets": [
+        {
+          "path": "web/highlight.min.js",
+          "sha256": "837a6fa5b0c736b52bbde2b2b6190f305da3fc9ed41681db5321507057b5c846"
+        },
+        {
+          "path": "web/github.min.css",
+          "sha256": "3a9a5def8b9c311e5ae43abde85c63133185eed4f0d9f67fea4b00a8308cf066"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d6d350fbcda38bb6/LICENSE",
+          "sha256": "6c081431591d9df696c82dc598fe1423765b8a299b200ed00b281afd0f64c490",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/highlight.js/11.9.0",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "html2canvas",
+      "version": "1.4.1",
+      "source": "https://www.npmjs.com/package/html2canvas/v/1.4.1",
+      "assets": [
+        {
+          "path": "web/html2canvas.min.js",
+          "sha256": "e87e550794322e574a1fda0c1549a3c70dae5a93d9113417a429016838eab8cb"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d20c0a4522a235d8/LICENSE",
+          "sha256": "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/html2canvas/1.4.1",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "lucide",
+      "version": "1.21.0",
+      "source": "https://www.npmjs.com/package/lucide/v/1.21.0",
+      "assets": [
+        {
+          "path": "web/lucide.min.js",
+          "sha256": "3c91b931c3b7192e3d96bbf5398a10506062221f8c9a18809fdc05405af7051a"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ad09a19ac6064799/LICENSE",
+          "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/lucide/1.21.0",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "marked",
+      "version": "14.1.4",
+      "source": "https://www.npmjs.com/package/marked/v/14.1.4",
+      "assets": [
+        {
+          "path": "web/marked.min.js",
+          "sha256": "0a0fbf5ea62f007e7ede02d6f75b4eb142ee8acb310cd957ed566af3304c0bcc"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/a4b82b2b91b31d5e/LICENSE.md",
+          "sha256": "8e3a3f82f59a60958f56ca08f445647c32a4733dc7ca6c2c46f6eb898471ab9c",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/marked/14.1.4",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "pdfjs-dist",
+      "version": "2.16.105",
+      "source": "https://www.npmjs.com/package/pdfjs-dist/v/2.16.105",
+      "assets": [
+        {
+          "path": "web/pdf.min.js",
+          "sha256": "1fc294eefda602e591a06c1d5af361cae23756b5a334fc2421d5f9accce038e5"
+        },
+        {
+          "path": "web/pdf.worker.min.js",
+          "sha256": "db48c37919a79ef267a4e4f5f6ca649092f6e645c4ca8fee0f4dd4bc0809c8a8"
+        }
+      ],
+      "version_evidence": "resource header or embedded version",
+      "license_files": [
+        {
+          "file": "third_party/licenses/d1b5941c3f592ecd/LICENSE",
+          "sha256": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+          "classification_hint": "Apache-2.0 (text detected)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/pdfjs-dist/2.16.105",
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "web-resource",
+      "name": "mammoth",
+      "version": "1.8.0",
+      "source": "https://www.npmjs.com/package/mammoth/v/1.8.0",
+      "assets": [
+        {
+          "path": "web/mammoth.browser.min.js",
+          "sha256": "deb07bf230d1cb3e190bc5adc6743f35c6531b6571d1e5469b24f452a7f0f4ab"
+        }
+      ],
+      "version_evidence": "Bundled file SHA-256 matches npm mammoth@1.8.0 package/mammoth.browser.min.js",
+      "license_files": [
+        {
+          "file": "third_party/licenses/17c97a36166d6d3b/LICENSE",
+          "sha256": "6663bbd049205d38a496ccacb412a151980b444627d38de218b3b809aef330f1",
+          "classification_hint": "BSD family (review exact text)"
+        }
+      ],
+      "license_source": "https://registry.npmjs.org/mammoth/1.8.0",
+      "status": "license_text_collected",
+      "verified_asset_sha256": "deb07bf230d1cb3e190bc5adc6743f35c6531b6571d1e5469b24f452a7f0f4ab"
+    },
+    {
+      "kind": "web-resource",
+      "name": "mermaid",
+      "version": "10.9.6",
+      "source": "https://www.npmjs.com/package/mermaid/v/10.9.6",
+      "assets": [
+        {
+          "path": "web/mermaid.min.js",
+          "sha256": "535048dca87691baea2e322cd7c0eb9e4182554b977f54806dac62c14d025fc7"
+        }
+      ],
+      "version_evidence": "Embedded 10.9.6 version string; bundled bytes differ from the npm dist file",
+      "license_files": [],
+      "license_source": "https://registry.npmjs.org/mermaid/10.9.6",
+      "status": "provenance_review_required",
+      "modification_review": "Bundled distribution variant must be compared with upstream; license collection is not clearance"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/akquant/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9c0c88359d03494a702f5f57938d96281eec2ad3c00f87eba234f548119e90dc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/akshare/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ec7e837c3338c757b503140384127f90e5a78d4934453fc3c8a1b1bbc2386787",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-deepear-lite/alphaear-deepear-lite/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "032ce1e42aed57b55c910ff268503ca1125044b11754d1b3e3f2952da72b96f5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-deepear-lite/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "032ce1e42aed57b55c910ff268503ca1125044b11754d1b3e3f2952da72b96f5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-logic-visualizer/alphaear-logic-visualizer/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "070e250447606f3cb20b096b83eb8a59242b6e735a9b9f90bc7a89277ed9fefc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-logic-visualizer/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "070e250447606f3cb20b096b83eb8a59242b6e735a9b9f90bc7a89277ed9fefc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-news/alphaear-news/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "692716ecabc30205ab5f53b3bf53891b50493628686363ba53c94628b73ff3e7",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-news/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "692716ecabc30205ab5f53b3bf53891b50493628686363ba53c94628b73ff3e7",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-predictor/alphaear-predictor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cbba615e281bee983651a8cc5c2e1f30c961156b767ce661aa29adbd74908953",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-predictor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cbba615e281bee983651a8cc5c2e1f30c961156b767ce661aa29adbd74908953",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-sentiment/alphaear-sentiment/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "81147eefc1e47d560de2b35a5127f75052cee5270792db918dc24991c2178924",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/alphaear-sentiment/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "81147eefc1e47d560de2b35a5127f75052cee5270792db918dc24991c2178924",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/backtrader/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4b0818285349df25424e456372fd8429a0ae06dc048a2f4faf4f4d8c93c81d16",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/baostock/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "40f7970f616b77e85e861677b614e9263ebca31211a84dca3276340fe465e661",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/biga/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "fd98b61d199e768877986c16273d24439df510ec4cd62d86857f033481d33b0f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/duan-yongping-investor/culture-analyzer/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "daa120d9249829d080a8cf8f09a3a8c9fb3f77125c3fc71b18bfe3d27682dff0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/duan-yongping-investor/longterm-checker/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "219c76b827f137cc7c7099c6bb4feb8cdfa460663cd788e09e65e11503a331b6",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/duan-yongping-investor/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "94baafa579d10050a5c9c8d78dc0b6b4d78c92ed701eaed53b23c79d76c9feb5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/eyes/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9cdf886d2c1e96d2ba32a02e8db401175be6efe5b562f8a63a90be31322761e5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/factor-investment/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9ea73bf401cd4824f7abe920c2e659f31dbf616ff43cb5162b3d346aa2c39ba1",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/hillhouse-investment-framework/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ffae2cb1cad99c70c0e21ab3f859a1d6b6e8cdd90ce0a2312e743d5e0b671773",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/huanzhi-fa-fundraising/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "0c32514c462d01b06c168931ef6bdddb517df17d49673d8662c6ad058b7b043c",
+      "license_files": [
+        {
+          "file": "third_party/licenses/89b4c604f569f3e9/LICENSE",
+          "sha256": "c4b4801d4b28298fffa8528e44065891c77ce0269f67bd05a350d3e930b07b37",
+          "classification_hint": "MIT (text detected)"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/investment-brief-generator/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f5be025aae07461f2eb3f41af0332d35555449e97b1ce157bd6a1780795a4e86",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/investment-five-questions/SKILL.md",
+      "version": null,
+      "author_metadata": "爸爸（邱小月整理）",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cfbf29d650bdea20aac6e569cc99c60c31d950f5789eb07be923bac3a7152b79",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/investment-researcher/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9cd27e25bd7d6a760541c06ffff67b78b5bfea10d2ba31b416d9178a8f324872",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/investor-reading-list/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "fef7ea13ec8fa125f11927593bc4ca0c75711f911ed50a8378925e6837f79a2d",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/j-investment-checklist/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "846fd0c68b18b340d2f33284df3e8535eddb5f73ac89d9f5440f811abdc39595",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/j-portfolio-monitor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ae4b006be938c5e64dcdc94cf5cd0b2d6e9d221b9453169fea3b47ff48387062",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/joinquant-docs/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "69522a9a3a31ae51e5e9e2fcdbc209ab1c05fd664f2555f323454022997341fb",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/jqdatasdk/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "80630fc3f50a8267cd17b2f1e35685fff209c19893679fd3d0e7fda770d5cc82",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/lead-researcher/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a74fd44171d9c204c9295f45f7090efcfa506e867eec306e20defbc9a3a5e748",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/li-lu-investor/china-opportunity/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "6653cee1477bb7d405d226342438f12e374cdd8e2f6923c166ba933db5e55a4c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/li-lu-investor/civilization-analyzer/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "374193b501c7e4ab9963f08c772f021d959c52b45b7ce311950b3fc614e53d82",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/li-lu-investor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "532165e33e04bb4ae46c3d8a54eb6757b3a120d6df82f1161a42daee8220a6b8",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/market-research-reports/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "68f9aa654a4a0331d238e9022bb811579697f137c3a6ff4e2ae874a7d1a8554f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/miniqmt/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3db02d73814e2377ed23b72a361c8e56662ac55d0a7e9f4d031ecba66fa4e284",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/mx-stocks-screener/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "070f34e1d04c7c32d88d4cf6f9f6c593d8ba47f53b586bc02b7e88aae976d4dc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/portfolio-monitor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cf2f2b38226bc2fe97d9522e5dd7a388ce7f64ef6274fc5841b63143032977fe",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/pywencai/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "5650b3a969fffbcdb1a1bab9e19318541ec5b8ba6102b2daebdb3b0977f707f1",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/qmt-docs/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b28e9f7f03b6e8fb8c37b1f48182c28370131136358ca6a58afb3610e5f0a4e4",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/quotation-builder/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "261ee2cd9727fa8cfda5823396caa28d98620580248f4944462c5a6874a795c2",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/real-estate-investment-advisor/SKILL.md",
+      "version": null,
+      "author_metadata": "ai-gaoqian",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "03ffce0842e59fab6c6aa40b4513868a5537cdeb52d52e6feb83b3b1ee9363b6",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/rqalpha/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "03fd20683fae644f419bfc79394b6f4e9724f4b9819664bf313881ed6282a790",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/competitive-landscape/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e13aed0245e0d47eb9e6543d9a0091eb0234b66cbb889d67f095fff567c324fe",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/competitor-analysis/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "66db5609ef035cdfb64b09305213a9378596af1ce7ae5d76b2ac7a256d111cec",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/keyword-clustering/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ff9ba08dddef33a2caa843af2b1ccf002c7c991902933d93221f218ae5d865bd",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/keyword-research/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "1f742749a79694e1656c76b8e560afb306a6fbb127339285595cdd53abba21f5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/link-prospecting/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "5b4f99dbe1fc87fa598c348173cd21a0c5050b223daca4698c50412254ab58f5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/seo-coach/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "be6e49d2ca24dbbba6f67a55e2b78f74058f6e7909bc39e42b835727afd406f4",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/seo/seo-project-setup/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "0d1f4b0f60d3640a8851423107519c2848ee3e0666b09721db307747228eb2da",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "efd13cc2f0bbb1efd367729007cede15cf1ce79c6233f7cc4f9c1947300bd83d",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/ssehome-invest/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "8efb68bac62f3afcacc347b1cd7df36949aff52264fc87ba014cf86bb5f216fb",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/stock-analysis-best/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f709acc68df2cd5dbb913f2b71e14ebc334ac8b1832b894235a1ea447307df15",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/stock-price-query/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e103406e833c99021eed5d0c743ef1457ea64d471bdbebd1f8d6f8e65293811f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/tdxquant/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "05be12814768f14845a0991230a920e68f17242ff40569c75e49ec9c3da7cc99",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/tushare/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ae03e07a64f473d0f4a57df71eaa5bd4406eb36354635708c7f7055d31bca414",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/vc-analyst/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "6027f8acedbb3ff28522e027efae100d13af8ce8ff626200bfa36454071c302a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/wu-jun-investor/ai-trend-analyzer/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "92ae1b2f88b14f2fc85ebdda270f86dbce6b01665bd3b7e3d2c97548949e7619",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/wu-jun-investor/data-driven-investor/SKILL.md",
+      "version": null,
+      "author_metadata": "燃冰 + 小蚂蚁",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c917f5a2b276098f4ca6dfb30969d42418a41cc988f85c2da4841470ed139836",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/business-finance/wu-jun-investor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "7e9fbe6825c4a0cfb10b349c3d0bd24fec51269edd4137b6ad5acb343f09883c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/code-developer/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ae322b150289a78f32c227c3cf4e39b2617f1696f4210f75e6eb7c5a14beb3a0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/requesting-code-review/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "12f5f69cc95360a8206770ed05e0daa856dd6908bf33f75224bf59c4959695e4",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e4392d54c4ad796159bbbdc3f4189ac3ae94239bd76a80bfb01aa39e644e788a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/systematic-debugging/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "5971c1fdf927c3fb7c3fa0e39baa3570edcac787143dd728e16e5f0a8b411793",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/test-driven-development/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "5702d252f716b46c2ffc583789a52a2d81cc57e8b43f56f2dd2cc39254c56198",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/coding/understand-codebase/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "0c5ad8d21168a8225eb2fbd59ba226c2ec03f95afef613b4082b9ab28ec6081f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/content-creation/moltbook/SKILL.md",
+      "version": null,
+      "author_metadata": "fengxinzi_pm",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b7a0aa66c6fb4f9a56a0d23e6f91fbce5099c74b09383debae5dade4adfd63ae",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/content-creation/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9fb76471b89011925b4a859fb99059badc7d74b436ec0b1cca6325e2d52dc01e",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/design/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "71b8621d9eec10851b50534825ae6985fb35ffdbee0daf79e41d6f0a794b1c1a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/design/taste-design/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9553efab013f5f71e283fea30659e3a9d96235ba46226ba65dac9b38e96c328b",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/design/web-design/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "293d73a6aabd2d734633c9d287c8e325461f00a58d3f532856e1036e26ec11b0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/backup-restore/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f987eee1865277e7086382118179c8866cb3bfc2ce26c7a34b5cc6ee8b755945",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/cross-compile/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "20ec59dc410225b692eea05d8c8e52dc455878ee89f8ea3554e756d9279dfc96",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/devops-patterns/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3f3f65e92c88887f98dd709f85887242d3f3525f58cd36df21e25a45cbc5612f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/k8s-best-practices/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e46c19aa41f01d310c82cf45c0a83a803b0476e969190caaf739fbb12a597d60",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/remote_deploy/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "2b8eccd52b34eb9929e9e8dcee24037f4f8f9271263fcf95f1bcd4073c7e5487",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/senior-ml-engineer/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "612ad6c37d6c1d6965add0f2319996c22d39d98346ee33a7e615b6d359e9eec0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/server-deploy/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "493ee0d5ae4252d308b7ecfe099bee93f6dac0452b62f67f036c1a2751968bce",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/server-patrol/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "860185db8aa0cc8d459f0a989de4bcf4a0511bdb220ef164ddbc3f64b54cc702",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "837bae166b1cf2c427357ac9e07e06db4dfba04f730f7c9b4115f7d72d359e24",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/storage-cleanup/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "61a7f5aaab5052b827756d779aa2178211263a4f7786134131ce058db86b6af6",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/devops/system-admin/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "174c45b5318b5764b33724c1a2bb1d4f3df5d2ad345d4a6c33472285f0834328",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/dhdna-profiler/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "68cb5df00733cf742a8ac4c5f8956db74740a1d556f1f16f05b937d882f1f485",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/convert-documents/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9631865470e30285bd46425e4f5e3648045492bf6c06a8b4652c4de2c7775e39",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/document-extraction/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "fcf53a9ff73070eb35229732e98c925d8c870d47efe528e47b48c5d7fe2c645b",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/docx-tools/SKILL.md",
+      "version": null,
+      "author_metadata": "macs",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "8d392a4aee411be62af6c79b2edc0937977b576cecbed68cc10040e713e027bf",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ae8fea0579b08bd3/LICENSE.txt",
+          "sha256": "b2472268391eb34ef644b093320e12b99752ba61ec6bab2903dc7db11dbc994b",
+          "classification_hint": "Project-License"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/markdown-converter/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "112032dd05d5de159cdc898f5fd7dc13ab9bfdc1d6b53e373ef65019b2e139ab",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/nano-pdf/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4a19c3916062a0b2a303f929be2e11bc89ed8531b47fa565d7936a363f34d4ac",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/pdf-tools/SKILL.md",
+      "version": null,
+      "author_metadata": "macs",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "12c1b8c6aed756b6ae04f8b467665399454365f06b5888d46bb35f5edb729f73",
+      "license_files": [
+        {
+          "file": "third_party/licenses/27996d52c2809a96/LICENSE.txt",
+          "sha256": "b2472268391eb34ef644b093320e12b99752ba61ec6bab2903dc7db11dbc994b",
+          "classification_hint": "Project-License"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "eeeb861c5f093ced1d1303a73889143111f9a2470ed54dabc4a717b7829b81a3",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/documents/word-docx/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "89ff7f6e3df9b24309dcb1ebc98a5fc34699fc6bd535e3d0883dae004a26a2be",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/hardship-support/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "2555b2ec71df1589fd914dae71d8b39d445b136b044222ed51c9ca15e1ad28f8",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/legal/legal-assistant/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "6e602b0807a7aa0eb79bee072049b14ea410eec7a7eae3ea48fcbb9056fcc8ab",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/legal/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "0c73a14d7c352bd53a408965176d2c31449ca10b1b6caa9ad7ca5b17023a5256",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/legal/understand-contracts/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "9dfff86ed8c095e8feb34824ebeb58513fea54e5ac5c6cb847253bf06377fa25",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/life-note/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "160f12bf02dbd9576aec9f77b46752fda769f0e4a9b06d508e7ea19ca6062b35",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/luck-rich/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "55359a50c547ce457858e173ce6cb7894666d5775916d1dcd1e1cc8f6b209883",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/funasr-speech/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4de34bc352d9acb6b7c31061c447746236c61f532e3af266611f2671b7dc36ab",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/media-capture/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a3f12d7ea215d8704cb0e82bf90b0405af98ab2e943db0d8cc115de1f519462a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/melodylab-ai-song/SKILL.md",
+      "version": null,
+      "author_metadata": "刘东江 (@lidngjing317853)",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "7b063211d128b8ff210002db1f600ea80dce413ccc90fd91e792597ed647295f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/ocr-document/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "45eafc75fb154ed025079733588625ec6b4dfa25a3bfd42778e14c943a043563",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b3d1fd1d22a0d5da57393302c54c4de4e80429d96079469e6f9172e7e21314e2",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/video-note/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a928430305404c59b9e7158d97233177e9b7493713499038a871754da20dbce3",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/media/wx-video-account-notes/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "443f951af09628750be34612ae5e366f908d9a0694a6154eb6155485f411abf7",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/memory/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "88d73a0d3a728bd3579132d6a5af7d33a50878d29a1c15efdcdf8cbdf4d471de",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/monitoring/health-check/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "da22a46f2988dd67ea9a2237d589560a53360e76af1625f7e14da09ab04e7c9a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/monitoring/machine-monitor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f694bd97729d1f32a1b34f3d117f7037dffa966c380bf1c8def684e8136a3e4c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/monitoring/monitoring-stack/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "6081f7150632b7e9e4df4c3af4bb249bf5c04d5be0f96f99b103404e59fe4148",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/monitoring/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a8cd8ec39b1ed60a7f661246eb249a9131034252e0ce9d43c990e64c581542e8",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/nova-community/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "065482ed0968026934e5fc8b055591042f1e5c3fdf8ed53f16d63c2b7d6ae9e7",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/obsidian-sync/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f77cffe2d4ed9fe134a0cf3a237da9406e1a8d0a7a628bb701ff07fc8d4158ea",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/base-ppt/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3a2b8f958a6e5259d6a39b7553d0151d6ce942b40b26c38b84716dfd14ca4016",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/deck-guizang-editorial/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "16943825394df69eaa5275882fb32926c9d32c22420412dda615a7f557b27bbc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/deck-open-slide-canvas/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f53bed57ed9460d9a2666b66727927fdba46ec7c4510e563ab91c401fa6bd5d9",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/deck-swiss-international/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f05a29b01b771d6b5ec9e44835fc00a83ee6619aa165a132f63bdc8182754c3f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/frontend-slides/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b9dd7ae36d4856445e316631ce63fe78cc528d1f3af92d41cab6c87c3f68bebd",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/html-ppt-retro-quarterly-review/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b247a581aa52ea9c9ca5686ab79179abe0a82f7caa521775a7e981c2ea168b29",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/latex-posters/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e1563f0aa3c746cafcbeb9e7ea10adb7073533fb3c464d6f5447efb8adb8d6b8",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/nanobanana-ppt/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4ba90a14d51e6f8e970ba7df36ef3f2c27f66560822ebf24cd4c4ec37ff0e24b",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/paper-operators-visual/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "126dd6c76f7c26bbf1d9fadb7177af0bd85917ac874413533551b15e2a71ea79",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/ppt-art-director/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "832e0347d1d3ba8874e491f97aa211b62270c8860a89d7b14fbf6c5b79ed39c9",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/ppt-keynote/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "27dc0705b70dbd3fff49f66293ad9b0935e4d9107b78abfbd6aaf456fd237935",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/ppt-master/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3df65243f33c1c08f93f7df2ecdf29f97ea37ce7fe9be074eb557fd5decbfbbb",
+      "license_files": [
+        {
+          "file": "third_party/licenses/ec6b99df530718d8/LICENSE",
+          "sha256": "f0bd0446f1ee08282f067dbb5ec467a079dd36dc6854bd6e6b15ea3c8d9b6caf",
+          "classification_hint": "MIT (text detected)"
+        },
+        {
+          "file": "third_party/licenses/ec6b99df530718d8/NOTICE",
+          "sha256": "91d074f26cd5134f04579ea9ecb4e0088c825d17dffac1bca89cfe3be2aad410",
+          "classification_hint": "Review supplied text"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/ppt-master/skills/ppt-master/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "85484c50918c64e1650d0ae14e904767359f8c2af9deeed8d5fad0bb2f2ee18c",
+      "license_files": [
+        {
+          "file": "third_party/licenses/3eaeda0a2c00fec0/LICENSE",
+          "sha256": "f0bd0446f1ee08282f067dbb5ec467a079dd36dc6854bd6e6b15ea3c8d9b6caf",
+          "classification_hint": "MIT (text detected)"
+        },
+        {
+          "file": "third_party/licenses/3eaeda0a2c00fec0/NOTICE",
+          "sha256": "91d074f26cd5134f04579ea9ecb4e0088c825d17dffac1bca89cfe3be2aad410",
+          "classification_hint": "Review supplied text"
+        }
+      ],
+      "status": "license_text_collected"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/pptx/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c27d83c05b9dac01332b8b36bc66fc48d654c0d38497b559c489f3249cca579d",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/pptx-generator/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b1b955f80f57d06e0646a858a8f1f88ef6c9b352b95fa6420618935d594b85dd",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/pptx-html-fidelity-audit/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4d1fe39410f0169830aa1f1ad5342e14541f89060d8bb9f695484f21d57e23a1",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "dde088d7884480064253d70cd4ff6ba58d36b8bc10c4c884c40f985bfe15e25c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/presentation/slides/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "1f9a6e65d2a5bf0e5613e6d4b6e2ebbfabd891cb9465b7677c62337ff79a0184",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/relationship-mentor/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "08ab62fb0f7bcfe45fd261bf2f2a4ddddb7d7924a3697bdf7a37777ce9cca3eb",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/academic-pipeline/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3634fc0457622498dedf0113d0e22112efb65acc996207a6d4b221db995fe9e2",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/citation-mgmt/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e47db857d1d04d6992df38c2e440a7d7480c03dcd1c7483615a0ff73d14a406a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-analysis/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e5f1ec458a7faf783debf222f8a75a51ff6e9e2cc61597a87f0c03d6a6322ea5",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/color-palettes/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "68ce99c5bd025f7c50e8367177e0a7976d0adacee68754b93bb9c254c09ebce9",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/ggplot2-fundamentals/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a8e5f81d90b2d27fd9b0fe0afd68343dac6f32d14b89ab32bede9af891d3fcce",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/heatmaps-clustering/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4bc6f5c1a572d9c931ca314c44e9f5961f266b5fc795aa1a10fa6b33d24b7d74",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/interactive-visualization/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b90cd6496a5bc5295599b900eb2111c9cc588ee26d9a85f6a38513d5061dc12e",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/matplotlib-fundamentals/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4ef385673051d5d88f00e6ef12062f2f99543db34f9e4475a9ad31ce32724293",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/multipanel-figures/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ba94fdc0ee782e7df75a78313ca86826241bd957045e77e97ca01587449f9350",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/data-visualization/statistical-annotation/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "61f6728fad912a3a4f7992e347ef3004decdeaa712d75d897893dabebe1e5018",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/deep-research/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c8a5744361de760579cd0b67e58b73a8d3083572f2c13e45a907e4518069dcae",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/effect-measures/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "1ad3d2c0c7ab98ae92605be5796519712f23b20bfdb98b0eea2b32441f0d0125",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/figure-chart/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a6b5d3b8285546e54f55772e6e17d7f6065a5e07aa0cb956825e78bd6e85025f",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/hypothesis-generation/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cfe1b9b0c116ae0f2d93eadc7654b20d1327d865d6463d8c23be6ef7d7e53df9",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/lit-review/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "14a5f170fd1cd784e2d2b1c844da2286453171099974ba3b214045821187f992",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/lit-search/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "2875acd0d7f932c01517e2db019e45af1d8606260966cbfce45fe79839066d38",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/med-guid/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3b5d23f395fbc5f8ba37644c7f82b0fd3f73b7c6a44897e88d4506789fd11f01",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/medical/medical/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "bee822b57398b8aa76182e600e40c8a9c910c81c2b409e1331abc68acaa1adf1",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/medical/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "d09ebf75df45aa410c46bfd53a9e28d81d41d531104f0af302595850c1452168",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/multiple-testing/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "4c386522a0d92e98ed9b3053db660f889672df2e89da25a926950d4d2f9a2f11",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/nature-data/SKILL.md",
+      "version": null,
+      "author_metadata": "Yuan1z skill, refactored into static/dynamic layers",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "06e10a29462ec691e43314f82bc3e14402c97ec68a701c45a213db92b0576386",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper-polish/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "21e144ee0b4d07083c52056fa8b4b0f35c6f7cbaf87433e18e2fa53fadad5cb2",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper-reader/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "96d09cf9827f193b8e2067bf4d1d6711ab1d0f1539830005ee1c6953c8591454",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper-review/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e85b6dffccb3ccb9c7277974a6721d2fc2c4e2a8fc1c181636de9431c276b60c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper-to-patent/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ef0cd80927af3c26df31faced6aa4480206356e9a0e4f469f58a7337700f1249",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper-write/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3b83608d942cab98970c842e630903b9fdfab46c49b9d027157721d604a2b6fb",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/paper2ppt/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e7255e70b393c7bb775f0d8ca8c9d0e342d55bd14eae64ca4e73793d3013ae83",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/power-and-sample-size/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cef7279b2b5d20a8daf832a19f7a70d5331a8fe4dc8257a2f109368bae56d036",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/research-grants/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "a0f37e6f857063d2ab257c005549e7fd36a46f6aa626970800002c0bdef126cf",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/research-lookup/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "5a03daf121b47dfa3b77c23b4eb47eabb43d82d331c2f193b955df7fb16dde4e",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/reviewer-response/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b8f9553284a4316e9271977678472891a7f162315d021d6c1b0016d42753a671",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/scientific-brainstorming/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "3283e347969e6a84712cae790de58609719983b17eaf1d233d060bfcb6d43b93",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/scientific-critical-thinking/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c31c85233b9edff20d954f0ad740ad3d05cb1ba3888013e1d8edacbcf672c76c",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/senior-data-scientist/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "70796644768d4f4dbe8bb102f66df2e3c9dcd7d1f708952305cf6aba589231b0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "d8ee9ec20d28abe1a19d1dcefb4468846959bbc59d6f8412f43e40e9098b8721",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/statistical-analysis/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "8cd7932268ac0fcf8d67880d0f2062cc0996ebf0f68bea20f37923b11aa2b959",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/research/venue-templates/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "d4d86b712a7eedcde78f27dfb09e87c4ceaa0dc56a94bef0b0d31d3a3ade9ebc",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/robotics/robot-control/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "47d98e122e4f76ae0d1e824381e23642156299ae8e27e8b61c970747dafb39d0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/sendmail/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "652ddc198bf0ca5478144f59e0483388d78b1a62a6d4e7bee7e7309e5e83bf7a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/skill-tools/skill-creator/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "1cd3e399df529e7307ba1dd5c492142c02d40a772db845acf949c8aa2e378076",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/skill-tools/skill-vetter/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e8eb7583355c2ae78a79187dca6a1ec448d9c8360e91652871392179f7ffb8bf",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/skill-tools/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "86b5a5a316c4535192bf600931d49696e9029a06ec37465d1b39359e62f3ceff",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/spike/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "d07de51ad7b77ac13772406897758baaa689e2cb5de0aae3a6a3f63fa631cf49",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/tcm-expert/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "cf71c78f8a1c7904ed12ff39feaf510c2207dbcd7fc9bd279841de8f0bf6e164",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/teamwork/agent-orchestration/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "e3d9038dca9ab29ec8f12353143e2f95cfd8e20da7984c4130538be8911fc43b",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/teamwork/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "b07a46b2a58603aa0059be8a8a3ae047ea448951d34d3e5599b60f3d2d2093ff",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/teamwork/sub-agent/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "409b0b1ecf625fa0f4a73891e7e2ee76d56d547da7db2e1c544b1bf154daf284",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/teamwork/team-research/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "f840fb714152c6a2eb37a5957069563570c398a2ae389208e48858eb938cfddd",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/teamwork/team-roles/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c1133db22c50935dfe388bc24fc646fc52f71be9b2da205c6a7eb17881a8a959",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/agent-browser/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "090bff09b12f3bd6740bed56cd25c15741221d574f57f47007d076712c5dfe08",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/agent-reach/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ca4412c3039a64fd052b74f643f574df2132df7b0d4b66dac994f3352c09e454",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/computer-use/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "c8056cf82f5ed5e927f8a0ed5972ee820aabc473b53878cfe2f45eab2ddd6366",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/multi-search-engine/multi-search-engine-2.0.1/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "ef2d2706e82ad0fc8d681b48e08cfac3ddb716972560394dabe25bf01ccf4933",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/multi-search-engine/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "bc6558ce7ce0290afed0d7edf3d102a83d07f13c9f0c066d5350d7dafb9c69c0",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/opencli/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "169dcb3033f0b7d15b71f2f371f5c54e785fd175986b9220656e77edd1926f6a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/scrapling-web-fetch/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "dcbcfe67f8182e58e5beff23e3d1546408aadb1177eef42356b04a9802c92b4d",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/SKILL.md",
+      "version": null,
+      "author_metadata": "OpenKitty",
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "721ba6313a673638ecf92e58a0f6bd6fd545ac8e474edccd21de26e9529b2d1a",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/web-access/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "2a44a09e2c07f07fc20b65ad66fdf2b3f8f6f2c7b26feb1d4f37f592f353aea8",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    },
+    {
+      "kind": "bundled-skill",
+      "name": "builtin/web-tools/web-search-exa/SKILL.md",
+      "version": null,
+      "author_metadata": null,
+      "source": "repository path; see upstream metadata and original attribution",
+      "sha256": "24f08ac90b30a09898db6b6b7be6a45e449015e378cf5b9b132756ee25c1c88b",
+      "license_files": [],
+      "status": "provenance_and_license_review_required"
+    }
+  ],
+  "status_counts": {
+    "license_text_collected": 225,
+    "license_evidence_missing": 1,
+    "provenance_review_required": 1,
+    "provenance_and_license_review_required": 184
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频笔记"
+  short_description: "把视频、音频、图文素材提取整理成结构化笔记"
+  default_prompt: "请把这个视频/音频/图文素材处理成结构化笔记，并保留提取材料。"

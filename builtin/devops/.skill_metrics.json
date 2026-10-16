@@ -1,0 +1,125 @@
+{
+  "skills": {
+    "backup-restore": {
+      "name": "backup-restore",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6762327+08:00",
+      "created_at": "2026-06-25T20:14:37.4362517+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "cross-compile": {
+      "name": "cross-compile",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6762327+08:00",
+      "created_at": "2026-06-25T20:14:37.4372502+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "devops-patterns": {
+      "name": "devops-patterns",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6762327+08:00",
+      "created_at": "2026-06-25T20:14:37.4382483+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "k8s-best-practices": {
+      "name": "k8s-best-practices",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6762327+08:00",
+      "created_at": "2026-06-25T20:14:37.4392502+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "remote_deploy": {
+      "name": "remote_deploy",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6762327+08:00",
+      "created_at": "2026-06-25T20:14:37.4402503+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "senior-ml-engineer": {
+      "name": "senior-ml-engineer",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6837094+08:00",
+      "created_at": "2026-06-26T15:21:30.1875091+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "server-deploy": {
+      "name": "server-deploy",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6837094+08:00",
+      "created_at": "2026-06-25T20:14:37.4412529+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "server-patrol": {
+      "name": "server-patrol",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6864623+08:00",
+      "created_at": "2026-06-25T20:14:37.4422718+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "storage-cleanup": {
+      "name": "storage-cleanup",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6864623+08:00",
+      "created_at": "2026-06-25T20:14:37.4432504+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "system-admin": {
+      "name": "system-admin",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6864623+08:00",
+      "created_at": "2026-06-25T20:14:37.4442501+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

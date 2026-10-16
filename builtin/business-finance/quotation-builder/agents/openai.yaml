@@ -1,0 +1,4 @@
+interface:
+  display_name: "技术项目报价助手"
+  short_description: "软件、并发与算法项目的可复算工时、预算和正式报价"
+  default_prompt: "Use $quotation-builder to turn this technical requirement into a scoped, auditable effort estimate and quotation."

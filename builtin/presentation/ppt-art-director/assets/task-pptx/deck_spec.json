@@ -1,0 +1,111 @@
+{
+  "needs_customization": true,
+  "quality_profile": "audience-facing",
+  "design_method": "per-slide-custom",
+  "evidence_policy": "source-bound",
+  "art_direction": {
+    "visual_thesis": "Replace with one sentence describing the intended visual character and audience effect",
+    "composition_strategy": "Replace with the planned rhythm of focal, explanatory, comparative, and synthesis pages",
+    "asset_strategy": "Replace with the rules for selecting, creating, and using only evidence-bearing visual material",
+    "palette_strategy": "Name the neutral canvas, ink, one primary accent, and any evidence-driven semantic colors",
+    "typography_strategy": "Use a 50pt+ deck title, 35pt+ conclusion-led slide titles, 24pt+ subheads, 16pt+ body copy, and small type only for source notes",
+    "background_rhythm": "Describe where light evidence pages and a small number of contrast anchor pages change the deck's pace"
+  },
+  "theme": "consulting",
+  "brand": "",
+  "subtitle": "",
+  "evidence_ledger": [
+    {
+      "id": "E1",
+      "source": "source: user",
+      "locator": "user request or authorized source location",
+      "excerpt": "Replace with an exact trusted excerpt that supports the referenced slide"
+    }
+  ],
+  "slides": [
+    {
+      "kind": "cover",
+      "narrative_job": "Set the audience expectation and frame the communication job",
+      "focal_anchor": "One distinctive title composition tied to this subject",
+      "evidence_form": "Title and communication promise",
+      "composition_family": "Task-specific cover",
+      "source_note": "本页不含新增事实",
+      "title": "Replace with the audience-facing title",
+      "subtitle": "Replace with the one-sentence communication job",
+      "kicker": "PRESENTATION"
+    },
+    {
+      "kind": "statement",
+      "narrative_job": "Frame the decisive change or question",
+      "focal_anchor": "One dominant claim with a restrained evidence rail",
+      "evidence_form": "Claim plus three source-grounded signals",
+      "composition_family": "Asymmetric statement",
+      "source_note": "来源：待替换为用户陈述、本地材料或公开来源",
+      "evidence_refs": ["E1"],
+      "title": "Replace with the first takeaway",
+      "takeaway": "Replace with the one conclusion this page must land",
+      "claim": "Replace with one defensible conclusion",
+      "evidence": ["Evidence A", "Evidence B", "Evidence C"]
+    },
+    {
+      "kind": "cards",
+      "narrative_job": "Compare genuinely parallel evidence",
+      "focal_anchor": "A strong comparison axis, not equal-weight decoration",
+      "evidence_form": "Parallel qualitative comparison",
+      "composition_family": "Editorial comparison",
+      "source_note": "来源：待替换为用户陈述、本地材料或公开来源",
+      "evidence_refs": ["E1"],
+      "title": "Replace with the comparison takeaway",
+      "takeaway": "Replace with the implication of the comparison",
+      "items": [
+        {"title": "Evidence A", "body": "Why it matters"},
+        {"title": "Evidence B", "body": "Why it matters"},
+        {"title": "Evidence C", "body": "Why it matters"}
+      ]
+    },
+    {
+      "kind": "process",
+      "narrative_job": "Explain how the system or decision works",
+      "focal_anchor": "One directional flow with a clear start and outcome",
+      "evidence_form": "Causal or operational sequence",
+      "composition_family": "Directional explanatory diagram",
+      "source_note": "来源：待替换为用户陈述、本地材料或公开来源",
+      "evidence_refs": ["E1"],
+      "title": "Replace with the process takeaway",
+      "takeaway": "Replace with what the mechanism proves",
+      "items": [
+        {"title": "Input", "body": "What enters"},
+        {"title": "Transform", "body": "What changes"},
+        {"title": "Outcome", "body": "What the audience gains"}
+      ]
+    },
+    {
+      "kind": "split",
+      "narrative_job": "Resolve a tension or connect two sides",
+      "focal_anchor": "Deliberately dominant left or right side",
+      "evidence_form": "Tension and implication",
+      "composition_family": "Asymmetric split synthesis",
+      "source_note": "来源：待替换为用户陈述、本地材料或公开来源",
+      "evidence_refs": ["E1"],
+      "title": "Replace with the synthesis takeaway",
+      "takeaway": "Replace with the resolved tension or decision implication",
+      "left": {"title": "Left evidence", "body": "What the audience sees"},
+      "right": {"title": "Right implication", "body": "Why it changes the decision"}
+    },
+    {
+      "kind": "closing",
+      "narrative_job": "Resolve the opening with a decision or next action",
+      "focal_anchor": "One memorable synthesis and up to three actions",
+      "evidence_form": "Synthesis and action",
+      "composition_family": "Closing manifesto",
+      "source_note": "本页不含新增事实",
+      "title": "Replace with the final decision or action",
+      "takeaway": "Replace with the conclusion the audience should remember",
+      "items": [
+        {"title": "Action 1", "body": "What happens next"},
+        {"title": "Action 2", "body": "What happens next"},
+        {"title": "Action 3", "body": "What happens next"}
+      ]
+    }
+  ]
+}

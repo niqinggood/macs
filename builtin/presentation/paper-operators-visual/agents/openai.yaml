@@ -1,0 +1,4 @@
+interface:
+  display_name: "纸片人视觉素材"
+  short_description: "为 PPT/文章生成纸片人制片人风格插图规划与提示词"
+  default_prompt: "用纸片人视觉素材风格为这份 PPT 规划一组 16:9 插图素材。"

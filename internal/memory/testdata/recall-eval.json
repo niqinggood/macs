@@ -1,0 +1,38 @@
+{
+  "description": "合成的个人工作区对话场景；不含真实用户数据。固定输入用于比较召回质量与安全回归。",
+  "entries": [
+    {"key":"reply_language","value":"请使用中文回答，专业术语可以保留英文","scope":"user","kind":"preference","state":"active","priority":8},
+    {"key":"document_format","value":"正式报告优先使用 DOCX，演示材料使用 PPTX","scope":"user","kind":"preference","state":"active","priority":8},
+    {"key":"database_choice","value":"蓝天计划使用 SQLite 作为本地记忆数据库","scope":"project","kind":"decision","state":"active","priority":5},
+    {"key":"review_gate","value":"提交报表前必须核对字段映射与样本值","scope":"project","kind":"decision","state":"active","priority":7},
+    {"key":"repeat_rows_fix","value":"重复表格行错位时使用模板结构指纹和稳定单元格地址","scope":"project","kind":"experience","state":"active","priority":6},
+    {"key":"permission_escape","value":"路径越界被拒绝后应检查工作区边界，不要扩大权限","scope":"project","kind":"experience","state":"active","priority":6},
+    {"key":"report_style","value":"个人报告偏好列表呈现","scope":"user","kind":"preference","state":"active","priority":5},
+    {"key":"report_style","value":"蓝天计划报告统一使用表格呈现","scope":"project","kind":"decision","state":"active","priority":5},
+    {"key":"unverified_token","value":"未经核实的演示口令是 SAMPLE_ONLY","scope":"project","kind":"fact","state":"candidate","priority":10},
+    {"key":"obsolete_export","value":"旧导出规则是直接覆盖源文件","scope":"project","kind":"decision","state":"active","priority":10,"forget":true},
+    {"key":"current_draft","value":"当前会话草稿尚未通过审核","scope":"session","kind":"fact","state":"active","priority":6},
+    {"key":"older_algorithm","value":"长期计划的结构摘要算法采用 BLAKE3","scope":"project","kind":"decision","state":"active","priority":1}
+  ],
+  "distractors": {"count":230,"scope":"project","priority":9},
+  "summary": "历史讨论中提到旧导出规则是直接覆盖源文件，但该规则已被遗忘。",
+  "cases": [
+    {"name":"语言偏好","question":"请按我平时的语言习惯回答","expect":"reply_language: 请使用中文回答"},
+    {"name":"文档格式","question":"正式报告应该用什么格式？","expect":"document_format: 正式报告优先使用 DOCX"},
+    {"name":"项目数据库","question":"蓝天计划本地数据库选型是什么？","expect":"database_choice: 蓝天计划使用 SQLite"},
+    {"name":"提交前检查","question":"提交报表之前需要核对什么？","expect":"review_gate: 提交报表前必须核对"},
+    {"name":"重复行纠错","question":"重复表格行出现错位怎么修复？","expect":"repeat_rows_fix: 重复表格行错位时"},
+    {"name":"权限边界纠错","question":"路径越界被拒绝后应该怎么处理？","expect":"permission_escape: 路径越界被拒绝后"},
+    {"name":"范围覆盖","question":"蓝天计划报告用表格还是列表？","expect":"report_style: 蓝天计划报告统一使用表格","forbid":["个人报告偏好列表呈现"]},
+    {"name":"较早低优先级记忆","question":"长期计划结构摘要用什么算法？","expect":"older_algorithm: 长期计划的结构摘要算法采用 BLAKE3"},
+    {"name":"当前会话工作记忆","question":"当前会话草稿通过审核了吗？","expect":"current_draft: 当前会话草稿尚未通过审核"},
+    {"name":"改写问法：表格行错位","difficulty":"paraphrase","question":"填写多个样本时，明细复制后位置跑偏了怎么办？","expect":"repeat_rows_fix: 重复表格行错位时"},
+    {"name":"改写问法：目录越界","difficulty":"paraphrase","question":"工具说目标文件不在允许目录里，我该怎样处理？","expect":"permission_escape: 路径越界被拒绝后"},
+    {"name":"改写问法：提交检查","difficulty":"paraphrase","question":"交付前怎么做质量把关？","expect":"review_gate: 提交报表前必须核对"},
+    {"name":"无关问题不注入", "question":"nebula stellar spectrum", "session_id":"eval-negative", "expect_empty":true},
+    {"name":"空问题不加载长期库", "question":"", "session_id":"eval-negative", "expect_empty":true},
+    {"name":"其他会话隔离","question":"那个会话的草稿通过审核了吗？","session_id":"eval-other","forbid":["当前会话草稿尚未通过审核"]},
+    {"name":"候选不自动召回","question":"演示口令是什么？","forbid":["SAMPLE_ONLY","unverified_token"]},
+    {"name":"遗忘与摘要屏蔽","question":"旧导出规则是什么？","forbid":["旧导出规则是直接覆盖源文件","obsolete_export"]}
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "event_id": "evt_fall_no_response_001",
+  "person_id": "elder_demo_001",
+  "window": {
+    "start": "2026-08-27T03:15:00+08:00",
+    "end": "2026-08-27T03:16:00+08:00"
+  },
+  "observations": [
+    {
+      "type": "fall_suspected",
+      "value": true,
+      "confidence": 0.94,
+      "source": "mmwave"
+    },
+    {
+      "type": "posture",
+      "value": "lying_on_floor",
+      "duration_sec": 45,
+      "confidence": 0.92,
+      "source": "vision_edge"
+    },
+    {
+      "type": "no_response",
+      "value": true,
+      "duration_sec": 30,
+      "confidence": 0.95,
+      "source": "voice_check"
+    }
+  ],
+  "context": {
+    "room": "bedroom",
+    "time_period": "night",
+    "responded_to_voice_check": false,
+    "voice_check_intent": "unknown"
+  },
+  "profile": {
+    "mobility": "assisted",
+    "known_risks": ["previous_fall"]
+  }
+}
+
+

@@ -1,0 +1,175 @@
+<div id="cronModal" class="modal" style="display:none">
+<div class="modal-content" style="max-width:700px;max-height:80vh;overflow-y:auto">
+<div class="modal-header">
+  <h3>⏰ 定时任务管理</h3>
+  <button onclick="closeCronPanel()" style="border:none;background:none;font-size:calc(22px * var(--macs-font-scale, 1));cursor:pointer">&times;</button>
+</div>
+<div class="modal-body">
+  <div style="margin-bottom:16px">
+    <button onclick="showCronAdd()" style="padding:6px 16px;background:#366ef4;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1))">+ 新建任务</button>
+    <button onclick="refreshCronList()" style="padding:6px 16px;border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));margin-left:8px">🔄 刷新</button>
+  </div>
+
+  <!-- Add form -->
+  <div id="cronAddForm" style="display:none;background:#f9fafb;padding:16px;border-radius:10px;margin-bottom:16px;border:1px solid #e5e7eb">
+    <h4 style="margin:0 0 12px 0">新建定时任务</h4>
+    <div style="display:grid;gap:10px">
+      <div>
+        <label style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280">任务名称</label>
+        <input id="cronName" placeholder="e.g. daily-report" style="width:100%;padding:6px 10px;border:1px solid #ddd;border-radius:6px;margin-top:4px">
+      </div>
+      <div>
+        <label style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280">Cron 表达式</label>
+        <input id="cronExpr" placeholder="e.g. 0 9 * * 1-5" style="width:100%;padding:6px 10px;border:1px solid #ddd;border-radius:6px;margin-top:4px">
+        <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#9ca3af;margin-top:4px">
+          常用: <a href="#" onclick="document.getElementById('cronExpr').value='0 9 * * 1-5';return false">工作日9点</a> ·
+          <a href="#" onclick="document.getElementById('cronExpr').value='0 */6 * * *';return false">每6小时</a> ·
+          <a href="#" onclick="document.getElementById('cronExpr').value='0 0 * * 0';return false">每周日</a> ·
+          <a href="#" onclick="document.getElementById('cronExpr').value='0 8 * * *';return false">每天8点</a>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280">提示词/任务描述</label>
+        <input id="cronPrompt" placeholder="定时任务要做什么" style="width:100%;padding:6px 10px;border:1px solid #ddd;border-radius:6px;margin-top:4px">
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="addCronTask()" style="padding:6px 20px;background:#22c55e;color:#fff;border:none;border-radius:6px;cursor:pointer">✅ 创建</button>
+        <button onclick="document.getElementById('cronAddForm').style.display='none'" style="padding:6px 16px;border:1px solid #ddd;border-radius:6px;cursor:pointer">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task list -->
+  <div id="cronTaskList" style="font-size:calc(14.3px * var(--macs-font-scale, 1))">
+    <div style="text-align:center;padding:30px;color:#9ca3af">加载中...</div>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+function showCronAdd() {
+  document.getElementById('cronAddForm').style.display = 'block';
+  document.getElementById('cronName').focus();
+}
+
+async function addCronTask() {
+  var name = document.getElementById('cronName').value.trim();
+  var expr = document.getElementById('cronExpr').value.trim();
+  var prompt = document.getElementById('cronPrompt').value.trim();
+  if (!name || !expr) { alert('请填写任务名称和Cron表达式'); return; }
+
+  try {
+    var resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: 'cron_task action=add name='+name+' cron_expr='+expr+' prompt='+(prompt||name),
+        session_id: 'cron-mgmt',
+        stream: false
+      })
+    });
+    document.getElementById('cronAddForm').style.display = 'none';
+    document.getElementById('cronName').value = '';
+    document.getElementById('cronExpr').value = '';
+    document.getElementById('cronPrompt').value = '';
+    await refreshCronList();
+  } catch(e) { alert('创建失败: '+e.message); }
+}
+
+async function removeCronTask(name) {
+  if (!confirm('删除定时任务 "'+name+'" ?')) return;
+  try {
+    await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: 'cron_task action=remove name='+name,
+        session_id: 'cron-mgmt',
+        stream: false
+      })
+    });
+    await refreshCronList();
+  } catch(e) { alert('删除失败: '+e.message); }
+}
+
+async function refreshCronList() {
+  var el = document.getElementById('cronTaskList');
+  if (!el) return;
+  try {
+    var resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: 'cron_task action=list',
+        session_id: 'cron-mgmt',
+        stream: false
+      })
+    });
+    var data = await resp.json();
+    var result = data.result || '';
+
+    if (result.indexOf('No scheduled tasks')>=0) {
+      el.innerHTML = '<div style="text-align:center;padding:30px;color:#9ca3af">暂无定时任务<br><span style="font-size:calc(13.2px * var(--macs-font-scale, 1))">点击"+ 新建任务"创建</span></div>';
+      return;
+    }
+
+    var lines = result.split('\n');
+    var html = '<div style="display:grid;gap:8px">';
+    var currentTask = null;
+
+    for (var i=0; i<lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) continue;
+      if (line.indexOf('- **')===0) {
+        if (currentTask) html += formatCronTaskCard(currentTask);
+        currentTask = {name: extractBold(line), expr: extractCode(line), next: ''};
+      } else if (line.indexOf('Next run:')>=0 && currentTask) {
+        currentTask.next = line.replace('Next run:','').trim();
+      }
+    }
+    if (currentTask) html += formatCronTaskCard(currentTask);
+    html += '</div>';
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = '<div style="color:#ef4444;text-align:center">加载失败: '+e.message+'</div>';
+  }
+}
+
+function extractBold(s) { var m = s.match(/\*\*(.+?)\*\*/); return m?m[1]:''; }
+function extractCode(s) { var m = s.match(/`(.+?)`/); return m?m[1]:''; }
+
+function formatCronTaskCard(task) {
+  return '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center">'+
+      '<div>'+
+        '<strong style="font-size:calc(15.4px * var(--macs-font-scale, 1))">'+task.name+'</strong>'+
+        '<code style="background:#f0f0f0;padding:2px 8px;border-radius:10px;font-size:calc(13.2px * var(--macs-font-scale, 1));margin-left:8px">'+task.expr+'</code>'+
+        (task.next?'<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#6b7280;margin-top:4px">下次运行: '+task.next+'</div>':'')+
+      '</div>'+
+      '<button onclick="removeCronTask(\''+task.name+'\')" style="background:#fee2e2;color:#ef4444;border:none;border-radius:6px;padding:4px 12px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1))">删除</button>'+
+    '</div>'+
+  '</div>';
+}
+
+function openCronPanel() {
+  var m = document.getElementById('cronModal');
+  if (!m) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/web/cron.html?v=1', false);
+    xhr.send();
+    if (xhr.status===200) {
+      var div = document.createElement('div');
+      div.innerHTML = xhr.responseText;
+      document.body.appendChild(div);
+      m = document.getElementById('cronModal');
+    }
+  }
+  if (m) { m.style.display = 'flex'; refreshCronList(); }
+}
+
+function closeCronPanel() {
+  var m = document.getElementById('cronModal');
+  if (m) m.style.display = 'none';
+}
+</script>

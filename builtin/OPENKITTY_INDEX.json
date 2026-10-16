@@ -1,0 +1,171 @@
+{
+  "software-development": {
+    "desc": "plan, debug, TDD, code review, codebase analysis, agent orchestration",
+    "skills": [
+      "plan-mode",
+      "systematic-debugging",
+      "test-driven-development",
+      "requesting-code-review",
+      "spike",
+      "code-developer",
+      "cross-compile",
+      "understand-codebase",
+      "agent-orchestration"
+    ]
+  },
+  "data-analysis": {
+    "desc": "reports, charts, PPT, dashboards",
+    "skills": [
+      "base-ppt",
+      "data-analysis",
+      "stock-daily-report",
+      "pl-report-generator"
+    ]
+  },
+  "slides-decks": {
+    "desc": "PPT generation, slide decks, presentations, art-directed autonomous routing, visual material planning, upstream PPT Master, and editable or high-fidelity PPTX",
+    "skills": [
+      "presentation",
+      "ppt-art-director",
+      "ppt-master",
+      "base-ppt",
+      "paper-operators-visual",
+      "pptx",
+      "pptx-generator",
+      "slides",
+      "deck-guizang-editorial",
+      "deck-open-slide-canvas",
+      "deck-swiss-international",
+      "ppt-keynote",
+      "frontend-slides",
+      "html-ppt-retro-quarterly-review",
+      "nanobanana-ppt",
+      "pptx-html-fidelity-audit"
+    ]
+  },
+  "web-automation": {
+    "desc": "browse, scrape, search, fetch, CDP browser control",
+    "skills": [
+      "agent-browser",
+      "agent-reach",
+	  "computer-use",
+      "scrapling-web-fetch",
+      "multi-search-engine",
+      "web-design",
+      "web-access"
+    ]
+  },
+  "document-processing": {
+    "desc": "convert, extract, PDF, markdown",
+    "skills": [
+      "convert-documents",
+      "document-extraction",
+      "markdown-converter",
+      "nano-pdf"
+    ]
+  },
+  "productivity": {
+    "desc": "daily briefings, news, summaries",
+    "skills": [
+      "work-report",
+      "tech-news-daily",
+      "daily-trending",
+      "summarize"
+    ]
+  },
+  "system-ops": {
+    "desc": "deploy, monitor, backup, admin",
+    "skills": [
+      "remote_deploy",
+      "server-deploy",
+      "machine-monitor",
+      "health-check",
+      "system-admin",
+      "backup-restore"
+    ]
+  },
+  "communication": {
+    "desc": "email, chat platforms, social media",
+    "skills": [
+      "nova-community",
+      "social-media-publish",
+      "sendmail"
+    ]
+  },
+  "relationships-wellbeing": {
+    "desc": "relationship guidance, emotional support, communication repair, dating, marriage, and breakup recovery",
+    "skills": [
+      "relationship-mentor"
+    ]
+  },
+  "hardship-assistance": {
+    "desc": "debt relief, personal finance and tax navigation, loan processes, social assistance, neighborhood mediation, and practical hardship support",
+    "skills": [
+      "hardship-support"
+    ]
+  },
+  "health-wellness": {
+    "desc": "safety-bounded TCM reasoning, modern health indicators, syndrome differentiation, food therapy, acupressure, and foot care",
+    "skills": [
+      "tcm-expert"
+    ]
+  },
+  "culture-entertainment": {
+    "desc": "traditional culture and entertainment readings, Western zodiac, Chinese zodiac, and BaZi",
+    "skills": [
+      "luck-rich"
+    ]
+  },
+  "media": {
+    "desc": "screenshots, audio, camera, OCR/ASR, video and WeChat Channels extraction",
+    "skills": [
+      "media-capture",
+      "wx-video-account-notes",
+      "video-note",
+      "ocr-document",
+      "funasr-speech"
+    ]
+  },
+  "meta": {
+    "desc": "skill management, security, self-evolution",
+    "skills": [
+      "skill-creator",
+      "skill-vetter",
+      "self-evolution-weekly"
+    ]
+  },
+  "research": {
+    "desc": "team-based deep research, competitive analysis, academic studies",
+    "skills": [
+      "team-research",
+      "research-lookup",
+      "med-guid"
+    ]
+  },
+  "business": {
+    "desc": "legal, pricing, lead gen, market research, strategy, thinking tools, knowledge graphs",
+    "skills": [
+      "legal-assistant",
+      "quotation-builder",
+      "huanzhi-fa-fundraising",
+      "lead-researcher",
+      "market-research-reports",
+      "dhdna-profiler",
+      "critical-thinking",
+      "brainstorming",
+      "hypothesis-generation",
+      "research-lookup",
+      "understand-contracts",
+      "understand-competitors",
+      "understand-decision-chain",
+      "understand-industry-trends"
+    ]
+  },
+  "niche": {
+    "desc": "specialized platform integrations",
+    "skills": [
+      "opencli-skill",
+      "productivity"
+    ]
+  }
+}

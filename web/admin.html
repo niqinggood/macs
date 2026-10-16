@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<script src="/web/font_size.js?v=20261012-font-control-v26" defer></script>
+<style>html { font-size: calc(110% * var(--macs-font-scale, 1)); }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACS 管理后台</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:#f1f5f9; display:flex; min-height:100vh; }
+        .admin-sidebar { width:220px; background:#1e293b; color:#e2e8f0; display:flex; flex-direction:column; flex-shrink:0; }
+        .admin-sidebar h2 { padding:20px; font-size:calc(17.6px * var(--macs-font-scale, 1)); border-bottom:1px solid #334155; }
+        .admin-sidebar a { display:block; padding:12px 20px; color:#94a3b8; text-decoration:none; font-size:calc(14.3px * var(--macs-font-scale, 1)); cursor:pointer; transition:all 0.15s; }
+        .admin-sidebar a:hover,.admin-sidebar a.active { color:#fff; background:#334155; }
+        .admin-main { flex:1; padding:24px; overflow-y:auto; }
+        .admin-card { background:#fff; border-radius:10px; padding:20px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+        .admin-card h3 { font-size:calc(16.5px * var(--macs-font-scale, 1)); margin-bottom:12px; color:#1e293b; }
+        .admin-stat { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+        .admin-stat-card { background:#fff; border-radius:10px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,0.06); text-align:center; }
+        .admin-stat-card .num { font-size:calc(30.8px * var(--macs-font-scale, 1)); font-weight:700; color:#6366f1; }
+        .admin-stat-card .label { font-size:calc(12.1px * var(--macs-font-scale, 1)); color:#94a3b8; margin-top:4px; }
+        .admin-table { width:100%; border-collapse:collapse; font-size:calc(14.3px * var(--macs-font-scale, 1)); }
+        .admin-table th { background:#f8fafc; padding:10px; text-align:left; font-weight:600; color:#475569; border-bottom:1px solid #e2e8f0; }
+        .admin-table td { padding:10px; border-bottom:1px solid #f1f5f9; color:#334155; }
+        .admin-btn { padding:6px 14px; border:none; border-radius:6px; cursor:pointer; font-size:calc(13.2px * var(--macs-font-scale, 1)); font-weight:500; }
+        .admin-btn-primary { background:#6366f1;color:#fff; }
+        .admin-btn-danger { background:#dc3545;color:#fff; }
+        .admin-btn-success { background:#22c55e;color:#fff; }
+        input,textarea,select { padding:8px 12px; border:1px solid #e2e8f0; border-radius:6px; font-size:calc(14.3px * var(--macs-font-scale, 1)); width:100%; }
+        textarea { resize:vertical; font-family:inherit; }
+        .login-overlay { position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,.18);display:flex;align-items:center;justify-content:center;z-index:9999; }
+        .login-box { background:#fff;border-radius:12px;padding:32px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+        .login-box h2 { margin-bottom:20px;text-align:center;color:#1e293b; }
+    /* AE edit modal (from ae_panel.js) */
+    .ae-edit-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,.18); z-index:2100; display:none; justify-content:center; align-items:center; backdrop-filter:none; -webkit-backdrop-filter:none; }
+    .ae-edit-modal { background:#fff; border-radius:16px; width:95vw; max-width:680px; max-height:90vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.15); }
+    .ae-edit-header { display:flex; justify-content:space-between; align-items:center; padding:20px 24px 16px; border-bottom:1px solid #f0f0f0; }
+    .ae-edit-header h3 { margin:0; font-size:calc(18.7px * var(--macs-font-scale, 1)); color:#1e293b; }
+    .ae-edit-close { background:none; border:none; font-size:calc(26.4px * var(--macs-font-scale, 1)); color:#475569; cursor:pointer; padding:0 4px; line-height:1; }
+    .ae-edit-body { flex:1; overflow-y:auto; padding:20px 24px 24px; }
+    .ae-edit-field { margin-bottom:16px; }
+    .ae-edit-field label { display:block; font-size:calc(14.3px * var(--macs-font-scale, 1)); font-weight:600; color:#374151; margin-bottom:6px; }
+    .ae-edit-field input, .ae-edit-field textarea { width:100%; padding:8px 12px; border:1px solid #e5e7eb; border-radius:8px; font-size:calc(14.3px * var(--macs-font-scale, 1)); font-family:inherit; box-sizing:border-box; }
+    .ae-edit-field input:focus, .ae-edit-field textarea:focus { outline:none; border-color:#6366f1; box-shadow:0 0 0 3px rgba(99,102,241,0.1); }
+    .ae-edit-field textarea { resize:vertical; min-height:100px; font-size:calc(13.2px * var(--macs-font-scale, 1)); line-height:1.6; }
+    .ae-edit-add-btn { padding:6px 14px; background:#f1f5f9; border:1px dashed #475569; border-radius:8px; cursor:pointer; font-size:calc(13.2px * var(--macs-font-scale, 1)); color:#475569; }
+    .ae-edit-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:24px; padding-top:16px; border-top:1px solid #f0f0f0; }
+    .ae-edit-cancel { padding:9px 20px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:8px; cursor:pointer; font-size:calc(15.4px * var(--macs-font-scale, 1)); color:#374151; }
+    .ae-edit-save { padding:9px 24px; background:#6366f1; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:calc(15.4px * var(--macs-font-scale, 1)); font-weight:600; }
+    </style>
+</head>
+<body>
+<div id="loginOverlay" class="login-overlay">
+    <div class="login-box">
+        <h2>MACS 管理后台</h2>
+        <input id="adminPass" type="password" placeholder="管理员密码" style="margin-bottom:12px;">
+        <button onclick="adminLogin()" class="admin-btn admin-btn-primary" style="width:100%;padding:10px;font-size:calc(15.4px * var(--macs-font-scale, 1));">登录</button>
+    </div>
+</div>
+
+<div class="admin-sidebar">
+    <h2>MACS Admin</h2>
+    <a class="active" onclick="switchAdminTab('dashboard')">📊 仪表盘</a>
+    <a onclick="switchAdminTab('knowledge')">📚 知识库</a>
+    <a onclick="switchAdminTab('pipelines')">🔀 工作流</a>
+    <a onclick="switchAdminTab('deployees')">👥 AI员工</a>
+    <a onclick="switchAdminTab('tenants')">🏢 租户</a>
+    <a onclick="switchAdminTab('settings')">⚙️ 设置</a>
+    <a onclick="switchAdminTab("hooks")">🪝 Hooks</a>
+	    <a onclick="switchAdminTab("agents")">🤖 Agents</a>
+	    <a onclick="switchAdminTab("plugins")">🧩 Plugins</a>
+	    <a onclick="window.location.href='/'" style="margin-top:auto;border-top:1px solid #334155;">← 返回前台</a>
+</div>
+
+<div class="admin-main" id="adminContent"></div>
+
+<script src="/web/chat.js?v=20261012-font-control-v26"></script>
+<script src="/web/ae_panel.js?v=20261012-font-control-v26"></script>
+<script src="/web/admin.js?v=20261012-font-control-v26"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+# OpenKitty Docker Compose
+# Start: docker-compose up -d
+# Logs: docker-compose logs -f openkitty
+# Stop: docker-compose down
+
+services:
+  openkitty:
+    image: openkitty:latest
+    build: .
+    container_name: openkitty
+    restart: unless-stopped
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./openkitty-config.yaml:/app/openkitty-config.yaml:ro
+      - ./openkitty-data:/app/data
+      - ./workspace:/app/workspace
+      - ./knowledge:/app/workspace/knowledge
+      - ./storage:/app/storage
+      - ./memories:/app/memories
+      - ./skills:/app/skills:ro
+    environment:
+      - TZ=Asia/Shanghai
+      - OPENKITTY_LISTEN_ADDR=0.0.0.0:8080
+      - OPENKITTY_WORKSPACE=/app/workspace
+      - OPENKITTY_FIXED_PORT=true
+      - OPENKITTY_HEADLESS=true
+      - OPENKITTY_DISABLE_HTTPS=true
+      - OPENKITTY_SQLITE_PATH=/app/data/openkitty.db
+      - OPENKITTY_AGENT_OS_MODE=all
+      # For multi-instance deployments, use MySQL instead of a shared SQLite file:
+      # - OPENKITTY_MYSQL_HOST=mysql
+      # - OPENKITTY_MYSQL_PORT=3306
+      # - OPENKITTY_MYSQL_USER=openkitty
+      # - OPENKITTY_MYSQL_PASSWORD=change-me
+      # - OPENKITTY_MYSQL_DATABASE=openkitty
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/readyz"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+
+  # Optional: Ollama for local embeddings
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: ollama
+  #   restart: unless-stopped
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ./ollama:/root/.ollama
+  #   entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 3 && ollama pull bge-m3 && wait"]

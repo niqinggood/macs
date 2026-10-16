@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="/web/font_size.js?v=20261012-font-control-v26" defer></script>
+<style>html { font-size: calc(110% * var(--macs-font-scale, 1)); }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eff6ff'/%3E%3Cpath d='M18 30c0-8 6-14 14-14s14 6 14 14v6c0 8-6 14-14 14S18 44 18 36v-6z' fill='%232563eb'/%3E%3Cpath d='M23 19l-5-9v16M41 19l5-9v16' stroke='%232563eb' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='27' cy='33' r='2.6' fill='%23ffffff'/%3E%3Ccircle cx='37' cy='33' r='2.6' fill='%23ffffff'/%3E%3Cpath d='M28 41c2.4 1.8 5.6 1.8 8 0' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>文件预览 - MACS</title>
+<link rel="stylesheet" href="/web/github.min.css">
+<script src="/web/highlight.min.js"></script>
+<script src="/web/marked.min.js"></script>
+<script src="/web/html2canvas.min.js"></script>
+<script src="/web/export-redaction.js?v=20261012-font-control-v26"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#667085;
+    --line:#e5e7ef;
+    --soft:#f8fafc;
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --shadow:0 18px 50px rgba(15,23,42,.08);
+}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',Roboto,sans-serif;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(37,99,235,.08),transparent 26rem),
+        linear-gradient(180deg,#f8fbff 0%,var(--bg) 34rem);
+    color:var(--text);
+    min-height:100vh;
+}
+.toolbar{
+    position:sticky;top:0;z-index:10;
+    background:rgba(255,255,255,.88);
+    border-bottom:1px solid rgba(226,232,240,.9);
+    backdrop-filter:saturate(180%) blur(14px);
+}
+.toolbar-inner{
+    max-width:1180px;margin:0 auto;padding:12px 24px;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;
+}
+.file-meta{min-width:0}
+.eyebrow{font-size:calc(13.2px * var(--macs-font-scale, 1));color:var(--muted);margin-bottom:3px}
+.title{font-size:calc(16.5px * var(--macs-font-scale, 1));font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:68vw}
+.actions{display:flex;gap:10px;flex-shrink:0}
+.btn{
+    padding:7px 14px;border-radius:999px;font-size:calc(14.3px * var(--macs-font-scale, 1));cursor:pointer;font-weight:650;
+    text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1px solid transparent;
+}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-outline{background:#fff;color:#334155;border-color:#d8dee9}
+.btn-outline:hover{background:#f8fafc}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 56px}
+.doc-shell{
+    background:var(--card);
+    border:1px solid rgba(226,232,240,.95);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+.doc-header{
+    padding:24px 34px 18px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#fff,#fbfdff);
+}
+.doc-header h1{
+    font-size:calc(24.2px * var(--macs-font-scale, 1));line-height:1.35;margin:0 0 8px;color:#0f172a;
+}
+.doc-path{
+    color:var(--muted);font-size:calc(13.2px * var(--macs-font-scale, 1));word-break:break-all;
+}
+.markdown-body{
+    padding:34px 44px 46px;
+    font-size:calc(17.1px * var(--macs-font-scale, 1));
+    line-height:1.85;
+    color:#273142;
+    background:#fff;
+}
+.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4{
+    color:#111827;
+    font-weight:800;
+    letter-spacing:-.01em;
+}
+.markdown-body h1{
+    font-size:calc(30.8px * var(--macs-font-scale, 1));
+    margin:0 0 22px;
+    padding-bottom:16px;
+    border-bottom:2px solid #e7eefb;
+}
+.markdown-body h2{
+    font-size:calc(23.1px * var(--macs-font-scale, 1));
+    margin:34px 0 16px;
+    padding:10px 14px;
+    border-left:4px solid var(--primary);
+    background:#f8fbff;
+    border-radius:10px;
+}
+.markdown-body h3{font-size:calc(19.8px * var(--macs-font-scale, 1));margin:28px 0 12px;color:#1e3a8a}
+.markdown-body h4{font-size:calc(17.6px * var(--macs-font-scale, 1));margin:22px 0 10px;color:#334155}
+.markdown-body p{margin:10px 0}
+.markdown-body ul,.markdown-body ol{padding-left:1.35em;margin:10px 0 16px}
+.markdown-body li{margin:4px 0}
+.markdown-body strong{color:#111827}
+.markdown-body hr{height:1px;background:#e5e7ef;border:0;margin:28px 0}
+.markdown-body blockquote{
+    margin:16px 0;padding:12px 16px;
+    color:#475569;background:#f8fafc;
+    border-left:4px solid #94a3b8;border-radius:10px;
+}
+.markdown-body table{
+    display:table;
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    margin:18px 0 26px;
+    font-size:calc(15.4px * var(--macs-font-scale, 1));
+    line-height:1.65;
+    overflow:hidden;
+    border:1px solid #dbe3ef;
+    border-radius:12px;
+}
+.markdown-body th{
+    background:#f1f5fb;
+    color:#1f2937;
+    font-weight:750;
+}
+.markdown-body th,.markdown-body td{
+    border:0;
+    border-right:1px solid #e5eaf2;
+    border-bottom:1px solid #e5eaf2;
+    padding:10px 12px;
+    vertical-align:top;
+}
+.markdown-body tr:last-child td{border-bottom:0}
+.markdown-body th:last-child,.markdown-body td:last-child{border-right:0}
+.markdown-body tr:nth-child(even) td{background:#fcfdff}
+.markdown-body code{
+    background:#eef4ff;
+    color:#1d4ed8;
+    padding:2px 6px;
+    border-radius:6px;
+    font-size:.9em;
+}
+.markdown-body pre{
+    background:#0f172a;
+    color:#dbeafe;
+    padding:16px 18px;
+    border-radius:12px;
+    overflow:auto;
+    border:1px solid #1e293b;
+}
+.markdown-body pre code{background:transparent;color:inherit;padding:0}
+.plain{
+    background:#fff;color:#273142;padding:28px 34px;border-radius:18px;overflow:auto;
+    font-size:calc(14.3px * var(--macs-font-scale, 1));line-height:1.75;white-space:pre-wrap;
+    font-family:ui-monospace,'SF Mono','Cascadia Code','Consolas',monospace;
+    border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.binary-card{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow);padding:34px;display:flex;gap:22px;align-items:flex-start;
+}
+.binary-icon{
+    width:58px;height:58px;border-radius:16px;background:#eff6ff;color:#2563eb;
+    display:flex;align-items:center;justify-content:center;font-size:calc(33px * var(--macs-font-scale, 1));flex-shrink:0;
+}
+.binary-card h2{font-size:calc(23.1px * var(--macs-font-scale, 1));margin:0 0 8px;color:#0f172a}
+.binary-card p{margin:0 0 18px;color:var(--muted);line-height:1.7}
+.binary-meta{font-size:calc(14.3px * var(--macs-font-scale, 1));color:#64748b;margin-bottom:18px;word-break:break-all}
+.binary-actions{display:flex;gap:10px;flex-wrap:wrap}
+.loading,.error{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    text-align:center;padding:64px;color:var(--muted);font-size:calc(15.4px * var(--macs-font-scale, 1));box-shadow:var(--shadow);
+}
+.error{color:#dc2626}
+.toast{
+    position:fixed;right:22px;bottom:22px;background:#111827;color:#fff;
+    padding:10px 14px;border-radius:10px;font-size:calc(14.3px * var(--macs-font-scale, 1));box-shadow:0 12px 30px rgba(0,0,0,.18);
+    opacity:0;transform:translateY(8px);transition:.18s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media (max-width:768px){
+    .toolbar-inner{padding:10px 12px;align-items:flex-start;flex-direction:column}
+    .title{max-width:100%;font-size:calc(15.4px * var(--macs-font-scale, 1))}
+    .actions{width:100%}
+    .btn{flex:1;justify-content:center}
+    .wrap{padding:14px 10px 32px}
+    .doc-header{padding:18px 18px 14px}
+    .doc-header h1{font-size:calc(20.9px * var(--macs-font-scale, 1))}
+    .markdown-body{padding:22px 16px 30px;font-size:calc(16.5px * var(--macs-font-scale, 1))}
+    .markdown-body h1{font-size:calc(25.3px * var(--macs-font-scale, 1))}
+    .markdown-body h2{font-size:calc(19.8px * var(--macs-font-scale, 1));margin-top:26px}
+    .markdown-body table{display:block;overflow-x:auto;white-space:nowrap}
+}
+
+@media print{
+    body{background:#fff}
+    .toolbar,.toast{display:none!important}
+    .wrap{max-width:none;padding:0}
+    .doc-shell,.plain{border:0;box-shadow:none;border-radius:0}
+    .markdown-body{padding:22px 28px}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+    <div class="toolbar-inner">
+        <div class="file-meta">
+            <div class="eyebrow">MACS 文件预览</div>
+            <div class="title" id="fileName">加载中...</div>
+        </div>
+        <div class="actions">
+            <button class="btn btn-outline export-action" onclick="saveAsImage()">保存图片</button>
+            <button class="btn btn-outline export-action" onclick="saveAsPDF()">保存PDF</button>
+            <button class="btn btn-outline" onclick="copyContent(event)">复制</button>
+            <a class="btn btn-primary" id="downloadBtn" href="#">下载</a>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div id="content"><div class="loading">正在加载文件...</div></div>
+</div>
+<div class="toast" id="toast">已复制</div>
+
+<script>
+var fileContent = '';
+marked.setOptions({breaks:true,gfm:true});
+
+function isBinaryFile(ext){return ['ppt','pptx','doc','docx','xls','xlsx','zip','rar','7z'].indexOf(ext)>=0}
+function formatBytes(bytes){
+    if (!bytes && bytes !== 0) return '';
+    var units=['B','KB','MB','GB'];
+    var size=bytes, unit=0;
+    while(size>=1024 && unit<units.length-1){size/=1024;unit++}
+    return (unit===0?size:size.toFixed(1))+' '+units[unit];
+}
+function escHtml(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function readableName(path){try{return decodeURIComponent((path||'').split('/').pop()||'文件预览')}catch(e){return (path||'').split('/').pop()||'文件预览'}}
+
+function renderBinaryCard(fileName, path, ext, sizeText) {
+    var downloadUrl = '/api/files/download?path=' + encodeURIComponent(path);
+    var typeName = (ext === 'ppt' || ext === 'pptx') ? 'PowerPoint presentation' : 'Office/binary file';
+    return '<section class="binary-card">' +
+        '<div class="binary-icon">PPT</div>' +
+        '<div>' +
+            '<h2>'+escHtml(fileName)+'</h2>' +
+            '<p>'+escHtml(typeName)+' cannot be rendered as plain text in this preview page. Download it or open it with a local application.</p>' +
+            '<div class="binary-meta">'+escHtml(path)+(sizeText ? ' - '+escHtml(sizeText) : '')+'</div>' +
+            '<div class="binary-actions">' +
+                '<a class="btn btn-primary" href="'+downloadUrl+'">Download</a>' +
+                '<a class="btn btn-outline" target="_blank" rel="noopener" href="'+downloadUrl+'">Open</a>' +
+            '</div>' +
+        '</div>' +
+    '</section>';
+}
+
+function normalizeFileViewPath(path) {
+    path = String(path || '').trim().replace(/\\/g, '/');
+    while (path.indexOf('//') >= 0) path = path.replace(/\/\//g, '/');
+    if (path.indexOf('/.openkitty/') === 0 || path.indexOf('/storage/') === 0 || path.indexOf('/agent_deliveries/') === 0 || path.indexOf('/minutes/') === 0) {
+        path = path.substring(1);
+    }
+    return path;
+}
+
+async function load() {
+    var q = new URLSearchParams(location.search);
+    var path = q.get('path');
+    path = normalizeFileViewPath(path);
+    if (!path) { showError('缺少文件路径'); return; }
+
+    var fileName = readableName(path);
+    document.getElementById('fileName').textContent = fileName;
+    document.title = fileName + ' - MACS';
+    var downloadUrl = '/api/files/download?path=' + encodeURIComponent(path);
+    document.getElementById('downloadBtn').href = downloadUrl;
+
+    try {
+        var ext = (fileName.split('.').pop() || '').toLowerCase();
+        if (isBinaryFile(ext)) {
+            var br = await fetch(downloadUrl);
+            if (!br.ok) throw new Error('file not found or access denied');
+            var blob = await br.blob();
+            document.getElementById('content').innerHTML = renderBinaryCard(fileName, path, ext, formatBytes(blob.size));
+            return;
+        }
+
+        var r = await fetch(downloadUrl);
+        if (!r.ok) throw new Error('文件不存在或无权访问');
+        fileContent = await r.text();
+        var body = '';
+
+        if (ext === 'md' || ext === 'markdown' || ext === 'txt') {
+            var renderContent = fileContent;
+            var titleMatch = renderContent.match(/^\s*#\s+(.+)\s*\n+/);
+            var displayTitle = fileName.replace(/\.(md|markdown|txt)$/i,'');
+            if (titleMatch) {
+                displayTitle = titleMatch[1].trim();
+                renderContent = renderContent.slice(titleMatch[0].length);
+            }
+            body = marked.parse(renderContent);
+            document.getElementById('content').innerHTML =
+                '<article class="doc-shell">' +
+                    '<header class="doc-header"><h1>'+escHtml(displayTitle)+'</h1><div class="doc-path">'+escHtml(path)+'</div></header>' +
+                    '<div class="markdown-body">' + body + '</div>' +
+                '</article>';
+        } else if (ext === 'json') {
+            try {
+                var obj = JSON.parse(fileContent);
+                document.getElementById('content').innerHTML = '<pre class="plain">' + escHtml(JSON.stringify(obj, null, 2)) + '</pre>';
+            } catch(e) {
+                document.getElementById('content').innerHTML = '<pre class="plain">' + escHtml(fileContent) + '</pre>';
+            }
+        } else if (ext === 'html') {
+            document.getElementById('content').innerHTML = fileContent;
+        } else {
+            document.getElementById('content').innerHTML = '<pre class="plain">' + escHtml(fileContent) + '</pre>';
+        }
+        if (typeof hljs !== 'undefined') {
+            document.querySelectorAll('pre code').forEach(function(el){ hljs.highlightElement(el); });
+        }
+    } catch(e) {
+        showError('加载失败：' + e.message);
+    }
+}
+
+function showError(msg) {
+    document.getElementById('content').innerHTML = '<div class="error">' + escHtml(msg) + '</div>';
+}
+
+function showToast(text) {
+    var toast = document.getElementById('toast');
+    toast.textContent = text;
+    toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show');}, 1600);
+}
+
+function copyContent(evt) {
+    if (!fileContent) return;
+    navigator.clipboard.writeText(fileContent).then(function(){
+        var btn = evt && evt.target ? evt.target : null;
+        if (btn) {
+            var orig = btn.textContent;
+            btn.textContent = '已复制';
+            setTimeout(function(){btn.textContent=orig;}, 1400);
+        }
+        showToast('文件内容已复制');
+    });
+}
+
+function exportBaseName() {
+    var name = document.getElementById('fileName').textContent || 'openkitty-file';
+    return name.replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]/g, '_') || 'openkitty-file';
+}
+
+function saveAsPDF() {
+    var target = document.getElementById('content');
+    var restore = redactAccountInfoInExportDOM(target);
+    try {
+        window.print();
+    } finally {
+        restore();
+    }
+}
+
+async function saveAsImage() {
+    var target = document.querySelector('.doc-shell') || document.querySelector('.plain') || document.getElementById('content');
+    if (!target) {
+        showToast('没有可导出的内容');
+        return;
+    }
+    if (typeof html2canvas === 'undefined') {
+        showToast('图片导出组件未加载');
+        return;
+    }
+    var width = Math.ceil(Math.max(target.scrollWidth, target.getBoundingClientRect().width));
+    var height = Math.ceil(Math.max(target.scrollHeight, target.getBoundingClientRect().height));
+    if (!width || !height) {
+        showToast('没有可导出的内容');
+        return;
+    }
+    var maxCanvasArea = 28000000;
+    var maxCanvasSide = 32000;
+    var scale = Math.min(2, Math.sqrt(maxCanvasArea / Math.max(1, width * height)));
+    scale = Math.min(scale, maxCanvasSide / Math.max(1, width), maxCanvasSide / Math.max(1, height));
+    if (scale < 0.2) {
+        showToast('内容过长，无法导出为单张图片');
+        return;
+    }
+    showToast('正在生成图片...');
+    try {
+        var canvas = await html2canvas(target, {
+            backgroundColor: '#ffffff',
+            scale: scale,
+            logging: false,
+            useCORS: true,
+            allowTaint: false,
+            width: width,
+            height: height,
+            windowWidth: Math.max(document.documentElement.clientWidth, width),
+            windowHeight: Math.max(document.documentElement.clientHeight, height + 80),
+            scrollX: 0,
+            scrollY: 0,
+            onclone: function(doc) {
+                var cloned = doc.querySelector('.doc-shell') || doc.querySelector('.plain') || doc.getElementById('content');
+                if (cloned) {
+                    redactAccountInfoInExportDOM(cloned);
+                    cloned.style.margin = '0';
+                    cloned.style.boxShadow = 'none';
+                    cloned.style.width = width + 'px';
+                    cloned.style.maxWidth = 'none';
+                }
+            }
+        });
+        var blob = await new Promise(function(resolve, reject) {
+            canvas.toBlob(function(result) {
+                if (result) resolve(result);
+                else reject(new Error('canvas toBlob returned empty data'));
+            }, 'image/png');
+        });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = exportBaseName() + '.png';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            URL.revokeObjectURL(a.href);
+            a.remove();
+        }, 1000);
+        showToast('图片已生成');
+    } catch(e) {
+        console.error('saveAsImage failed:', e);
+        showToast('图片导出失败');
+    }
+}
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+  "name": "openkitty",
+  "version": "1.0.0",
+  "description": "macs Desktop — 多智能体协作系统",
+  "main": "main.js",
+  "author": "Silicon Surge Technology",
+  "license": "Proprietary",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win portable --x64",
+    "build:win:installer": "electron-builder --win nsis --x64",
+    "build:mac": "electron-builder --mac dmg --arm64 --x64"
+  },
+  "devDependencies": {
+    "electron": "^36.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.novaexel.openkitty",
+    "productName": "macs",
+    "directories": {
+      "output": "dist"
+    },
+    "extraResources": [
+      {
+        "from": "../openkitty.exe",
+        "to": "openkitty.exe"
+      },
+      {
+        "from": "..",
+        "to": "legal",
+        "filter": [
+          "LICENSE",
+          "NOTICE",
+          "COMMERCIAL-LICENSE.md",
+          "TRADEMARKS.md",
+          "BRANDING.md",
+          "THIRD-PARTY-NOTICES.md",
+          "third_party/**/*"
+        ]
+      }
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "macs"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "assets/icon.png"
+    }
+  }
+}

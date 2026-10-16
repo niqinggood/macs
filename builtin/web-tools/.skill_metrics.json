@@ -1,0 +1,101 @@
+{
+  "skills": {
+    "agent-browser": {
+      "name": "agent-browser",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.936959+08:00",
+      "created_at": "2026-06-25T20:14:37.5719305+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "multi-search-engine": {
+      "name": "multi-search-engine",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9380659+08:00",
+      "created_at": "2026-06-25T20:14:37.5729896+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "opencli": {
+      "name": "opencli",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.942074+08:00",
+      "created_at": "2026-06-26T15:21:30.3992728+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "scrapling-web-fetch": {
+      "name": "scrapling-web-fetch",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9432975+08:00",
+      "created_at": "2026-06-25T20:14:37.57408+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "taste-design": {
+      "name": "taste-design",
+      "load_count": 24,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-26T00:24:08.6491938+08:00",
+      "created_at": "2026-06-25T23:45:48.8120313+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "web-access": {
+      "name": "web-access",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9445588+08:00",
+      "created_at": "2026-06-25T20:14:37.5756899+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "web-design": {
+      "name": "web-design",
+      "load_count": 36,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-26T00:24:08.6551854+08:00",
+      "created_at": "2026-06-25T20:14:37.5794644+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "web-search-exa": {
+      "name": "web-search-exa",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9490923+08:00",
+      "created_at": "2026-06-26T15:21:30.4086973+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

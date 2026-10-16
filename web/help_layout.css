@@ -1,0 +1,50 @@
+/* Help-only structure. Keep the existing macs workspace palette and bubbles. */
+#helpModal .help-modal-content { height: calc(100dvh - 48px); overflow: clip !important; }
+#helpModal .help-guide-nav { flex: 0 0 auto; margin: 0; padding: 0 16px; border-bottom: 1px solid var(--mac-modal-border); }
+#helpModal .help-modal-body { flex: 1; min-height: 0; scrollbar-gutter: stable; }
+#helpModal .help-agentos-overview { padding: 16px; margin: 14px 0; border: 1px solid var(--mac-modal-border); border-radius: 10px; }
+#helpModal .help-agentos-modes { gap: 0; padding: 12px 0; border-block: 1px solid var(--mac-modal-border); }
+#helpModal .help-agentos-modes > div { padding: 0 14px; border-left: 1px solid var(--mac-modal-border); }
+#helpModal .help-agentos-modes > div:first-child { padding-left: 0; border-left: 0; }
+#helpModal .help-agentos-service-flow { gap: 12px; padding: 14px; border: 1px solid var(--mac-modal-border); border-radius: 10px; }
+#helpModal .help-service-node { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+#helpModal .help-service-node > div { display: grid; gap: 3px; }
+#helpModal .help-service-node strong { font-size: calc(15.4px * var(--macs-font-scale, 1)); }
+#helpModal .help-service-node small { font-size: calc(13.2px * var(--macs-font-scale, 1)); line-height: 1.5; color: var(--mac-modal-muted); }
+#helpModal .help-service-node > svg { flex-shrink: 0; width: 28px; height: 28px; color: var(--mac-modal-accent); }
+#helpModal .help-service-node.core { padding: 10px; border: 1px solid var(--mac-modal-border); border-radius: 8px; background: var(--mac-modal-chrome); }
+#helpModal .help-service-arrow { flex-shrink: 0; width: 18px; height: 18px; color: var(--mac-modal-muted); }
+#helpModal .help-service-node > svg, #helpModal .help-service-arrow { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+#helpModal .help-agentos-advanced { border: 1px solid var(--mac-modal-border); border-radius: 10px; overflow: hidden; }
+#helpModal .help-agentos-advanced > summary { border: 0; border-radius: 0; }
+#helpModal .help-agentos-advanced[open] > summary { border-bottom: 1px solid var(--mac-modal-border); }
+#helpModal .help-agentos-advanced-body { padding: 14px; }
+#helpModal .help-agentos-nav { gap: 0; border: 1px solid var(--mac-modal-border); border-radius: 8px; overflow: hidden; }
+#helpModal .help-agentos-nav button { padding: 12px; border: 0; border-left: 1px solid var(--mac-modal-border); }
+#helpModal .help-agentos-nav button:first-child { border-left: 0; }
+#helpModal .help-agentos-nav button[aria-current] { background: var(--mac-modal-chrome); }
+#helpModal .help-agentos-part { padding: 0 14px 14px; margin-top: 16px; border: 1px solid var(--mac-modal-border); border-radius: 10px; overflow: hidden; }
+#helpModal .help-agentos-part > h5 { padding: 12px 14px; margin: 0 -14px 12px !important; border-bottom: 1px solid var(--mac-modal-border); background: var(--mac-modal-chrome); }
+#helpModal .help-agentos-steps { gap: 0; }
+#helpModal .help-agentos-steps > li { padding: 8px 0; border-bottom: 1px solid var(--mac-modal-border); }
+#helpModal .help-agentos-steps > li:last-child { border-bottom: 0; }
+#helpModal .help-agentos-details[open] > summary { padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--mac-modal-border); }
+#helpModal .help-code-frame { max-width: 100%; min-width: 0; margin: 12px 0; overflow: hidden; border: 1px solid var(--mac-modal-border); border-radius: 8px; }
+#helpModal .help-code-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 12px; color: var(--mac-modal-muted); background: var(--mac-modal-chrome); border-bottom: 1px solid var(--mac-modal-border); font-size: calc(13.2px * var(--macs-font-scale, 1)); }
+#helpModal .help-code-copy { display: inline-flex; align-items: center; gap: 6px; padding: 3px 6px; color: inherit; background: transparent; border: 0; border-radius: 5px; font: inherit; cursor: pointer; }
+#helpModal .help-code-copy:hover { color: var(--mac-modal-accent); }
+#helpModal .help-code-copy svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+#helpModal .help-code-frame pre { margin: 0; border: 0 !important; border-radius: 0; }
+#helpModal .help-agentos .help-table :is(td, th) { border: 1px solid var(--mac-modal-border); }
+@media (max-width: 640px) {
+    #helpModal .help-agentos-overview { padding: 12px; }
+    #helpModal .help-agentos-modes { grid-template-columns: minmax(0, 1fr); padding: 0; }
+    #helpModal .help-agentos-modes > div { padding: 12px 0; border-left: 0; border-top: 1px solid var(--mac-modal-border); }
+    #helpModal .help-agentos-modes > div:first-child { border-top: 0; }
+    #helpModal .help-agentos-service-flow { flex-direction: column; align-items: stretch; }
+    #helpModal .help-service-arrow { align-self: center; transform: rotate(90deg); }
+    #helpModal .help-agentos-advanced-body { padding: 10px; }
+    #helpModal .help-agentos-nav button:nth-child(2n + 1) { border-left: 0; }
+    #helpModal .help-agentos-nav button:nth-child(n + 3) { border-top: 1px solid var(--mac-modal-border); }
+}
+

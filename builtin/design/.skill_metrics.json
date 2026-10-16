@@ -1,0 +1,29 @@
+{
+  "skills": {
+    "taste-design": {
+      "name": "taste-design",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6676368+08:00",
+      "created_at": "2026-06-26T15:21:30.1761097+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "web-design": {
+      "name": "web-design",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.6706387+08:00",
+      "created_at": "2026-06-26T15:21:30.1796153+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

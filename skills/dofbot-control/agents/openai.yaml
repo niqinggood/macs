@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dofbot Control"
+  short_description: "Safely control Dofbot via Python SDK"
+  default_prompt: "Use $dofbot-control to inspect or operate a Dofbot arm through the approved Python SDK functions."

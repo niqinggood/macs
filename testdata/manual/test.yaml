@@ -1,0 +1,94 @@
+# config_working.yaml
+team_name: "测试团队"
+task:
+  description: "测试任务"
+  input: "你好，请简单介绍一下自己"
+
+agents:
+  - name: "测试助手"
+    type: "assistant"
+    model: "minimax_model"
+    system_message: "你是一个友好的测试助手"
+    temperature: 0.7
+    max_tokens: 2048
+  
+  - name: "agent-B"
+    type: "assistant"
+    model: "minimax_model"
+    system_message: "你要来检查测试助手说的话对不对，隐藏掉一些隐私信息"
+    temperature: 0.7
+    max_tokens: 2048
+    has_memory: true
+    memory_window: 50
+
+collaboration:
+  type: "sequential"
+  tasks:
+    - task_id: "task_1"
+      agent: "测试助手"
+    - task_id: "task_2"
+      agent: "agent-B"  
+  max_round: 1
+  failure_strategy: "stop"
+
+delivery:
+  type: "chat"
+  format: "markdown"
+  output_path: "./agent_deliveries"
+
+runtime:
+  semaphore_limit: 4
+
+model_cfg:
+  minimax_model:
+    type: "minimax"
+    api_key: "YOUR_MINIMAX_API_KEY_HERE"
+    model_name: "minimax-m3"
+    base_url: "https://api.minimaxi.com/v1"
+    temperature: 0.7
+    max_tokens: 2048
+
+# 简化的渠道配置 - 确保YAML格式正确
+channels:
+  stdout:
+    enabled: true
+    type: "stdout"
+  http:
+    enabled: true
+    type: "http"
+    port: 8081
+    path: "/webhook"
+  websocket:
+    enabled: true
+    type: "websocket"
+    port: 8082
+    path: "/ws"
+
+gateway:
+  enabled: true
+  listen_addr: ":8080"
+  api_key: "test-key"
+  agent_os_mode: all
+  max_tasks: 10
+  max_queued_tasks: 100
+  task_lease_seconds: 60
+  task_poll_interval_ms: 100
+  task_timeout: 300
+  enable_webui: true
+  webui_path: "./webui"
+
+workspace: "./agent_workspace"
+
+memory_config:
+  enabled: true
+  memory_window: 50
+  base_dir: "./memories"
+
+skills_config:
+  disenabled: false
+  global_dir: "./skills"
+  always_load: []
+
+tools_config:
+  enabled: true
+  disabled_tools: []

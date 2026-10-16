@@ -1,0 +1,89 @@
+{
+  "skills": {
+    "convert-documents": {
+      "name": "convert-documents",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.695221+08:00",
+      "created_at": "2026-06-25T20:14:37.4511125+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "document-extraction": {
+      "name": "document-extraction",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.695221+08:00",
+      "created_at": "2026-06-25T20:14:37.4511125+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "docx-tools": {
+      "name": "docx-tools",
+      "load_count": 195,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7038624+08:00",
+      "created_at": "2026-06-27T00:56:37.2214495+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "markdown-converter": {
+      "name": "markdown-converter",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7048669+08:00",
+      "created_at": "2026-06-25T20:14:37.4511125+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "nano-pdf": {
+      "name": "nano-pdf",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7048669+08:00",
+      "created_at": "2026-06-25T20:14:37.4511125+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "pdf-tools": {
+      "name": "pdf-tools",
+      "load_count": 195,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7071021+08:00",
+      "created_at": "2026-06-27T00:56:37.226188+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "word-docx": {
+      "name": "word-docx",
+      "load_count": 38,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.7071021+08:00",
+      "created_at": "2026-06-26T15:21:30.2112163+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

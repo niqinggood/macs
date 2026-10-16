@@ -1,0 +1,4 @@
+interface:
+  display_name: "命理校准与解读"
+  short_description: "先核对历法和盘面，再用反证与历史回测做可复现的八字、流年及合盘解读"
+  default_prompt: "Use $luck-rich to verify my birth data and chart assumptions, then give a fixed-format reading with evidence, counter-evidence, calibration questions, and uncertainty."

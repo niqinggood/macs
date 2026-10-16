@@ -1,0 +1,4 @@
+interface:
+  display_name: "病例解读与就医导航"
+  short_description: "中西医双视角解读病例、体检及健康设备数据，给出风险分层与就医准备建议"
+  default_prompt: "Use $med-guid to answer in at most three compact paragraphs: state the judgment without a heading, give no more than two decisive clinical reasons plus one TCM direction, then at most three prioritized actions; omit greetings, repetition, alternative catalogues, generic cautions, and multi-part follow-up questions."

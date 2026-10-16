@@ -1,0 +1,4 @@
+interface:
+  display_name: "Robot Control"
+  short_description: "Safely inspect, stop, and move configured robots"
+  default_prompt: "Use $robot-control to inspect the configured robot and execute one safe bounded movement."

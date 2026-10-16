@@ -1,0 +1,29 @@
+{
+  "skills": {
+    "skill-creator": {
+      "name": "skill-creator",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9210105+08:00",
+      "created_at": "2026-06-25T20:14:37.5451172+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    },
+    "skill-vetter": {
+      "name": "skill-vetter",
+      "load_count": 74,
+      "use_count": 0,
+      "fail_count": 0,
+      "last_used": "0001-01-01T00:00:00Z",
+      "last_loaded": "2026-06-30T18:08:41.9226678+08:00",
+      "created_at": "2026-06-25T20:14:37.5461184+08:00",
+      "score": 0,
+      "description": "",
+      "tags": null
+    }
+  },
+  "version": 1
+}

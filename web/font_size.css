@@ -1,0 +1,12 @@
+#fontSizeToggle { min-width: 31px; padding: 3px 7px; color: #243244; font-size: calc(14.3px * var(--macs-font-scale, 1)); font-weight: 600; }
+.font-size-menu { position: fixed; z-index: 190000; width: 210px; max-width: calc(100vw - 16px); padding: 6px; border: 1px solid #d8dee5; border-radius: 10px; color: #243244; background: #fff; box-shadow: 0 8px 28px rgba(15,23,42,.15); }
+.font-size-menu[hidden] { display: none !important; }
+.font-size-menu button { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 10px 12px; border: 1px solid transparent; border-radius: 7px; color: inherit; background: transparent; font: inherit; font-size: calc(15.4px * var(--macs-font-scale, 1)); cursor: pointer; }
+.font-size-menu button:hover { background: #f2f5f4; }
+.font-size-menu button[aria-checked="true"] { color: #285f45; border-color: #d3e4da; background: #eef5f0; font-weight: 600; }
+.font-size-menu .font-size-percent { font-size: calc(13.2px * var(--macs-font-scale, 1)); }
+.font-size-menu button:focus-visible, #fontSizeToggle:focus-visible { outline: 2px solid #527b60; outline-offset: 2px; }
+.dark #fontSizeToggle, html:has(#theme-style:not(:empty)) #fontSizeToggle { color: #e2e8f0; }
+.dark .font-size-menu, html:has(#theme-style:not(:empty)) .font-size-menu { color: #e2e8f0; background: #1b2333; border-color: #3c4759; }
+.dark .font-size-menu button:hover, html:has(#theme-style:not(:empty)) .font-size-menu button:hover { background: #263345; }
+.dark .font-size-menu button[aria-checked="true"], html:has(#theme-style:not(:empty)) .font-size-menu button[aria-checked="true"] { color: #c5e3cf; background: #294637; border-color: #4c715b; }

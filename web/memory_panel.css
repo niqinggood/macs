@@ -1,0 +1,16 @@
+.memory-panel-modal { z-index: 160200; padding: 20px; background: var(--mac-modal-overlay, rgba(15, 23, 42, .18)) !important; }
+.memory-panel-modal .mp-surface { display: flex; flex-direction: column; width: min(1440px, 96vw); max-width: 1440px; height: calc(100dvh - 40px); max-height: calc(100dvh - 40px); padding: 0; overflow: hidden; color: var(--mac-modal-text, #1d1d1f); background: var(--mac-modal-surface, #fff); }
+.memory-panel-modal .modal-header { flex-shrink: 0; gap: 10px; }
+.memory-panel-modal .modal-header h2 { margin: 0; min-width: 0; font-size: calc(19.8px * var(--macs-font-scale, 1)); line-height: 1.4; }
+.memory-panel-modal .mp-appearance { display: flex; flex-wrap: wrap; gap: 5px; margin-left: auto; padding-right: 30px; }
+.memory-panel-modal .mp-appearance-button, .memory-panel-modal .mp-button { padding: 5px 9px; min-height: 32px; border: 1px solid var(--mac-modal-border, #e1e4e8); border-radius: 7px; background: var(--mac-modal-surface, #fff); color: var(--mac-modal-text, #1d1d1f); font: inherit; font-size: calc(14.3px * var(--macs-font-scale, 1)); line-height: 1.4; cursor: pointer; }
+.memory-panel-modal .mp-appearance-button:hover, .memory-panel-modal .mp-button:hover { background: var(--mac-modal-chrome, #f6f6f8); }
+.memory-panel-modal .mp-primary { color: var(--mac-modal-accent, #0a84ff); }
+.memory-panel-modal .mp-frame { flex: 1; min-height: 0; width: 100%; border: 0; background: var(--mac-modal-surface, #fff); }
+.memory-panel-modal .mp-notice { padding: 10px 16px 0; margin: 0; color: var(--mac-modal-text, #1d1d1f); font-size: calc(15.4px * var(--macs-font-scale, 1)); line-height: 1.5; }
+.memory-panel-modal .mp-context-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 16px; }
+.memory-panel-modal .mp-context-actions:empty { display: none; }
+.memory-panel-modal [hidden] { display: none !important; }
+body:has(.memory-panel-modal.active) .mac-window-dock, body:has(.memory-panel-modal.active) .font-size-menu { z-index: 160230; }
+@media (max-width: 700px) { .memory-panel-modal { padding: 12px; } .memory-panel-modal .mp-surface { width: 100%; max-width: 100%; height: calc(100dvh - 24px); max-height: calc(100dvh - 24px); } .memory-panel-modal .mp-appearance { gap: 4px; } .memory-panel-modal .mp-appearance-button { padding: 4px 6px; } }
+@media (max-width: 420px) { .memory-panel-modal .modal-header { flex-wrap: wrap; } .memory-panel-modal .mp-appearance { width: 100%; padding-right: 0; } .memory-panel-modal .mp-context-actions .mp-button { flex: 1; } }

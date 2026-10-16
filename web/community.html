@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<script src="/web/font_size.js?v=20261012-font-control-v26" defer></script>
+<style>html { font-size: calc(110% * var(--macs-font-scale, 1)); }</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>科技前沿 · macs</title>
+  <link rel="icon" href="/web/openkitty-avatar.png">
+  <link rel="stylesheet" href="/web/community_reader.css?v=20261012-font-control-v26">
+  <script src="/web/marked.min.js?v=202606151459" defer></script>
+  <script src="/web/community_reader.js?v=20261012-font-control-v26" defer></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <header class="reader-topbar">
+    <a class="reader-brand" href="/web/"><img src="/web/openkitty-avatar.png" alt=""><span>macs<span class="brand-divider">/</span><span class="reader-brand-section">科技前沿</span></span></a>
+    <div class="reader-topbar-actions"><button id="readerTextSize" type="button" aria-pressed="false">大字阅读</button><button id="readerTheme" type="button" aria-label="切换深浅主题">深色</button><a class="reader-back" href="/web/">返回工作台 <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <main class="reader-layout">
+    <aside class="reader-sidebar" id="readerSidebar" hidden>
+      <div class="reader-sidebar-eyebrow">IN THIS ARTICLE</div>
+      <h2>文章目录</h2>
+      <nav id="readerContents" aria-label="文章目录"></nav>
+      <div class="reader-sidebar-note"><span class="reader-live-dot"></span>来自科技社区的讨论<br><span>阅读 · 思考 · 发现新方向</span></div>
+    </aside>
+    <article class="reader-article" id="readerArticle" hidden>
+      <header class="reader-hero">
+        <div class="reader-eyebrow"><span class="reader-category">科技动态</span><span>TECHNOLOGY & IDEAS</span></div>
+        <h1 id="readerTitle"></h1>
+        <div class="reader-meta"><span class="reader-avatar" id="readerAvatar" aria-hidden="true"></span><div><strong id="readerAuthor"></strong><div class="reader-meta-details"><time id="readerDate"></time><span id="readerDuration"></span></div></div></div>
+      </header>
+      <details class="reader-mobile-contents" id="readerMobileContents" hidden><summary>文章目录</summary><nav aria-label="文章目录" id="readerMobileNav"></nav></details>
+      <div class="reader-body" id="readerBody"></div>
+      <footer class="reader-footer"><div><span class="reader-footer-kicker">继续探索</span><h2>好的发现，值得继续聊下去。</h2><p>阅读更多科技动态，或回到 macs 继续讨论。</p></div><a id="readerCommunityLink" class="reader-community-link" target="_blank" rel="noopener noreferrer" hidden>进入科技社区 <span aria-hidden="true">↗</span></a></footer>
+    </article>
+    <section class="reader-state" id="readerState" role="status" aria-live="polite"><div class="reader-state-mark" aria-hidden="true">↗</div><h1 id="readerStateTitle">正在打开文章</h1><p id="readerStateHint">为你整理成更适合阅读的版式…</p><button id="readerRetry" type="button" hidden>重新读取</button></section>
+  </main>
+  <footer class="reader-page-footer"><span>macs · 科技前沿</span><span>内容来自科技社区，观点属于原作者</span></footer>
+</body>
+</html>

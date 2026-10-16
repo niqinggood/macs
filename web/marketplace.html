@@ -1,0 +1,105 @@
+<!-- 工具市场 -->
+<div id="marketplacePanel" class="modal" style="z-index:2400;">
+    <div class="modal-content" style="max-width:900px;width:95vw;padding:0;overflow:hidden;border-radius:14px;">
+        <div class="modal-header" style="padding:16px 28px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:14px 14px 0 0;">
+            <h3 style="margin:0;font-size:calc(18.7px * var(--macs-font-scale, 1));">📦 工具与技能市场</h3>
+            <span class="close-modal" onclick="closeMarketplace()" style="color:#fff;font-size:calc(24.2px * var(--macs-font-scale, 1));cursor:pointer;">&times;</span>
+        </div>
+        <div style="padding:20px 28px;max-height:65vh;overflow-y:auto;">
+            <p style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#64748b;margin:0 0 20px;">安装 AI Agent 所需的运行时、工具链和技能包。点击卡片查看详情。</p>
+            <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">运行时环境</h4>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+                <div class="mkt-card" onclick="showMarketDetail('nodejs')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟢</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Node.js</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">JS 运行时，PPT生成、前端工具链</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费 · LTS v22</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('python')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🐍</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Python 3</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">数据分析、图表、PPTX、OCR</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费 · 3.11+</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('git')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🔀</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Git</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">版本控制，代码变更统计</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费</div>
+                </div>
+            </div>
+            <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">AI 编程 CLI</h4>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+                <div class="mkt-card" onclick="showMarketDetail('claude-code')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟪</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Claude Code</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">Anthropic CLI Agent</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">npm i @anthropic-ai/claude-code</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('codex')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟠</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">OpenAI Codex</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">OpenAI CLI Agent</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">npm i @openai/codex</div>
+                </div>
+                            </div>
+            <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">知识工具</h4>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+                <div class="mkt-card" onclick="showMarketDetail('obsidian')" style="background:#eff6ff;border:2px solid #bfdbfe;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#0284c7'" onmouseout="this.style.borderColor='#bfdbfe'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟣</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Obsidian</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">本地知识库，已集成 vault_explore</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#0284c7;font-weight:600;">已集成</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('notion')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">📝</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Notion</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">在线文档，API 对接</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">web_fetch 连接</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('logseq')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">📒</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Logseq</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">开源大纲笔记，Markdown</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">开源免费</div>
+                </div>
+            </div>
+            <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">医疗 AI / 本地模型 <span style="background:#fef2f2;color:#dc2626;padding:1px 6px;border-radius:3px;font-size:calc(11px * var(--macs-font-scale, 1));">新</span></h4>
+            <p style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin:0 0 10px;">基于 openmed 生态，1000+ 医疗模型本地运行。需先安装 Ollama 运行时。</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+                <div class="mkt-card" onclick="showMarketDetail('ollama')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🦙</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Ollama 运行时</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">本地大模型运行环境，支持GGUF格式</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费 · 开源</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('medllama2')" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#dc2626'" onmouseout="this.style.borderColor='#fecaca'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🏥</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">MedLlama2</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">临床问答、病历解析、诊断建议</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#dc2626;">ollama pull medllama2</div>
+                </div>
+                <div class="mkt-card" onclick="showMarketDetail('biomistral')" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#22c55e'" onmouseout="this.style.borderColor='#bbf7d0'">
+                    <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🧬</div>
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">BioMistral</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">生物医学文献分析、论文摘要</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">ollama pull biomistral</div>
+                </div>
+            </div>
+            <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">技能 Hub</h4>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+                <div onclick="closeMarketplace();openSkillPanel();" style="background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1px solid #a7f3d0;border-radius:10px;padding:18px;cursor:pointer;" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='#a7f3d0'">
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));margin-bottom:6px;">🇨🇳 腾讯 SkillHub</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;line-height:1.5;">搜索并安装腾讯 SkillHub 的文本型 Skill，国内网络优先。</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#047857;">仅 SKILL.md → 安全校验 → 热加载</div>
+                </div>
+                <div onclick="closeMarketplace();openSkillPanel();" style="background:linear-gradient(135deg,#f8fafc,#f0f4ff);border:1px solid #c7d2fe;border-radius:10px;padding:18px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#c7d2fe'">
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));margin-bottom:6px;">🦞 OpenClaw / ClawHub</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;line-height:1.5;">搜索 OpenClaw 生态 Skill，并按 MACS 提示型 Skill 安装。</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">安全扫描 → 纯文本安装 → 热加载</div>
+                </div>
+            </div>
+            <div id="marketDetail" style="display:none;margin-top:20px;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;"></div>
+        </div>
+    </div>
+</div>

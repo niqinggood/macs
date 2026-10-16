@@ -1,0 +1,455 @@
+team_name: openKitty
+default_agent: Assistant
+# Current composer model. Agents with an empty/omitted model inherit it.
+# Empty uses an available configured model (initially local Ollama).
+# This checks configuration only; it does not start or verify a model server.
+default_model: ""
+task:
+    description: openKitty AI Agent - General purpose task processing
+    input: Please help me with my task
+agents:
+    - name: Researcher
+      model: ""
+      type: custom
+      system_message: 你是一个全能的AI助手，擅长代码编写、文档处理、数据分析、研究推理。需要看图时使用 vision 工具。
+      temperature: 0.7
+      max_tokens: 393216
+      # Think/Action 循环上限；可下调，运行时最高 200，未配置时默认 200。
+      max_iterations: 200
+      has_memory: true
+      memory_window: 50
+    - name: Developer
+      model: ""
+      type: custom
+      system_message: 你是一个高效的AI助手，擅长代码编写、文档处理、数据分析、研究推理。
+      temperature: 0.7
+      max_tokens: 393216
+      max_iterations: 200
+      has_memory: true
+      memory_window: 50
+    - name: Assistant
+      model: ""
+      type: custom
+      system_message: You are a helpful assistant.
+      temperature: 0.7
+      max_tokens: 393216
+      max_iterations: 200
+      has_memory: true
+      memory_window: 50
+# Empty by default, so existing local installations keep legacy publishing.
+# Replace this list to switch AgentOS to an explicit external role allowlist.
+# A role cannot override its agent's system_message, enabled_tools,
+# read_only_paths or max_iterations.
+service_roles: []
+# Example:
+# service_roles:
+#     - id: customer-research
+#       agent_name: Researcher
+#       description: Research customer background and return an evidence-backed brief.
+#       enabled: true
+#       allowed_tenants: [default]
+#       allowed_callers: [crm-service]
+#       # Optional JSON Schema contracts for structured task parameters and
+#       # structured Agent output. Schemas must be self-contained.
+#       # input_schema: {type: object, required: [customer_id]}
+#       # output_schema: {type: object, required: [summary, sources]}
+# External callers should use distinct service identities instead of sharing
+# the tenant-wide token. Keep these tokens in a deployment secret and never
+# commit real values. allowed_roles is an additional per-client upper bound.
+# tenants:
+#     - id: tenant-a
+#       name: Tenant A
+#       token: REPLACE_WITH_LONG_RANDOM_TENANT_TOKEN
+# service_clients:
+#     - id: crm-service
+#       tenant_id: tenant-a
+#       token: REPLACE_WITH_LONG_RANDOM_SERVICE_TOKEN
+#       enabled: true
+#       # Omitted scopes default to submit/read-own/cancel-own/followup-own. Configure broader
+#       # access explicitly; allowed_roles remains an upper bound for every scope.
+#       # scopes: [tasks:submit, tasks:read:own, tasks:cancel:own, tasks:followup:own]
+#       # For a backend serving multiple natural people, add users:act_as and
+#       # require X-OpenKitty-User-ID on every task API request so omitted
+#       # identity cannot share or read another person's state.
+#       # scopes: [tasks:submit, tasks:read:own, tasks:cancel:own, tasks:followup:own, users:act_as]
+#       # require_user_id: true
+#       # can_approve is a compatibility shortcut for approvals:read and
+#       # approvals:decide. Prefer explicit scopes for new deployments.
+#       can_approve: false
+#       allowed_roles: [customer-research]
+collaboration:
+    type: sequential
+    tasks:
+        - task_id: task_1
+          agent: Researcher
+    max_round: 1
+    failure_strategy: retry
+output:
+    dir: storage
+    format: json
+delivery:
+    type: chat
+    format: markdown
+    output_path: .openkitty/deliveries
+runtime:
+    semaphore_limit: 4
+    # The local sandbox is disabled by default so explicitly requested absolute
+    # paths remain accessible. Set mode to strict for workspace/allowlist
+    # isolation, or readonly to reject tools that may cause side effects.
+    # The rules below take effect when a restrictive mode is selected.
+    sandbox:
+        mode: none
+        allowed_paths: ["."]
+        denied_paths: [".git/config", ".env", "*.key", "*.pem", "credentials.*"]
+        allowed_hosts: []
+        denied_hosts: ["169.254.169.254", "metadata.google.internal"]
+        shell_policy: allow
+        network_policy: allow
+        sub_agent_policy: allow
+        max_file_size: 104857600
+    # 单次模型请求超时（秒），有效范围 15-300；未配置时默认 300。
+    llm_call_timeout_seconds: 300
+    # 一次逻辑模型调用的总尝试次数（含首次），有效范围 1-3；未配置时默认 2。
+    llm_max_retries: 2
+    compress_msg_threshold: 48
+    # 兼容旧字段名，当前按估算 token 数判断。
+    max_context_chars: 32000
+    runtime_dir: ""
+    guardrail:
+        enabled: true
+        exact_failure_warn_after: 2
+        exact_failure_block_after: 2
+        same_tool_failure_warn_after: 3
+        same_tool_failure_halt_after: 8
+        no_progress_warn_after: 2
+        no_progress_block_after: 5
+        max_consecutive_failures: 5
+        result_dedup_enabled: true
+        pre_action_gate_enabled: true
+        diagnostic_after_failures: 2
+    token_budget:
+        enabled: true
+        max_tokens: 200000
+        warn_threshold: 0.75
+        hard_stop_threshold: 1.0
+    loop_detection:
+        enabled: true
+        warn_threshold: 2
+        hard_limit: 3
+        window_size: 20
+        tool_freq_warn: 15
+        tool_freq_hard: 24
+        max_threads: 100
+    tool_output_budget:
+        enabled: true
+        max_chars: 8000
+        preview_head: 600
+        preview_tail: 600
+        max_results_dir: ".openkitty/storage/tool_results"
+    # Native host execution is optional and does not require Docker. Environments
+    # are reused by runtime + dependency fingerprint instead of being copied per task.
+    native_execution:
+        enabled: false
+        # Empty uses ~/.openkitty/cache/native-envs. An absolute path can move it to another disk.
+        cache_dir: ""
+        max_cache_mb: 10240
+        ttl_hours: 336
+        prepare_timeout_seconds: 900
+model_cfg:
+    # Platform models can use the submitting Web user's login without an API key.
+    # Leave api_key empty and omit api_key_env; no login token is stored here.
+    # The base URL must match gateway.account_service_url + /api/macs/v1.
+    # Non-interactive services should explicitly configure their own wallet access key.
+    # platform_model:
+    #     type: openai
+    #     base_url: https://your-platform.example/api/macs/v1
+    #     model_name: platform:default
+    #     api_key: ""
+    deepseek_model:
+        type: deepseek
+        api_key: ""
+        model_name: deepseek-v4-pro
+        base_url: https://api.deepseek.com
+        temperature: 0.7
+        max_tokens: 393216
+        supports_vision: false
+    doubao_vision:
+        type: doubao
+        api_key: ""
+        model_name: doubao-seed-2-0-pro-260215
+        base_url: https://ark.cn-beijing.volces.com/api/v3
+        temperature: 0.7
+        max_tokens: 393216
+        supports_vision: false
+    minimax_model:
+        type: minimax
+        api_key: ""
+        model_name: minimax-m3
+        base_url: https://api.minimaxi.com/v1
+        temperature: 0.7
+        max_tokens: 393216
+        supports_vision: false
+    hy3_model:
+        type: openai
+        api_key: ""
+        model_name: tencent/hy3-preview
+        base_url: https://openrouter.ai/api/v1
+        temperature: 0.7
+        max_tokens: 262144
+        supports_vision: false
+    new_model_1780333282243:
+        type: deepseek
+        api_key: ""
+        model_name: deepseek-v4-pro
+        base_url: https://api.deepseek.com
+        temperature: 0.7
+        max_tokens: 393216
+        supports_vision: false
+    ollama_model:
+        type: ollama
+        api_key: ""
+        model_name: llama2
+        base_url: http://localhost:11434
+        temperature: 0.7
+        max_tokens: 8192
+        supports_vision: false
+    openai_model:
+        type: openai
+        api_key: YOUR_OPENAI_API_KEY_HERE
+        model_name: gpt-4
+        base_url: https://api.openai.com/v1
+        temperature: 0.7
+        max_tokens: 8192
+        supports_vision: false
+model_providers:
+    - name: minimax
+      label: MiniMax
+      type: minimax
+      base_url: https://api.minimaxi.com/v1
+      api_key: YOUR_MINIMAX_API_KEY_HERE
+      model_config_ref: minimax_model
+      is_default: true
+      models:
+        - name: minimax-m3
+          capability: text-to-text
+          max_tokens: 16384
+          temperature: 0.7
+        - name: minimax-m3
+          capability: multi-modal
+          max_tokens: 8192
+          temperature: 0.7
+        - name: MiniMax-M1
+          capability: text-to-text
+          max_tokens: 32768
+          temperature: 0.7
+ai_employee_model:
+    defaults:
+        text-to-text: minimax-m3
+        multi-modal: ""
+        text-to-image: ""
+memory_config:
+    # 总开关：false 停止记忆召回与保存，Agent 的 has_memory: true 不能覆盖它。
+    # Web 设置 → 工作与记忆可修改，保存后对新任务生效；运行中的任务沿用原设置。
+    # 已保存的记忆仍可查看或通过 forget/delete 清理。
+    enabled: true
+    memory_window: 50
+    base_dir: .openkitty/memories
+skills_config:
+    disenabled: false
+    global_dir: ""
+    always_load: []
+headless: false
+tools_config:
+    enabled: true
+    # 未设置或为 false 时允许访问内网/本机 URL；显式设为 true 才启用 web_fetch 内网保护。
+    private_network_protection: false
+    # PLC Modbus TCP/RTU/ASCII 工具默认关闭。启用写入时，还需在具体 target 上设置 allow_write: true。
+    modbus:
+        enabled: false
+        allow_write: false
+        timeout_ms: 3000
+        targets: {}
+        # 配置设备时可将上一行替换为：
+        # targets:
+        #     machine_1:
+        #         transport: tcp
+        #         address: 192.168.1.20:502
+        #         unit_id: 1
+        #         allow_write: false
+        #     serial_plc:
+        #         transport: rtu
+        #         address: COM3
+        #         unit_id: 1
+        #         baud_rate: 9600
+        #         data_bits: 8
+        #         parity: N
+        #         stop_bits: 1
+        #         allow_write: false
+    # 通用 UART 工具。核心只负责串口读写；具体型号的数据和操作顺序由硬件 Skill 定义。
+    uart:
+        enabled: false
+        allow_write: false
+        timeout_ms: 3000
+        max_read_bytes: 4096
+        max_write_bytes: 4096
+        targets: {}
+        # targets:
+        #     device_uart:
+        #         port: /dev/ttyUSB0
+        #         baud_rate: 115200
+        #         data_bits: 8
+        #         parity: N
+        #         stop_bits: 1
+        #         timeout_ms: 3000
+        #         allow_write: false
+    # 通用 ROS2 工具。Topic、Service、Action 及其业务含义由硬件 Skill 定义。
+    ros2:
+        enabled: false
+        allow_publish: false
+        allow_service_call: false
+        allow_action: false
+        timeout_ms: 10000
+        max_output_bytes: 65536
+        command: ros2
+        domain_id: 0
+        # 空白名单表示不额外限制名称；写操作仍需上面的独立权限开关。
+        topic_allowlist: []
+        service_allowlist: []
+        action_allowlist: []
+    # 高层机器人运行时默认关闭，且全局与设备两层 allow_motion 都必须开启才允许运动。
+    # 当前只实现 sim 驱动，用于先验证 NLP/语音动作、安全规则和审计闭环。
+    robot:
+        enabled: false
+        allow_motion: false
+        default_device: sim_rover
+        devices:
+            sim_rover:
+                enabled: true
+                driver: sim
+                allow_motion: false
+                watchdog_ms: 5000
+                max_command_ms: 5000
+                max_linear_mps: 0.4
+                max_angular_rps: 0.8
+                max_distance_m: 1.0
+                max_turn_degrees: 180
+email_config:
+    enabled: true
+    smtp_host: smtp.163.com
+    smtp_port: 465
+    imap_host: imap.163.com
+    imap_port: 993
+    username: your-email@example.com
+    password: YOUR_EMAIL_AUTH_CODE
+    from_address: your-email@example.com
+    use_tls: false
+    from_name: ""
+auto_install_deps: false
+dangerously_skip_permissions: true
+gateway:
+    enabled: true
+    # Loopback by default. Use 0.0.0.0:8080 only with authentication enabled.
+    listen_addr: 127.0.0.1:8080
+    # Optional service-only listener. When set, /api/v1/agent/* moves off the
+    # Web/admin listener; only AgentOS data APIs, health and metrics are exposed.
+    # Every non-loopback bind requires authentication; ":8081" is a wildcard.
+    agent_os_listen_addr: ""
+    # Optional same-origin website proxy for browser-downloadable artifacts.
+    # Direct AgentOS clients should leave this empty and use /api/v1/agent/files.
+    # Nova-hosted UI example: /nova/ok/files
+    agent_os_artifact_download_path: ""
+    # Same-host business backend example: 127.0.0.1:8081
+    # Authenticated private-network example: 0.0.0.0:8081
+    # Set a long random key before exposing AgentOS or MCP outside localhost.
+    api_key: ""
+    auth_enabled: false
+    auth_token: ""
+    # AgentOS database queue. "all" accepts and executes tasks; use separate
+    # gateway/worker Deployments in Kubernetes when independent scaling is needed.
+    agent_os_mode: all
+    max_tasks: 10
+    max_queued_tasks: 100
+    task_lease_seconds: 60
+    task_poll_interval_ms: 500
+    # Pending ask approvals expire and fail their task after this period.
+    approval_ttl_seconds: 86400
+    task_timeout: 300
+    enable_webui: true
+    webui_path: ./webui
+    qq_webhook_port: 0
+    update_url: ""
+    otlp_endpoint: ""
+    # 网站账号与平台模型使用同一服务；本地联调时可填写本地账号服务地址。
+    account_service_url: https://www.sicurrent.com
+    account_register_url: https://www.sicurrent.com/register
+    account_center_url: https://www.sicurrent.com/login/
+channels:
+    - name: feishu
+      type: feishu
+      enabled: false
+      config:
+        app_id: cli_a94cc9c965785cd5
+        app_secret: ""
+    - name: qq
+      type: qq
+      enabled: false
+      config:
+        app_id: "1903702067"
+        app_secret: YOUR_QQ_APP_SECRET
+    - name: dingtalk
+      type: dingtalk
+      enabled: false
+      config:
+        client_id: dingl3oti9dqisxtkl7p
+        client_secret: ""
+    - name: wework
+      type: wework
+      enabled: false
+      config:
+        bot_id: aib07pMeraKR4aeNndVleygYoZAirZQzJqa
+        secret: ""
+    - name: email
+      type: email
+      enabled: false
+      config:
+        smtp_host: smtp.qq.com
+        smtp_port: 465
+        imap_host: imap.qq.com
+        imap_port: 993
+        username: ""
+        password: ""
+        from_address: ""
+        from_name: AI助手
+        use_tls: true
+        check_interval: 30
+        monitor_folder: INBOX
+    - name: telegram
+      type: telegram
+      enabled: false
+      config:
+        bot_token: YOUR_TELEGRAM_BOT_TOKEN
+heartbeat:
+    enabled: false
+    interval: 30
+pipeline:
+    pipelines: {}
+mcp_servers:
+    # Local MCP server over stdio. Child process inherits the OpenKitty environment.
+    - name: local-tools
+      enabled: false
+      transport: stdio
+      command: npx
+      args: ["-y", "@modelcontextprotocol/server-filesystem", "."]
+      env: []
+      cwd: ""
+      tool_prefix: ""
+      timeout_seconds: 30
+    # Remote MCP server. "auto" tries Streamable HTTP first and falls back to legacy SSE.
+    - name: remote-tools
+      enabled: false
+      transport: auto
+      url: https://example.com/mcp
+      token: ""
+      headers: {}
+      tool_prefix: ""
+      timeout_seconds: 30

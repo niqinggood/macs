@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/web/openkitty-avatar.png?v=1965baa4">
+<title>macs（麦卡斯）· Multi-Agent Collaboration System</title>
+<style>
+/* Inline SVG icons — no CDN, works in air-gapped environments */
+.ico { width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; flex-shrink:0; }
+.ico svg { width:100%; height:100%; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+</style>
+<script src="/web/marked.min.js?v=202606151459"></script>
+<script>try{marked.setOptions({breaks:true,gfm:true})}catch(e){marked={parse:function(t){return'<p>'+t+'</p>'}}}</script>
+	<script src="/web/mermaid.min.js?v=202606151459"></script>
+	<script>try{mermaid.initialize({startOnLoad:false,theme:'neutral',securityLevel:'strict'})}catch(e){}</script>
+	<script src="/web/lucide.min.js?v=20260627"></script>
+	<script>document.addEventListener('DOMContentLoaded',function(){lucide.createIcons()});</script>
+<script src="/web/pdf.min.js?v=202606151459"></script>
+<link rel="stylesheet" href="/web/github.min.css?v=202606151459">
+<script src="/web/highlight.min.js?v=202606151459"></script>
+<script src="/web/mammoth.browser.min.js?v=202606151459"></script>
+<script src="/web/chart.umd.min.js?v=202606151459"></script>
+
+ <link rel="stylesheet" href="/web/style.css?v=20261013-memory-runtime-v49">
+ <link rel="stylesheet" href="/web/theme.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/account_modal.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/music_player.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/media_studio.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/document_studio.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/channel_settings_help.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/channel_guides.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/settings_readability.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/prompt_templates.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/prompt_composer.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/task_ids.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/help_export.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/team_manager.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/memory_panel.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/font_size.css?v=20261013-memory-runtime-v49">
+<link rel="stylesheet" href="/web/help_layout.css?v=20261014-style-restore-v58">
+<script src="/web/font_size.js?v=20261013-memory-runtime-v49" defer></script>
+	<script src="/web/theme.js?v=20261014-style-restore-v58" defer></script>
+	<script src="/web/i18n.js?v=20261014-style-restore-v58" defer></script>
+<script>
+// Inline SVG icon set — Lucide-style, no CDN needed
+var I = {
+ plus: '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+ user: '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+ users: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+ folder: '<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+ download: '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+ wrench: '<svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+ help: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+ settings: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+ moon: '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+ sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+ branch: '<svg viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>',
+ check: '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+ clipboard: '<svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>',
+ scroll: '<svg viewBox="0 0 24 24"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M22 17V5a2 2 0 0 0-2-2H10"/></svg>',
+ list: '<svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
+ clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+ 'alert-triangle': '<svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+ 'x-circle': '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+ rocket: '<svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+ 'lightbulb': '<svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>',
+ mail: '<svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+ 'dollar-sign': '<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+ sparkles: '<svg viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>',
+ phone: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+ target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+ loader: '<svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>',
+ search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+ 'bar-chart': '<svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+ activity: '<svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+};
+function ico(name) { return '<span class="ico">'+(I[name]||'')+'</span>'; }
+</script>
+</head>
+<body>
+<!-- RAG function stubs (defined before onclick handlers) -->
+<script>
+function shutdownServer(){
+ if(!confirm("确定退出 MACS？")) return;
+ fetch("/api/system/shutdown",{method:"POST"}).then(function(){
+ document.body.innerHTML=[
+ '<div style="text-align:center;padding:100px;background:#f5f5f5;min-height:100vh;display:flex;align-items:center;justify-content:center">',
+ '<div>',
+ '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>',
+ '<h2 style="color:#1e293b;margin:16px 0 8px;font-weight:500">MACS 已安全退出</h2>',
+ '<p style="color:#64748b;font-size:calc(15.4px * var(--macs-font-scale, 1))">服务已停止，可以关闭此窗口</p>',
+ '</div></div>'
+ ].join("");
+ });
+}
+function openKnowledgePanel() {
+ var m = document.getElementById('knowledgeModal');
+ if (m) { m.classList.add('active'); loadRagKbList(); }
+ else { console.warn('knowledgeModal not yet loaded, retrying...'); setTimeout(openKnowledgePanel, 100); }
+}
+function openRagAdmin() {
+ var m = document.getElementById('ragAdminPanel');
+ if (m) { m.classList.add('active'); switchRagAdmin('kbs'); }
+ else { console.warn('ragAdminPanel not yet loaded, retrying...'); setTimeout(function(){ openRagAdmin(); }, 100); }
+}
+function closeKnowledgeModal() {
+ var m = document.getElementById('knowledgeModal');
+ if (m) m.classList.remove('active');
+}
+function closeRagAdmin() {
+ var m = document.getElementById('ragAdminPanel');
+ if (m) m.classList.remove('active');
+}
+</script>
+
+<div class="app-container">
+ <div class="sidebar" id="sidebar">
+
+		<div class="sidebar-header">
+			<div class="sidebar-header-left">
+				<h3 class="logo-text"><img class="openkitty-brand-avatar" src="/web/openkitty-avatar.png?v=1965baa4" alt="macs（麦卡斯）"><span class="brand-copy"><span class="brand-primary"><span class="brand-latin">macs</span><span class="brand-divider">·</span><span class="brand-cn">麦卡斯</span></span><small>Multi-Agent Collaboration System</small></span></h3>
+			</div>
+			<span class="collapsed-logo"><img class="openkitty-brand-avatar" src="/web/openkitty-avatar.png?v=1965baa4" alt="macs（麦卡斯）"><small>麦卡斯</small></span>
+			<button class="sidebar-toggle" id="sidebarToggleBtn" type="button" onclick="toggleSidebar()" title="收起侧边栏" data-i18n-title="sidebarCollapse" aria-label="收起侧边栏" aria-controls="sidebar" aria-expanded="true"><svg class="sidebar-toggle-icon" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3" width="15" height="14" rx="2.5"/><path class="sidebar-toggle-divider" d="M7.25 3.25v13.5"/><path class="sidebar-toggle-grip" d="M4.75 7.25v5.5"/></svg></button>
+		</div>
+		<div class="sidebar-body">
+			<div class="sidebar-command-area">
+				<button class="sidebar-primary-action" type="button" onclick="createNewSession()" title="新建对话" data-i18n-title="newConversationTitle">
+					<svg class="sidebar-compose-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+					<span class="sidebar-action-label" data-i18n="sidebarNewTask">新对话</span>
+				</button>
+			</div>
+
+			<nav class="sidebar-feature-nav" aria-label="功能导航" data-i18n-aria-label="sidebarFunctions">
+				<div class="sidebar-section-label" data-i18n="sidebarFunctions">功能</div>
+				<button class="sidebar-nav-item" type="button" onclick="openAEPanel()" title="AI员工" data-i18n-title="aiEmployees">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2M17 11a3 3 0 1 0 0-6M17 14a4 4 0 0 1 4 4v2"/></svg>
+					<span class="sidebar-nav-label" data-i18n="aiEmployees">AI员工</span>
+				</button>
+				<button class="sidebar-nav-item" id="sidebarToolsButton" type="button" onclick="toggleSidebarTools(event)" title="skill知识技能 · 连接" data-i18n-title="sidebarTools" aria-haspopup="menu" aria-expanded="false" aria-controls="sidebarToolsPanel">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></svg>
+					<span class="sidebar-nav-label" data-i18n="sidebarTools">skill知识技能 · 连接</span>
+					<span class="sidebar-tools-chevron" aria-hidden="true">›</span>
+				</button>
+				<button class="sidebar-nav-item" type="button" onclick="openKnowledgePanel()" title="知识库" data-i18n-title="knowledgeBase">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+					<span class="sidebar-nav-label" data-i18n="knowledgeBase">知识库</span>
+				</button>
+				<button class="sidebar-nav-item" type="button" onclick="openArtifactCenter()" title="交付物" data-i18n-title="artifactCenter">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v12H3zM1 3h22v5H1zM9 12h6"/></svg>
+					<span class="sidebar-nav-label" data-i18n="artifactCenter">交付物</span>
+				</button>
+				<button class="sidebar-nav-item" id="sidebarMoreButton" type="button" onclick="toggleSidebarMore(event)" title="更多" data-i18n-title="sidebarMore" aria-haspopup="dialog" aria-expanded="false" aria-controls="sidebarMorePanel">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+					<span class="sidebar-nav-label" id="sidebarMoreLabel" data-i18n="sidebarMore">更多</span>
+				</button>
+			</nav>
+			<section id="sidebarToolsPanel" class="sidebar-tools-panel" role="menu" aria-labelledby="sidebarToolsButton" hidden>
+				<button class="sidebar-tools-choice" id="sidebarSkillsButton" type="button" role="menuitem" onclick="closeSidebarTools();openSkillPanel()">
+					<span class="sidebar-tools-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></svg></span>
+					<span><strong data-i18n="mySkillsTitle">我的 Skill</strong><small data-i18n="sidebarSkillsHint">查看和管理知识与技能</small></span>
+				</button>
+				<button class="sidebar-tools-choice" id="sidebarConnectionsButton" type="button" role="menuitem" onclick="closeSidebarTools();openConfigModal('channels')">
+					<span class="sidebar-tools-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m10 13 4-4M8.5 15.5l-1 1a4.2 4.2 0 0 1-6-6l4-4a4.2 4.2 0 0 1 6 0M15.5 8.5l1-1a4.2 4.2 0 0 1 6 6l-4 4a4.2 4.2 0 0 1-6 0"/></svg></span>
+					<span><strong data-i18n="channelsConfigTab">连接应用</strong><small data-i18n="sidebarConnectionsHint">移动办公 · QQ、微信、飞书等</small></span>
+				</button>
+			</section>
+			<section id="sidebarMorePanel" class="sidebar-more-panel" role="dialog" aria-modal="false" aria-labelledby="sidebarMoreTitle" hidden>
+				<div id="sidebarMoreTitle" class="sidebar-more-title" data-i18n="sidebarMoreFunctions">更多功能</div>
+				<button class="sidebar-nav-item" id="sidebarMediaButton" type="button" onclick="closeSidebarMore();openMediaStudio('image')" title="AI 创作 · 图片与音乐">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3ZM19 15l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z"/></svg>
+					<span class="sidebar-nav-label" data-i18n="sidebarMedia">AI 创作 · 图片与音乐</span>
+				</button>
+				<button class="sidebar-nav-item" type="button" onclick="closeSidebarMore();openTeamPanel()" title="项目专家团队" data-i18n-title="teamsTitle">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="7" r="2.5"/><path d="M2.5 20v-2a5.5 5.5 0 0 1 11 0v2M14 14.5a4.5 4.5 0 0 1 7.5 3.5v2"/></svg>
+					<span class="sidebar-nav-label" data-i18n="teamsTitle">项目专家团队</span>
+				</button>
+				<button class="sidebar-nav-item" type="button" onclick="closeSidebarMore();openPipelinePanel()" title="适合需要严格按预设步骤执行、重复办理或人工审核的工作。" data-i18n-title="workflowPurpose">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="19" r="2"/><path d="M8 5h2a4 4 0 0 1 4 4v0a3 3 0 0 0 3 3M8 19h2a4 4 0 0 0 4-4v0a3 3 0 0 1 3-3"/></svg>
+					<span class="sidebar-nav-label" data-i18n="pipelines">工作流</span>
+				</button>
+				<a class="sidebar-nav-item memory-nav-link" href="/web/memory.html" onclick="event.preventDefault();closeSidebarMore();openMemoryPanel()" title="记忆" data-i18n-title="settingsMemory" aria-haspopup="dialog" aria-controls="memoryPanelModal">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a7 7 0 0 0-4 12.7V21l4-2 4 2v-5.3A7 7 0 0 0 12 3Z"/><path d="M9 10h6M9 13h6"/></svg>
+					<span class="sidebar-nav-label" data-i18n="settingsMemory">记忆</span>
+				</a>
+				<button class="sidebar-nav-item" id="commonQuestionsButton" type="button" onclick="closeSidebarMore();toggleCommonQuestions(event)" title="常见提示词" data-i18n-title="commonQuestions" aria-haspopup="dialog" aria-expanded="false" aria-controls="commonQuestionsPanel">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.8 9.8 0 0 1-4-.8L3 21l1.7-4.3A8.2 8.2 0 0 1 3 11.5a8.4 8.4 0 0 1 9-8.5 8.4 8.4 0 0 1 9 8.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg>
+					<span class="sidebar-nav-label" data-i18n="commonQuestions">常见提示词</span>
+				</button>
+			</section>
+			<section id="commonQuestionsPanel" class="common-questions-panel" role="dialog" aria-modal="false" aria-labelledby="commonQuestionsTitle" hidden>
+				<header class="common-questions-header">
+					<div><h3 id="commonQuestionsTitle" data-i18n="commonQuestions">常见提示词</h3><p data-i18n="commonPromptsHint">选择后填入对话框，修改后发送</p></div>
+					<button type="button" class="common-questions-close" onclick="closeCommonQuestions()" aria-label="关闭常见提示词" data-i18n-aria-label="commonPromptsClose">&times;</button>
+				</header>
+				<div class="common-questions-body">
+					<div class="common-questions-group">
+						<h4>信息与研究</h4>
+						<button class="preset-btn common-question-item" data-new-chat="true" data-new-chat-label="帮我看看今天的财经和股票动态" data-message="帮我总结今天的重要财经资讯，股票市场行情、大盘、行业、个股、板块、风格情况是怎样的，国内、国际各有什么特点，有何重大消息"><span>财经与股票</span><small>市场行情、板块风格与重要消息</small></button>
+						<button class="preset-btn common-question-item" data-message="今天有微博有哪些热点新闻？"><span>热点动态</span><small>整理今天值得关注的热点新闻</small></button>
+						<button class="preset-btn common-question-item" data-message="今天科技圈有什么大事？并整理近期热点趋势情况"><span>科技动态</span><small>科技大事与近期趋势</small></button>
+						<button class="preset-btn common-question-item" data-new-chat="true" data-new-chat-label="帮我做一份深度研究报告" data-message="请帮我整理一份关于《中国脑科学领域发展现状、前沿技术与未来趋势》的详细分析报告。报告应包含国家战略布局、核心研究方向、产学研进展及面临的挑战。整理成pdf报告"><span>深度研究报告</span><small>按主题生成结构化 PDF 报告</small></button>
+					</div>
+					<div class="common-questions-group">
+						<h4>创作与执行</h4>
+						<button class="preset-btn common-question-item" data-new-chat="true" data-new-chat-label="把这周工作整理成一份 PPT" data-message="帮我写一份周报,以ppt交付"><span>汇报与简报</span><small>生成可交付的周报或 PPT</small></button>
+						<button class="preset-btn common-question-item" data-new-chat="true" data-new-chat-label="帮我设计软件收费系统架构" data-message="请基于常见的软件收费模式（如订阅制、一次性购买、按功能付费等），帮我设计一个通用的软件收费系统架构方案，包含用户管理、订单、支付接口集成、发票和报表模块。"><span>代码与架构设计</span><small>输出系统架构和模块方案</small></button>
+						<button class="preset-btn common-question-item" data-message="请帮我生成一封正式、专业、礼貌的商务邮件，包含清晰的主题、称呼、正文、结尾和落款，可直接用于工作沟通、合作咨询或需求对接。整理好后发我邮箱 Your-Email@163.com "><span>商务邮件</span><small>撰写正式邮件并准备发送</small></button>
+					</div>
+					<div class="common-questions-group">
+						<h4>生活常用</h4>
+						<button class="preset-btn common-question-item" data-message="上海未来几天天气怎么样？"><span>天气查询</span><small>查询城市近期天气</small></button>
+						<button class="preset-btn common-question-item" data-message="帮我查一下今天的油价"><span>今日油价</span><small>查询所在地油价</small></button>
+						<button class="preset-btn common-question-item" data-message="帮我查询北京到上海未来一周最便宜的机票，推荐2-3个航班"><span>机票推荐</span><small>比较日期与航班价格</small></button>
+						<button class="preset-btn common-question-item" data-message="我的症状是头痛、发烧38.5度、喉咙痛，请帮我分析可能是什么病，并给出初步建议"><span>健康信息整理</span><small>仅作信息参考，不替代医生诊断</small></button>
+					</div>
+					<div class="common-questions-group">
+						<h4>AI 员工与协作</h4>
+						<button class="preset-btn common-question-item" data-message="@会议秘书 整理这份会议录音，提取关键决议和待办事项"><span>会议秘书</span><small>提取决议与待办事项</small></button>
+						<button class="preset-btn common-question-item" data-message="@市场分析师 分析这个市场的竞争格局，输出竞对分析报告"><span>市场分析师</span><small>分析竞争格局与竞对</small></button>
+						<button class="preset-btn common-question-item" data-message="@项目助理 根据本周git提交记录和项目变更，生成工作周报"><span>项目助理</span><small>根据项目变更生成周报</small></button>
+						<button class="preset-btn common-question-item" type="button" onclick="closeCommonQuestions();openTeamPanel()"><span>项目专家团队协作</span><small>选择预设专家团队</small></button>
+					</div>
+				</div>
+			</section>
+
+			<section class="sidebar-history" aria-labelledby="sidebarHistoryLabel">
+				<div class="sidebar-history-heading">
+					<span id="sidebarHistoryLabel" data-i18n="sidebarHistory">对话</span>
+					<button id="sidebarAllTasksButton" class="sidebar-all-tasks" type="button" onclick="openTaskPanel()" aria-haspopup="dialog" aria-controls="taskModal" data-i18n="sidebarAllTasks">查看全部</button>
+					<button class="sidebar-history-copy" type="button" onclick="copyCurrentSessionId()" title="复制当前会话ID" data-i18n-title="copySessionTitle" aria-label="复制当前会话ID">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+					</button>
+				</div>
+				<label class="sidebar-search sidebar-history-search" for="sessionSearchInput">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+					<input type="text" id="sessionSearchInput" placeholder="搜索对话..." data-i18n-placeholder="searchSessions" oninput="searchSessions(this.value)" onfocus="this.select()">
+					<span id="searchClear" class="sidebar-search-clear" style="display:none" onclick="clearSearch()">&times;</span>
+				</label>
+				<div class="sessions-list" id="sessionsList">
+					<div style="text-align: center; color: #adb5bd; padding: 20px;" data-i18n="loading">加载中...</div>
+				</div>
+			</section>
+			<button class="sidebar-collapsed-history" type="button" onclick="openTaskPanel()" title="查看全部任务" data-i18n-title="sidebarOpenHistory" aria-haspopup="dialog" aria-controls="taskModal">
+				<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 13h5M8 17h3"/></svg>
+				<span class="visually-hidden" data-i18n="sidebarOpenHistory">查看全部任务</span>
+			</button>
+		</div>
+
+		<div class="sidebar-footer">
+			<div id="sidebarWorkbenchSlot" class="sidebar-workbench-slot"></div>
+			<button class="sidebar-footer-button" type="button" onclick="openConfigModal()" title="系统设置" data-i18n-title="settingsTitle">
+				<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.88-.34A1.7 1.7 0 0 0 14 20.93V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.05 14H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3.05V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.13.6.68 1 1.3 1h.3a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg>
+				<span class="sidebar-footer-label" data-i18n="settings">设置</span>
+			</button>
+			<div id="sidebarAccountSlot">
+ <div class="topbar-auth sidebar-account" id="topbarAuth" aria-live="polite">
+  <span class="topbar-auth-checking" id="topbarAuthChecking" data-i18n-title="accountChecking" title="正在识别登录状态" aria-label="正在识别登录状态"><span aria-hidden="true">•••</span></span>
+  <button class="hb-btn topbar-auth-login" id="topbarLoginButton" type="button" onclick="openAccountLogin()" data-i18n-title="accountLoginTitle" title="登录网站账号" hidden>
+   <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+   <span data-i18n="accountLogin">登录</span>
+  </button>
+  <div class="topbar-auth-user" id="topbarUserState" hidden>
+   <button class="topbar-auth-center" id="topbarUserCenterButton" type="button" onclick="toggleAccountMenu(event)" aria-haspopup="menu" aria-expanded="false" aria-controls="topbarAccountMenu" title="用户中心">
+    <span class="topbar-auth-avatar" id="topbarUserAvatar" aria-hidden="true">U</span>
+    <span class="sidebar-account-copy">
+     <span class="topbar-auth-name" id="topbarUserName"></span>
+     <small class="sidebar-account-caption" id="sidebarAccountCaption"></small>
+     <span class="sidebar-account-stats">
+      <span><small data-i18n="accountBalance">余额</small><b id="sidebarAccountBalance">—</b></span>
+      <span><small data-i18n="accountApiKeys">API 密钥</small><b id="sidebarAccountApiKeys">—</b></span>
+     </span>
+    </span>
+    <svg class="topbar-auth-chevron topbar-disclosure-icon" viewBox="0 0 20 20" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg>
+   </button>
+   <div class="topbar-account-menu" id="topbarAccountMenu" role="menu" aria-label="用户中心" hidden>
+    <div class="topbar-account-identity">
+     <span data-i18n="accountCurrentUser">当前账号</span>
+     <strong id="topbarAccountUsername"></strong>
+    </div>
+    <a class="topbar-account-menu-item" id="topbarAccountCenterLink" href="https://www.sicurrent.com/login/" target="_blank" rel="noopener noreferrer" role="menuitem" onclick="closeAccountMenu(false)">
+     <span data-i18n="accountOpenCenter">进入用户中心</span><span aria-hidden="true">↗</span>
+    </a>
+    <a class="topbar-account-menu-item" id="topbarAccountWalletLink" target="_blank" rel="noopener noreferrer" role="menuitem" onclick="closeAccountMenu(false)"><span data-i18n="accountWallet">积分钱包</span><span aria-hidden="true">↗</span></a>
+    <button class="topbar-account-menu-item topbar-account-menu-logout" id="topbarLogoutButton" type="button" onclick="logoutAccount()" role="menuitem" data-i18n-title="accountLogoutTitle" title="退出网站账号">
+     <span data-i18n="accountLogout">退出登录</span>
+    </button>
+   </div>
+  </div>
+ </div>
+			</div>
+		</div>
+ </div>
+
+ <div class="chat-main">
+ <div id="updateBanner" style="display:none;background:#fff;color:#fff;padding:8px 16px;text-align:center;font-size:calc(14.3px * var(--macs-font-scale, 1));position:relative;">
+ 📦 新版本 <span id="updateVersion"></span> 已发布 (当前 <span id="updateCurrentVer"></span>)
+ <span id="updateChangelog" style="opacity:0.8;margin-left:8px;font-size:calc(12.1px * var(--macs-font-scale, 1));"></span>
+ <button id="updateApplyBtn" onclick="applyUpdate()" style="background:#22c55e;color:#fff;border:none;border-radius:4px;padding:2px 12px;margin-left:10px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));font-weight:600;">⬇ 一键更新</button>
+ <a id="updateDownloadLink" href="#" target="_blank" style="color:#fff;text-decoration:underline;margin-left:8px;">手动下载</a>
+ <button onclick="document.getElementById('updateBanner').style.display='none'" style="background:none;border:none;color:#fff;cursor:pointer;position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:calc(17.6px * var(--macs-font-scale, 1));">&times;</button>
+ </div>
+ <div class="chat-header">
+ <h1 id="sessionTitle" style="display:flex;align-items:center;gap:8px;"><button id="headerCollapseBtn" class="topbar-collapse-toggle" type="button" onclick="toggleHeaderCompact()" title="收起顶栏操作" data-i18n-title="topbarCollapseActions" aria-label="收起顶栏操作" aria-controls="headerButtons" aria-expanded="true"><svg class="topbar-collapse-icon" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12.5 4.5-5 5.5 5 5.5"/></svg></button><span id="sessionTitleText">macs</span></h1>
+ <div class="topbar-actions">
+ <div class="header-buttons" id="headerButtons">
+				<div class="agent-control-group">
+					<div class="mode-switch" id="modeSwitch">
+						<button id="modeToggleBtn" type="button" class="mode-btn active" onclick="toggleAgentMode()" aria-pressed="false" aria-label="当前为单 Agent，点击切换到多 Agent" title="切换到多 Agent">
+							<i id="singleModeIcon" data-lucide="user" style="width:14px;height:14px;"></i>
+							<i id="collabModeIcon" data-lucide="users" style="width:14px;height:14px;display:none;"></i>
+							<span id="modeToggleLabel">单Agent</span>
+						</button>
+					</div>
+				</div>
+				<button class="hb-btn" onclick="openFileModal()" title="浏览文件" data-i18n-title="browseFiles">📁</button>
+				<button class="hb-btn" onclick="exportToPdf()" title="导出对话" data-i18n-title="exportChatTitle">💾 <span data-i18n="exportChat">导出</span></button>
+					<span id="topbarWorkbenchAnchor" hidden></span>
+					<div class="dropdown topbar-workbench-dropdown" style="position:relative;display:inline-block">
+					<button class="hb-btn topbar-menu-trigger" id="workbenchMenuButton" type="button" onclick="toggleDropdown('toolMenu', this, event)" title="工作台" data-i18n-title="workbench" aria-haspopup="menu" aria-expanded="false" aria-controls="toolMenu"><svg class="topbar-action-icon workbench-grid-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span data-i18n="workbenchButton">工作台</span><svg class="topbar-disclosure-icon" viewBox="0 0 20 20" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5.5 7.5 4.5 4.5 4.5-4.5"/></svg></button>
+											<div id="toolMenu" class="dropdown-menu" role="menu" style="display:none">
+							<a onclick="openTodoPanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><polyline points="20 6 9 17 4 12"/></svg>TODO</a>
+							<a onclick="openTaskPanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>任务管理</a>
+							<a onclick="openTeamPanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><circle cx="9" cy="7" r="4"/><path d="M1 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><circle cx="18" cy="5" r="3"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>项目专家团队</a>
+								<a onclick="openPipelinePanel()" title="适合需要严格按预设步骤执行、重复办理或人工审核的工作。" data-i18n-title="workflowPurpose"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span data-i18n="pipelines">工作流</span></a>
+								<a onclick="openLogModal()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>日志</a>
+							<a onclick="openMonitorModal()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Prompt命中</a>
+						<a onclick="openTracePrompt()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>任务追踪</a>
+						<a onclick="openSkillPanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>技能管理</a>
+							<a onclick="openSupplierPanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>供应商管理</a>
+							<a onclick="openMarketplace()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>工具市场</a>
+								<a onclick="openStatusPanel()">📊 系统状态</a>
+						<a onclick="openKnowledgePanel()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>RAG检索</a>
+								<a onclick="openRagAdmin()"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>RAG管理</a>
+					<div class="workbench-utility-row" aria-label="界面开关">
+						<button class="workbench-utility-btn workbench-icon-btn" id="themeToggle" type="button" onclick="toggleTheme()" title="切换亮色/暗色" data-i18n-title="themeTitle"><span data-theme-icon><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span></button>
+					</div>
+					<hr style="margin:4px 0;border-color:#e2e8f0;">
+					<a onclick="shutdownServer()" style="color:#dc2626;">⏻ 退出系统</a>
+					</div>
+				</div>
+				<button class="hb-btn topbar-mobile-utility" type="button" onclick="openConfigModal()" data-i18n-title="settingsTitle" title="系统设置" aria-haspopup="dialog" aria-controls="configModal"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.88-.34A1.7 1.7 0 0 0 14 20.93V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3.05 14H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3.05V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06-.06A1.7 1.7 0 0 0 19.4 9c.13.6.68 1 1.3 1h.3a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg></button>
+				<button class="hb-btn topbar-help" id="topbarHelpButton" type="button" onclick="openHelpModal()" title="帮助说明" data-i18n-title="helpTitle"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 4.1 1.7c-1.1 1-1.9 1.4-1.9 3.3M12 17h.01"/></svg><span data-i18n="help">帮助</span></button>
+
+ <button id="msgBell" onclick="toggleMessages()" style="background:none;border:none;cursor:pointer;position:relative;padding:6px 8px;color:#6b7280;font-size:calc(17.6px * var(--macs-font-scale, 1));" title="System Messages"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span id="msgBadge" style="position:absolute;top:0;right:2px;background:#ef4444;color:#fff;border-radius:50%;width:16px;height:16px;font-size:calc(11px * var(--macs-font-scale, 1));display:none;align-items:center;justify-content:center;">0</span></button>
+ <span id="topbarAccountAnchor" hidden></span>
+ </div>
+ <button class="hb-btn" id="fontSizeToggle" type="button" title="字体大小 · 110%" aria-label="字体大小 · 110%" aria-haspopup="menu" aria-expanded="false" aria-controls="fontSizeMenu">Aa</button>
+ <button class="hb-btn topbar-language-toggle" id="languageToggle" type="button" onclick="toggleLanguage()" title="Switch to English" aria-label="Switch to English" aria-pressed="false"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><span data-language-toggle-label>中文 / EN</span></button>
+ </div>
+ </div>
+
+ <section class="community-workspace" id="communityWorkspace" aria-labelledby="communityWorkspaceTitle" hidden>
+  <div class="community-workspace-header">
+   <div>
+    <div class="community-workspace-eyebrow">SICurrent · TECHNOLOGY COMMUNITY</div>
+    <h2 id="communityWorkspaceTitle" data-i18n="communityFrontier">科技前沿</h2>
+    <p><span id="communityWorkspaceGreeting">欢迎回来</span>，这里同步论坛中正在发生的科技讨论。</p>
+   </div>
+   <div class="community-workspace-actions">
+    <span class="community-workspace-updated" id="communityWorkspaceUpdated" aria-live="polite"></span>
+    <button id="communityWorkspaceRefreshButton" type="button" onclick="refreshCommunityWorkspace()" title="刷新科技动态">刷新</button>
+    <button type="button" onclick="closeCommunityWorkspace()" title="收起科技前沿" aria-label="收起科技前沿" data-i18n-title="communityFrontierClose" data-i18n-aria-label="communityFrontierClose">收起</button>
+   </div>
+  </div>
+  <div class="community-feed" id="communityFeed" aria-live="polite">
+   <div class="community-feed-loading">正在获取科技社区动态…</div>
+  </div>
+ </section>
+
+ <div class="messages-area" id="messagesArea">
+ </div>
+
+	<div class="input-area">
+<div id="messageInputResizeHandle" class="message-input-resize-handle" role="separator" aria-orientation="horizontal" aria-label="拖动调整输入框高度" tabindex="0" title="向上拖动可增大输入框，双击恢复默认高度"></div>
+<div class="input-container">
+					<div id="imagePreviewArea" style="display:none; padding:8px 12px 2px; flex-wrap:wrap; gap:6px; align-items:flex-start;"></div>
+					<div id="uploadArea" style="display:none; padding:4px 12px; background:#f0f7ff; border-radius:8px; margin-bottom:4px; font-size:calc(13.2px * var(--macs-font-scale, 1)); color:#333;">
+						<span id="uploadFileName"></span>
+						<button onclick="clearUpload()" style="background:none; border:none; cursor:pointer; color:#999; margin-left:8px;">✕</button>
+					</div>
+					<div id="skillRunSelection" class="skill-run-selection" hidden>
+						<span class="skill-run-selection-mark" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+						<span class="skill-run-selection-copy">
+							<span class="skill-run-selection-label" data-i18n="skillRunNextCapability">下次使用的能力</span>
+							<span id="skillRunSelectionName" class="skill-run-selection-name"></span>
+						</span>
+							<button type="button" id="skillRunClearBtn" class="skill-run-clear" aria-label="取消本次能力选择" title="取消本次能力选择" data-i18n-title="skillRunClearCapability" data-i18n-aria-label="skillRunClearCapability">&times;</button>
+					</div>
+					<div id="skillRunPopover" class="skill-run-popover" role="dialog" aria-label="使用skill(知识、技能、专家 SOP)" data-i18n-aria-label="skillRunChooseCapability" hidden>
+						<div class="skill-run-popover-header">
+							<div>
+								<div class="skill-run-popover-title" data-i18n="skillRunChooseCapability">使用skill(知识、技能、专家 SOP)</div>
+								<div class="skill-run-popover-subtitle" data-i18n="skillRunScopeHint">选择下一次使用的能力 · SOP 即操作手册</div>
+							</div>
+							<button type="button" id="skillRunCloseBtn" class="skill-run-popover-close" aria-label="关闭能力选择" data-i18n-aria-label="skillRunCloseCapability">&times;</button>
+						</div>
+						<div id="skillRunListView">
+							<label class="skill-run-search-wrap">
+								<i data-lucide="search" aria-hidden="true"></i>
+								<input id="skillRunSearch" type="search" autocomplete="off" placeholder="搜索知识、技能、专家 SOP" aria-label="搜索知识、技能、专家 SOP" data-i18n-placeholder="skillRunSearchCapabilities" data-i18n-aria-label="skillRunSearchCapabilities">
+							</label>
+							<div id="skillRunList" class="skill-run-list" role="listbox"></div>
+						</div>
+						<div id="skillRunConfigureView" class="skill-run-configure" hidden>
+							<button type="button" id="skillRunBackBtn" class="skill-run-back"><i data-lucide="arrow-left"></i><span>返回</span></button>
+							<div id="skillRunConfigureTitle" class="skill-run-configure-title"></div>
+							<div id="skillRunConfigureDescription" class="skill-run-configure-description"></div>
+							<div id="skillRunParameterFields" class="skill-run-parameter-fields"></div>
+							<div id="skillRunParameterError" class="skill-run-parameter-error" role="alert" hidden></div>
+							<button type="button" id="skillRunUseBtn" class="skill-run-use-btn">用于下次发送</button>
+						</div>
+					</div>
+ <div id="atDropdown" class="at-dropdown" style="display:none"></div>
+					<textarea id="messageInput" rows="2" placeholder="输入消息... (输入 @ 选择 AI员工或 Skill | Shift+Enter 换行 | Enter 发送)" data-i18n-placeholder="messageSingle"></textarea>
+					<div class="composer-actions" role="group" aria-label="输入工具与发送">
+						<button type="button" id="skillRunBtn" class="input-icon-btn skill-run-trigger" title="使用skill(知识、技能、专家 SOP)" aria-label="使用skill(知识、技能、专家 SOP)" data-i18n-title="skillRunChooseCapability" data-i18n-aria-label="skillRunChooseCapability" aria-expanded="false" aria-controls="skillRunPopover"><i data-lucide="sparkles"></i></button>
+						<button type="button" id="micBtn" onclick="toggleVoiceInput()" class="input-icon-btn" title="语音输入" data-i18n-title="voiceInput" aria-label="语音输入"><i data-lucide="mic"></i></button>
+
+						<label id="uploadBtn" class="input-icon-btn" title="上传文件" data-i18n-title="uploadFile" aria-label="上传文件"><i data-lucide="upload"></i></label>
+						<label id="imageBtn" class="input-icon-btn" title="上传图片" data-i18n-title="uploadImage" aria-label="上传图片"><i data-lucide="image"></i></label>
+						<div class="composer-mode-control"><select id="interactionModeSelect" class="composer-interaction-mode" aria-label="对话方式" data-i18n-aria-label="interactionModeLabel" title="选择对话方式" data-i18n-title="interactionModeTitle" aria-describedby="interactionModeHint" onchange="setInteractionMode(this.value)"><option value="agent" data-i18n="interactionModeAgent">Agent 模式</option><option value="chat" data-i18n="interactionModeChat">简单问答</option></select><span id="interactionModeHint" class="composer-mode-hint" role="note" title="AI会规划步骤、调用工具完成任务，可能进行多次模型调用。">规划并执行</span></div>
+						<button type="button" id="modelConfigBtn" class="composer-model-trigger" title="选择模型" aria-label="选择模型" aria-haspopup="dialog" aria-expanded="false" aria-controls="composerModelMenu"><span id="composerModelName">选择模型</span><span id="composerModelSource" class="composer-model-source" hidden></span><i data-lucide="chevron-down"></i></button>
+						<button type="button" id="promptTemplatesButton" class="composer-prompt-trigger" title="提示词模板" aria-label="提示词模板" data-i18n-title="promptTemplatesTitle" data-i18n-aria-label="promptTemplatesTitle" aria-haspopup="dialog" aria-expanded="false" aria-controls="promptTemplatesModal" onclick="openPromptTemplates()"><i data-lucide="notebook-pen" aria-hidden="true"></i><span data-i18n="promptTemplatesTitle">提示词模板</span></button>
+						<div class="composer-agent-picker" id="agentSelector"><i data-lucide="bot" aria-hidden="true"></i><select id="agentSelect" title="选择 Agent" aria-label="选择 Agent" data-i18n-title="composerChooseAgent" data-i18n-aria-label="composerChooseAgent"><option value="">Agent</option></select></div>
+						<input type="file" id="fileInput" onchange="handleFileUpload(this)" style="display:none;" multiple>
+						<input type="file" id="imageInput" onchange="handleImageSelect(this)" style="display:none;" accept="image/*" multiple>
+ <button type="button" class="send-btn" id="sendBtn" onclick="sendMessage()" title="发送消息" aria-label="发送消息"><svg class="send-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg></button>
+					</div>
+ </div><div id="taskModal" class="team-overlay work-center-overlay" role="dialog" aria-modal="true" aria-labelledby="workCenterTitle">
+		<div class="team-modal work-center-modal">
+			<header class="work-center-header">
+				<div>
+					<h2 id="workCenterTitle" data-i18n="workCenterTitle">全部任务</h2>
+					<p data-i18n="workCenterSubtitle">查看对话、AI 员工、工作流和自动任务的进度与结果</p>
+				</div>
+				<button class="team-modal-close work-center-close" type="button" onclick="closeTaskPanel()" data-i18n-title="workCenterClose" data-i18n-aria-label="workCenterClose" title="关闭全部任务" aria-label="关闭全部任务">&times;</button>
+			</header>
+
+			<div class="work-center-toolbar">
+				<label class="work-center-search">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+					<input id="workCenterSearch" type="search" autocomplete="off" placeholder="搜索任务" data-i18n-placeholder="workCenterSearch" oninput="filterWorkCenter()">
+				</label>
+				<div class="task-tabs work-center-tabs" role="tablist" aria-label="任务状态筛选">
+					<button class="task-tab active" type="button" data-work-filter="all" onclick="switchTaskTab('all')" data-i18n="workCenterAll">全部</button>
+					<button class="task-tab" type="button" data-work-filter="running" onclick="switchTaskTab('running')" data-i18n="workCenterRunning">进行中</button>
+					<button class="task-tab" type="button" data-work-filter="attention" onclick="switchTaskTab('attention')" data-i18n="workCenterAttention">待处理</button>
+					<button class="task-tab" type="button" data-work-filter="finished" onclick="switchTaskTab('finished')" data-i18n="workCenterFinished">已结束</button>
+				</div>
+				<div class="work-center-toolbar-spacer"></div>
+				<select id="workCenterSource" class="work-center-source" onchange="filterWorkCenter()" aria-label="任务来源">
+					<option value="all" data-i18n="workCenterAllSources">全部来源</option>
+					<option value="pipeline" data-i18n="workCenterPipeline">工作流</option>
+					<option value="employee" data-i18n="workCenterEmployee">AI 员工</option>
+					<option value="task" data-i18n="workCenterConversation">对话任务</option>
+					<option value="scheduled" data-i18n="workCenterScheduled">自动任务</option>
+				</select>
+				<button class="work-center-refresh" type="button" onclick="loadTasks(true)" data-i18n-title="workCenterRefresh" title="刷新全部任务">
+					<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 2 5.3"/><path d="M20 4v7h-7"/></svg>
+					<span data-i18n="workCenterRefresh">刷新</span>
+				</button>
+			</div>
+
+			<section id="taskStats" class="work-center-stats" aria-label="任务概览">
+				<div class="work-center-stat running"><span class="work-center-stat-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg></span><span><small data-i18n="workCenterRunning">进行中</small><strong id="runningCount">0</strong></span></div>
+				<div class="work-center-stat attention"><span class="work-center-stat-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg></span><span><small data-i18n="workCenterAttention">待处理</small><strong id="pendingCount">0</strong></span></div>
+				<div class="work-center-stat completed"><span class="work-center-stat-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><span><small data-i18n="workCenterCompleted">已完成</small><strong id="completedCount">0</strong></span></div>
+				<div class="work-center-stat total"><span class="work-center-stat-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg></span><span><small data-i18n="workCenterTotal">全部</small><strong id="totalCount">0</strong></span></div>
+			</section>
+
+			<div class="work-center-table-wrap">
+				<div class="work-center-table-head" aria-hidden="true">
+					<span data-i18n="workCenterTask">任务</span><span data-i18n="workCenterID">任务 ID</span><span data-i18n="workCenterSource">来源</span><span data-i18n="workCenterOwner">执行者</span><span data-i18n="workCenterProgress">最新进展</span><span data-i18n="workCenterStatus">状态</span><span data-i18n="workCenterUpdated">更新时间</span><span data-i18n="workCenterArtifact">产物</span><span data-i18n="workCenterAction">操作</span>
+				</div>
+				<div id="taskContent" class="work-center-table" aria-live="polite" aria-busy="true">
+					<div class="work-center-loading"><span></span><span></span><span></span></div>
+				</div>
+			</div>
+
+			<footer class="work-center-footer">
+				<span id="workCenterResultCount">0 个任务</span>
+				<span><span id="workCenterUpdatedAt">尚未刷新</span><i class="work-center-fresh-dot" aria-hidden="true"></i><span data-i18n="workCenterFresh">数据已是最新</span></span>
+			</footer>
+		</div>
+	</div>
+
+<div id="todoPanel" class="todo-panel">
+ <div class="todo-card">
+ <div class="todo-header">
+ <h3><span class="ico" data-ico="check"></span> TODO 任务管理</h3>
+ <span class="todo-close" onclick="closeTodoPanel()">&times;</span>
+ </div>
+ <div class="todo-tabs">
+ <button class="todo-tab" onclick="switchTodoTab('about')"><span class="ico" data-ico="help"></span> 说明</button>
+ <button class="todo-tab" onclick="switchTodoTab('create')"><span class="ico" data-ico="plus"></span> 创建</button>
+ <button class="todo-tab active" onclick="switchTodoTab('list')"><span class="ico" data-ico="list"></span> 列表</button>
+ </div>
+ <div class="todo-content" id="todoContent">
+ <div id="todoTab-about" class="todo-tab-content" style="padding:16px;font-size:calc(14.3px * var(--macs-font-scale, 1));line-height:1.8;color:#444;">
+ <h4 style="color:#1976D2;">TODO 是什么</h4>
+ <p>TODO 是<b>手动设置的定时任务系统</b>，让 AI 在指定时间自动执行你设定的工作。</p>
+ <br>
+ <h4 style="color:#1976D2;">为什么要用</h4>
+ <p>适合周期性重复工作：每天早上8点汇总财经新闻、每周五生成周报、每月1号做数据报表。设定一次，自动执行。</p>
+ <br>
+ <h4 style="color:#1976D2;">怎么用</h4>
+ <p>1. 在 <b>创建</b> 页填写任务描述、选择执行的 Agent</p>
+ <p>2. 选择执行类型：<b>一次性</b>（指定时间）/ <b>每天</b> / <b>每小时</b> / <b>自定义Cron</b></p>
+ <p>3. 到时间后 AI 自动执行，结果可在 <b>列表</b> 页查看</p>
+ <br>
+ <p style="color:#888;font-size:calc(13.2px * var(--macs-font-scale, 1));">注意：对话中让 AI"明天8点提醒我"不会自动创建 TODO，需要手动在这里设置。AI 只能设置<b>天级别</b>的定时任务。</p>
+ </div>
+ </div>
+ </div>
+</div>
+<div id="previewModal" class="preview-modal">
+ <div class="preview-content">
+ <div class="preview-header">
+ <h4 id="previewTitle">预览</h4>
+ <span class="close-modal" onclick="closePreview()">&times;</span>
+ </div>
+ <div class="preview-body" id="previewBody">
+ 加载中...
+ </div>
+ </div>
+</div>
+
+<div id="collabModal" class="modal">
+	<div class="modal-content" style="max-width: 800px;">
+		<div class="modal-header">
+			<h3>多Agent协同配置</h3>
+			<span class="close-modal" onclick="closeCollabModal()">&times;</span>
+		</div>
+		<div class="collab-config">
+			<!-- 协作模式选择 -->
+			<div class="collab-section">
+				<div class="collab-section-title">协作模式</div>
+				<div class="mode-grid">
+					<label class="mode-card">
+						<input type="radio" name="collabMode" value="group_chat" checked>
+						<span class="mode-card-icon">💬</span>
+						<span class="mode-card-name">群组讨论</span>
+						<span class="mode-card-desc">所有Agent自由讨论，适合头脑风暴</span>
+					</label>
+					<label class="mode-card">
+						<input type="radio" name="collabMode" value="sequential">
+						<span class="mode-card-icon">➡️</span>
+						<span class="mode-card-name">顺序执行</span>
+						<span class="mode-card-desc">依次处理，结果链式传递</span>
+					</label>
+					<label class="mode-card">
+						<input type="radio" name="collabMode" value="parallel">
+						<span class="mode-card-icon">⚡</span>
+						<span class="mode-card-name">并行执行</span>
+						<span class="mode-card-desc">同时处理，汇总最佳结果</span>
+					</label>
+					<label class="mode-card">
+						<input type="radio" name="collabMode" value="vote">
+						<span class="mode-card-icon">🗳️</span>
+						<span class="mode-card-name">投票决策</span>
+						<span class="mode-card-desc">各Agent独立判断后投票</span>
+					</label>
+					<label class="mode-card">
+						<input type="radio" name="collabMode" value="group_chat_with_host">
+						<span class="mode-card-icon">🎙️</span>
+						<span class="mode-card-name">有主持讨论</span>
+						<span class="mode-card-desc">主持人引导，分组有序讨论</span>
+					</label>
+				</div>
+			</div>
+
+			<!-- 主持人选择 -->
+			<div id="hostSelector" class="collab-section" style="display:none">
+				<div class="collab-section-title">主持人</div>
+				<select id="hostAgent" class="collab-select">
+					<option value="">请选择主持人</option>
+				</select>
+			</div>
+
+			<!-- Agent选择 -->
+			<div class="collab-section">
+				<div class="collab-section-title">参与Agent <span class="collab-hint">可多选</span></div>
+				<div id="collabAgentsList" class="agent-checkbox-group"></div>
+			</div>
+
+			<!-- 参数配置 -->
+			<div class="collab-section">
+				<div class="collab-section-title">执行参数</div>
+				<div class="params-grid">
+					<div class="param-item">
+						<label class="param-label">最大轮次</label>
+						<input type="number" id="maxRounds" value="3" min="1" max="10" step="1" class="param-input">
+						<span class="param-hint">讨论或执行的轮数</span>
+					</div>
+					<div class="param-item">
+						<label class="param-label">失败策略</label>
+						<select id="failureStrategy" class="param-input">
+							<option value="stop">遇到失败停止</option>
+							<option value="continue" selected>继续执行</option>
+							<option value="retry">重试失败任务</option>
+						</select>
+						<span class="param-hint">Agent失败时的处理方式</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- 任务输入 -->
+			<div class="collab-section">
+				<div class="collab-section-title">讨论主题</div>
+				<textarea id="collabMessage" rows="3" class="collab-input" placeholder="输入讨论主题或任务描述..."></textarea>
+			</div>
+
+			<!-- 进度显示 -->
+			<div id="collabProgress" style="display:none">
+				<div class="progress-bar">
+					<div id="progressFill" class="progress-fill" style="width:0%"></div>
+				</div>
+				<div id="collabStatus" class="collab-status"></div>
+			</div>
+
+			<!-- 按钮组 -->
+			<div class="collab-actions">
+				<button onclick="startCollaboration()" class="collab-btn collab-btn-primary">开始协同</button>
+				<button onclick="stopCollaboration()" class="collab-btn collab-btn-secondary">停止</button>
+				<button onclick="closeCollabModal()" class="collab-btn collab-btn-ghost">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 日志查看模态框 -->
+<div id="logModal" class="modal">
+ <div class="modal-content" style="max-width: 900px;">
+ <div class="modal-header">
+ <h3>执行日志</h3>
+			<div>
+ <button class="fullscreen-btn" onclick="toggleLogFullscreen()">🖥️ 全屏</button>
+ <span class="close-modal" onclick="closeLogModal()">&times;</span>
+ </div>
+ </div>
+ <div class="log-controls">
+ <button onclick="clearLogs()" style="padding: 5px 10px;">清空日志</button>
+ <button onclick="exportLogs()" style="padding: 5px 10px;">导出日志</button>
+ <select id="logLevel" onchange="filterLogs()" style="padding: 5px;">
+ <option value="all">全部级别</option>
+ <option value="info">Info</option>
+ <option value="warning">Warning</option>
+ <option value="error">Error</option>
+ </select>
+ <input type="text" id="logSearch" placeholder="搜索..." onkeyup="filterLogs()" style="flex:1; padding: 5px;">
+ </div>
+ <div id="logViewer" class="log-viewer">
+ 加载中...
+ </div>
+ </div>
+</div>
+
+<div id="fileModal" class="modal">
+	<div class="modal-content" style="max-width: 800px; max-height: 80vh;">
+		<div class="modal-header">
+			<h3 style="display:flex;align-items:center;gap:8px;"><span style="font-size:calc(22px * var(--macs-font-scale, 1));">📁</span> 文件管理器</h3>
+			<span class="close-modal" onclick="closeFileModal()">&times;</span>
+		</div>
+
+		<!-- 工具栏 -->
+		<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#f8fafc;border-bottom:1px solid #e5e7eb;flex-wrap:wrap;">
+			<button onclick="goToParent()" id="parentBtn" style="display:none;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));color:#374151;white-space:nowrap;">⬆ 上级</button>
+			<button onclick="refreshFileList()" style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:7px 12px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));color:#374151;white-space:nowrap;">🔄 刷新</button>
+			<div style="flex:1;display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:6px 12px;min-width:180px;">
+				<span style="font-size:calc(14.3px * var(--macs-font-scale, 1));color:#9ca3af;">📂</span>
+				<span id="currentPath" style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#374151;font-family:monospace;word-break:break-all;">/</span>
+			</div>
+			<select id="fileTypeFilter" onchange="filterFileList()" style="border:1px solid #e5e7eb;border-radius:8px;padding:7px 10px;font-size:calc(13.2px * var(--macs-font-scale, 1));color:#374151;background:#fff;">
+				<option value="all">全部</option>
+				<option value="file">仅文件</option>
+				<option value="directory">仅目录</option>
+			</select>
+			<div style="position:relative;flex:1;min-width:140px;">
+				<span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:calc(13.2px * var(--macs-font-scale, 1));color:#9ca3af;">🔍</span>
+				<input type="text" id="fileSearch" placeholder="搜索文件名..." onkeyup="filterFileList()" style="width:100%;padding:7px 10px 7px 28px;border:1px solid #e5e7eb;border-radius:8px;font-size:calc(13.2px * var(--macs-font-scale, 1));color:#374151;background:#fff;">
+			</div>
+		</div>
+
+		<!-- 文件列表 -->
+		<div id="fileList" class="file-list">
+			<div style="text-align: center; padding: 40px;">加载中...</div>
+		</div>
+
+		<!-- 下载进度 -->
+		<div id="downloadProgress" style="display:none; margin-top: 10px;">
+			<div class="progress-bar">
+				<div id="downloadProgressFill" class="progress-fill" style="width:0%"></div>
+			</div>
+			<div id="downloadStatus" class="collab-status"></div>
+		</div>
+	</div>
+</div>
+
+<!-- 系统配置模态框 -->
+<div id="configModal" class="modal">
+	<div class="modal-content settings-surface" style="max-width:1040px;max-height:88vh;padding:0;">
+		<div class="modal-header settings-header">
+			<h3 data-i18n="settingsTitle">系统设置</h3>
+			<div class="settings-header-actions">
+				<span id="settingsSaveState" role="status" aria-live="polite">已保存并生效</span>
+				<button id="saveConfigButton" type="button" class="settings-action-btn primary" onclick="saveConfig()" data-i18n="saveConfiguration">保存并应用</button>
+				<span class="close-modal" onclick="closeConfigModal()">&times;</span>
+			</div>
+		</div>
+		<div class="settings-layout">
+			<nav class="config-tabs settings-nav" aria-label="设置分类" data-i18n-aria-label="settingsNavigation">
+				<button type="button" class="config-tab" onclick="switchConfigTab('models')" data-i18n="modelsConfigTab">AI 服务</button>
+				<button type="button" class="config-tab" onclick="switchConfigTab('agents')" data-i18n="agentsConfigTab">我的助手</button>
+				<button type="button" class="config-tab" onclick="switchConfigTab('basic')" data-i18n="basicConfigTab">工作与记忆</button>
+				<button type="button" class="config-tab" onclick="switchConfigTab('tools')" data-i18n="toolsConfigTab">助手能做什么</button>
+				<button type="button" class="config-tab" onclick="switchConfigTab('channels')" data-i18n="channelsConfigTab">连接应用</button>
+				<button type="button" class="config-tab settings-advanced-tab" onclick="switchConfigTab('gateway')" data-i18n="gatewayConfigTab">高级设置</button>
+			</nav>
+			<div class="settings-page">
+				<div id="settingsPageIntro" class="settings-page-intro"></div>
+				<div id="configHealthBox" style="display:none;margin-bottom:16px;"></div>
+			<form id="configForm">
+				<!-- 基础配置 -->
+				<div id="basicConfig" class="config-section">
+				<!-- 基础信息卡片 -->
+				<div class="config-card">
+					<div class="config-card-title">
+						<span data-i18n="basicInfoTitle">基础信息</span>
+					</div>
+					<div class="config-grid">
+						<div class="config-field">
+							<label data-i18n="teamNameLabel">团队名称</label>
+							<input type="text" id="teamName" name="team_name" placeholder="例如：AI 智能团队" data-i18n-placeholder="teamNamePlaceholder" value="klaw">
+							<div class="config-hint" data-i18n="teamNameHint">用于标识您的团队或组织</div>
+						</div>
+						<div class="config-field">
+							<label data-i18n="workspaceLabel">工作目录</label>
+							<input type="text" id="workspace" name="workspace" placeholder="./workspace">
+							<div class="config-hint" data-i18n="workspaceHint">智能体工作文件的存储位置</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="config-card">
+					<div class="config-card-title"><span data-i18n="settingsGlobalMemoryTitle">Agent 记忆</span></div>
+					<div class="config-field">
+						<label class="settings-check" for="memoryEnabled">
+							<input type="checkbox" id="memoryEnabled" name="memory_enabled" checked aria-describedby="memoryEnabledHint">
+							<span data-i18n="settingsGlobalMemoryEnable">开启 Agent 记忆</span>
+						</label>
+						<div id="memoryEnabledHint" class="config-hint" data-i18n="settingsGlobalMemoryHint">默认开启，Agent 会参考已有记忆并在任务后学习。关闭后，新任务停止记忆读取和学习，已有记忆保留。点击“保存并应用”生效。</div>
+					</div>
+				</div>
+
+				<!-- 输出配置卡片 -->
+				<div class="config-card">
+					<div class="config-card-title">
+						<span data-i18n="outputConfigTitle">输出配置</span>
+					</div>
+					<div class="config-grid">
+						<div class="config-field">
+							<label data-i18n="outputDirectoryLabel">输出目录</label>
+							<input type="text" id="outputDir" name="output_dir" placeholder="storage">
+							<div class="config-hint" data-i18n="outputDirectoryHint">生成文件的保存位置</div>
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+				<!-- 工具配置 -->
+				<div id="toolsConfig" class="config-section" style="display:none;">
+                    <div id="settingsOfficeCapabilities" class="settings-capability-list"></div>
+                    <p class="config-hint" data-i18n="settingsCapabilitiesHint">修改开关后，点击右上角“保存并应用”。实际操作时仍会按权限要求确认。</p>
+				</div>
+
+				<!-- Agents 配置 -->
+				<div id="agentsConfig" class="config-section" style="display:none;">
+					<div id="agentsList">
+						<!-- 动态加载 Agent 列表 -->
+					</div>
+					<button type="button" onclick="addAgent()" style="margin-top: 10px; padding: 5px 10px;" data-i18n="addAgent">+ 添加智能体</button>
+				</div>
+
+				<!-- 模型配置 -->
+				<div id="modelsConfig" class="config-section" style="display:none;">
+                    <div class="settings-quickstart">
+                        <strong data-i18n="settingsConnectTitle">让助手开始工作</strong>
+                        <p data-i18n="settingsConnectSteps">1 选择 AI 服务　→　2 登录账号或配置自己的密钥　→　3 保存并使用</p>
+                        <span data-i18n="settingsAutoBindHint">首次连接会自动给默认助手使用；已有助手可在编辑时选择切换。</span>
+                    </div>
+                    <div class="settings-model-sources">
+                        <button type="button" class="settings-action-btn" onclick="addModel()" data-i18n="settingsCustomModel">自定义模型</button>
+                        <button type="button" class="settings-action-btn" onclick="addPlatformModel()" data-i18n="settingsPlatformModel">使用平台模型</button>
+                        <p class="config-hint" data-i18n="settingsSourcesHint">自己的密钥由服务商计费；平台模型使用账号余额，价格由后台统一设置。</p>
+                    </div>
+					<div id="modelsList">
+						<!-- 动态加载模型配置 -->
+					</div>
+				</div>
+
+				<!-- Gateway 配置 -->
+				<div id="gatewayConfig" class="config-section" style="display:none;">
+                    <details class="settings-details"><summary data-i18n="settingsPerformance">任务处理与输出格式</summary><div class="settings-details-body">						<div class="config-field">
+							<label data-i18n="outputFormatLabel">输出格式</label>
+							<select id="outputFormat" name="output_format">
+								<option value="json" data-i18n="jsonFormatOption">JSON - 结构化数据格式</option>
+								<option value="yaml" data-i18n="yamlFormatOption">YAML - 可读配置格式</option>
+								<option value="text" data-i18n="textFormatOption">文本 - 纯文本格式</option>
+							</select>
+							<div class="config-hint" data-i18n="outputFormatHint">选择输出结果的格式</div>
+						</div>				<!-- 性能配置卡片 -->
+				<div class="config-card">
+					<div class="config-card-title">
+						<span data-i18n="performanceConfigTitle">性能配置</span>
+					</div>
+					<div class="config-field">
+						<label data-i18n="concurrencyLimitLabel">并发限制</label>
+						<input type="number" id="semaphoreLimit" name="semaphore_limit" placeholder="4" min="1" max="20">
+						<div class="config-hint" data-i18n="concurrencyLimitHint">同时处理的最大任务数，建议设为 4–10</div>
+					</div>
+				</div>
+
+				<!-- 高级选项卡片 -->
+				<div class="config-card">
+					<div class="config-card-title">
+						<span data-i18n="advancedOptionsTitle">高级选项</span>
+					</div>
+					<label class="switch-label">
+						<span data-i18n="headlessLabel">启动时不打开网页</span>
+						<label class="switch">
+							<input type="checkbox" id="headless" name="headless">
+							<span class="slider"></span>
+						</label>
+					</label>
+					<div class="config-hint" style="margin-top: 8px;" data-i18n="headlessHint">启动时不自动打开浏览器；网页与 API 仍可使用。</div>
+					<label class="switch-label" style="margin-top: 16px;">
+						<span data-i18n="privateNetworkProtectionLabel">🛡️ 内网访问保护</span>
+						<label class="switch">
+							<input type="checkbox" id="privateNetworkProtection" name="private_network_protection">
+							<span class="slider"></span>
+						</label>
+					</label>
+					<div class="config-hint" style="margin-top: 8px;" data-i18n="privateNetworkProtectionHint">默认关闭，允许 web_fetch 访问内网和本机 URL；只有显式开启后才禁止。</div>
+				</div></div></details>
+                    <details class="settings-details"><summary data-i18n="settingsServer">服务与网页访问</summary><div class="settings-details-body">					<div class="config-field">
+						<label data-i18n="gatewayEnabledLabel">启用网关</label>
+						<input type="checkbox" id="gatewayEnabled" name="gateway_enabled">
+					</div>
+					<div class="config-field">
+						<label data-i18n="listenAddressLabel">监听地址</label>
+						<input type="text" id="gatewayListenAddr" name="gateway_listen_addr" placeholder=":8080">
+					</div>
+					<div class="config-field">
+						<label data-i18n="maxTasksLabel">最大任务数</label>
+						<input type="number" id="gatewayMaxTasks" name="gateway_max_tasks" placeholder="10">
+					</div>
+					<div class="config-field">
+						<label data-i18n="taskTimeoutLabel">任务超时（秒）</label>
+						<input type="number" id="gatewayTaskTimeout" name="gateway_task_timeout" placeholder="300">
+					</div>
+					<div class="config-field">
+						<label data-i18n="enableWebUILabel">启用网页界面</label>
+						<input type="checkbox" id="gatewayEnableWebUI" name="gateway_enable_webui">
+					</div>
+					<div class="config-field">
+						<label data-i18n="webUIPathLabel">网页界面路径</label>
+						<input type="text" id="gatewayWebUIPath" name="gateway_webui_path" placeholder="./webui">
+					</div></div></details>
+                    <details class="settings-details"><summary data-i18n="settingsTechnicalTools">开发调试与工业设备</summary><div class="settings-details-body">					<div class="config-card">
+						<div class="config-card-title">
+							<span data-i18n="toolsConfigTitle">工具配置</span>
+						</div>
+						<div class="config-hint" style="margin-bottom: 16px;" data-i18n="toolsConfigHint">工具启停会写入 openkitty-config.yaml，并在保存后热加载。</div>
+						<label class="switch-label" data-tool-name="debug">
+							<span>
+								<strong style="display:block;" data-i18n="debugToolTitle">调试工具</strong>
+								<small style="display:block;margin-top:4px;color:#64748b;font-weight:400;" data-i18n="debugToolHint">允许智能体调用调试工具分析错误、堆栈和日志。</small>
+							</span>
+							<label class="switch">
+								<input type="checkbox" id="debugToolEnabled" name="debug_tool_enabled">
+								<span class="slider"></span>
+							</label>
+						</label>
+						<label class="switch-label" data-tool-name="plc_modbus" style="margin-top:16px;padding-top:16px;border-top:1px solid #e5e7eb;">
+							<span>
+								<strong style="display:block;" data-i18n="modbusToolTitle">PLC Modbus 工具</strong>
+								<small style="display:block;margin-top:4px;color:#64748b;font-weight:400;" data-i18n="modbusToolHint">基于 goburrow/modbus，允许 Agent 通过 TCP、RTU 或 ASCII 连接 YAML 中配置的 PLC。默认关闭。</small>
+							</span>
+							<label class="switch">
+								<input type="checkbox" id="modbusToolEnabled" name="modbus_tool_enabled" onchange="syncModbusSettingsState()">
+								<span class="slider"></span>
+							</label>
+						</label>
+						<label class="switch-label" id="modbusWriteControl" style="margin-top:12px;">
+							<span>
+								<strong style="display:block;" data-i18n="modbusWriteTitle">允许 PLC 写入控制</strong>
+								<small style="display:block;margin-top:4px;color:#dc2626;font-weight:400;" data-i18n="modbusWriteHint">开启后仍只允许写入目标清单中单独设置了 allow_write: true 的设备。</small>
+							</span>
+							<label class="switch">
+								<input type="checkbox" id="modbusWriteEnabled" name="modbus_write_enabled">
+								<span class="slider"></span>
+							</label>
+						</label>
+						<div class="config-hint" style="margin-top:12px;" data-i18n-html="modbusTargetsHint">
+							已配置目标：<strong id="modbusTargetCount">0</strong>。设备地址在 <code>tools_config.modbus.targets</code> 中配置；Agent 不能临时连接清单外的 IP。
+						</div>
+					</div>
+
+					<div class="config-card">
+						<div class="config-card-title">
+							<span data-i18n="debugDisplayTitle">界面调试显示</span>
+						</div>
+						<label class="switch-label">
+							<span>
+								<strong style="display:block;" data-i18n="debugDetailTitle">显示调试详情</strong>
+								<small style="display:block;margin-top:4px;color:#64748b;font-weight:400;" data-i18n="debugDetailHint">在进度信息中显示 Token、字符数等详细数据，仅保存在当前浏览器。</small>
+							</span>
+							<label class="switch">
+								<input type="checkbox" id="debugModeToggle" onchange="toggleDebugMode()">
+								<span class="slider"></span>
+							</label>
+						</label>
+					</div></div></details>
+                    <details class="settings-details"><summary data-i18n="settingsConfigFiles">配置文件与备份</summary><div class="settings-details-body">
+                    <div class="settings-backup-actions">
+                        <button type="button" class="settings-action-btn" onclick="reloadConfig()" data-i18n="reloadConfiguration">重新加载</button>
+                        <button type="button" class="settings-action-btn" onclick="exportConfig()" data-i18n="exportConfiguration">导出配置</button>
+                    </div>
+		<!-- Config resolution & API key guide (collapsible) -->
+		<div style="background:#fefce8;border:1px solid #fde047;border-radius:6px;padding:12px 20px;margin-bottom:20px;font-size:calc(14.3px * var(--macs-font-scale, 1));line-height:1.8;">
+			<div onclick="var el=this.nextElementSibling;el.style.display=el.style.display==='none'?'block':'none';this.querySelector('.arrow').textContent=el.style.display==='none'?'▶':'▼'" style="cursor:pointer;font-weight:700;font-size:calc(15.4px * var(--macs-font-scale, 1));color:#854d0e;user-select:none;">
+				<span class="arrow">▶</span> <span data-i18n="configSearchOrder">配置文件查找顺序（点击展开）</span>
+			</div>
+			<div style="display:none">
+				<ol style="margin:0;padding-left:20px;color:#713f12;">
+					<li style="margin-bottom:6px;" data-i18n-html="configCLI"><b style="color:#92400e;">① 命令行指定</b><br>
+						<code style="background:#fef3c7;padding:1px 5px;border-radius:3px;">openkitty --config /path/to/my-config.yaml</code><br>
+						<span style="color:#a16207;">临时切换配置、多环境部署</span></li>
+					<li style="margin-bottom:6px;" data-i18n-html="configProject"><b style="color:#92400e;">② 项目本地</b><br>
+						<code style="background:#fef3c7;padding:1px 5px;border-radius:3px;">./openkitty-config.yaml</code><br>
+						<span style="color:#a16207;">项目专属配置，建议 gitignore</span></li>
+					<li style="margin-bottom:6px;" data-i18n-html="configHidden"><b style="color:#92400e;">③ 项目隐藏</b><br>
+						<code style="background:#fef3c7;padding:1px 5px;border-radius:3px;">./.openkitty/openkitty-config.yaml</code></li>
+					<li style="margin-bottom:6px;" data-i18n-html="configGlobal"><b style="color:#92400e;">④ 全局默认 ✨</b><br>
+						<code style="background:#fef3c7;padding:1px 5px;border-radius:3px;">~/.openkitty/openkitty-config.yaml</code><br>
+						<span style="color:#a16207;">个人全局配置，所有项目共享 API Key</span></li>
+				</ol>
+				<div style="margin-top:6px;color:#713f12;border-top:1px solid #fde047;padding-top:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));" data-i18n-html="configRule">
+					<b>规则：</b>找到即停，不合并。推荐 API Key 放 ④，项目专属放 ②。保存后无需重启。
+				</div>
+			</div>
+		</div>
+</div></details>
+				</div>
+
+				<!-- 渠道配置 -->
+				<div id="channelsConfig" class="config-section" style="display:none;">
+                    <div class="settings-connection-guide"><div><strong data-i18n="settingsConnectionGuideTitle">第一次连接？先看接入指南</strong><p data-i18n="settingsConnectionGuideText">每个平台的账号权限和凭据不同，按对应指南准备、填写并验证。</p></div><button type="button" class="settings-action-btn" onclick="openChannelGuide()" data-i18n="settingsChannelGuide">接入指南</button></div>
+                    <details id="settingsEmailCard" class="settings-details"><summary data-i18n="emailConfigTab">电子邮箱</summary><div class="settings-details-body">
+                    <p class="config-hint" data-i18n="settingsEmailHint">连接后可让助手收发邮件。服务器地址和授权码请向邮箱服务商获取。</p>
+                    <button type="button" class="settings-action-btn settings-email-guide" onclick="openChannelGuide('email')" data-i18n="settingsEmailGuide">邮箱接入指南</button>
+				<!-- 邮件配置 -->
+				<div id="emailConfig" class="settings-email-fields">
+					<div class="config-field">
+						<label data-i18n="emailEnabledLabel">启用邮件</label>
+						<input type="checkbox" id="emailEnabled" name="email_enabled">
+					</div>
+					<div class="config-field">
+						<label data-i18n="smtpServerLabel">SMTP 服务器</label>
+						<input type="text" id="smtpHost" name="smtp_host" placeholder="smtp.163.com">
+					</div>
+					<div class="config-field">
+						<label data-i18n="smtpPortLabel">SMTP 端口</label>
+						<input type="number" id="smtpPort" name="smtp_port" placeholder="465">
+					</div>
+					<div class="config-field">
+						<label data-i18n="imapServerLabel">IMAP 服务器</label>
+						<input type="text" id="imapHost" name="imap_host" placeholder="imap.163.com">
+					</div>
+					<div class="config-field">
+						<label data-i18n="imapPortLabel">IMAP 端口</label>
+						<input type="number" id="imapPort" name="imap_port" placeholder="993">
+					</div>
+					<div class="config-field">
+						<label data-i18n="usernameLabel">用户名</label>
+						<input type="text" id="emailUsername" name="email_username" placeholder="yourname@163.com">
+					</div>
+					<div class="config-field">
+						<label data-i18n="passwordAuthCodeLabel">密码或授权码</label>
+						<input type="password" id="emailPassword" name="email_password" placeholder="授权码">
+					</div>
+					<div class="config-field">
+						<label data-i18n="fromAddressLabel">发件地址</label>
+						<input type="text" id="fromAddress" name="from_address" placeholder="yourname@163.com">
+					</div>
+					<div class="config-field">
+						<label data-i18n="useTLSLabel">使用 TLS</label>
+						<input type="checkbox" id="useTLS" name="use_tls">
+					</div>
+				</div>
+
+</div></details>
+                    <div class="settings-app-heading" data-i18n="settingsMessagingApps">聊天与协作应用</div>
+                    <div id="settingsAppChoices" class="settings-app-choices"></div>
+					<div id="channelsList">
+						<!-- 动态加载渠道配置 -->
+					</div>
+					<button type="button" onclick="addChannel()" style="margin-top: 10px; padding: 5px 10px;" data-i18n="addChannel">+ 添加渠道</button>
+					<button type="button" onclick="addWeixinChannelAndLogin()" style="margin-top: 10px; margin-left: 8px; padding: 6px 12px; background: #16a34a; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;" data-i18n="connectWeixin">微信 iLink 扫码连接</button>
+
+				</div>
+
+		</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="monitorModal" class="modal">
+	<div class="modal-content" style="max-width:900px;">
+		<div class="modal-header">
+			<h3>Cache 命中</h3>
+			<span onclick="loadMonitorData()" style="cursor:pointer;font-size:calc(19.8px * var(--macs-font-scale, 1));color:#6366f1;margin-left:12px;" title="刷新">↻</span>
+			<span class="close-modal" onclick="closeMonitorModal()">&times;</span>
+		</div>
+		<div style="overflow-y:auto;max-height:calc(85vh - 80px);padding:20px;">
+			<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+				<div style="background:#f8fafc;border-radius:8px;padding:14px;text-align:center;">
+					<div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#6366f1;" id="statHitRate">--</div>
+					<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;margin-top:4px;">缓存命中率 %</div>
+				</div>
+				<div style="background:#f8fafc;border-radius:8px;padding:14px;text-align:center;">
+					<div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#22c55e;" id="statHitTokens">--</div>
+					<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;margin-top:4px;">命中 Tokens</div>
+				</div>
+				<div style="background:#f8fafc;border-radius:8px;padding:14px;text-align:center;">
+					<div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#f59e0b;" id="statMissTokens">--</div>
+					<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;margin-top:4px;">未命中 Tokens</div>
+				</div>
+				<div style="background:#f8fafc;border-radius:8px;padding:14px;text-align:center;">
+					<div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#64748b;" id="statAvgLatency">--</div>
+					<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;margin-top:4px;">平均延迟 ms</div>
+				</div>
+			</div>
+			<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+				<div style="background:#f8fafc;border-radius:8px;padding:10px;text-align:center;">
+					<div style="font-size:calc(17.6px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;" id="statTotalCalls">--</div>
+					<div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;">总调用次数</div>
+				</div>
+				<div style="background:#f8fafc;border-radius:8px;padding:10px;text-align:center;">
+					<div style="font-size:calc(17.6px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;" id="statTotalPrompt">--</div>
+					<div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;">总输入 Tokens</div>
+				</div>
+				<div style="background:#f8fafc;border-radius:8px;padding:10px;text-align:center;">
+					<div style="font-size:calc(17.6px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;" id="statTotalCompletion">--</div>
+					<div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;">总输出 Tokens</div>
+				</div>
+				<div style="background:#f0f4ff;border-radius:8px;padding:10px;text-align:center;">
+					<div style="font-size:calc(17.6px * var(--macs-font-scale, 1));font-weight:600;color:#8b5cf6;" id="statTotalTokens">--</div>
+					<div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;">总消耗 Tokens</div>
+				</div>
+			</div>
+			<div id="cacheMetricNotice" style="display:none;background:#f8fafc;border:1px solid #e2e8f0;color:#475569;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:calc(13.2px * var(--macs-font-scale, 1));line-height:1.6;"></div>
+			<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px;margin-bottom:16px;">
+				<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+					<div>
+						<div style="font-size:calc(14.3px * var(--macs-font-scale, 1));font-weight:600;color:#92400e;">⚡ 并发控制</div>
+						<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#a16207;margin-top:2px;">并发越高效率越高，但多任务对话前缀会竞争缓存槽位，降低命中率、增加 token 消耗。设为 1 可最大化缓存命中。</div>
+						<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#a16207;margin-top:2px;" id="cacheAgentInfo"></div>
+					</div>
+					<div style="display:flex;gap:8px;align-items:center;">
+						<select id="semaphoreSelect" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:calc(14.3px * var(--macs-font-scale, 1));">
+							<option value="1">1（串行·极致省token）</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4（默认）</option>
+						</select>
+						<button onclick="setSemaphore('now')" style="background:#22c55e;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));font-weight:500;">立即生效</button>
+						<button onclick="setSemaphore('restart')" style="background:#6366f1;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));font-weight:500;">下次重启生效</button>
+					</div>
+				</div>
+			</div>
+			<div style="margin-bottom:16px;">
+				<div style="height:220px;position:relative;"><canvas id="cacheChart" style="width:100%;height:100%;"></canvas></div>
+			</div>
+			<div style="margin-bottom:16px;">
+				<div style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#64748b;margin-bottom:4px;">Token 明细 (绿=缓存命中 · 橙=未命中 · 蓝=输出)</div>
+				<div style="height:200px;position:relative;"><canvas id="tokenChart" style="width:100%;height:100%;"></canvas></div>
+			</div>
+			<div style="overflow-x:auto;">
+				<table class="help-table" style="font-size:calc(12.1px * var(--macs-font-scale, 1));">
+					<thead><tr><th>时间</th><th>模型</th><th>Agent</th><th>输入</th><th>输出</th><th>总消耗</th><th>命中</th><th>未命中</th><th>命中率</th><th>延迟</th><th>下载</th></tr></thead>
+					<tbody id="cacheDetailBody"><tr><td colspan="11" style="text-align:center;color:#94a3b8;">暂无数据</td></tr></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="tracePromptModal" class="modal">
+	<div class="modal-content" style="max-width:700px;">
+		<div class="modal-header">
+			<h3>任务追踪</h3>
+			<span class="close-modal" onclick="document.getElementById('tracePromptModal').classList.remove('active')">&times;</span>
+		</div>
+		<div style="overflow-y:auto;max-height:calc(85vh - 80px);padding:20px;" id="tracePromptBody"></div>
+	</div>
+</div>
+
+<div id="traceModal" class="modal">
+	<div class="modal-content" style="max-width:900px;">
+		<div class="modal-header">
+			<h3>任务追踪</h3>
+			<span class="close-modal" onclick="document.getElementById('traceModal').classList.remove('active')">&times;</span>
+		</div>
+		<div style="overflow-y:auto;max-height:calc(85vh - 80px);padding:20px;" id="traceBody"></div>
+	</div>
+</div>
+
+<div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpDialogTitle">
+ <div class="modal-content help-modal-content">
+ <div class="modal-header">
+ <h4 id="helpDialogTitle" data-i18n="helpDialogTitle">使用与接入指南</h4>
+ <span class="close-modal" onclick="closeHelpModal()">&times;</span>
+ </div>
+ <nav class="help-guide-nav" aria-label="帮助导航" data-i18n-aria-label="helpGuideNav">
+ <button type="button" data-help-target="helpModelSetup" data-i18n="helpGuideModels" aria-controls="helpModelSetup">配置模型</button>
+ <button type="button" data-help-target="helpStartChat" data-i18n="helpGuideChat" aria-controls="helpStartChat">开始对话</button>
+ <button type="button" data-help-target="helpPersonalAssistant" data-i18n="helpGuideAssistant" aria-controls="helpPersonalAssistant">个人助手</button>
+ <button type="button" data-help-target="helpAgentOS" data-i18n="helpGuideAgentOS" aria-controls="helpAgentOS">接入AgentOS（企业智能后台）</button>
+ </nav>
+ <div class="help-modal-body">
+
+ <div class="help-section">
+ <h4 class="help-section-title">关于 macs</h4>
+ <div class="help-product-hero">
+ <div class="help-product-eyebrow">Multi-Agent Collaboration System</div>
+ <h4>macs（麦卡斯）</h4>
+ <div class="help-product-names">
+ <span>中文名：麦卡斯</span>
+ <span>英文全称：Multi-Agent Collaboration System</span>
+ <span>内部代号（小名）：openkitty</span>
+ </div>
+ <div class="help-product-meta"><span id="currentVersionBadge">v1.1.20</span></div>
+ <p>面向个人与团队的本地优先多智能体协作系统，将 Agent、工具、技能、工作流、知识和可靠任务执行整合在一个可部署平台中。</p>
+
+ </div>
+ <div class="help-developer-card">
+ <div class="help-developer-identity">
+ <span class="help-developer-kicker">独立开发者</span>
+ <strong>patrickNi <span>Patrick · niqinggood</span></strong>
+ <p>macs 由独立开发者patrickNi独立设计与开发。</p>
+ </div>
+ <div class="help-developer-links">
+ <a href="https://github.com/niqinggood" target="_blank" rel="noopener noreferrer">GitHub · github.com/niqinggood</a>
+ <a href="mailto:niqinggood@163.com">邮箱 · niqinggood@163.com</a>
+ </div>
+ </div>
+ </div>
+
+ <section id="helpModelSetup" class="help-section help-basics-guide" tabindex="-1" aria-labelledby="helpModelSetupTitle">
+ <h4 id="helpModelSetupTitle" class="help-section-title" data-i18n="helpGuideModels">配置模型</h4>
+ <p data-i18n="helpModelSetupIntro">先在输入框下方点“选择模型”。平台模型登录后即可选择，价格显示在模型旁；自定义模型使用自己的服务地址、模型名和 API Key。</p>
+ <p data-i18n="helpModelSetupDefault">已有可用模型时直接使用。助手没有单独指定模型，就跟随当前文字模型；生图、音乐、视频使用各自的生成模型。</p>
+ <button type="button" class="help-guide-link" onclick="closeHelpModal();openConfigModal('models')" data-i18n="helpPersonalModels">打开 AI 服务设置</button>
+ </section>
+ <section id="helpStartChat" class="help-section help-basics-guide" tabindex="-1" aria-labelledby="helpStartChatTitle">
+ <h4 id="helpStartChatTitle" class="help-section-title" data-i18n="helpGuideChat">开始对话</h4>
+ <ol class="help-guide-list">
+ <li data-i18n="helpChatChoose">选择模型和对话方式：简单问答直接回答；Agent 模式会规划步骤、使用工具完成任务。</li>
+ <li data-i18n="helpChatPrepare">写清楚想得到什么，也可以用“提示词模板”填入模板，需要时添加图片或文件。</li>
+ <li data-i18n="helpChatSend">检查后发送。执行进度会显示在对话中，生成的文件可在“交付物”中打开。</li>
+ </ol>
+ <button type="button" class="help-guide-link" onclick="closeHelpModal();document.getElementById('messageInput').focus()" data-i18n="helpChatGo">回到对话框</button>
+ </section>
+ <section id="helpPersonalAssistant" class="help-section help-basics-guide" tabindex="-1" aria-labelledby="helpPersonalAssistantTitle">
+ <h4 id="helpPersonalAssistantTitle" class="help-section-title" data-i18n="helpGuideAssistant">个人助手</h4>
+ <p data-i18n="helpAssistantIntro">助手就是一位有固定职责的 AI，例如写作助理、研究助手或电商顾问。在“我的助手”中使用已有助手，也可以新增自己的助手，填写名称、职责和操作要求。</p>
+ <p data-i18n="helpAssistantDefaults">模型留空时跟随当前文字模型；单独选择模型后，这个助手固定使用它。skill 提供知识、技能和专家 SOP（操作手册）；工作流用于需要严格按步骤执行的任务。</p>
+ <button type="button" class="help-guide-link" onclick="closeHelpModal();openConfigModal('agents')" data-i18n="helpAssistantSettings">打开我的助手</button>
+ <details class="help-agentos-details"><summary data-i18n="helpPersonalStartup">本机启动、移动办公和脚本检查</summary>
+ <section id="helpPersonalUse" class="help-agentos-personal" aria-labelledby="helpPersonalUseTitle">
+ <h5 id="helpPersonalUseTitle" data-i18n="helpPersonalUseTitle">Windows：双击启动，在页面里完成设置</h5>
+ <ol class="help-agentos-steps">
+ <li><strong data-i18n="helpPersonalStep1">解压程序，双击 openkitty.exe。</strong><p data-i18n="helpPersonalStep1Text">首次启动会准备配置并打开网页。看到运行窗口后保留它；电脑和程序保持运行，助手才能接收任务。</p></li>
+ <li><strong data-i18n="helpPersonalStep2">在输入框下方选择模型。</strong><p data-i18n="helpPersonalStep2Text">平台模型：登录 SICurrent 后选择，按页面价格扣费。自定义模型：打开 AI 服务设置，填写服务商给你的 API 地址、模型名和 API Key，然后保存。</p><button type="button" class="help-agentos-download" onclick="closeHelpModal();openConfigModal('models')" data-i18n="helpPersonalModels">打开 AI 服务设置</button></li>
+ <li><strong data-i18n="helpPersonalStep3">先发一句普通问题，确认能回答。</strong><p data-i18n="helpPersonalStep3Text">保存后的模型配置会保留。下次双击启动即可；日常聊天、Agent 任务和连接应用，都从页面中操作。</p></li>
+ </ol>
+ <div class="help-agentos-note"><strong data-i18n="helpPersonalConnections">连接应用，就是移动办公</strong><p data-i18n="helpPersonalConnectionsText">连接微信、QQ 等应用后，可以在手机上发任务、收结果。macs 所在电脑需要保持运行；接入步骤在各应用的接入指南里。</p><button type="button" class="help-agentos-download" onclick="closeHelpModal();openConfigModal('channels')" data-i18n="helpPersonalConnect">去连接应用</button></div>
+ <details class="help-agentos-details"><summary data-i18n="helpPersonalNoPage">双击后没有打开网页，怎么办？</summary><p data-i18n="helpPersonalNoPageText">在运行窗口找到 Web 地址，复制到浏览器。启用了“启动时不打开网页”时需要手动打开；启动报错时先看窗口中的错误。默认端口是 8080，被占用时可能顺延，以实际显示的地址为准。</p><p data-i18n="helpPersonalConfigText">配置按当前工作目录、用户配置目录的顺序查找；桌面快捷方式的工作目录可能与原程序不同。运行指定配置或保留同一个工作目录时，使用下面的终端命令。PowerShell 临时设置的密钥不会自动传给另一次双击启动。</p></details>
+ <details id="helpAgentOSLocal" class="help-agentos-details"><summary data-i18n="helpLocalTitle">可选：让自己的脚本调用本机 macs</summary><p data-i18n="helpLocalText">本机试用可以复用现有助手和 Web 端口。先检查服务，再下载 Python 脚本；没有独立端口时，服务地址就是当前网页地址去掉 /web/。</p><div class="help-agentos-local-actions"><button type="button" id="helpAgentOSLocalCheck" class="help-agentos-download" data-i18n="helpLocalCheck">检查本机服务</button><code id="helpAgentOSLocalBase"></code></div><p id="helpAgentOSLocalResult" class="help-agentos-local-result" role="status" aria-live="polite"></p><p><a class="help-agentos-download" href="agentos_check.py" download="agentos_check.py" data-i18n="helpLocalPython">下载 Python 检查脚本</a></p><pre><code id="helpAgentOSLocalCommand">python agentos_check.py --local --url http://127.0.0.1:8080</code></pre><p data-i18n="helpLocalScope">本机检查只查看服务和助手列表，不提交任务。仅在本机未启用认证时可省略服务凭证；已启用认证或独立端口时，按下面的 AgentOS 接入步骤配置。</p><p data-i18n="helpLocalModel">AgentOS 后台调用需要可用的自定义模型密钥或平台访问密钥；网页登录状态不会传给后台任务。本地 Ollama 也需要先安装并启动对应模型。服务检查通过不等于模型已经能回答。</p></details>
+ </section>
+ </details>
+ </section>
+
+ <div class="help-section">
+ <h4 class="help-section-title">主要功能</h4>
+ <p class="help-section-lead">从一次对话到可恢复的长期业务流程，MACS 使用同一套 Agent 运行时、权限边界和任务协议完成执行。</p>
+ <div class="help-feature-grid">
+ <div class="help-feature-card">
+ <div class="help-feature-icon">◎</div>
+ <div class="help-feature-title">Agent 智能执行</div>
+ <div class="help-feature-copy">通过“模型—工具—再推理”循环完成规划、执行、校验与结果交付。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">◇</div>
+ <div class="help-feature-title">多 Agent 协作</div>
+ <div class="help-feature-copy">支持角色分工、任务委派，以及串行、并行和混合协作。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">↻</div>
+ <div class="help-feature-title">AgentOS 可靠任务</div>
+ <div class="help-feature-copy">提供异步任务、幂等、队列、租约、事件流和中断恢复能力。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">⇄</div>
+ <div class="help-feature-title">工作流</div>
+ <div class="help-feature-copy">以输入输出契约、检查点、审批、返工和恢复控制多步骤流程。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">✦</div>
+ <div class="help-feature-title">Skills 与工具</div>
+ <div class="help-feature-copy">按需发现和激活能力，并通过权限与中间件约束真实动作。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">▣</div>
+ <div class="help-feature-title">AI Employee</div>
+ <div class="help-feature-copy">将业务身份、消息路由、工作时间和工作流绑定为数字员工。</div>
+ </div>
+ <div class="help-feature-card">
+ <div class="help-feature-icon">⌁</div>
+ <div class="help-feature-title">知识与记忆</div>
+ <div class="help-feature-copy">结合 RAG、会话持久化和长期记忆，让执行拥有可追溯上下文。</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="help-section">
+ <h4 class="help-section-title" data-i18n="helpUseCases">使用场景</h4>
+
+ <!-- Use Cases -->
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+ <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">
+ <h5 style="font-size:calc(14.3px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;margin-bottom:6px;">🏢 企业办公</h5>
+ <ul style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;padding-left:14px;line-height:1.8;margin:0;">
+ <li>每日财经/科技热点自动生成日报</li>
+ <li>收件箱邮件智能分拣、自动回复</li>
+ <li>竞品动态每周监控、策略建议</li>
+ <li>合同条款风险扫描、红黄绿标注</li>
+ </ul>
+ </div>
+ <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">
+ <h5 style="font-size:calc(14.3px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;margin-bottom:6px;">💻 研发团队</h5>
+ <ul style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;padding-left:14px;line-height:1.8;margin:0;">
+ <li>代码审查 + LSP诊断自动修正</li>
+ <li>多Agent团队并行开发</li>
+ <li>Shell模式工具调用省Token</li>
+ <li>Checkpoint定期存档、冷存储恢复</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+
+ <div class="help-section">
+ <h4 class="help-section-title">使用技巧</h4>
+ <p class="help-text">
+ 上传图片让 AI 看图分析（需配置视觉模型如 doubao-vision）<br>
+ 长任务会自动创建执行计划，实时显示进度<br>
+ 左侧会话记录持久保存，下次打开继续对话<br>
+ AI 生成的文件在 storage/ 目录下<br>
+ 浏览器操控：Chrome 输入 <a href="chrome://inspect/#remote-debugging" style="color:#dc3545;font-weight:600;cursor:pointer;" onclick="navigator.clipboard.writeText('chrome://inspect/#remote-debugging');alert('已复制到剪贴板，粘贴到Chrome地址栏打开')">chrome://inspect/#remote-debugging</a> 开启远程调试（点击复制链接）<br>
+</p>
+ </div>
+
+ <div class="help-section">
+ <h4 class="help-section-title">API Key 申请教程</h4>
+ <div class="steps-grid">
+ <div class="step-card">
+ <strong>DeepSeek <span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:calc(12.1px * var(--macs-font-scale, 1));margin-left:6px;">推荐</span></strong>
+ <p>访问 <a href="https://platform.deepseek.com/" target="_blank" style="color:#3b82f6;">platform.deepseek.com</a> 注册 API Keys 创建 复制 Key。新用户送体验金。</p>
+ </div>
+ <div class="step-card">
+ <strong>豆包/火山引擎</strong>
+ <p>访问 <a href="https://console.volcengine.com/" target="_blank" style="color:#3b82f6;">console.volcengine.com</a> 注册 开通豆包服务 创建 Key。首次开通有免费额度。</p>
+ </div>
+ <div class="step-card">
+ <strong>OpenAI 兼容</strong>
+ <p>通义千问：<a href="https://dashscope.console.aliyun.com/" target="_blank" style="color:#3b82f6;">阿里云百炼</a><br>智谱：<a href="https://open.bigmodel.cn/" target="_blank" style="color:#3b82f6;">智谱开放平台</a><br>MiniMax：<a href="https://www.minimaxi.com/" target="_blank" style="color:#3b82f6;">MiniMax 开放平台</a></p>
+ </div>
+ </div>
+ <div style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:8px;font-size:calc(14.3px * var(--macs-font-scale, 1));">
+ <strong>安全提示</strong>
+ <ul style="margin:8px 0 0 20px;line-height:1.8;">
+ <li>API Key 存储在本地配置中，<strong>不会上传到任何服务器</strong></li>
+ <li>建议充值 5-10 元即可长期测试使用</li>
+ <li>可设置 API 限额，防止意外超支</li>
+ </ul>
+ </div>
+ </div>
+
+ <div class="help-section">
+ <h4 class="help-section-title">团队与工作流</h4>
+ <p style="margin-bottom:12px;font-size:calc(14.3px * var(--macs-font-scale, 1));color:#4b5563;line-height:1.8;">
+ <strong>项目专家团队</strong>：多位专家分工完成任务。点击 <b>更多 → 项目专家团队</b>，可以新增团队，或点卡片上的“修改”编辑成员职责和 Skill。保存后仍可复用。点击“使用团队（Agent）”将团队说明追加到输入框，补充任务后再发送。适合研究报告、系统开发、合同审查和竞品分析。
+ </p>
+ <p style="margin-bottom:12px;font-size:calc(14.3px * var(--macs-font-scale, 1));color:#4b5563;line-height:1.8;">
+ <strong>工作流</strong>：让 AI 按预设步骤处理工作，每步可以指定工具、设置审批。点击 <b>更多 → 工作流</b> 查看模板（采购、预算、付款、发票、合同等），也可以在“编辑器”配置自己的步骤。适合需要严格按步骤执行、重复办理或人工审核的场景；带审批的步骤完成后会暂停，确认后继续。
+ </p>
+ <p style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280;">
+ 专家团队：多个角度共同完成任务 | 工作流：按预设步骤执行，记录每步结果与审批
+ </p>
+ </div>
+
+<div class="help-section" id="help-contact">
+<h4 class="help-section-title">反馈与支持</h4>
+ <p class="help-text" style="margin:0">项目反馈可联系独立开发者patrickNi（Patrick / niqinggood）：<a href="mailto:niqinggood@163.com">niqinggood@163.com</a>，或访问 <a href="https://github.com/niqinggood" target="_blank" rel="noopener noreferrer">github.com/niqinggood</a>。提交反馈前请隐藏 API Key、访问令牌和其他敏感信息。</p>
+ </div>
+ <div class="help-section">
+ <h4 class="help-section-title">常见问题</h4>
+ <div class="faq-item">
+ <div class="faq-question" onclick="toggleFaq(this)"><span>这个项目开源吗？</span><span class="arrow">▶</span></div>
+ <div class="faq-answer">不是传统开源项目。MACS 默认采用源码可见许可证：个人学习、非商业研究和符合条件的小型组织内部使用免费；企业生产、托管、再分发、白标、OEM 等用途需要商业授权。具体以随附 LICENSE 为准。</div>
+ </div>
+ <div class="faq-item">
+ <div class="faq-question" onclick="toggleFaq(this)"><span>使用这个产品需要付费吗？</span><span class="arrow">▶</span></div>
+ <div class="faq-answer">免费范围与商业授权门槛以当前版本随附的 LICENSE 和 COMMERCIAL-LICENSE.md 为准。调用第三方大模型 API 可能产生费用，具体由相应服务商收取。</div>
+ </div>
+ <div class="faq-item">
+ <div class="faq-question" onclick="toggleFaq(this)"><span>如何更换/添加新的 Agent？</span><span class="arrow">▶</span></div>
+ <div class="faq-answer">通过配置文件可以添加新的 Agent 类型，支持自定义工具集、提示词和模型参数。</div>
+ </div>
+ <div class="faq-item">
+ <div class="faq-question" onclick="toggleFaq(this)"><span>支持哪些模型？</span><span class="arrow">▶</span></div>
+ <div class="faq-answer">支持所有兼容 OpenAI API 格式的模型：DeepSeek、豆包、通义千问、智谱、MiniMax、OpenAI、Claude 等。</div>
+ </div>
+ <div class="faq-item">
+ <div class="faq-question" onclick="toggleFaq(this)"><span>如何接入 QQ/飞书/钉钉？</span><span class="arrow">▶</span></div>
+ <div class="faq-answer">需要在配置文件中分别配置各平台的 Bot 信息。详细教程请参考项目文档。</div>
+ </div>
+ </div>
+
+ <section id="helpAgentOS" class="help-section help-agentos" aria-labelledby="helpAgentOSTitle" tabindex="-1">
+ <h4 id="helpAgentOSTitle" class="help-section-title" data-i18n="helpPersonalHeading">AgentOS 接入（企业智能后台）</h4>
+ <p class="help-section-lead" data-i18n="helpPersonalLead">AgentOS 把 macs 的助手变成可被其他软件调用的企业智能后台。网站、ERP 或脚本提交任务后立即拿到任务编号，再查询进度、结果和交付物。</p>
+ <div class="help-agentos-overview">
+ <h5 data-i18n="helpAgentOSMeaning">AgentOS 模式是什么？</h5>
+ <p data-i18n="helpAgentOSMeaningText">你在页面里让 Agent 做事；业务系统通过 AgentOS 接口让同一套 Agent 做事。长任务交给后台排队执行，不需要网页一直等着。它提供任务保存、用户隔离、进度查询、审批和恢复。</p>
+ <div class="help-agentos-modes">
+ <div><strong data-i18n="interactionModeChat">简单问答</strong><p data-i18n="helpModeChat">你在对话框提问，模型直接回答。</p></div>
+ <div><strong data-i18n="interactionModeAgent">Agent 模式</strong><p data-i18n="helpModeAgent">你在对话框下达任务，助手使用工具执行。</p></div>
+ <div><strong>AgentOS</strong><p data-i18n="helpModeAgentOS">你的业务后端通过 API 提交任务，macs 执行并保存结果。</p></div>
+ </div>
+ <p data-i18n="helpAgentOSSwitch">本机任务 API 默认随 macs 启动，共用 Web 端口。配置独立端口后，业务系统使用那个端口。“启动时不打开网页”只控制浏览器，不是 AgentOS 的开关。</p>
+ <p data-i18n="helpAgentOSDeploymentModes">部署时默认使用 all：同一个程序接收并执行任务。gateway 只接收任务，worker 负责执行；这两种用于分开扩容，单机先用 all。</p>
+ </div>
+
+ <p data-i18n="helpAgentOSOwnDeployment">企业自部署：把 macs 部署到自己的服务器，由自己的业务系统调用，模型也可以使用企业自行配置的服务。任务进度和结果回到原业务系统。</p>
+ <div class="help-agentos-service-flow" role="group" aria-label="企业系统接入流程" data-i18n-aria-label="helpAgentOSFlowLabel">
+ <div class="help-service-node"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 4 16 4 16 0V5M4 12v7c0 4 16 4 16 0v-7"/></svg><div><strong data-i18n="helpAgentOSOwnBackend">你的企业业务系统</strong><small data-i18n="helpAgentOSFlowBackend">网站、业务系统或服务器</small></div></div>
+ <svg class="help-service-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+ <div class="help-service-node core"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5v8l-9 5-9-5V8zM3 8l9 5 9-5M12 13v8"/></svg><div><strong>macs AgentOS</strong><small data-i18n="helpAgentOSFlowRuntime">接收任务并执行</small></div></div>
+ <svg class="help-service-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+ <div class="help-service-node"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v5h4M9 12h6M9 16h6"/></svg><div><strong data-i18n="helpAgentOSOwnResult">进度与交付物</strong><small data-i18n="helpAgentOSFlowResult">查询进度、结果和交付物</small></div></div>
+ </div>
+ <details id="helpAgentOSAdvanced" class="help-agentos-advanced">
+ <summary data-i18n="helpAdvancedHeading">部署与调试：macs 服务、业务后端、Python 检查</summary>
+ <div class="help-agentos-advanced-body">
+ <p data-i18n="helpAdvancedLead">用于你的网站、业务系统或服务器接入。下面的地址、岗位和服务凭证用于程序之间通信；个人网页使用无需填写这些字段。</p>
+ <div class="help-agentos-note"><strong data-i18n="helpAgentOSWhere">先确定部署位置</strong><p data-i18n="helpAgentOSWhereText">最容易跑通的方式是把 macs 和业务后端放在同一台电脑或服务器上。后台的 127.0.0.1 指后台所在机器；云端后台无法通过这个地址调用你家里的电脑。分开部署时需要后台能够访问的 HTTPS 地址。</p></div>
+ <nav class="help-agentos-nav" aria-label="AgentOS 接入步骤" data-i18n-aria-label="helpAgentOSStepsNav">
+ <button type="button" onclick="document.getElementById('helpAgentOSDeploy').scrollIntoView({block:'start'})"><span>01</span><strong data-i18n="helpAgentOSDeployLabel">部署</strong><small data-i18n="helpAgentOSDeployShort">准备程序与配置</small></button>
+ <button type="button" onclick="document.getElementById('helpAgentOSStart').scrollIntoView({block:'start'})"><span>02</span><strong data-i18n="helpAgentOSStartLabel">启动</strong><small data-i18n="helpAgentOSStartShort">本机 / 服务器</small></button>
+ <button type="button" onclick="document.getElementById('helpAgentOSDebug').scrollIntoView({block:'start'})"><span>03</span><strong data-i18n="helpAgentOSDebugLabel">调试</strong><small data-i18n="helpAgentOSDebugShort">检查连接与错误</small></button>
+ <button type="button" onclick="document.getElementById('helpAgentOSCall').scrollIntoView({block:'start'})"><span>04</span><strong data-i18n="helpAgentOSCallLabel">调用</strong><small data-i18n="helpAgentOSCallShort">提交到获取结果</small></button>
+ </nav>
+ <div class="help-agentos-note"><strong>先分清两个入口</strong><p>示例中 <code>8080/web/</code> 是 Web 管理界面；<code>8081</code> 是供业务后端调用的 AgentOS 接口。它们可以使用不同端口。请以自己的配置和启动日志为准。</p></div>
+
+ <section id="helpAgentOSDeploy" class="help-agentos-part" aria-labelledby="helpAgentOSDeployTitle">
+ <h5 id="helpAgentOSDeployTitle"><span>01</span> 部署：准备程序、模型和岗位</h5>
+ <ol class="help-agentos-steps">
+ <li><strong>准备程序。</strong>使用与你的操作系统及 CPU 架构匹配的 macs 发布包，解压到固定目录。Windows 程序名为 <code>openkitty.exe</code>，Linux/macOS 为 <code>openkitty</code>。下方命令都在这个目录执行。</li>
+ <li><strong>准备配置。</strong>首次部署新建 UTF-8 的 <code>openkitty-config.yaml</code>；也可复制包内的配置模板再编辑。已有配置逐项合并下面字段，避免重复写两个 <code>gateway</code>、<code>agents</code> 或 <code>model_cfg</code>。</li>
+ <li><strong>连接模型。</strong>填写模型服务商的 API 地址、模型名称和 API Key。已有助手可保留原模型配置；下方示例使用兼容 OpenAI 格式的接口，其他类型按原配置填写。</li>
+ <li><strong>发布岗位。</strong><code>agents</code> 定义助手，<code>service_roles</code> 把助手发布为可调用岗位；<code>service_clients</code> 给业务后端分配凭证和权限。岗位的 <code>agent_name</code> 必须与助手名称一致。</li>
+ </ol>
+ <details class="help-agentos-details">
+ <summary>最小配置：一个模型、一个助手、一个调用方</summary>
+ <p>先替换模型地址、模型名称和两个不同的随机长凭证。模型 API Key 通过启动环境中的 <code>MACS_MODEL_API_KEY</code> 读取。服务凭证直接填写在受保护的配置文件中，不使用模型密钥代替。</p>
+ <pre id="helpAgentOSConfig"><code>headless: true
+default_agent: ServiceAssistant
+default_model: service-model
+model_cfg:
+  service-model:
+    type: openai
+    base_url: "https://your-model-provider.example/v1"
+    model_name: REPLACE_WITH_MODEL_NAME
+    api_key_env: MACS_MODEL_API_KEY
+    max_tokens: 4096
+    temperature: 0.2
+agents:
+  - name: ServiceAssistant
+    type: custom
+    model: service-model
+    system_message: "按用户要求整理工作摘要，清楚说明结果。"
+gateway:
+  enabled: true
+  enable_webui: true
+  listen_addr: "127.0.0.1:8080"
+  agent_os_listen_addr: "127.0.0.1:8081"
+  agent_os_mode: all
+  max_tasks: 2
+  max_queued_tasks: 100
+  task_timeout: 300
+service_roles:
+  - id: document-assistant
+    agent_name: ServiceAssistant
+    description: 整理文档并返回结果
+    enabled: true
+    allowed_tenants: [team-a]
+    allowed_callers: [business-app]
+tenants:
+  - id: team-a
+    name: 示例团队
+    token: REPLACE_WITH_LONG_RANDOM_TENANT_TOKEN
+service_clients:
+  - id: business-app
+    tenant_id: team-a
+    token: REPLACE_WITH_LONG_RANDOM_SERVICE_TOKEN
+    enabled: true
+    allowed_roles: [document-assistant]
+    scopes: ["tasks:submit", "tasks:read:own", "tasks:cancel:own"]</code></pre>
+ <p><strong>三个凭证各有用途：</strong>模型 API Key 用于调用模型；租户凭证用于管理该租户；业务服务凭证用于调用岗位。业务后端只使用 <code>service_clients[].token</code>，保留在后端。</p>
+ <p>业务服务凭证至少 24 个字符，建议随机生成 32 字节。下面 Windows 命令每运行一次生成一个新凭证；运行两次，分别填入两个 <code>token</code>。</p>
+ <pre data-agentos-language="powershell"><code>$bytes = New-Object byte[] 32
+$rng = [Security.Cryptography.RandomNumberGenerator]::Create()
+$rng.GetBytes($bytes)
+[Convert]::ToBase64String($bytes)
+$rng.Dispose()</code></pre>
+ <p>Linux/macOS 可运行两次 <code>openssl rand -hex 32</code>。默认单机使用 SQLite，无需先安装 MySQL；指定 <code>--path ./workspace</code> 后，默认数据库位于 <code>workspace/.openkitty/openkitty.db</code>。持久保存整个工作目录及配置；已有 MySQL 配置时继续使用 MySQL。</p>
+ </details>
+ <details class="help-agentos-details">
+ <summary>已有源码，如何构建服务程序？</summary>
+ <p>发布包无需安装 Go。源码部署需要 Go 1.26；在仓库根目录运行凭据检查，再构建产品入口：</p>
+ <pre><code>go run ./cmd/releaseguard
+go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/openkitty</code></pre>
+ <p>Linux/macOS 将输出名改成 <code>-o openkitty</code>。Web 页面已嵌入程序，修改 <code>web/</code> 后需重新构建；正式发布使用项目 <code>scripts/build/</code> 中的流程。</p>
+ </details>
+ <p class="help-agentos-success">准备完成：程序、配置文件和可用的模型凭证齐全；助手名称与岗位绑定一致。</p>
+ </section>
+
+ <section id="helpAgentOSStart" class="help-agentos-part" aria-labelledby="helpAgentOSStartTitle">
+ <h5 id="helpAgentOSStartTitle"><span>02</span> 启动：双击，或使用终端</h5>
+ <p><strong>已经保存好配置的 Windows 用户：</strong>可以双击 <code>openkitty.exe</code> 运行；如果密钥只写在 PowerShell 的临时环境变量里，双击不会继承它。示例的 <code>headless: true</code> 不会自动打开网页，需要手动访问管理地址。</p>
+ <details class="help-agentos-details" id="helpAgentOSTerminal"><summary>需要指定配置、工作目录或临时模型密钥时，使用 PowerShell</summary>
+ <p>在程序目录打开终端。下面前两行只对这个终端及它启动的程序生效；已在页面中保存模型密钥时，无需设置第一行。终端保留运行日志，按 <kbd>Ctrl+C</kbd> 停止服务。</p>
+ <pre data-agentos-language="powershell" id="helpAgentOSStartWindows"><code># 仅当配置使用 api_key_env: MACS_MODEL_API_KEY 时需要这一行
+$env:MACS_MODEL_API_KEY = "REPLACE_WITH_YOUR_MODEL_API_KEY"
+$env:OPENKITTY_FIXED_PORT = "true"
+New-Item -ItemType Directory -Force .\workspace | Out-Null
+.\openkitty.exe --config .\openkitty-config.yaml --path .\workspace</code></pre>
+ </details>
+ <details class="help-agentos-details">
+ <summary>Linux / macOS 启动命令</summary>
+ <pre data-agentos-language="bash" id="helpAgentOSStartUnix"><code>chmod +x ./openkitty
+mkdir -p ./workspace
+export MACS_MODEL_API_KEY='REPLACE_WITH_YOUR_MODEL_API_KEY'
+export OPENKITTY_FIXED_PORT=true
+./openkitty --config ./openkitty-config.yaml --path ./workspace</code></pre>
+ </details>
+ <p>打开 <code>http://127.0.0.1:8080/web/</code> 管理助手；业务接口使用 <code>http://127.0.0.1:8081</code>。<code>headless: true</code> 只关闭自动打开浏览器，Web 和 API 仍可使用。</p>
+ <p class="help-agentos-success">启动成功：日志出现 <code>[AgentOS] dedicated data plane listening on 127.0.0.1:8081</code>；下一步健康检查返回 <code>alive</code> 和 <code>ready</code>。</p>
+ <details class="help-agentos-details">
+ <summary>部署到服务器，并让 Linux 开机自动启动</summary>
+ <p>先在服务器按上述命令跑通。程序和配置放在 <code>/opt/macs</code>，然后准备专用用户、工作目录和密钥文件（已有 <code>macs</code> 用户时跳过第一行）：</p>
+ <pre data-agentos-language="bash"><code>sudo useradd --system --user-group --home-dir /opt/macs/workspace --shell /usr/sbin/nologin macs
+sudo install -d -o macs -g macs -m 750 /opt/macs/workspace
+sudo touch /etc/macs-agentos.env
+sudo chmod 600 /etc/macs-agentos.env
+sudo nano /etc/macs-agentos.env</code></pre>
+ <p>密钥文件内容为 <code>MACS_MODEL_API_KEY=你的模型密钥</code>。程序须可执行，配置须可被 <code>macs</code> 用户读取；工作目录由该用户写入。</p>
+ <p>将下面内容保存为 <code>/etc/systemd/system/macs-agentos.service</code>：</p>
+ <pre id="helpAgentOSSystemd"><code>[Unit]
+Description=macs AgentOS service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=macs
+WorkingDirectory=/opt/macs/workspace
+Environment=HOME=/opt/macs/workspace
+EnvironmentFile=/etc/macs-agentos.env
+Environment=OPENKITTY_FIXED_PORT=true
+ExecStart=/opt/macs/openkitty --config /opt/macs/openkitty-config.yaml --path /opt/macs/workspace
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+ <pre data-agentos-language="bash"><code>sudo systemctl daemon-reload
+sudo systemctl enable --now macs-agentos
+sudo systemctl status macs-agentos
+sudo journalctl -u macs-agentos -f</code></pre>
+ <p><strong>让其他机器接入：</strong>同机反向代理可继续连接 <code>127.0.0.1:8081</code>，由代理提供 HTTPS；内网直接访问时将 <code>agent_os_listen_addr</code> 改为 <code>0.0.0.0:8081</code> 并限制访问来源。业务请求的基础地址改为服务器地址。Web 管理端口继续保留在本机；独立 AgentOS 端口提供任务接口，不提供 Web 管理页面。</p>
+ <p>反向代理需保留 <code>Authorization</code>、<code>Idempotency-Key</code> 和用户身份请求头；订阅 SSE 时关闭缓冲并设置足够的读取超时。修改监听地址后重启服务，备份时保留数据库和工作目录。</p>
+ </details>
+ </section>
+
+ <section id="helpAgentOSDebug" class="help-agentos-part" aria-labelledby="helpAgentOSDebugTitle">
+ <h5 id="helpAgentOSDebugTitle"><span>03</span> 调试：用 Python 检查服务与模型</h5>
+ <p>先按上面的启动步骤运行 macs。下面的脚本会逐项检查“服务是否启动 → 是否就绪 → 凭证能调用哪些岗位”，并用中文显示结果。需要 Python 3.9 或更新版本，无需安装第三方库。</p>
+ <ol class="help-agentos-steps">
+ <li><strong>下载脚本。</strong><a id="helpAgentOSPythonDownload" class="help-agentos-download" href="agentos_check.py" download="agentos_check.py">下载 Python 调试脚本</a>，文件名为 <code>agentos_check.py</code>。</li>
+ <li><strong>打开终端。</strong>在下载文件所在的文件夹打开终端，先运行 <code>python --version</code> 确认 Python 可用，再执行下面的命令。Windows 也可用 <code>py</code>，Linux/macOS 常用 <code>python3</code>。</li>
+ <li><strong>按提示填写。</strong>输入 AgentOS 地址和业务服务凭证。凭证输入时不会显示字符，粘贴后按回车即可。</li>
+ </ol>
+ <pre><code>python agentos_check.py</code></pre>
+ <div class="help-agentos-note"><strong>这两个值从哪里找？</strong><p><b>服务地址：</b>看配置中的 <code>gateway.agent_os_listen_addr</code>。本指南示例为 <code>127.0.0.1:8081</code>，输入时写完整的 <code>http://127.0.0.1:8081</code>。如果脚本在另一台电脑运行，改为 macs 服务器地址。</p><p><b>业务服务凭证：</b>看 <code>openkitty-config.yaml</code> 的 <code>service_clients</code>，找到 <code>id: business-app</code> 那一项，复制它的 <code>token</code> 值。上面的 <code>REPLACE_WITH_…</code> 是待替换的示例占位符；实际运行需要你生成并填入的凭证。它与模型 API Key、网站登录密码各有用途。</p></div>
+ <p><strong>运行成功时，会看到类似输出：</strong></p>
+ <pre><code>[1/3] 服务已启动
+[2/3] 服务已就绪
+[3/3] 可用岗位：
+  - document-assistant 整理文档并返回结果
+检查通过：服务地址和凭证可用。</code></pre>
+ <p>上面的检查读取服务状态和岗位目录。要进一步确认模型能回答，执行完整任务测试；它会调用所配置的模型，按平台或供应商规则计费：</p>
+ <pre><code>python agentos_check.py --submit</code></pre>
+ <p class="help-agentos-success">模型测试会显示任务 ID、排队和执行状态，最后打印摘要结果；出现“模型测试成功”表示整条调用链已跑通。如果岗位名称不同，用 <code>--role 你的岗位ID</code>；等待中断后，用 <code>--task 返回的任务ID</code> 继续查询。</p>
+ <details id="helpAgentOSPythonSource" class="help-agentos-details">
+ <summary>查看完整 Python 代码</summary>
+ <pre><code id="helpAgentOSPythonCode">展开后加载与下载文件相同的 Python 调试脚本。</code></pre>
+ </details>
+ <details class="help-agentos-details">
+ <summary>PowerShell：直接检查接口</summary>
+ <p>已有接口调试经验也可以使用下面的命令。填写同一个业务服务凭证，三个请求分别检查服务存活、服务就绪及可用岗位：</p>
+ <pre data-agentos-language="powershell" id="helpAgentOSHealth"><code>$agentBase = "http://127.0.0.1:8081"
+$env:MACS_SERVICE_TOKEN = "REPLACE_WITH_LONG_RANDOM_SERVICE_TOKEN"
+$headers = @{ Authorization = "Bearer $env:MACS_SERVICE_TOKEN" }
+Invoke-RestMethod "$agentBase/livez"
+Invoke-RestMethod "$agentBase/readyz"
+Invoke-RestMethod "$agentBase/api/v1/agent/roles" -Headers $headers</code></pre>
+ <p class="help-agentos-success">检查通过：<code>/livez</code> 返回 <code>status: alive</code>，<code>/readyz</code> 返回 <code>status: ready</code>，<code>roles</code> 列表中有 <code>document-assistant</code>。健康检查验证服务与数据库就绪；下一步实际任务验证模型和助手。</p>
+ </details>
+ <details class="help-agentos-details">
+ <summary>Linux / macOS 检查命令</summary>
+ <pre data-agentos-language="bash"><code>export MACS_SERVICE_TOKEN='REPLACE_WITH_LONG_RANDOM_SERVICE_TOKEN'
+curl -fsS http://127.0.0.1:8081/livez
+curl -fsS http://127.0.0.1:8081/readyz
+curl -fsS -H "Authorization: Bearer $MACS_SERVICE_TOKEN" \
+  http://127.0.0.1:8081/api/v1/agent/roles</code></pre>
+ </details>
+ <div class="help-agentos-table-wrap">
+ <table class="help-table help-agentos-table"><thead><tr><th scope="col">遇到的问题</th><th scope="col">先检查这里</th></tr></thead><tbody>
+ <tr><td>无法连接 / 端口被占用</td><td>看启动终端是否报错；核对监听地址、端口、防火墙和代理地址。<code>--port</code> 只修改主 Web 端口，AgentOS 端口由 <code>agent_os_listen_addr</code> 指定。</td></tr>
+ <tr><td>401：未通过认证</td><td>使用业务服务凭证，检查 <code>Authorization: Bearer …</code>、客户端是否启用，以及代理是否保留该请求头。</td></tr>
+ <tr><td>403 / 岗位列表为空</td><td>检查 <code>allowed_roles</code>、<code>allowed_tenants</code>、<code>allowed_callers</code>、岗位是否启用及客户端权限。</td></tr>
+ <tr><td>404：找不到接口或任务</td><td>配置独立监听器后，要访问 AgentOS 端口；核对任务 ID，并用提交任务时的凭证和用户身份查询。</td></tr>
+ <tr><td>400 / 409：请求被拒绝</td><td>读取响应的 <code>code</code>、<code>message</code>；检查岗位、输入参数、岗位版本，及是否把同一个幂等键用于不同内容。</td></tr>
+ <tr><td>一直 pending / waiting_approval</td><td><code>pending</code> 检查本机是否为 <code>agent_os_mode: all</code>、是否有可用执行进程及队列容量；<code>waiting_approval</code> 交给具备审批权限的人员处理。</td></tr>
+ <tr><td>503 / 任务 failed 或 degraded</td><td><code>/readyz</code> 返回 503 时先检查数据库和停机状态；任务失败时读任务的 <code>error</code>、<code>result</code> 及服务日志，核对模型地址、密钥、额度、工具权限和超时。</td></tr>
+ </tbody></table>
+ </div>
+ <p>给请求加 <code>X-Request-ID</code> 可关联日志；出错时保留响应中的 <code>request_id</code> 和任务 ID。排查队列可看 <code>/metrics</code>；先查看前台日志或 <code>journalctl</code>，不要把密钥复制到反馈信息中。</p>
+ </section>
+
+ <section id="helpAgentOSCall" class="help-agentos-part" aria-labelledby="helpAgentOSCallTitle">
+ <h5 id="helpAgentOSCallTitle"><span>04</span> 调用：提交任务，等待结果</h5>
+ <div class="help-agentos-flow" aria-label="AgentOS 调用流程"><span>POST 提交</span><span aria-hidden="true">→</span><span>202 + task_id + links</span><span aria-hidden="true">→</span><span>GET 查询状态</span><span aria-hidden="true">→</span><span>读取结果与交付物</span></div>
+ <p><code>202</code> 表示任务已接收，任务可能仍在排队。新建任务会调用所配置的模型，按模型服务商或平台的规则计费。先用一条短摘要验证完整流程。</p>
+ <p><strong>Python 用户：</strong>用上一步下载的脚本执行 <code>python agentos_check.py --submit</code>，即可完成提交、等待和读取结果。业务项目接入可使用仓库的 <code>sdk/python/</code> 客户端；它提供岗位发现、任务提交、查询和 SSE。</p>
+ <details class="help-agentos-details">
+ <summary>PowerShell 完整示例：提交 → 等待 → 获取结果</summary>
+ <p>接着上一步的 <code>$agentBase</code>、<code>$headers</code> 执行；也可在新终端重新运行前面的三行变量配置。超时只停止本地等待，服务端任务仍需继续查询或明确取消。</p>
+ <pre data-agentos-language="powershell" id="helpAgentOSClient"><code>$requestHeaders = $headers.Clone()
+$requestHeaders["Idempotency-Key"] = "summary-" + [guid]::NewGuid().ToString("N")
+$requestHeaders["X-Request-ID"] = "check-" + [guid]::NewGuid().ToString("N")
+$body = @{
+  role_id = "document-assistant"
+  message = "将以下内容整理为工作摘要：今天完成了需求讨论与接口设计。"
+} | ConvertTo-Json
+$task = Invoke-RestMethod -Method Post -Uri "$agentBase/api/v1/agent/tasks" `
+  -Headers $requestHeaders -ContentType "application/json; charset=utf-8" `
+  -Body ([Text.Encoding]::UTF8.GetBytes($body)) -TimeoutSec 30
+$task.task_id
+$taskUrl = $agentBase.TrimEnd('/') + $task.links.self
+$deadline = [DateTime]::UtcNow.AddSeconds(300)
+do {
+  $snapshot = Invoke-RestMethod $taskUrl -Headers $headers -TimeoutSec 30
+  $snapshot.status
+  if ($snapshot.status -eq "waiting_approval") {
+    Write-Host "任务需要审批，请交给有权限的人员处理。"
+    break
+  }
+  if ($snapshot.status -in @("completed", "degraded", "failed", "stopped")) { break }
+  if ([DateTime]::UtcNow -ge $deadline) {
+    throw "等待超时，任务仍可能运行。请继续查询 $taskUrl"
+  }
+  Start-Sleep -Seconds 2
+} while ($true)
+$snapshot | Select-Object task_id, status, result, error, artifacts | ConvertTo-Json -Depth 20</code></pre>
+ <p>网络中断后重试提交时，保留原来的 <code>$requestHeaders</code> 和 <code>$body</code>，仅重发 POST；不要重新生成幂等键。新工作才用新键。</p>
+ </details>
+ <details class="help-agentos-details">
+ <summary>Linux / macOS：使用 curl 提交和查询</summary>
+ <p>沿用调试步骤设置的 <code>MACS_SERVICE_TOKEN</code>。把响应中的真实 <code>task_id</code> 填入最后一条命令；每隔 2 秒查询一次，直到终态。示例键同内容重试可复用，另一项工作要换新键。</p>
+ <pre data-agentos-language="bash" id="helpAgentOSCurl"><code>cat &gt; task.json &lt;&lt;'JSON'
+{
+  "role_id": "document-assistant",
+  "message": "将以下内容整理为工作摘要：今天完成了需求讨论与接口设计。"
+}
+JSON
+curl -i --max-time 30 -X POST http://127.0.0.1:8081/api/v1/agent/tasks \
+  -H "Authorization: Bearer $MACS_SERVICE_TOKEN" \
+  -H 'Content-Type: application/json; charset=utf-8' \
+  -H 'Idempotency-Key: summary-check-001' --data-binary @task.json
+curl -fsS --max-time 30 -H "Authorization: Bearer $MACS_SERVICE_TOKEN" \
+  http://127.0.0.1:8081/api/v1/agent/tasks/REPLACE_WITH_RETURNED_TASK_ID</code></pre>
+ </details>
+ <details class="help-agentos-details">
+ <summary>开发者：HTTP 请求与接口速查</summary>
+ <pre id="helpAgentOSRequest"><code>POST /api/v1/agent/tasks
+Authorization: Bearer &lt;service-client-token&gt;
+Content-Type: application/json
+Idempotency-Key: document-job-001
+
+{
+  "role_id": "document-assistant",
+  "message": "将以下内容整理为工作摘要：今天完成了需求讨论与接口设计。"
+}</code></pre>
+ <div class="help-agentos-table-wrap"><table class="help-table help-agentos-table"><thead><tr><th scope="col">接口</th><th scope="col">用途</th></tr></thead><tbody>
+ <tr><td><code>GET /api/v1/agent/roles</code></td><td>发现岗位和输入要求</td></tr>
+ <tr><td><code>POST /api/v1/agent/tasks</code></td><td>提交；新任务 202，幂等重放 200</td></tr>
+ <tr><td><code>GET /api/v1/agent/tasks/{task_id}</code></td><td>查询持久状态、结果与交付物</td></tr>
+ <tr><td><code>GET /api/v1/agent/tasks/{task_id}/events</code></td><td>SSE 实时进度</td></tr>
+ <tr><td><code>POST /api/v1/agent/tasks/{task_id}/cancel</code></td><td>取消已有任务</td></tr>
+ <tr><td><code>GET /api/v1/agent/tasks/{task_id}/approvals</code></td><td>查询待审批动作，需要审批权限</td></tr>
+ </tbody></table></div>
+ </details>
+ <div class="help-agentos-note"><strong>怎样判断完成？</strong><p><code>pending</code> 排队、<code>running</code> 执行、<code>waiting_approval</code> 等待审批；<code>completed</code> 完成、<code>degraded</code> 结果有降级、<code>failed</code> 失败、<code>stopped</code> 已停止。后四种是终态；用最终任务快照判断结果，不能把任何终态都当作成功。</p><p>完成后读取 <code>result</code>；有 <code>artifacts</code> 时，用响应给出的下载地址取回交付物。下载请求继续携带业务凭证，多用户接入还需同一个用户身份请求头。</p></div>
+ <details class="help-agentos-details">
+ <summary>进阶：实时进度、Skill、多用户与审批</summary>
+ <ul class="help-agentos-steps">
+ <li><strong>实时进度：</strong>用返回的 <code>links.events</code> 订阅 SSE。断线后查 <code>links.self</code>；收到 <code>replay_reset</code> 也回查快照。<code>Last-Event-ID</code> 只覆盖当前实例近期事件，最终状态以持久快照为准。</li>
+ <li><strong>指定 Skill：</strong>任务可带 <code>skill_run: {"skill_name": "已安装的技能名", "parameters": {}}</code>。参数按该 Skill 要求填写；同一请求不能同时使用 <code>skill_run</code> 和 <code>collaboration</code>。</li>
+ <li><strong>多用户：</strong>业务凭证增加 <code>users:act_as</code> 和 <code>require_user_id: true</code>。提交、查询、SSE、取消、审批及文件下载都携带稳定的 <code>X-OpenKitty-User-ID</code>；提交体若有 <code>user_id</code>，必须与请求头一致。凭证留在业务后端。</li>
+ <li><strong>审批：</strong>另配具备 <code>approvals:read</code>、<code>approvals:decide</code> 的操作员凭证。取得 <code>approval_id</code> 后，发送 <code>POST /api/v1/agent/tasks/{task_id}/approvals/{approval_id}/approve</code> 批准，或将末尾换为 <code>/deny</code> 拒绝。普通任务凭证没有这些审批权限。</li>
+ </ul>
+ </details>
+ <p class="help-agentos-success">接入完成：健康检查通过、岗位可见，并成功取得一次任务的最终结果。正式接入时增加重试、超时处理和业务用户身份映射。</p>
+ </section>
+
+ <p class="help-agentos-docs">项目文档：<code>docs/agentos-quickstart.md</code>（部署与调用）、<code>docs/agent-os-api.md</code>（完整协议）、<code>docs/enterprise-agent-service.md</code>（企业权限）；接口契约 <code>docs/openapi-agentos.yaml</code>，客户端 <code>sdk/python/</code>、<code>sdk/go/macs/</code>。</p>
+  </div>
+ </details>
+ </section>
+
+ <!-- API 接口文档 -->
+ <div class="help-section">
+ <h4 class="help-section-title">🔌 API 接口</h4>
+ <div style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#2563eb;line-height:1.9;">
+ <p style="margin:0 0 8px;color:#64748b;">Web 接口地址：<code style="background:#eff6ff;padding:2px 6px;border-radius:4px;">http://localhost:{实际监听端口}</code>，见 <code>openkitty-config.yaml</code> 的 <code>gateway.listen_addr</code>。AgentOS 使用上方说明的任务接口；配置独立监听器时使用 <code>gateway.agent_os_listen_addr</code>。</p>
+
+ <table style="width:100%;border-collapse:collapse;font-size:calc(12.1px * var(--macs-font-scale, 1));margin-bottom:12px;">
+ <thead><tr style="background:#f8fafc;"><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">接口</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">说明</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">示例</th></tr></thead>
+ <tbody>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/chat</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">自由对话/Agent探索</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"message":"分析市场","agent_name":"Researcher","session_id":"s1"}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/chat</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">调用项目专家团队</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"message":"研究AI趋势","collaboration":{"type":"group_chat","tasks":[{"task_id":"research","agent":"Researcher"}]}}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/chat</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">指定Pipeline运行</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"message":"/pipeline contract-review\n合同内容...","session_id":"s1"}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/chat</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">@AI员工触发</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"message":"@法务顾问 审查合同...","session_id":"s1"}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/ae/save</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">创建/编辑AI员工</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"id":"legal","name":"法务顾问","at_name":"法务顾问","pipeline":"contract-review"}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">GET /api/ae/list</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">列出所有AI员工</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));">返回员工状态、任务统计</td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/webhook/{id}</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">Webhook触发AI员工</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>{"event":"事件名","data":"数据"}</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">GET /api/pipeline/list</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">列出所有Pipeline</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));">38个企业级Pipeline定义</td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">GET /api/pipeline/status/{id}</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">查询执行详情</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));">返回每步输出+工具调用轨迹</td></tr>
+ </tbody></table>
+
+ <h5 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:16px 0 8px;color:#1e293b;">📄 文档智能分析（新增）</h5>
+ <table style="width:100%;border-collapse:collapse;font-size:calc(12.1px * var(--macs-font-scale, 1));margin-bottom:12px;">
+ <thead><tr style="background:#f0fdf4;"><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">接口</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">说明</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">示例</th></tr></thead>
+ <tbody>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/document/analyze</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">上传PDF/DOCX, 完整管线: 提取→清洗→分类→分块→表格→图片, 返回JSON</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>curl -F "file=@doc.pdf" localhost:8090/api/document/analyze</code></td></tr>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/document/classify</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">纯文本分类测试, 传入text返回元素分类+可选分块</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>curl -d '{"text":"文本","chunk":true}' localhost:8090/api/document/classify</code></td></tr>
+ </tbody></table>
+
+ <h5 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:16px 0 8px;color:#1e293b;">🎤 语音输入</h5>
+ <table style="width:100%;border-collapse:collapse;font-size:calc(12.1px * var(--macs-font-scale, 1));margin-bottom:12px;">
+ <thead><tr style="background:#faf5ff;"><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">接口</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">说明</th><th style="padding:6px 8px;text-align:left;border:1px solid #e2e8f0;">示例</th></tr></thead>
+ <tbody>
+ <tr><td style="padding:6px 8px;border:1px solid #e2e8f0;font-family:monospace;font-size:calc(11px * var(--macs-font-scale, 1));">POST /api/voice</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(12.1px * var(--macs-font-scale, 1));">上传音频文件,返回转录文本(whisper)</td><td style="padding:6px 8px;border:1px solid #e2e8f0;font-size:calc(11px * var(--macs-font-scale, 1));"><code>curl -F "file=@recording.wav" -F "lang=zh" localhost:8090/api/voice</code></td></tr>
+ </tbody></table>
+
+ <details style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#2563eb;margin:8px 0;">
+ <summary style="cursor:pointer;color:#3b82f6;">📋 /api/document/analyze 响应结构</summary>
+ <pre style="background:#f8fafc;padding:10px;border-radius:6px;overflow-x:auto;font-size:calc(11px * var(--macs-font-scale, 1));line-height:1.6;">{
+ "ok": true,
+ "filename": "report.pdf",
+ "pages": 5, "char_count": 6000,
+ "element_stats": {
+ "title": 20, "section_header": 7,
+ "narrative_text": 16, "table": 12, "list_item": 1
+ },
+ "elements": [{"type":"Title","text":"..."}, ...],
+ "chunks": [{"index":1,"heading":"标题","text":"...","chars":250}, ...],
+ "tables": [{"page":1,"rows":5,"cols":3,"headers":["A","B"],"data":[...]}, ...],
+ "images": [{"page":1,"name":"Im0","format":"jpeg","width":800,"height":600}, ...],
+ "timing": {"extract_ms":20,"clean_ms":5,"classify_ms":15,"chunk_ms":3,"total_ms":45}
+}</pre>
+ </details>
+ </div>
+ </div>
+
+ <div class="help-usage-note">
+ <strong data-i18n="helpUsageTitle">使用说明</strong>
+ <p data-i18n="helpUsageNote">请遵守适用法律，以及模型、平台和第三方服务的使用条款。macs 的许可范围以随附的 LICENSE 文件及发布说明为准。</p>
+ </div>
+
+ <div class="help-export-actions" data-help-export-exclude>
+ <button type="button" onclick="exportHelpAsImage()"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span data-i18n="helpExportImage">导出图片</span></button>
+ <button type="button" onclick="exportHelpAsPDF()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h6"/></svg><span data-i18n="helpExportPDF">导出 PDF</span></button>
+ </div>
+
+ </div>
+ </div>
+</div>
+
+<script>
+// Replace emoji icons with inline SVGs on load
+(function(){
+ var map = {
+ '🔀':'branch','🤝':'users','📜':'scroll','📋':'clipboard',
+ '✅':'check','💾':'download','📁':'folder','⚙️':'wrench','⚙':'wrench',
+ '❓':'help','🔧':'settings','⏳':'clock','⏱':'clock',
+ '💬':'user','📦':'download','⬇':'download',
+ '🚀':'rocket','🎯':'target','💡':'lightbulb','📞':'phone',
+ '💰':'dollar-sign','✨':'sparkles','🔥':'sparkles','📧':'mail',
+ '💪':'sparkles','➕':'plus','📊':'bar-chart','📈':'activity'
+ };
+ function walk(node) {
+ if (node.id === 'themeToggle') return; // skip theme toggle
+ if (node.nodeType === 3 && node.nodeValue) {
+ var s = node.nodeValue, changed = false;
+ for (var k in map) {
+ if (s.indexOf(k) >= 0) { s = s.split(k).join('<span class="ico" data-ico="'+map[k]+'"></span>'); changed = true; }
+ }
+ if (changed) { var span = document.createElement('span'); span.innerHTML = s; node.parentNode.replaceChild(span, node); }
+ } else if (node.nodeType === 1 && node.childNodes) {
+ for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+ }
+ }
+ setTimeout(function() {
+ walk(document.body);
+ document.querySelectorAll('.ico[data-ico]').forEach(function(el) {
+ var name = el.getAttribute('data-ico');
+ if (I[name]) el.innerHTML = I[name];
+ });
+ }, 100);
+})();
+</script>
+<!-- AI员工面板 -->
+<div id="aePanel" class="modal" style="z-index:2200;">
+ <div class="modal-content" style="max-width:1000px;width:95vw;padding:0;overflow:hidden;">
+ <div class="modal-header" style="padding:14px 24px;">
+ <h3 style="font-size:calc(18.7px * var(--macs-font-scale, 1));margin:0;display:flex;align-items:center;gap:10px;">
+ <svg viewBox="0 0 24 24" width="22" height="22" stroke="#0284c7" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+ AI员工
+ </h3>
+ <span class="close-modal" onclick="closeAEPanel()">&times;</span>
+ <button onclick="loadAEList()" style="margin-left:auto;padding:6px 12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));">刷新</button>
+ </div>
+ <div id="aeListContent" style="padding:20px 24px;max-height:65vh;overflow-y:auto;font-size:calc(14.3px * var(--macs-font-scale, 1));">
+ <div style="text-align:center;padding:24px;color:#9ca3af;">加载中...</div>
+ </div>
+ </div>
+</div>
+ <script src="/web/app.js?v=20261014-style-restore-v58"></script>
+ <script src="/web/todo.js?v=20261013-memory-runtime-v49"></script>
+ <script src="/web/knowledge.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/sse.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/export-redaction.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/conversation_export.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/skill_run.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/window_controls.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/account_modal.js?v=20261014-platform-login-v55" defer></script>
+<script src="/web/community_modal.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/memory_panel.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/media_studio.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/document_studio.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/channel_guides.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/chat.js?v=20261014-style-restore-v58"></script>
+<script src="/web/model_picker.js?v=20261014-platform-login-v55" defer></script>
+<script src="/web/prompt_composer.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/prompt_templates.js?v=20261013-memory-runtime-v49" defer></script>
+<script src="/web/conversation_media.js?v=20261014-platform-login-v55" defer></script>
+ <script src="/web/pipeline.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/ae_panel.js?v=20261013-memory-runtime-v49"></script>
+
+<!-- RAG统计面板 -->
+<div id="analyticsPanel" class="modal" style="z-index:2300;">
+ <div class="modal-content" style="max-width:1200px;width:96vw;padding:0;overflow:hidden;background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 100%);border-radius:16px;">
+ <div class="modal-header" style="padding:16px 28px;background:linear-gradient(135deg,#1e293b,#1d4ed8);color:#fff;border-radius:16px 16px 0 0;">
+ <h3 style="font-size:calc(18.7px * var(--macs-font-scale, 1));margin:0;font-weight:600;letter-spacing:-0.3px;display:flex;align-items:center;gap:10px;">
+ <span style="background:rgba(255,255,255,0.15);padding:6px 10px;border-radius:8px;"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+ RAG 统计面板
+ </h3>
+ <span class="close-modal" onclick="closeAnalytics()" style="color:rgba(255,255,255,0.7);font-size:calc(26.4px * var(--macs-font-scale, 1));">&times;</span>
+ </div>
+ <div style="padding:20px 28px;max-height:68vh;overflow-y:auto;">
+ <!-- KPI Cards -->
+ <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;" id="kpiCards">
+ <div class="kpi-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">总查询</div>
+ <div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#1e293b;" id="kpiTotal">-</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;" id="kpiTotalTrend">近7日</div>
+ </div>
+ <div class="kpi-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">命中率</div>
+ <div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#10b981;" id="kpiHitRate">-</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">有效查询占比</div>
+ </div>
+ <div class="kpi-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">好评率</div>
+ <div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#0284c7;" id="kpiUpRate">-</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;" id="kpiUpTotal">赞/踩</div>
+ </div>
+ <div class="kpi-card" style="background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">DE任务</div>
+ <div style="font-size:calc(30.8px * var(--macs-font-scale, 1));font-weight:700;color:#f59e0b;" id="kpiDETotal">-</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;" id="kpiDEActive">完成/失败</div>
+ </div>
+ </div>
+ <!-- Charts -->
+ <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:14px;">
+ <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <h4 style="margin:0 0 16px;font-size:calc(15.4px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;">每日查询趋势</h4>
+ <div style="height:220px;"><canvas id="chartDailyQueries"></canvas></div>
+ </div>
+ <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <h4 style="margin:0 0 16px;font-size:calc(15.4px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;">用户反馈</h4>
+ <div style="height:220px;display:flex;align-items:center;justify-content:center;"><canvas id="chartFeedback"></canvas></div>
+ </div>
+ </div>
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+ <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <h4 style="margin:0 0 12px;font-size:calc(15.4px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;">热门查询</h4>
+ <div id="topQueriesList" style="max-height:220px;overflow-y:auto;font-size:calc(13.2px * var(--macs-font-scale, 1));"></div>
+ </div>
+ <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.06);border:1px solid #e8ecf1;">
+ <h4 style="margin:0 0 12px;font-size:calc(15.4px * var(--macs-font-scale, 1));font-weight:600;color:#1e293b;">DE 任务统计</h4>
+ <div style="height:200px;"><canvas id="chartDE"></canvas></div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<script>
+var analyticsCharts = {};
+function openAnalytics() {
+ document.getElementById("analyticsPanel").classList.add("active");
+ loadAnalytics();
+}
+function closeAnalytics() {
+ document.getElementById("analyticsPanel").classList.remove("active");
+ Object.values(analyticsCharts).forEach(function(c){ try { c.destroy(); } catch(e){} });
+ analyticsCharts = {};
+}
+async function loadAnalytics() {
+ try {
+ var kbId = (document.getElementById("ragKbSelect")||{}).value || "";
+ var resp = await fetch("/api/rag/analytics?kb_id=" + kbId);
+ var d = await resp.json();
+ if (!d.ok) return;
+
+ // KPI cards
+ var total = (d.daily||[]).reduce(function(s,x){return s+x.total;},0);
+ var hits = (d.daily||[]).reduce(function(s,x){return s+x.hits;},0);
+ var zeros = (d.daily||[]).reduce(function(s,x){return s+x.zeros;},0);
+ var fb = d.feedback || {};
+ var de = d.de_stats || {};
+ document.getElementById("kpiTotal").textContent = total || 0;
+ document.getElementById("kpiHitRate").textContent = (total>0?Math.round(hits/total*100):0) + "%";
+ document.getElementById("kpiUpRate").textContent = ((fb.up+fb.down)>0?Math.round(fb.up/(fb.up+fb.down)*100):0) + "%";
+ document.getElementById("kpiUpTotal").textContent = "赞"+fb.up+" / 踩"+fb.down;
+ document.getElementById("kpiDETotal").textContent = de.total || 0;
+ document.getElementById("kpiDEActive").textContent = (de.completed||0)+"完成 / "+(de.failed||0)+"失败";
+
+ // Chart: Daily queries
+ var ctx1 = document.getElementById("chartDailyQueries").getContext("2d");
+ var g1 = ctx1.createLinearGradient(0,0,0,220);
+ g1.addColorStop(0,"rgba(124,58,237,0.15)"); g1.addColorStop(1,"rgba(124,58,237,0)");
+ var g2 = ctx1.createLinearGradient(0,0,0,220);
+ g2.addColorStop(0,"rgba(16,185,129,0.15)"); g2.addColorStop(1,"rgba(16,185,129,0)");
+ analyticsCharts.daily = new Chart(ctx1, {
+ type: "line",
+ data: {
+ labels: (d.daily||[]).map(function(x){return x.date.substring(5);}).reverse(),
+ datasets: [
+ {label:"总查询",data:(d.daily||[]).map(function(x){return x.total;}).reverse(),borderColor:"#0284c7",backgroundColor:g1,borderWidth:2,tension:0.4,fill:true,pointRadius:3,pointBackgroundColor:"#0284c7"},
+ {label:"命中",data:(d.daily||[]).map(function(x){return x.hits;}).reverse(),borderColor:"#10b981",backgroundColor:g2,borderWidth:2,tension:0.4,fill:true,pointRadius:3,pointBackgroundColor:"#10b981"}
+ ]
+ },
+ options: {responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:"index"},plugins:{legend:{position:"bottom",labels:{usePointStyle:true,padding:20,font:{size:11}}}}}
+ });
+
+ // Chart: Feedback donut
+ var ctx2 = document.getElementById("chartFeedback").getContext("2d");
+ analyticsCharts.feedback = new Chart(ctx2, {
+ type: "doughnut",
+ data: {
+ labels: ["赞 "+fb.up,"踩 "+fb.down],
+ datasets: [{data:[fb.up||0,fb.down||0],backgroundColor:["#10b981","#f43f5e"],borderWidth:0,borderRadius:4,hoverBorderWidth:4}]
+ },
+ options: {responsive:true,maintainAspectRatio:false,cutout:"65%",plugins:{legend:{position:"bottom",labels:{padding:16,font:{size:11}}}}}
+ });
+
+ // Chart: DE tasks
+ var ctx3 = document.getElementById("chartDE").getContext("2d");
+ analyticsCharts.de = new Chart(ctx3, {
+ type: "bar",
+ data: {
+ labels: ["完成","失败"],
+ datasets: [{data:[de.completed||0,de.failed||0],backgroundColor:["#10b981","#f43f5e"],borderRadius:6,borderWidth:0}]
+ },
+ options: {responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:"#eff6ff"}}}}
+ });
+
+ // Top queries list
+ var html = "";
+ (d.top_queries||[]).forEach(function(q,i){
+ var barW = Math.min(100, Math.max(10, q.cnt / (d.top_queries[0]?.cnt||1) * 100));
+ html += "<div style=\"display:flex;align-items:center;gap:8px;padding:4px 0;\"><span style=\"color:#94a3b8;font-size:calc(11px * var(--macs-font-scale, 1));width:20px;text-align:right;\">"+(i+1)+"</span><span style=\"flex:1;color:#374151;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;\">"+esc(q.query)+"</span><span style=\"color:#64748b;font-size:calc(11px * var(--macs-font-scale, 1));\">"+q.cnt+"</span><div style=\"width:40px;height:6px;background:#eff6ff;border-radius:3px;overflow:hidden;\"><div style=\"width:"+barW+"%;height:100%;background:linear-gradient(90deg,#0284c7,#a78bfa);border-radius:3px;\"></div></div></div>";
+ });
+ document.getElementById("topQueriesList").innerHTML = html || "<div style=\"color:#94a3b8;text-align:center;padding:24px;\">暂无数据</div>";
+ } catch(e) {
+ console.error("Analytics error:", e);
+ }
+}
+</script>
+
+<!-- 工具市场 -->
+<div id="marketplacePanel" class="modal" style="z-index:2400;">
+ <div class="modal-content" style="max-width:900px;width:95vw;padding:0;overflow:hidden;border-radius:14px;">
+ <div class="modal-header" style="padding:16px 28px;background:linear-gradient(135deg,#1e293b,#1d4ed8);color:#fff;border-radius:14px 14px 0 0;">
+ <h3 style="margin:0;font-size:calc(18.7px * var(--macs-font-scale, 1));">📦 工具与技能市场</h3>
+ <span class="close-modal" onclick="closeMarketplace()" style="color:#fff;font-size:calc(24.2px * var(--macs-font-scale, 1));cursor:pointer;">&times;</span>
+ </div>
+ <div style="padding:20px 28px;max-height:65vh;overflow-y:auto;">
+ <p style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#64748b;margin:0 0 20px;">安装 AI Agent 所需的运行时、工具链和技能包。点击卡片查看详情。</p>
+ <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">运行时环境</h4>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+ <div class="mkt-card" onclick="showMarketDetail('nodejs')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟢</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Node.js</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">JS 运行时，PPT生成、前端工具链</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费 · LTS v22</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('python')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🐍</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Python 3</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">数据分析、图表、PPTX、OCR</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费 · 3.11+</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('git')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🔀</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Git</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">版本控制，代码变更统计</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">免费</div>
+ </div>
+ </div>
+ <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">AI 编程 CLI</h4>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+ <div class="mkt-card" onclick="showMarketDetail('claude-code')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟪</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Claude Code</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">Anthropic CLI Agent</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">npm i @anthropic-ai/claude-code</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('codex')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟠</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">OpenAI Codex</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">OpenAI CLI Agent</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">npm i @openai/codex</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('gemini-cli')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🔵</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Gemini CLI</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">Google CLI Agent · 免费配额</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">npm i @google/gemini-cli</div>
+ </div>
+ </div>
+ <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">知识工具</h4>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+ <div class="mkt-card" onclick="showMarketDetail('obsidian')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">🟣</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Obsidian</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">本地知识库，已集成 vault_explore</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#0284c7;font-weight:600;">已集成</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('notion')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">📝</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Notion</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">在线文档，API 对接</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">web_fetch 连接</div>
+ </div>
+ <div class="mkt-card" onclick="showMarketDetail('logseq')" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:16px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#e2e8f0'">
+ <div style="font-size:calc(26.4px * var(--macs-font-scale, 1));margin-bottom:8px;">📒</div>
+ <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));">Logseq</div>
+ <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:4px;">开源大纲笔记，Markdown</div>
+ <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#22c55e;">开源免费</div>
+ </div>
+ </div>
+ <h4 style="font-size:calc(14.3px * var(--macs-font-scale, 1));margin:0 0 12px;">技能 Hub</h4>
+ <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+                <div onclick="closeMarketplace();openSkillPanel();" style="background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1px solid #a7f3d0;border-radius:10px;padding:18px;cursor:pointer;" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='#a7f3d0'">
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));margin-bottom:6px;">🇨🇳 腾讯 SkillHub</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;line-height:1.5;">搜索并安装腾讯 SkillHub 的文本型 Skill，国内网络优先。</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#047857;">仅 SKILL.md → 安全校验 → 热加载</div>
+                </div>
+                <div onclick="closeMarketplace();openSkillPanel();" style="background:linear-gradient(135deg,#f8fafc,#f0f4ff);border:1px solid #c7d2fe;border-radius:10px;padding:18px;cursor:pointer;" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='#c7d2fe'">
+                    <div style="font-weight:600;font-size:calc(15.4px * var(--macs-font-scale, 1));margin-bottom:6px;">🦞 OpenClaw / ClawHub</div>
+                    <div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;line-height:1.5;">搜索 OpenClaw 生态 Skill，并按 MACS 提示型 Skill 安装。</div>
+                    <div style="margin-top:8px;font-size:calc(11px * var(--macs-font-scale, 1));color:#6366f1;">安全扫描 → 纯文本安装 → 热加载</div>
+                </div>
+ </div>
+ <div id="marketDetail" style="display:none;margin-top:20px;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;"></div>
+ </div>
+ </div>
+</div></div></div>
+
+<!-- 文档分析面板 -->
+<div id="docAnalyzerPanel" class="modal" style="z-index:2500;">
+ <div class="modal-content" style="max-width:1000px;width:95vw;padding:0;overflow:hidden;border-radius:14px;">
+ <div class="modal-header" style="padding:16px 24px;background:linear-gradient(135deg,#065f46,#047857);color:#fff;border-radius:14px 14px 0 0;">
+ <h3 style="margin:0;font-size:calc(18.7px * var(--macs-font-scale, 1));">📄 文档智能分析</h3>
+ <span class="close-modal" onclick="closeDocAnalyzer()" style="color:#fff;font-size:calc(24.2px * var(--macs-font-scale, 1));cursor:pointer;">&times;</span>
+ </div>
+ <div style="padding:24px;max-height:75vh;overflow-y:auto;" id="docAnalyzerBody">
+ <!-- 上传区域 -->
+ <div id="docUploadZone" style="border:2px dashed #d1d5db;border-radius:14px;padding:48px 24px;text-align:center;cursor:pointer;transition:border .2s;background:#fafafa;"
+ ondragover="this.style.borderColor='#10b981';this.style.background='#f0fdf4';return false"
+ ondragleave="this.style.borderColor='#d1d5db';this.style.background='#fafafa'"
+ ondrop="handleDocDrop(event);return false"
+ onclick="document.getElementById('docFileInput').click()">
+ <div style="font-size:calc(52.8px * var(--macs-font-scale, 1));margin-bottom:12px;">📄</div>
+ <div style="font-size:calc(17.6px * var(--macs-font-scale, 1));font-weight:600;color:#374151;margin-bottom:4px;">拖拽文件到这里，或点击选择</div>
+ <div style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#9ca3af;">支持 PDF / DOCX / PPTX / EPUB / RTF / HTML / TXT / MD (最大 50MB)</div>
+ <input type="file" id="docFileInput" accept=".pdf,.docx,.pptx,.epub,.rtf,.html,.htm,.txt,.md,.csv,.json,.xml,.eml" style="display:none" onchange="handleDocFileSelect(event)">
+ </div>
+ <!-- 进度 -->
+ <div id="docProgress" style="display:none;text-align:center;padding:24px;">
+ <div style="font-size:calc(15.4px * var(--macs-font-scale, 1));color:#374151;margin-bottom:8px;">正在分析...</div>
+ <div style="height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;">
+ <div id="docProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#10b981,#059669);border-radius:3px;transition:width .3s;"></div>
+ </div>
+ <div id="docProgressText" style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280;margin-top:8px;"></div>
+ </div>
+ <!-- 结果 -->
+ <div id="docResult" style="display:none;"></div>
+ </div>
+ </div>
+</div>
+</div>
+
+<!-- 消息中心弹窗 -->
+<div id="msgPanel" style="display:none;position:fixed;top:56px;right:12px;width:380px;max-height:70vh;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);z-index:10000;overflow:hidden;">
+ <div style="padding:12px 16px;background:#f8fafc;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;">
+ <b style="font-size:calc(15.4px * var(--macs-font-scale, 1));">系统消息</b>
+ <span onclick="document.getElementById('msgPanel').style.display='none'" style="cursor:pointer;font-size:calc(19.8px * var(--macs-font-scale, 1));color:#94a3b8;">&times;</span>
+ </div>
+ <div id="msgList" style="overflow-y:auto;max-height:calc(70vh - 50px);padding:8px;">
+ <div style="color:#94a3b8;text-align:center;padding:24px;">暂无消息</div>
+ </div>
+</div>
+
+<script>
+var lastMsgId = 0;
+var msgLimit = 50;
+var msgHasMore = false;
+function toggleMessages() {
+ var p = document.getElementById('msgPanel');
+ p.style.display = p.style.display === 'none' ? 'block' : 'none';
+ if (p.style.display === 'block') { msgLimit = 50; fetchMessages(); }
+}
+function fetchMessages() {
+ fetch('/api/messages?limit='+msgLimit).then(function(r){return r.json();}).then(function(d){
+ if (!d.ok) return;
+ msgHasMore = d.has_more;
+ var msgs = d.messages, html = '', unread = 0;
+ for (var i = msgs.length-1; i >= 0; i--) {
+ var m = msgs[i];
+ if (m.id > lastMsgId) lastMsgId = m.id;
+ if (!m.read) unread++;
+ var bg = m.severity === 'error' ? '#fef2f2' : (m.severity === 'warn' ? '#fffbeb' : (m.severity === 'action' ? '#eff6ff' : '#f8fafc'));
+ var border = m.severity === 'action' ? 'border-left:3px solid #3b82f6;' : '';
+ html += '<div style="padding:10px 12px;margin:4px 0;border-radius:8px;'+border+'background:'+bg+';font-size:calc(14.3px * var(--macs-font-scale, 1));">';
+ html += '<span style="color:#94a3b8;font-size:calc(11px * var(--macs-font-scale, 1));">'+m.time+'</span><br>';
+ html += m.text;
+ if (m.action_id && !m.action_done) {
+ html += '<div style="margin-top:8px;display:flex;align-items:center;gap:8px;">';
+ html += '<button onclick="confirmAction(\''+m.action_id+'\')" style="padding:4px 14px;background:#3b82f6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));">'+ (m.action_label || '确认') +'</button>';
+ html += '<span style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;">'+ (m.progress_text || '') +'</span>';
+ if (m.progress > 0 && m.progress < 100) {
+ html += '<div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px;"><div style="width:'+m.progress+'%;height:100%;background:#3b82f6;border-radius:2px;"></div></div>';
+ }
+ html += '</div>';
+ } else if (m.progress >= 100) {
+ html += '<span style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#22c55e;">✅ 完成</span>';
+ }
+ html += '</div>';
+ }
+ if (msgHasMore) {
+ html += '<div style="text-align:center;padding:8px;"><button onclick="msgLimit+=100;fetchMessages();" style="padding:6px 24px;background:#e2e8f0;border:none;border-radius:8px;cursor:pointer;font-size:calc(13.2px * var(--macs-font-scale, 1));color:#2563eb;">加载更多 ('+d.total+' total)</button></div>';
+ }
+ document.getElementById('msgList').innerHTML = html || '<div style="color:#94a3b8;text-align:center;padding:24px;">暂无消息</div>';
+ var badge = document.getElementById('msgBadge');
+ if (badge) { badge.style.display = unread > 0 ? 'flex' : 'none'; badge.textContent = unread; }
+ }).catch(function(e){ console.warn('messages load failed:', e && e.message ? e.message : e); });
+}
+function confirmAction(actionId) {
+ fetch('/api/system/confirm', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action_id:actionId})})
+ .then(function(r){return r.json();}).then(function(d){
+ if (d.ok) fetchMessages();
+ }).catch(function(e){ console.warn('confirm failed:', e && e.message ? e.message : e); });
+}
+setInterval(function(){
+ fetch('/api/messages').then(function(r){return r.json();}).then(function(d){
+ if (!d.ok) return;
+ for (var i = 0; i < d.messages.length; i++) {
+ if (d.messages[i].id > lastMsgId) { fetchMessages(); break; }
+ }
+ }).catch(function(e){ console.warn('messages poll failed:', e && e.message ? e.message : e); });
+}, 3000);
+
+// Model badge -- populated by loadAgents() (avoids duplicate /api/agents call)
+window._agentModels = window._agentModels || {};
+function updateAgentModelBadge(){
+ var select = document.getElementById('agentSelect');
+ var badge = document.getElementById('modelBadge');
+ if (!select || !badge) return;
+ var name = select.value;
+ var agentModels = window._agentModels || {};
+ if (name && agentModels[name] && agentModels[name].model) {
+ var a = agentModels[name];
+ var maxT = a.max_tokens || 0;
+ var ctx = '';
+ if (maxT >= 1000000) ctx = (maxT/1000000).toFixed(0)+'M';
+ else if (maxT >= 1000) ctx = (maxT/1000).toFixed(0)+'K';
+ badge.textContent = a.model + (ctx ? ' ['+ctx+']' : '');
+ badge.title = '当前模型：' + badge.textContent;
+ badge.setAttribute('aria-label', badge.title);
+ badge.style.display = 'inline-flex';
+ } else {
+ badge.textContent = '';
+ badge.removeAttribute('title');
+ badge.removeAttribute('aria-label');
+ badge.style.display = 'none';
+ }
+}
+document.getElementById('agentSelect').addEventListener('change', updateAgentModelBadge);
+</script>
+
+<script>
+// ====================== 文档分析上传 ======================
+function openDocAnalyzer() { console.log('[DocAnalyzer] opening'); var p=document.getElementById('docAnalyzerPanel'); if(!p){ console.error('[DocAnalyzer] panel not found'); return; } p.style.display='flex'; p.style.justifyContent='center'; p.style.alignItems='center'; p.style.position='fixed'; p.style.top='0'; p.style.left='0'; p.style.width='100%'; p.style.height='100%'; p.style.zIndex='99999'; p.style.background='rgba(0,0,0,0.45)'; var dd=document.getElementById('toolMenu'); if(dd)dd.classList.remove('show'); resetDocAnalyzer(); }
+function closeDocAnalyzer() { var p=document.getElementById('docAnalyzerPanel'); if(p){p.style.display='none';} }
+
+function resetDocAnalyzer() {
+ document.getElementById('docUploadZone').style.display = '';
+ document.getElementById('docProgress').style.display = 'none';
+ document.getElementById('docResult').style.display = 'none';
+ document.getElementById('docFileInput').value = '';
+}
+
+function handleDocDrop(e) {
+ e.preventDefault();
+ var files = e.dataTransfer.files;
+ if (files.length > 0) uploadDoc(files[0]);
+}
+
+function handleDocFileSelect(e) {
+ var file = e.target.files[0];
+ if (file) uploadDoc(file);
+}
+
+function uploadDoc(file) {
+ if (file.size > 50*1024*1024) { alert('文件过大，最大 50MB'); return; }
+ document.getElementById('docUploadZone').style.display = 'none';
+ document.getElementById('docProgress').style.display = '';
+ document.getElementById('docResult').style.display = 'none';
+ document.getElementById('docProgressBar').style.width = '10%';
+ document.getElementById('docProgressText').textContent = '上传中...';
+
+ var form = new FormData();
+ form.append('file', file);
+
+ fetch('/api/document/analyze?mode=full', { method: 'POST', body: form })
+ .then(function(r) { return r.json(); })
+ .then(function(d) {
+ document.getElementById('docProgressBar').style.width = '100%';
+ document.getElementById('docProgress').style.display = 'none';
+ showDocResult(file.name, d);
+ })
+ .catch(function(e) {
+ document.getElementById('docProgress').style.display = 'none';
+ alert('分析失败: ' + (e.message || '网络错误'));
+ resetDocAnalyzer();
+ });
+}
+
+function showDocResult(filename, d) {
+ var html = '<div style="margin-bottom:16px;">';
+ html += '<h4 style="color:#065f46;">' + filename + '</h4>';
+ html += '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:calc(13.2px * var(--macs-font-scale, 1));color:#6b7280;margin-bottom:12px;">';
+ html += '<span>📄 ' + d.pages + ' 页</span> <span>📝 ' + d.char_count + ' 字符</span>';
+ html += '<span>🧹 清洗后 ' + d.clean_count + '</span> <span>⏱ ' + d.timing.total_ms + 'ms</span>';
+ html += '</div></div>';
+
+ // 统计卡片
+ if (d.element_stats) {
+ var s = d.element_stats;
+ html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">';
+ html += '<span style="background:#fef3c7;padding:4px 10px;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));">📌 标题 x' + (s.title||0) + '</span>';
+ html += '<span style="background:#dbeafe;padding:4px 10px;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));">📖 章节 x' + ((s.section_header||0)+(s.sub_header||0)) + '</span>';
+ html += '<span style="background:#dcfce7;padding:4px 10px;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));">📝 正文 x' + (s.narrative_text||0) + '</span>';
+ html += '<span style="background:#f3e8ff;padding:4px 10px;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));">📋 表格 x' + (s.table||0) + '</span>';
+ html += '<span style="background:#ffe4e6;padding:4px 10px;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));">• 列表 x' + (s.list_item||0) + '</span>';
+ html += '</div>';
+ }
+
+ // 分块
+ if (d.chunks && d.chunks.length > 0) {
+ html += '<details open><summary style="cursor:pointer;font-weight:600;color:#374151;margin-bottom:8px;">📦 语义分块 (' + d.chunks.length + ' 块)</summary>';
+ html += '<div style="max-height:400px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:8px;">';
+ for (var i = 0; i < d.chunks.length; i++) {
+ var c = d.chunks[i];
+ html += '<div style="padding:10px 12px;border-bottom:1px solid #f3f4f6;">';
+ html += '<div style="font-weight:600;font-size:calc(13.2px * var(--macs-font-scale, 1));color:#065f46;">块 #' + c.index + ' (' + c.chars + ' 字)</div>';
+ if (c.heading && c.heading !== 'undefined') html += '<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#6366f1;">📌 ' + c.heading + '</div>';
+ html += '<div style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#374151;line-height:1.6;margin-top:4px;white-space:pre-wrap;">' + c.text + '</div>';
+ html += '</div>';
+ }
+ html += '</div></details>';
+ }
+
+ // 表格
+ if (d.tables && d.tables.length > 0) {
+ html += '<details style="margin-top:12px;"><summary style="cursor:pointer;font-weight:600;color:#374151;margin-bottom:8px;">📊 检测表格 (' + d.tables.length + ' 个)</summary>';
+ for (var j = 0; j < Math.min(d.tables.length, 5); j++) {
+ var t = d.tables[j];
+ html += '<div style="margin-bottom:8px;overflow-x:auto;"><table style="font-size:calc(12.1px * var(--macs-font-scale, 1));border-collapse:collapse;width:100%;"><thead><tr>';
+ if (t.headers) for (var hi = 0; hi < t.headers.length; hi++) html += '<th style="border:1px solid #e5e7eb;padding:4px 8px;background:#f8fafc;">' + (t.headers[hi]||'') + '</th>';
+ html += '</tr></thead><tbody>';
+ if (t.data) for (var ri = 0; ri < Math.min(t.data.length, 5); ri++) {
+ html += '<tr>';
+ for (var ci = 0; ci < t.data[ri].length; ci++) html += '<td style="border:1px solid #e5e7eb;padding:4px 8px;">' + (t.data[ri][ci]||'') + '</td>';
+ html += '</tr>';
+ }
+ html += '</tbody></table><div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;">第' + t.page + '页, ' + t.rows + '行×' + t.cols + '列</div></div>';
+ }
+ html += '</details>';
+ }
+
+ // 图片
+ if (d.images && d.images.length > 0) {
+ html += '<details style="margin-top:12px;"><summary style="cursor:pointer;font-weight:600;color:#374151;margin-bottom:8px;">🖼️ 提取图片 (' + d.images.length + ' 张)</summary>';
+ html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+ for (var k = 0; k < d.images.length; k++) {
+ var img = d.images[k];
+ html += '<div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:calc(12.1px * var(--macs-font-scale, 1));">';
+ html += '<b>' + img.name + '</b><br>' + img.format + '<br>' + img.width + '×' + img.height + '<br>' + (img.size_bytes/1024).toFixed(0) + ' KB</div>';
+ }
+ html += '</div></details>';
+ }
+
+ document.getElementById('docResult').innerHTML = html;
+ document.getElementById('docResult').style.display = '';
+}
+</script>
+
+<script src="/web/supplier.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/skill_panel.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/artifacts.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/agentos_help.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/help_layout.js?v=20261014-style-restore-v58" defer></script>
+<script src="/web/help_export.js?v=20261013-memory-runtime-v49"></script>
+<script src="/web/team_manager.js?v=20261013-memory-runtime-v49"></script>
+<script>
+// Load status panel HTML
+(function(){
+ if(document.getElementById('statusModal')) return;
+ var xhr = new XMLHttpRequest();
+ xhr.open('GET', '/web/status.html?v=1', true);
+ xhr.onload = function(){
+ if(xhr.status===200 && !document.getElementById('statusModal')){
+  var div = document.createElement('div');
+  div.innerHTML = xhr.responseText;
+  var modal = div.querySelector('#statusModal');
+  var style = div.querySelector('style');
+  if (modal) document.body.appendChild(modal);
+  if (style) document.head.appendChild(style);
+  }
+ };
+ xhr.send();
+})();
+</script>
+
+</body>
+
+</html>

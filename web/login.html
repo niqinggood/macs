@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="/web/font_size.js?v=20261012-font-control-v26" defer></script>
+<style>html { font-size: calc(110% * var(--macs-font-scale, 1)); }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACS - 登录</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: #f6f8fb;
+            color: #172033;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .login-shell { width: min(100%, 420px); }
+        .login-card {
+            padding: 34px;
+            border: 1px solid #e5eaf1;
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.10);
+        }
+        .brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 9px; }
+        .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: #172033; color: #fff; font-size: calc(23.1px * var(--macs-font-scale, 1)); }
+        h1 { margin: 0; font-size: calc(25.3px * var(--macs-font-scale, 1)); letter-spacing: -0.02em; }
+        .subtitle { margin: 0 0 26px; text-align: center; color: #738096; font-size: calc(14.3px * var(--macs-font-scale, 1)); line-height: 1.6; }
+        label { display: block; margin-bottom: 7px; color: #334155; font-size: calc(13.2px * var(--macs-font-scale, 1)); font-weight: 650; }
+        input {
+            width: 100%;
+            height: 43px;
+            margin-bottom: 15px;
+            padding: 0 13px;
+            border: 1px solid #d9e0ea;
+            border-radius: 10px;
+            outline: none;
+            background: #fff;
+            color: #172033;
+            font: inherit;
+            font-size: calc(15.4px * var(--macs-font-scale, 1));
+            transition: border-color .16s, box-shadow .16s;
+        }
+        input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, .12); }
+        button {
+            width: 100%;
+            height: 43px;
+            border: 0;
+            border-radius: 10px;
+            background: #2563eb;
+            color: #fff;
+            cursor: pointer;
+            font-size: calc(15.4px * var(--macs-font-scale, 1));
+            font-weight: 700;
+        }
+        button:hover { background: #1d4ed8; }
+        button:disabled { cursor: wait; opacity: .65; }
+        .secondary-button { border: 1px solid #d9e0ea; background: #fff; color: #334155; }
+        .secondary-button:hover { background: #f8fafc; }
+        .error { min-height: 20px; margin: -3px 0 8px; color: #dc2626; font-size: calc(13.2px * var(--macs-font-scale, 1)); line-height: 1.5; }
+        .success-state { text-align: center; }
+        .success-avatar { display: grid; place-items: center; width: 56px; height: 56px; margin: 4px auto 14px; border-radius: 50%; background: #dcfce7; color: #15803d; font-size: calc(24.2px * var(--macs-font-scale, 1)); font-weight: 750; }
+        .success-state h2 { margin: 0 0 7px; font-size: calc(20.9px * var(--macs-font-scale, 1)); }
+        .success-state p { margin: 0 0 20px; color: #64748b; font-size: calc(14.3px * var(--macs-font-scale, 1)); }
+        .success-actions { display: grid; gap: 9px; }
+        .links { display: flex; justify-content: center; gap: 10px; margin-top: 18px; color: #94a3b8; font-size: calc(13.2px * var(--macs-font-scale, 1)); }
+        .links a { color: #2563eb; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+        .privacy-note { margin: 18px 0 0; text-align: center; color: #94a3b8; font-size: calc(12.1px * var(--macs-font-scale, 1)); line-height: 1.55; }
+        [hidden] { display: none !important; }
+        @media (max-width: 480px) {
+            body { padding: 14px; }
+            .login-card { padding: 26px 22px; border-radius: 15px; }
+        }
+    </style>
+</head>
+<body>
+<main class="login-shell">
+    <section class="login-card" aria-labelledby="loginTitle">
+        <div class="brand"><span class="brand-mark" aria-hidden="true">🐱</span><h1 id="loginTitle">MACS</h1></div>
+        <p class="subtitle">登录网站账号以同步身份；这是可选项，不登录也能继续使用本地工作台。</p>
+
+        <form id="loginForm" novalidate>
+            <label for="username">用户名、邮箱或手机号</label>
+            <input id="username" name="username" type="text" autocomplete="username" required autofocus placeholder="请输入账号">
+            <label for="password">密码</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="请输入密码">
+            <div id="error" class="error" role="alert" aria-live="polite"></div>
+            <button id="loginButton" type="submit">登录</button>
+        </form>
+
+        <div id="loggedInState" class="success-state" hidden>
+            <div id="loggedInAvatar" class="success-avatar" aria-hidden="true">U</div>
+            <h2>已经登录</h2>
+            <p>当前账号：<strong id="loggedInUsername"></strong></p>
+            <div class="success-actions">
+                <button id="continueButton" type="button">返回工作台</button>
+                <button id="switchAccountButton" class="secondary-button" type="button">退出并切换账号</button>
+            </div>
+        </div>
+
+        <nav class="links" aria-label="账号操作">
+            <a id="registerLink" href="https://www.sicurrent.com/register" target="_blank" rel="noopener noreferrer">注册账号</a>
+            <span aria-hidden="true">·</span>
+            <a href="/web/">暂不登录</a>
+        </nav>
+        <p class="privacy-note">账号密码直接发送至 Nova／sicurrent 账号服务，不经过 MACS；MACS 不保存密码或网站令牌，只在当前标签页暂存用户名用于显示登录状态。</p>
+    </section>
+</main>
+
+<script>
+(function () {
+    'use strict';
+
+    var form = document.getElementById('loginForm');
+    var errorElement = document.getElementById('error');
+    var loginButton = document.getElementById('loginButton');
+    var loggedInState = document.getElementById('loggedInState');
+    var loggedInUsername = document.getElementById('loggedInUsername');
+    var loggedInAvatar = document.getElementById('loggedInAvatar');
+    var registerLink = document.getElementById('registerLink');
+    var accountDisplayHintKey = 'openkitty_account_display_username';
+    var accountEndpoints = {
+        login: '/api/account/login',
+        checkLogin: '/api/account/me',
+        logout: '/api/account/logout'
+    };
+
+    function safeReturnPath() {
+        var requested = new URLSearchParams(window.location.search).get('redirect') || '/web/';
+        try {
+            var target = new URL(requested, window.location.origin);
+            if (target.origin === window.location.origin && (target.pathname === '/' || target.pathname.indexOf('/web') === 0)) {
+                return target.pathname + target.search + target.hash;
+            }
+        } catch (error) {}
+        return '/web/';
+    }
+
+    function safeExternalURL(value) {
+        try {
+            var target = new URL(value, window.location.origin);
+            return target.protocol === 'http:' || target.protocol === 'https:' ? target.href : '';
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function rememberAccountDisplayName(username) {
+        username = String(username || '').trim();
+        if (!username || username.length > 128) return;
+        try { sessionStorage.setItem(accountDisplayHintKey, username); } catch (error) {}
+    }
+
+    function readAccountDisplayName() {
+        try {
+            var username = String(sessionStorage.getItem(accountDisplayHintKey) || '').trim();
+            return username && username.length <= 128 ? username : '';
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function clearAccountDisplayName() {
+        try { sessionStorage.removeItem(accountDisplayHintKey); } catch (error) {}
+    }
+
+    function showLoggedIn(user) {
+        var username = user && String(user.username || '').trim();
+        if (!username) return;
+        rememberAccountDisplayName(username);
+        form.hidden = true;
+        loggedInState.hidden = false;
+        loggedInUsername.textContent = username;
+        loggedInAvatar.textContent = username.charAt(0).toUpperCase() || 'U';
+    }
+
+    function showLoginForm() {
+        loggedInState.hidden = true;
+        form.hidden = false;
+        document.getElementById('username').focus();
+    }
+
+    async function readJSON(response) {
+        try { return await response.json(); } catch (error) { return {}; }
+    }
+
+    async function loadAccountConfig() {
+        try {
+            var response = await fetch('/api/account/config', { headers: { 'Accept': 'application/json' }, cache: 'no-store' });
+            var data = await readJSON(response);
+            var registrationURL = safeExternalURL(data.register_url);
+            if (registrationURL) registerLink.href = registrationURL;
+        } catch (error) {}
+        return accountEndpoints;
+    }
+
+    var accountConfigPromise = loadAccountConfig();
+
+    async function detectCurrentAccount() {
+        try {
+            var endpoints = await accountConfigPromise;
+            var response = await fetch(endpoints.checkLogin, { credentials: 'include', headers: { 'Accept': 'application/json' }, cache: 'no-store' });
+            if (response.status === 401) { clearAccountDisplayName(); return; }
+            if (!response.ok) throw new Error('not signed in');
+            var data = await readJSON(response);
+            if (data.authenticated && data.user && data.user.username) {
+                showLoggedIn(data.user);
+                return;
+            }
+            if (data.authenticated === false) { clearAccountDisplayName(); return; }
+        } catch (error) {}
+    }
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        errorElement.textContent = '';
+        var username = document.getElementById('username').value.trim();
+        var password = document.getElementById('password').value;
+        if (!username || !password) {
+            errorElement.textContent = '请输入账号和密码';
+            return;
+        }
+
+        loginButton.disabled = true;
+        loginButton.textContent = '登录中…';
+        try {
+            var endpoints = await accountConfigPromise;
+            var response = await fetch(endpoints.login, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ username: username, password: password, rememberMe: false })
+            });
+            var data = await readJSON(response);
+            if (!response.ok || !data.ok || !data.user || !data.user.username) throw new Error(data.message || data.error || '登录失败，请稍后重试');
+            rememberAccountDisplayName(data.user.username);
+            document.getElementById('password').value = '';
+            window.location.replace(safeReturnPath());
+        } catch (error) {
+            errorElement.textContent = error.message || '登录失败，请稍后重试';
+        } finally {
+            loginButton.disabled = false;
+            loginButton.textContent = '登录';
+        }
+    });
+
+    document.getElementById('continueButton').addEventListener('click', function () {
+        window.location.replace(safeReturnPath());
+    });
+    document.getElementById('switchAccountButton').addEventListener('click', async function () {
+        try {
+            clearAccountDisplayName();
+            var endpoints = await accountConfigPromise;
+            await fetch(endpoints.logout, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: '{}'
+            });
+        } finally {
+            showLoginForm();
+        }
+    });
+
+    var queryError = new URLSearchParams(window.location.search).get('error');
+    if (queryError) errorElement.textContent = queryError;
+    detectCurrentAccount();
+})();
+</script>
+</body>
+</html>

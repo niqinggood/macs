@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "^11.15.0",
+    "@mozilla/readability": "^0.6.0",
+    "highlight.js": "^11.9.0",
+    "jsdom": "^29.1.1",
+    "mammoth": "^1.8.0",
+    "marked": "^14.1.4",
+    "pdfjs-dist": "^2.16.105",
+    "puppeteer": "^25.0.4",
+    "sharp": "^0.34.5"
+  }
+}

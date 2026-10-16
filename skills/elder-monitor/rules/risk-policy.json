@@ -1,0 +1,24 @@
+{
+  "policy_version": "1.0.0",
+  "description": "Demo-only elder monitoring policy. Thresholds require care-team review before a real pilot.",
+  "thresholds": {
+    "distress_attention_count": 3,
+    "distress_alert_count": 8,
+    "distress_min_confidence": 0.6,
+    "low_motion_min_confidence": 0.6,
+    "fall_high_confidence": 0.8,
+    "help_request_min_confidence": 0.75,
+    "no_response_timeout_sec": 30,
+    "prolonged_inactivity_min_minutes": 30,
+    "baseline_excess_ratio": 1.5,
+    "model_review_confidence_below": 0.85
+  },
+  "severity_order": ["none", "low", "medium", "high", "critical"],
+  "operational_defaults": {
+    "alert_cooldown_sec": 300,
+    "voice_check_timeout_sec": 30,
+    "caregiver_ack_timeout_sec": 120
+  }
+}
+
+
