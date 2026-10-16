@@ -37,7 +37,7 @@
 产品提供两种主要使用模式：
 
 - **Agent 模式**：理解目标、规划任务、调用工具并组织多智能体协作，执行复杂工作和核验交付结果。
-- **对话问答模式**：日常问答、内容撰写，以及图片生成、音乐生成等创作。图片生成支持 Nano Banana、`gpt-image2` 等平台模型，具体可选型号以账号的可用模型列表为准。
+- **对话问答模式**：日常问答、内容撰写，以及通过 **Sicurrent API** 接入的 AI 生图、AI 音乐生成等创作能力。生图型号包括平台目录中的 Nano Banana、`gpt-image2` 等，具体以账号的可用模型列表为准。
 
 系统以 Go 为主要开发语言，将原生 Web 界面和内置技能资源嵌入程序。普通对话、多智能体协作、Pipeline、AI Employee 和 AgentOS 共用核心 Agent 运行时，便于把个人使用中验证过的能力继续用于团队和企业流程。
 
@@ -62,6 +62,8 @@ flowchart LR
     Web["Web / 聊天渠道"] --> Gateway["Gateway"]
     Business["业务系统 / SDK"] --> AgentOS["AgentOS"]
     Gateway --> Runtime["Agent 运行时"]
+    Gateway --> Creation["Sicurrent API · AI 生图 / 音乐"]
+    Creation --> MediaResults["图片 / 音频结果"]
     AgentOS --> Runtime
     Workflow["Pipeline / AI Employee"] --> Runtime
     Runtime <--> Models["已配置的模型服务"]
@@ -258,11 +260,19 @@ Agent 可以结合当前任务，选择性调用长期偏好、项目约定和�
 | Pipeline | 多步骤流程、输入输出契约、条件处理、审批节点和检查点恢复 |
 | AI Employee | 业务身份、任务路由、技能与工作流绑定，以及定时工作 |
 | 多渠道接入 | 按渠道配置接入飞书、微信、钉钉、企业微信、QQ、Telegram 和邮件等入口 |
-| 多模态与媒体 | 图片理解、语音处理、图片生成（Nano Banana、gpt-image2 等）、音乐生成及按模型和服务配置提供的视频入口 |
+| 多模态与媒体 | 图片理解、语音处理；通过 Sicurrent API 接入 AI 生图（Nano Banana、gpt-image2 等）和音乐生成；按模型和服务配置提供的视频入口 |
 | MCP、Skills 与 Hooks | 扩展工具和资料来源，组织领域知识，接入生命周期处理逻辑 |
 | AgentOS 与 SDK | 异步任务提交、持久状态、SSE、幂等、追加要求、取消和交付物获取 |
 
 具体工具、渠道和媒体能力依赖对应服务、账号或本地运行时；安装主程序并不代表所有扩展后端已经配置完成。
+
+### AI 生图与音乐：Sicurrent API 接入
+
+Web 中的 **AI 生图和 AI 音乐生成，是 macs 通过 Sicurrent API 接入的平台创作能力**。macs 提供描述与参考图输入、参数选择、任务提交、进度查询，以及图片预览、音频试听和下载；Sicurrent 平台负责生成模型调用、生成任务和账号结算。
+
+使用时登录 Sicurrent 账号，从平台目录选择生图或音乐模型，再提交画面描述、曲风要求或歌词。图片可选比例和参考图，音乐可选歌曲或纯音乐。Nano Banana、`gpt-image2` 等生图型号，以及音乐型号、价格和可用性，均以平台当前目录和账号可用列表为准；实际调用按 Sicurrent 平台规则结算。
+
+[查看使用说明](docs/macs-user-manual.md) · [查看 API 接入实现](internal/auth/platform_media.go)
 
 ## 快速开始
 

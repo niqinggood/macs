@@ -37,7 +37,7 @@
 The product provides two main modes:
 
 - **Agent mode:** interpret goals, plan tasks, use tools, and coordinate multiple agents to perform complex work and verify deliverables.
-- **Conversational mode:** everyday questions, writing, image generation, and music creation. Image generation supports platform models such as Nano Banana and `gpt-image2`; available models depend on the account's model catalog.
+- **Conversational mode:** everyday questions, writing, and AI image and music generation integrated through the **Sicurrent API**. Image model examples include Nano Banana and `gpt-image2` from the platform catalog; availability depends on the account's model list.
 
 The application is primarily written in Go and embeds its native Web UI and built-in Skills. Chat, multi-agent collaboration, Pipelines, AI Employee, and AgentOS share the core Agent runtime, so methods validated in personal work can also support team and business workflows.
 
@@ -62,6 +62,8 @@ flowchart LR
     Web["Web / messaging channels"] --> Gateway["Gateway"]
     Business["Applications / SDKs"] --> AgentOS["AgentOS"]
     Gateway --> Runtime["Agent runtime"]
+    Gateway --> Creation["Sicurrent API · AI images / music"]
+    Creation --> MediaResults["Image / audio results"]
     AgentOS --> Runtime
     Workflow["Pipeline / AI Employee"] --> Runtime
     Runtime <--> Models["Configured model services"]
@@ -237,11 +239,19 @@ Use Web and messaging channels directly, or integrate through AgentOS, SDKs, Pip
 | Pipeline | Multi-step workflows, input/output contracts, conditions, approvals, and checkpoint recovery |
 | AI Employee | Business identity, routing, Skills and workflow bindings, and scheduled work |
 | Messaging channels | Configured Feishu, WeChat, DingTalk, WeCom, QQ, Telegram, email, and other integrations |
-| Multimodal and media | Image understanding, speech processing, image generation (Nano Banana, gpt-image2, and other configured models), music creation, and video through configured services |
+| Multimodal and media | Image understanding and speech processing; AI image generation (Nano Banana, gpt-image2, and other catalog models) and music generation through the Sicurrent API; video through configured services |
 | MCP, Skills, and Hooks | Extend tools and information sources, organize methods, and connect lifecycle handling |
 | AgentOS and SDKs | Async submission, durable snapshots, SSE, idempotency, follow-ups, cancellation, and artifacts |
 
 Specific tools, channels, and media features require their respective services, accounts, or runtimes. Installing the main application does not configure every extension backend.
+
+### AI images and music through the Sicurrent API
+
+**The Web image and music generation features integrate part of Sicurrent's creative services through its API.** macs provides prompts and reference-image input, parameter selection, submission, progress tracking, image previews, audio playback, and downloads. Sicurrent handles generation model calls, generation tasks, and account settlement.
+
+Sign in with a Sicurrent account, choose an image or music model from the platform catalog, and submit a visual description, musical direction, or lyrics. Images support aspect ratios and reference images; music supports songs and instrumentals. Image models such as Nano Banana and `gpt-image2`, music models, prices, and availability depend on the current platform catalog and account access. Usage is settled under Sicurrent's platform rules.
+
+[Read the user manual, Chinese](docs/macs-user-manual.md) · [Inspect the API integration](internal/auth/platform_media.go)
 
 ## Quick start
 
