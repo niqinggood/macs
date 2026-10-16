@@ -10,7 +10,7 @@
 
 OpenKitty 过去的大部分 Go 文件都在仓库根目录，并共同属于 `package main`。这不是单纯的目录问题：同包文件可以直接访问彼此的未导出符号，机械搬动文件会立即改变编译单元，容易产生循环依赖、资源嵌入失效和行为回归。
 
-本次重构采用“先建立依赖方向，再迁移文件”的方式。当前 `cmd/openkitty` 只保留可执行入口，应用装配与尚待继续拆分的兼容代码位于 `internal/app`，根目录只保留资源嵌入包；稳定的领域能力继续下沉到对应的 `internal/*` 包。
+本次重构采用“先建立依赖方向，再迁移文件”的方式。当前 `cmd/macs` 只保留可执行入口，应用装配与尚待继续拆分的兼容代码位于 `internal/app`，根目录只保留资源嵌入包；稳定的领域能力继续下沉到对应的 `internal/*` 包。
 
 ## 当前目录与职责
 
@@ -22,7 +22,8 @@ OpenKitty 过去的大部分 Go 文件都在仓库根目录，并共同属于 `p
 | `internal/browserruntime` | 托管 Chromium 下载/缓存与浏览器任务生命周期 | CDP 页面操作、录制和回放导出由根装配层注入 |
 | `internal/channels` | 渠道传输契约、公共运行时、消息格式化、媒体与语音处理，以及飞书、微信、Telegram、钉钉、QQ、企业微信和邮件平台协议实现 | 通过 `Runtime`/回调接入 Agent 与 Gateway；不反向依赖根包 |
 | 根包 `mac`（`assets.go`） | 集中嵌入 `web/`、`builtin/`、默认技能、提取脚本和默认配置模板 | 只导出静态资源，不依赖主程序或内部业务模块 |
-| `cmd/openkitty` | 可执行入口与版本注入 | 只能调用 `internal/app` 的公开启动函数；不得放置业务实现或流程测试 |
+| `cmd/macs` | 正式可执行入口与版本注入 | 只能调用 `internal/app` 的公开启动函数；不得放置业务实现或流程测试 |
+| `cmd/openkitty` | 旧启动命令的兼容入口 | 调用同一套 `internal/app`；不新增业务逻辑 |
 | `internal/app` | 应用装配、遗留兼容适配和跨模块流程测试 | 可以依赖根资源包与其他 `internal/*`；新领域算法不得新增在此层 |
 | `internal/configvalue` | 动态配置取值、默认值、损坏配置恢复及模型密钥环境引用解析 | 只依赖标准库；具体 `Config` 转换留在可执行装配层 |
 | `internal/conversation` | 压缩边界、轻量压缩、压缩后缓存清理 | 不依赖模型提供商或 Agent 实现 |
@@ -71,7 +72,7 @@ OpenKitty 过去的大部分 Go 文件都在仓库根目录，并共同属于 `p
 根 package assets（只持有嵌入资源）
         │
         ▼
-cmd/openkitty（单一可执行入口）
+cmd/macs（正式入口；cmd/openkitty 为兼容入口）
         │
         ▼
 internal/app（应用装配和迁移中的兼容层）
@@ -79,7 +80,7 @@ internal/app（应用装配和迁移中的兼容层）
         ├── internal/*（稳定的产品内部模块）
         └── pkg/*（可复用公共包）
 
-internal/* 不能反向导入 cmd/openkitty；稳定领域包不能导入 internal/app
+internal/* 不能反向导入 cmd/*；稳定领域包不能导入 internal/app
 基础包不能依赖 Agent、Gateway、数据库等上层业务类型
 ```
 
@@ -120,7 +121,7 @@ internal/* 不能反向导入 cmd/openkitty；稳定领域包不能导入 intern
 
 ## 入口与资源边界
 
-主程序入口位于 `cmd/openkitty`，应用实现位于 `internal/app`。由于 Go 的嵌入模式不能使用 `..` 访问父目录，根目录的 `assets.go` 作为独立 `package assets` 集中持有 `builtin/`、`default-skills/`、`web/`、提取脚本和配置模板，并将 `embed.FS`/内容注入应用层。
+主程序入口位于 `cmd/macs`，应用实现位于 `internal/app`。由于 Go 的嵌入模式不能使用 `..` 访问父目录，根目录的 `assets.go` 作为独立 `package assets` 集中持有 `builtin/`、`default-skills/`、`web/`、提取脚本和配置模板，并将 `embed.FS`/内容注入应用层。
 
 这样无需复制庞大的资源树，也不会让 `internal/app` 通过相对路径读取源码目录。测试的 `TestMain` 会定位 `go.mod` 并切回仓库根目录，因此既有资源夹具仍保持原行为。
 
@@ -131,11 +132,11 @@ internal/* 不能反向导入 cmd/openkitty；稳定领域包不能导入 intern
 3. **拆 AgentOS 与 Skill**：把 Skill 发现/激活/冻结、AI 员工、Pipeline 调度分别放入 `internal/skills`、`internal/agentos`、`internal/pipeline`。
 4. **拆接入层**：HTTP/WebSocket、渠道适配、认证适配进入 `internal/gateway` 和 `internal/channels`，只调用应用服务接口。
 5. **拆工具域**：文件、Shell、搜索、文档、演示文稿等按工具族组织到 `internal/tools/<domain>`；注册表负责装配，不持有工具实现。
-6. **继续缩小装配层**：将 `internal/app` 中仍然成组耦合的 AgentOS、Pipeline、Skill 与 Gateway 实现逐批下沉；`cmd/openkitty` 始终只保留启动入口。
+6. **继续缩小装配层**：将 `internal/app` 中仍然成组耦合的 AgentOS、Pipeline、Skill 与 Gateway 实现逐批下沉；`cmd/macs` 始终只保留启动入口。
 
 ## 每批迁移的验收条件
 
-- 除应用装配包 `internal/app` 外，新增的稳定 `internal/*` 包不能导入 `mac` 根资源包、`internal/app` 或 `cmd/openkitty`，也不能通过复制类型规避边界。
+- 除应用装配包 `internal/app` 外，新增的稳定 `internal/*` 包不能导入 `mac` 根资源包、`internal/app` 或 `cmd/*`，也不能通过复制类型规避边界。
 - 行为测试随实现迁移；跨模块流程测试留在上层。
 - Windows 与非 Windows 的 build tags 保持配对。
 - `go test ./... -count=1 -failfast` 必须通过。
@@ -262,7 +263,7 @@ internal/* 不能反向导入 cmd/openkitty；稳定领域包不能导入 intern
 - 配置损坏恢复和模型 API Key 环境引用规则归入 `internal/configvalue/`；模型降级链、并发统计、健康调度及 Chat Completion 探测归入 `internal/modelruntime/`。
 - 模型单次调用的超时夹取、尝试次数、`Retry-After`、HTTP 重试判定和可取消等待已从应用包迁入 `internal/modelruntime/call_policy.go`；`internal/app` 仅保留 `RuntimeConfig` 与 `LLMAgent` 的装配适配。
 - 外部证据高风险声明规则归入 `internal/security/`，Chatroom 请求/最新回执/失败追加规则归入 `internal/routing/`；宿主工具记录解析仍留在装配层。
-- 将根目录剩余 592 个 Go 文件（其中 208 个生产文件）迁入 `internal/app/` 并改为 `package app`；`cmd/openkitty/` 只保留调用 `app.Main()` 的启动文件。根目录现仅有 `assets.go` 一个 Go 文件，构建命令仍以 `./cmd/openkitty` 为入口。
+- 将根目录剩余 592 个 Go 文件（其中 208 个生产文件）迁入 `internal/app/` 并改为 `package app`；当时的 `cmd/openkitty/` 只保留调用 `app.Main()` 的启动文件，根目录仅保留 `assets.go`。当前正式构建入口为 `./cmd/macs`，旧入口继续兼容。
 
 Pipeline 检查点模型、阶段常量、稳定 ID、深拷贝/裁剪、重复次数转换、原子持久化和终态 transcript 读取已迁入 `internal/pipeline/checkpoint.go`。`internal/app/pipeline.go` 只保留把应用层 `PipelineStep` 与 `TurnCheckpoint` 转换为领域视图的窄适配。
 Pipeline 输出契约的配置校验、章节/状态验证与 degraded 结果生成已迁入 `internal/pipeline/output_contract.go`；应用层只负责遍历自己的步骤树。Pipeline 演进指标、建议生成和指标文件持久化已迁入 `internal/pipeline/evolve.go`，通过中立 `ExecutionSnapshot` 接收执行数据，不再依赖 `PipelineExecution`。

@@ -84,7 +84,7 @@ OpenKitty 当前可以概括为五层：
 
 ```text
 第一层：程序入口
-cmd/openkitty/main.go
+cmd/macs/main.go
         |
         v
 第二层：应用装配和宿主
@@ -135,7 +135,7 @@ Skill 不是 Agent。Skill 是一套可被 Agent 激活的说明和执行能力�
 
 ### 1.1 真正的可执行入口很薄
 
-入口在 [`../cmd/openkitty/main.go`](../cmd/openkitty/main.go)：
+入口在 [`../cmd/macs/main.go`](../cmd/macs/main.go)：
 
 ```go
 func main() {
@@ -942,7 +942,7 @@ internal/test  -> import path: mac/internal/test
 
 按这个顺序最省时间：
 
-1. `cmd/openkitty/main.go`；
+1. `cmd/macs/main.go`；
 2. `app/mac.go` 的 `Main`、`run`、`NewBot`、`ClawBot.Run`；
 3. `app/gateway.go` 的 `GatewayService.Start`、`handleChat`、`processTaskWithSession`；
 4. `app/mac.go` 的 `NewLLMAgent`、`LLMAgent.Generate`；
@@ -1011,7 +1011,7 @@ internal/test  -> import path: mac/internal/test
 ## 18. 最后用一句话记住整体架构
 
 ```text
-cmd/openkitty 负责进入程序；
+cmd/macs 负责进入程序；
 internal/app 负责把整个产品装起来；
 gateway/channels/agentos/mcp 负责接收请求；
 LLMAgent + agentloop 负责思考和循环；

@@ -19,6 +19,7 @@
   <a href="#positioning-and-comparison">Positioning</a> ·
   <a href="#capabilities">Capabilities</a> ·
   <a href="#quick-start">Quick start</a> ·
+  <a href="#build-and-run-the-executable">Build and run</a> ·
   <a href="#memory-and-forgetting">Memory</a> ·
   <a href="#business-system-integration">Integration</a> ·
   <a href="#core-code-walkthrough">Code walkthrough</a> ·
@@ -185,15 +186,17 @@ Windows / PowerShell:
 
 ```powershell
 Copy-Item .\openkitty-config.template.yaml .\openkitty-config.yaml
-go run ./cmd/openkitty --config .\openkitty-config.yaml --path . --port 8090
+go run ./cmd/macs --config .\openkitty-config.yaml --path . --port 8090
 ```
 
 Linux / macOS:
 
 ```bash
 cp openkitty-config.template.yaml openkitty-config.yaml
-go run ./cmd/openkitty --config ./openkitty-config.yaml --path . --port 8090
+go run ./cmd/macs --config ./openkitty-config.yaml --path . --port 8090
 ```
+
+`cmd/macs` is the primary executable entry point. `cmd/openkitty` remains available for existing commands. Configuration filenames, data directories, and environment variables retain their compatibility names.
 
 Open `http://127.0.0.1:8090/web/`, using the actual address reported by the process. The template listens on `127.0.0.1:8080`; the example overrides its port to 8090. Existing deployments retain their own protocol, listener, and authentication settings.
 
@@ -243,14 +246,31 @@ Include the main conclusions, referenced files, and questions still requiring co
 
 Use Agent mode for tools, Agent memory, and multi-step execution, with the required capabilities enabled. Simple chat and direct media generation have separate execution paths.
 
-### Build the executable
+### Build and run the executable
+
+Run these commands from the repository root, where `go.mod` is located, using **Go 1.26**. The first build downloads Go module dependencies automatically. Before the first run, copy the configuration template as shown above; keep an existing configuration file.
+
+Windows / PowerShell:
 
 ```powershell
 go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/openkitty
+go build -buildvcs=false -trimpath -o macs.exe ./cmd/macs
+.\macs.exe --config .\openkitty-config.yaml --path . --port 8090
 ```
 
-On Linux/macOS, use `-o openkitty`. Existing binary distributions do not require Go. Release packaging uses the [existing build scripts](scripts/README.md). Rebuild the executable after changing `web/`, `builtin/`, or other embedded resources.
+Linux / macOS:
+
+```bash
+go run ./cmd/releaseguard
+go build -buildvcs=false -trimpath -o macs ./cmd/macs
+./macs --config ./openkitty-config.yaml --path . --port 8090
+```
+
+The output is `macs.exe` on Windows or `macs` on Linux/macOS, in the repository root. `go build` only compiles; run the resulting executable to start the server, then open `http://127.0.0.1:8090/web/`.
+
+The Web UI and built-in Skills are embedded, so no `npm build` is required. Recompile after changing `web/`, `builtin/`, or other embedded resources. Configuration and runtime data remain outside the executable.
+
+Running a compiled binary does not require Go. See the [build script guide](scripts/README.md) for release packaging, version injection, and cross-compilation. Existing packaging scripts retain `openkitty` compatibility filenames.
 
 Windows executables support double-click startup. Current macOS and Linux builds are command-line executables; grant execution permission and start from a terminal. Uniform desktop application packaging is still incomplete.
 
@@ -350,7 +370,7 @@ flowchart LR
 
 | Path | Responsibility |
 | --- | --- |
-| [`cmd/openkitty/`](cmd/openkitty/) | Executable entry point and version injection |
+| [`cmd/macs/`](cmd/macs/) | Executable entry point and version injection |
 | [`internal/app/`](internal/app/) | Assembly, Gateway, and coordination across domains |
 | [`internal/agentloop/`](internal/agentloop/) | Turn state, leases, and recovery |
 | [`internal/agentos/`](internal/agentos/) | Protocol, durable tasks, and domain models |
@@ -368,7 +388,7 @@ flowchart LR
 Follow one Agent conversation before exploring recovery and reusable methods:
 
 ```text
-cmd/openkitty/main.go: main
+cmd/macs/main.go: main
   → internal/app/mac.go: Main → run → NewBot → ClawBot.Run
   → POST /api/chat
   → internal/app/gateway.go: handleChat → processTaskWithSession
@@ -409,7 +429,7 @@ Run from the repository root:
 ```bash
 # Release input checks and main build
 go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath ./cmd/openkitty
+go build -buildvcs=false -trimpath ./cmd/macs
 
 # Focused tests for the changed area
 go test ./internal/agentos -count=1

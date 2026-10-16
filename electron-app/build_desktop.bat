@@ -13,7 +13,7 @@ if %errorlevel% neq 0 (
     pause
     exit /b %errorlevel%
 )
-go build -ldflags="-s -w -X main.CurrentVersion=1.0.0" -trimpath -o openkitty.exe ./cmd/openkitty
+go build -ldflags="-s -w -X main.CurrentVersion=1.0.0" -trimpath -o openkitty.exe ./cmd/macs
 if %errorlevel% neq 0 (
     echo Go build failed!
     pause

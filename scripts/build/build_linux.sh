@@ -112,7 +112,7 @@ for architecture in "${ARCHITECTURES[@]}"; do
   echo "  target:  linux/${architecture}"
 
   CGO_ENABLED=0 GOOS=linux GOARCH="${architecture}" \
-    go build -buildvcs=false -trimpath -ldflags "${LDFLAGS}" -o "${binary}" ./cmd/openkitty
+    go build -buildvcs=false -trimpath -ldflags "${LDFLAGS}" -o "${binary}" ./cmd/macs
 
   verify_binary "${binary}" "${architecture}"
   checksum="$(sha256_file "${binary}")"

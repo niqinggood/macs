@@ -60,7 +60,7 @@ AgentOS 仍使用既有持久审批、任务/工具/参数绑定、单次授权�
 ```powershell
 go test ./internal/permissionpolicy ./internal/approval ./internal/middleware ./internal/toolregistry ./internal/agentloop ./internal/security ./internal/shellpolicy ./internal/tools/skills ./internal/tools/security ./internal/app -count=1
 go vet ./internal/permissionpolicy ./internal/agentloop ./internal/middleware ./internal/app
-go build -buildvcs=false -trimpath -o NUL ./cmd/openkitty
+go build -buildvcs=false -trimpath -o NUL ./cmd/macs
 ```
 
 这些测试覆盖模式恢复、重复进入/退出、只读查询与写动作区分、显式禁令、审批预检和配置规则。它们不代表全仓迁移测试或真实模型任务已全部验收。

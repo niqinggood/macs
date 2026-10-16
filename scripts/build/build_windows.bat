@@ -99,7 +99,7 @@ echo [3/5] Building openKitty.exe...
 set "GOOS=windows"
 set "GOARCH=amd64"
 set "CGO_ENABLED=0"
-go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openKitty.exe ./cmd/openkitty
+go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openKitty.exe ./cmd/macs
 
 if errorlevel 1 (
     set "BUILD_ERROR=!errorlevel!"

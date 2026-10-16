@@ -29,6 +29,8 @@
 
 ## 兼容标识
 
+正式源码入口为 `cmd/macs`，构建脚本和新文档统一使用 `go run ./cmd/macs` 或 `go build ./cmd/macs`。`cmd/openkitty` 只作为旧命令的兼容入口保留，两个入口均调用同一套 `internal/app` 运行时并支持相同的版本注入。
+
 下面的历史技术标识暂时保留，迁移期内不应机械替换：
 
 - 可执行文件兼容名 `openkitty.exe` 与旧命令 `openkitty`；

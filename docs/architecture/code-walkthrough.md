@@ -7,7 +7,7 @@
 ## 1. 先建立三层关系
 
 ```text
-cmd/openkitty：可执行入口和版本传递
+cmd/macs：可执行入口和版本传递
     ↓
 internal/app：配置、生命周期、Gateway、Agent 与数据库的装配
     ↓
@@ -18,7 +18,7 @@ internal/* 和 pkg/*：领域规则、工具合同、具体能力和可复用组
 
 ## 2. 程序启动：从 main 读到可用服务
 
-从 [`cmd/openkitty/main.go`](../../cmd/openkitty/main.go) 开始。它将发布版本传给 `app.CurrentVersion`，然后调用 `app.Main()`。
+从 [`cmd/macs/main.go`](../../cmd/macs/main.go) 开始。它将发布版本传给 `app.CurrentVersion`，然后调用 `app.Main()`。
 
 主要宿主逻辑位于 [`internal/app/mac.go`](../../internal/app/mac.go)：
 

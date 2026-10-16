@@ -1,6 +1,6 @@
 # macs 原生 Web 与帮助文档
 
-主工作台入口为 `/web/`，使用原生 HTML、CSS 和 JavaScript。资源由根目录 `assets.go` 嵌入，修改后重新构建 `./cmd/openkitty` 才能更新运行程序。
+主工作台入口为 `/web/`，使用原生 HTML、CSS 和 JavaScript。资源由根目录 `assets.go` 嵌入，修改后重新构建 `./cmd/macs` 才能更新运行程序。
 
 ## 界面约定
 

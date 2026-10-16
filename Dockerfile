@@ -9,7 +9,7 @@ COPY . .
 RUN go run ./cmd/releaseguard && \
     CGO_ENABLED=0 go vet ./... && \
     CGO_ENABLED=0 go test ./... -count=1 && \
-    CGO_ENABLED=0 go build -ldflags="-s -w" -o openkitty ./cmd/openkitty
+    CGO_ENABLED=0 go build -ldflags="-s -w" -o openkitty ./cmd/macs
 
 # Stage 2: Runtime
 FROM alpine:3.19

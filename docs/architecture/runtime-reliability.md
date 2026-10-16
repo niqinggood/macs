@@ -43,7 +43,7 @@ Gateway 重载判断比较完整的 `ModelConfig`，包括服务类型、模型�
 ```powershell
 go test ./internal/app ./internal/configvalue ./internal/modelruntime ./internal/routing ./internal/tools/management ./internal/toolregistry ./internal/middleware ./internal/permissionpolicy -count=1
 go vet ./internal/app ./internal/configvalue ./internal/modelruntime ./internal/routing ./internal/tools/management
-go build -buildvcs=false -trimpath -o NUL ./cmd/openkitty
+go build -buildvcs=false -trimpath -o NUL ./cmd/macs
 ```
 
 回归用例覆盖内部本地模型调用、带/不带密钥的 HTTP 请求、云端无密钥拒绝、伪装成本地的域名、IPv6 回环地址、模型参数变更检测、未变配置不重载、设置保存后的工作目录保留及工具目录动作范围。HTTP 用例使用本机测试服务，不需要真实模型密钥，也不代表真实模型任务效果已评测。

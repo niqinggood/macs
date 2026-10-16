@@ -38,9 +38,9 @@ Read `docs/edge-deployment.md` when installing or upgrading an edge device.
 Use these only when no checked-in packaging script exists:
 
 ```bash
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_windows_amd64.exe ./cmd/openkitty
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_darwin_amd64 ./cmd/openkitty
-CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_darwin_arm64 ./cmd/openkitty
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_windows_amd64.exe ./cmd/macs
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_darwin_amd64 ./cmd/macs
+CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -buildvcs=false -trimpath -ldflags="-s -w" -o openkitty_darwin_arm64 ./cmd/macs
 ```
 
 Verify every artifact with `go version -m <binary>`. On the target system,

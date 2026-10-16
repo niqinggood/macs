@@ -19,6 +19,7 @@
   <a href="#产品定位与比较">产品定位</a> ·
   <a href="#功能全景">功能全景</a> ·
   <a href="#快速开始">快速开始</a> ·
+  <a href="#从源码编译与运行">编译与运行</a> ·
   <a href="#记忆与遗忘">记忆与遗忘</a> ·
   <a href="#企业系统接入">企业系统接入</a> ·
   <a href="#核心代码导读">代码导读</a> ·
@@ -189,15 +190,17 @@ Windows / PowerShell：
 
 ```powershell
 Copy-Item .\openkitty-config.template.yaml .\openkitty-config.yaml
-go run ./cmd/openkitty --config .\openkitty-config.yaml --path . --port 8090
+go run ./cmd/macs --config .\openkitty-config.yaml --path . --port 8090
 ```
 
 Linux / macOS：
 
 ```bash
 cp openkitty-config.template.yaml openkitty-config.yaml
-go run ./cmd/openkitty --config ./openkitty-config.yaml --path . --port 8090
+go run ./cmd/macs --config ./openkitty-config.yaml --path . --port 8090
 ```
+
+`cmd/macs` 是正式程序入口；`cmd/openkitty` 保留为旧命令的兼容入口。配置文件名、数据目录和环境变量继续沿用现有兼容名称。
 
 打开 `http://127.0.0.1:8090/web/`，以终端输出的实际地址为准。模板默认监听 `127.0.0.1:8080`，上述命令通过 `--port` 指定 8090。已有配置继续使用自己的协议、监听设置和认证方式。
 
@@ -247,14 +250,31 @@ export MACS_MODEL_API_KEY='REPLACE_WITH_YOUR_MODEL_API_KEY'
 
 需要调用工具、使用 Agent 记忆或执行多步骤工作时，使用 Agent 模式，并启用任务所需能力。简单问答与直接媒体生成使用各自的处理路径。
 
-### 从源码编译程序
+### 从源码编译与运行
+
+以下命令在项目根目录（包含 `go.mod` 的目录）执行，需要 **Go 1.26**。首次构建会自动下载 Go 模块依赖。首次运行前，按上文复制配置模板；已有配置文件时继续使用原文件。
+
+Windows / PowerShell：
 
 ```powershell
 go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/openkitty
+go build -buildvcs=false -trimpath -o macs.exe ./cmd/macs
+.\macs.exe --config .\openkitty-config.yaml --path . --port 8090
 ```
 
-Linux/macOS 将输出名改为 `-o openkitty`。使用已有发布包无需安装 Go；正式平台打包入口见 [构建脚本说明](scripts/README.md)。修改 `web/`、`builtin/` 或其他内嵌资源后，需重新构建二进制。
+Linux / macOS：
+
+```bash
+go run ./cmd/releaseguard
+go build -buildvcs=false -trimpath -o macs ./cmd/macs
+./macs --config ./openkitty-config.yaml --path . --port 8090
+```
+
+Windows 生成根目录的 `macs.exe`，Linux/macOS 生成根目录的 `macs`。`go build` 只编译，随后执行生成的程序才会启动服务；打开 `http://127.0.0.1:8090/web/` 使用。
+
+Web 界面和内置 Skills 已编入程序，无需运行 `npm build`。修改 `web/`、`builtin/` 或其他内嵌资源后，需重新编译；配置文件和运行数据仍保存在程序外部。
+
+使用编译好的程序无需安装 Go。正式平台打包、版本注入和交叉编译见 [构建脚本说明](scripts/README.md)，现有打包脚本的产物保留 `openkitty` 兼容文件名。
 
 Windows 的可执行程序支持双击启动。当前 macOS 与 Linux 构建为命令行程序，通常需先赋予执行权限并从终端启动；三平台统一的桌面应用打包仍待完善。
 
@@ -355,7 +375,7 @@ flowchart LR
 源码入口：
 
 ```text
-cmd/openkitty/main.go
+cmd/macs/main.go
   → internal/app.Main()
   → 应用装配与 Gateway
   → Agent 运行时
@@ -367,7 +387,7 @@ cmd/openkitty/main.go
 
 | 路径 | 主要内容 |
 | --- | --- |
-| [`cmd/openkitty/`](cmd/openkitty/) | 程序入口与版本注入 |
+| [`cmd/macs/`](cmd/macs/) | 程序入口与版本注入 |
 | [`internal/app/`](internal/app/) | 应用装配、Gateway 与跨模块协调 |
 | [`internal/agentloop/`](internal/agentloop/) | Agent 回合状态、租约与恢复 |
 | [`internal/agentos/`](internal/agentos/) | AgentOS 协议、持久任务和领域模型 |
@@ -389,7 +409,7 @@ cmd/openkitty/main.go
 建议从一次真实的 Agent 对话开始阅读，再跟进工具执行、任务恢复和经验沉淀：
 
 ```text
-cmd/openkitty/main.go：main
+cmd/macs/main.go：main
   → internal/app/mac.go：Main → run → NewBot → ClawBot.Run
   → POST /api/chat
   → internal/app/gateway.go：handleChat → processTaskWithSession
@@ -429,7 +449,7 @@ cmd/openkitty/main.go：main
 ```bash
 # 发布输入检查与主程序构建
 go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath ./cmd/openkitty
+go build -buildvcs=false -trimpath ./cmd/macs
 
 # 对修改范围执行聚焦测试
 go test ./internal/agentos -count=1

@@ -65,7 +65,7 @@ python agentos_check.py --local --url http://127.0.0.1:8080
 
 ```text
 go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/openkitty
+go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/macs
 ```
 
 Linux/macOS 将输出名改为 `-o openkitty`。Web 资源嵌入程序，修改 `web/` 后需重新构建。正式发布包使用 `scripts/build/` 中的构建流程；以上命令仅用于本机源码构建。

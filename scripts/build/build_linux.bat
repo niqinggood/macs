@@ -94,7 +94,7 @@ echo Building...
 set "GOOS=linux"
 set "GOARCH=!ARCH!"
 set "CGO_ENABLED=0"
-go build -buildvcs=false -trimpath -tags netgo,osusergo -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -o "!TEMP_FILE!" ./cmd/openkitty
+go build -buildvcs=false -trimpath -tags netgo,osusergo -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -o "!TEMP_FILE!" ./cmd/macs
 set "BUILD_ERROR=!errorlevel!"
 if not "!BUILD_ERROR!"=="0" (
     echo.

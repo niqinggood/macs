@@ -412,7 +412,7 @@ go test ./internal/memory -run '^TestPrompt' -count=1
 go test ./internal/app -run '^Test(PromptMemoryRuntime|PersonalPromptInputs)' -count=1
 go test ./internal/app -count=1
 go vet ./internal/memory ./internal/app
-go build -buildvcs=false -trimpath -o NUL ./cmd/openkitty
+go build -buildvcs=false -trimpath -o NUL ./cmd/macs
 ```
 
 覆盖一次性导入、跨会话召回、候选排除、版本冲突、删除后重启不复活、原文屏蔽、摘要召回、预算、不同用户/租户/工作区/Agent 隔离、可信身份不可被字符串参数覆盖、关闭/隔离边界，以及后台重试、恢复和租约 fencing。

@@ -85,7 +85,7 @@ echo [1/2] Building for Intel Mac (amd64)...
 set "GOOS=darwin"
 set "GOARCH=amd64"
 set "CGO_ENABLED=0"
-go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openkitty-!VER!-mac-intel ./cmd/openkitty
+go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openkitty-!VER!-mac-intel ./cmd/macs
 
 if errorlevel 1 (
     echo Build failed!
@@ -98,7 +98,7 @@ echo Intel version compiled: openkitty-!VER!-mac-intel
 echo.
 echo [2/2] Building for Apple Silicon (arm64)...
 set "GOARCH=arm64"
-go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openkitty-!VER!-mac-apple ./cmd/openkitty
+go build -buildvcs=false -ldflags="-s -w -X main.CurrentVersion=!VER! -X mac/internal/app.build=!BUILD_DATE!" -trimpath -tags netgo,osusergo -o openkitty-!VER!-mac-apple ./cmd/macs
 
 if errorlevel 1 (
     echo Build failed!

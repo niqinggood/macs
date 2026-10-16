@@ -1,3 +1,4 @@
+// Command openkitty preserves the legacy entry point. New builds use cmd/macs.
 package main
 
 import "mac/internal/app"

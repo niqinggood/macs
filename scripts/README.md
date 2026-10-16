@@ -62,4 +62,6 @@ go run ./cmd/releaseguard
 - Linux：`dist/openkitty_linux_amd64`、`dist/openkitty_linux_arm64`。
 - macOS：根目录 `openkitty-1.1.8-mac-intel`、`openkitty-1.1.8-mac-apple`。复制后执行 `chmod +x`。
 
-三平台均构建 `./cmd/openkitty` 并通过 `main.CurrentVersion` 注入版本、`mac/internal/app.build` 注入 UTC 构建日期。上述命令生成 Go 单二进制程序，不生成 Electron 安装包。macOS 的 `fast` 模式只编译；正式发布应使用 `release` 模式执行完整质量门。交叉编译成功不代表已通过对应系统的运行测试，也不包含 Apple 公证或代码签名。
+三平台均构建 `./cmd/macs` 并通过 `main.CurrentVersion` 注入版本、`mac/internal/app.build` 注入 UTC 构建日期。上述命令生成 Go 单二进制程序，不生成 Electron 安装包。macOS 的 `fast` 模式只编译；正式发布应使用 `release` 模式执行完整质量门。交叉编译成功不代表已通过对应系统的运行测试，也不包含 Apple 公证或代码签名。
+
+`./cmd/openkitty` 继续作为旧源码启动命令的兼容入口；发行文件名、配置文件和数据目录本轮保持兼容。

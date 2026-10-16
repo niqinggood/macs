@@ -7,7 +7,7 @@ Start with a real task, then follow recovery, retained experience, and document 
 ## 1. Understand the three layers
 
 ```text
-cmd/openkitty: executable entry point and version handoff
+cmd/macs: executable entry point and version handoff
     ↓
 internal/app: configuration, lifecycle, Gateway, Agent, and database assembly
     ↓
@@ -18,7 +18,7 @@ The root [`assets.go`](../../assets.go) is a separate resource package. It uses 
 
 ## 2. Startup: from main to running services
 
-Begin at [`cmd/openkitty/main.go`](../../cmd/openkitty/main.go). It assigns the release version to `app.CurrentVersion` and calls `app.Main()`.
+Begin at [`cmd/macs/main.go`](../../cmd/macs/main.go). It assigns the release version to `app.CurrentVersion` and calls `app.Main()`.
 
 The main host code is in [`internal/app/mac.go`](../../internal/app/mac.go):
 

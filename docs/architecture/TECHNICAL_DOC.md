@@ -340,7 +340,7 @@ fetch('/api/task/' + taskId)
 
 ```bash
 # 构建 (web/ 通过 //go:embed 内嵌到二进制)
-go build -ldflags="-s -w" -o openkitty.exe ./cmd/openkitty
+go build -ldflags="-s -w" -o openkitty.exe ./cmd/macs
 
 # UPX 压缩: 50.8MB → 13.2MB (25.9%)
 upx --best openkitty.exe

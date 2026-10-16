@@ -1,5 +1,5 @@
 // Package assets owns repository-level embedded resources used by the
-// cmd/openkitty executable. Keeping embeds at the module root lets source code
+// cmd/macs executable. Keeping embeds at the module root lets source code
 // live under cmd/ without duplicating the public web and skill trees.
 package assets
 

@@ -193,8 +193,8 @@ go test ./internal/memory -run TestAgentMemory -count=1
 go test ./internal/memory -run TestSessionContext -count=1
 go test ./internal/memory -run 'TestMemoryTools|TestKnowledgeFacts|TestDeriver|TestMemoryCorrections|TestSessionMemoryProgress|TestSessionMemoryCancellation' -count=1
 go test ./internal/app -run 'TestMemoryDisabled|TestKnowledgeMemory' -count=1
-go build -buildvcs=false -trimpath ./cmd/openkitty
-go run ./cmd/openkitty --version
+go build -buildvcs=false -trimpath ./cmd/macs
+go run ./cmd/macs --version
 ```
 
 全量测试基线中的 `internal/session` 测试导入环和 memory 会话摘要产物断言失败，

@@ -26,18 +26,23 @@ func architectureRepositoryRoot(t *testing.T) string {
 }
 
 func TestCommandPackageIsThinEntrypoint(t *testing.T) {
-	entries, err := os.ReadDir(filepath.Join(architectureRepositoryRoot(t), "cmd", "openkitty"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	var goFiles []string
-	for _, entry := range entries {
-		if !entry.IsDir() && strings.HasSuffix(entry.Name(), ".go") {
-			goFiles = append(goFiles, entry.Name())
-		}
-	}
-	if len(goFiles) != 1 || goFiles[0] != "main.go" {
-		t.Fatalf("cmd/openkitty must contain only main.go, got %v", goFiles)
+	root := architectureRepositoryRoot(t)
+	for _, command := range []string{"macs", "openkitty"} {
+		t.Run(command, func(t *testing.T) {
+			entries, err := os.ReadDir(filepath.Join(root, "cmd", command))
+			if err != nil {
+				t.Fatal(err)
+			}
+			var goFiles []string
+			for _, entry := range entries {
+				if !entry.IsDir() && strings.HasSuffix(entry.Name(), ".go") {
+					goFiles = append(goFiles, entry.Name())
+				}
+			}
+			if len(goFiles) != 1 || goFiles[0] != "main.go" {
+				t.Fatalf("cmd/%s must contain only main.go, got %v", command, goFiles)
+			}
+		})
 	}
 }
 

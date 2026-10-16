@@ -1447,7 +1447,7 @@ $rng.Dispose()</code></pre>
  <summary>已有源码，如何构建服务程序？</summary>
  <p>发布包无需安装 Go。源码部署需要 Go 1.26；在仓库根目录运行凭据检查，再构建产品入口：</p>
  <pre><code>go run ./cmd/releaseguard
-go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/openkitty</code></pre>
+go build -buildvcs=false -trimpath -o openkitty.exe ./cmd/macs</code></pre>
  <p>Linux/macOS 将输出名改成 <code>-o openkitty</code>。Web 页面已嵌入程序，修改 <code>web/</code> 后需重新构建；正式发布使用项目 <code>scripts/build/</code> 中的流程。</p>
  </details>
  <p class="help-agentos-success">准备完成：程序、配置文件和可用的模型凭证齐全；助手名称与岗位绑定一致。</p>
