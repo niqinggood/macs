@@ -437,7 +437,7 @@ node --check web/app.js
 node --check web/chat.js
 ```
 
-**The repository is still undergoing modularization.** Some older tests have known package-boundary, import-cycle, and obsolete-symbol failures; the full suite is not a green baseline. See [`AGENTS.md`](AGENTS.md). Record main builds, focused tests, and real-task acceptance separately.
+**The repository is still undergoing modularization.** Some older tests have known package-boundary, import-cycle, and obsolete-symbol failures; the full suite is not a green baseline. See the [modularization and test status](docs/architecture/go-modularization.md#当前验证限制). Record main builds, focused tests, and real-task acceptance separately.
 
 Preserve workspace and user data, respect package boundaries, and report checks actually performed. State unresolved failures, missing dependencies, and checks not run.
 

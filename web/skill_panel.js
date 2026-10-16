@@ -29,6 +29,8 @@ function openSkillPanel() {
     var skillText = typeof window.openKittyT === 'function' ? window.openKittyT : function(key, fallback) { return fallback; };
     var overlay = document.getElementById('pipelinePanel');
     if (!overlay) return;
+    overlay.classList.add('skill-panel-mode');
+    if (typeof window.restoreMacWindow === 'function') window.restoreMacWindow(overlay);
     overlay.style.display = 'flex';
     var views = overlay.querySelectorAll('.pipeline-view');
     views.forEach(function(v){v.style.display='none';});
@@ -42,39 +44,41 @@ function openSkillPanel() {
     var tabs = overlay.querySelector('.pipeline-tabs');
     if (tabs) tabs.style.display = 'none';
 
-    var html = '<p class="config-hint" style="margin:0 0 16px;">'+escHtml(skillText('mySkillsHint', 'Skill 包含专业知识、方法和操作流程，可查看、编辑或安装。'))+'</p>'+
+    var html = '<p class="owned-skills-hint">'+escHtml(skillText('mySkillsHint', 'Skill 包含专业知识、方法和操作流程，可查看、编辑或安装。'))+'</p>'+
         '<div class="owned-skills-toolbar">'+
+        '<label class="owned-skills-search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="ownedSkillSearch" class="owned-skills-search" type="search" oninput="renderOwnedSkills()" placeholder="'+escHtml(skillText('skillSearch', '搜索技能名称或说明…'))+'" aria-label="'+escHtml(skillText('skillSearch', '搜索技能名称或说明…'))+'"></label>'+
+        '<div class="owned-skills-tools">'+
         '<button type="button" onclick="showSkillForm()" class="settings-action-btn primary">+ '+escHtml(skillText('skillNew', '新建技能'))+'</button>'+
         '<button type="button" onclick="showSkillInstallForm()" class="settings-action-btn">'+escHtml(skillText('skillInstall', '安装技能'))+'</button>'+
-        '<button type="button" onclick="skillReload()" class="settings-action-btn">'+escHtml(skillText('skillReload', '重新加载'))+'</button>'+
-        '<button type="button" onclick="loadSkillList()" class="settings-action-btn">'+escHtml(skillText('skillRefresh', '刷新'))+'</button>'+
-        '<input id="ownedSkillSearch" class="owned-skills-search" type="search" oninput="renderOwnedSkills()" placeholder="'+escHtml(skillText('skillSearch', '搜索技能名称或说明…'))+'" aria-label="'+escHtml(skillText('skillSearch', '搜索技能名称或说明…'))+'">'+
+        '<button type="button" onclick="skillReload()" class="settings-action-btn subtle">'+escHtml(skillText('skillReload', '重新加载'))+'</button>'+
+        '<button type="button" onclick="loadSkillList()" class="settings-action-btn subtle">'+escHtml(skillText('skillRefresh', '刷新'))+'</button>'+
         '</div>'+
-        '<div id="skillInstallForm" style="display:none;margin-bottom:12px;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">'+
-        '<div style="font-size:calc(14.3px * var(--macs-font-scale, 1));font-weight:700;color:#334155;margin-bottom:9px;">在线 Skill 市场</div>'+
-        '<div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;">'+
-        '<select id="remoteSkillSource" style="padding:8px;border:1px solid #d1d5db;border-radius:6px;font-size:calc(13.2px * var(--macs-font-scale, 1));background:#fff;">'+
+        '</div>'+
+        '<section id="skillInstallForm" class="skill-install-surface" style="display:none;">'+
+        '<h3 class="skill-install-title">在线 Skill 市场</h3>'+
+        '<div class="skill-install-fields">'+
+        '<select id="remoteSkillSource" aria-label="Skill 市场">'+
         '<option value="tencent">腾讯 SkillHub（国内优先）</option>'+
         '<option value="clawhub">OpenClaw / ClawHub</option>'+
         '</select>'+
-        '<input id="remoteSkillQuery" placeholder="搜索 Skill，例如 robot、ROS2、serial" onkeydown="if(event.key===\'Enter\')skillRemoteSearch()" style="flex:1;min-width:190px;padding:8px;border:1px solid #d1d5db;border-radius:6px;font-size:calc(14.3px * var(--macs-font-scale, 1));">'+
-        '<button onclick="skillRemoteSearch()" style="padding:8px 18px;background:#10b981;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));font-weight:600;">搜索</button>'+
-        '<button onclick="document.getElementById(\'skillInstallForm\').style.display=\'none\'" style="padding:8px 14px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));">关闭</button>'+
+        '<input id="remoteSkillQuery" placeholder="搜索 Skill，例如 robot、ROS2、serial" aria-label="搜索在线 Skill" onkeydown="if(event.key===\'Enter\')skillRemoteSearch()">'+
+        '<button type="button" onclick="skillRemoteSearch()" class="settings-action-btn primary">搜索</button>'+
+        '<button type="button" onclick="document.getElementById(\'skillInstallForm\').style.display=\'none\'" class="settings-action-btn subtle">关闭</button>'+
         '</div>'+
-        '<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin-top:8px;line-height:1.55;">只下载并校验 <code>SKILL.md</code>，不会下载或执行远端脚本、二进制和依赖。安装位置：<code id="remoteSkillInstallDir">启动文件目录/.openkitty/skills</code></div>'+
-        '<div id="remoteSkillStatus" style="margin-top:8px;font-size:calc(13.2px * var(--macs-font-scale, 1));"></div>'+
-        '<div id="remoteSkillResults" style="margin-top:8px;max-height:320px;overflow-y:auto;"></div>'+
-        '<details style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:10px;">'+
-        '<summary style="font-size:calc(13.2px * var(--macs-font-scale, 1));color:#64748b;cursor:pointer;">高级：从 Git URL 或本地目录安装</summary>'+
-        '<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#64748b;margin:9px 0 7px;">输入 Git URL 或本地目录路径，选择安装方式</div>'+
-        '<input id="skillSourceInput" placeholder="https://github.com/xxx/skill.git  或  E:/my-skills  或  ./my-skills" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:6px;font-size:calc(14.3px * var(--macs-font-scale, 1));margin-bottom:8px;">'+
-        '<div style="display:flex;gap:6px;flex-wrap:wrap;">'+
-        '<button onclick="skillInstallSimple()" style="padding:7px 18px;background:#8b5cf6;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));">📋 简单安装</button>'+
-        '<button onclick="skillInstallMerge()" style="padding:7px 18px;background:#ec4899;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:calc(14.3px * var(--macs-font-scale, 1));">🧠 智能融合</button>'+
+        '<p class="skill-install-hint">只下载并校验 <code>SKILL.md</code>，不会下载或执行远端脚本、二进制和依赖。安装位置：<code id="remoteSkillInstallDir">启动文件目录/.openkitty/skills</code></p>'+
+        '<div id="remoteSkillStatus" class="skill-install-status" role="status"></div>'+
+        '<div id="remoteSkillResults" class="skill-market-results"></div>'+
+        '<details class="skill-install-advanced">'+
+        '<summary>高级：从 Git URL 或本地目录安装</summary>'+
+        '<p class="skill-install-hint">输入 Git URL 或本地目录路径，选择安装方式</p>'+
+        '<input id="skillSourceInput" aria-label="Git URL 或本地目录" placeholder="https://github.com/xxx/skill.git  或  E:/my-skills  或  ./my-skills">'+
+        '<div class="skill-install-actions">'+
+        '<button type="button" onclick="skillInstallSimple()" class="settings-action-btn">简单安装</button>'+
+        '<button type="button" onclick="skillInstallMerge()" class="settings-action-btn">智能融合</button>'+
         '</div>'+
-        '<div id="skillInstallResult" style="margin-top:8px;font-size:calc(12.1px * var(--macs-font-scale, 1));max-height:200px;overflow-y:auto;"></div>'+
+        '<div id="skillInstallResult" class="skill-install-result" role="status"></div>'+
         '</details>'+
-        '</div>'+
+        '</section>'+
         '<div id="ownedSkillCategories" class="owned-skills-categories" role="group" aria-label="'+escHtml(skillText('skillCategories', '按用途筛选'))+'"></div>'+
         '<div id="ownedSkillCount" class="owned-skills-count" aria-live="polite"></div>'+
         '<div id="skillList" class="owned-skills-grid" aria-busy="true"></div>';
@@ -201,10 +205,9 @@ function renderOwnedSkills() {
         var source = s.source === 'tencent' ? '腾讯 SkillHub' : (s.source === 'clawhub' ? 'ClawHub' : '');
         var category = ownedSkillCategoryInfo(s);
         return '<article class="owned-skill-card">'+
-            '<div class="owned-skill-top"><span class="owned-skill-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 12l9 5 9-5M3 16l9 5 9-5"/></svg></span>'+(source ? '<span class="owned-skill-source">'+escHtml(source)+'</span>' : '')+'</div>'+
-            '<span class="owned-skill-category-label">'+escHtml(skillPanelText(category.key, category.label))+'</span>'+
+            '<div class="owned-skill-top"><span class="owned-skill-category-label">'+escHtml(skillPanelText(category.key, category.label))+'</span>'+(source ? '<span class="owned-skill-source">'+escHtml(source)+'</span>' : '')+'</div>'+
             '<h3 title="'+escHtml(name)+'">'+escHtml(name)+'</h3><p class="owned-skill-description" title="'+escHtml(desc)+'">'+escHtml(desc)+'</p>'+
-            '<code class="owned-skill-name" title="'+escHtml(s.name)+'">'+escHtml(s.name)+'</code>'+
+            (name !== s.name ? '<code class="owned-skill-name" title="'+escHtml(s.name)+'">'+escHtml(s.name)+'</code>' : '')+
             '<div class="owned-skill-actions"><button type="button" class="settings-action-btn" data-skill-name="'+escHtml(s.name)+'" onclick="skillEdit(this.dataset.skillName)">'+escHtml(skillPanelText('skillEdit', '编辑技能'))+'</button>'+
             '<button type="button" class="owned-skill-delete" data-skill-name="'+escHtml(s.name)+'" onclick="skillDelete(this.dataset.skillName)" aria-label="'+escHtml(skillPanelText('delete', '删除')+' '+name)+'">'+escHtml(skillPanelText('delete', '删除'))+'</button></div></article>';
     }).join('') : '<p class="owned-skills-empty">'+escHtml(skillPanelText(query || ownedSkillCategory !== 'all' ? 'skillNoMatch' : 'skillEmpty', query || ownedSkillCategory !== 'all' ? '没有找到匹配的技能' : '还没有技能，可以新建或安装。'))+'</p>';
@@ -298,17 +301,16 @@ function renderRemoteSkillResults() {
         if (result.version) meta.push('v'+result.version);
         if (result.downloads) meta.push(result.downloads+' 下载');
         var action = result.installed
-            ? '<button disabled style="padding:6px 12px;border:none;border-radius:6px;background:#e2e8f0;color:#64748b;font-size:calc(12.1px * var(--macs-font-scale, 1));">已安装</button>'
-            : '<button onclick="skillRemoteInstall('+index+')" style="padding:6px 12px;border:none;border-radius:6px;background:#10b981;color:#fff;cursor:pointer;font-size:calc(12.1px * var(--macs-font-scale, 1));font-weight:600;">安装</button>';
-        return '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:11px;margin-bottom:7px;">'+
-            '<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">'+
-            '<div style="min-width:0;">'+
-            '<div><strong style="font-size:calc(14.3px * var(--macs-font-scale, 1));">'+escHtml(result.name || result.slug)+'</strong>'+
-            '<span style="font-size:calc(9.9px * var(--macs-font-scale, 1));color:#047857;background:#ecfdf5;border-radius:999px;padding:2px 7px;margin-left:6px;">'+escHtml(source)+'</span></div>'+
-            '<div style="font-size:calc(12.1px * var(--macs-font-scale, 1));color:#475569;line-height:1.45;margin-top:4px;">'+escHtml(summary)+'</div>'+
-            '<div style="font-size:calc(11px * var(--macs-font-scale, 1));color:#94a3b8;margin-top:5px;">'+escHtml(meta.join(' · ') || result.slug)+
-            (result.url?' · <a href="'+escHtml(result.url)+'" target="_blank" rel="noopener noreferrer" style="color:#6366f1;">来源页</a>':'')+
-            '</div></div>'+action+'</div></div>';
+            ? '<button type="button" disabled class="settings-action-btn">已安装</button>'
+            : '<button type="button" onclick="skillRemoteInstall('+index+')" class="settings-action-btn primary">安装</button>';
+        return '<article class="skill-market-result">'+
+            '<div class="skill-market-result-copy">'+
+            '<div class="skill-market-result-heading"><strong>'+escHtml(result.name || result.slug)+'</strong>'+
+            '<span class="owned-skill-source">'+escHtml(source)+'</span></div>'+
+            '<p>'+escHtml(summary)+'</p>'+
+            '<div class="skill-market-result-meta">'+escHtml(meta.join(' · ') || result.slug)+
+            (result.url?' · <a href="'+escHtml(result.url)+'" target="_blank" rel="noopener noreferrer">来源页</a>':'')+
+            '</div></div>'+action+'</article>';
     }).join('');
 }
 

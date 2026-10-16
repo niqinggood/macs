@@ -251,6 +251,7 @@ function goBackFromDetail() {
 function openPipelinePanel() {
     var panel = document.getElementById('pipelinePanel');
     if (!panel) return;
+    panel.classList.remove('skill-panel-mode');
     if (typeof window.restoreMacWindow === 'function') window.restoreMacWindow(panel);
     detailBackToAE = false;
     panel.style.display = 'flex';
@@ -266,6 +267,7 @@ function closePipelinePanel() {
     var panel = document.getElementById('pipelinePanel');
     if (panel) {
         panel.style.display = 'none';
+        panel.classList.remove('skill-panel-mode');
         // Reset header state
         var titleH2 = panel.querySelector('.pipeline-title h2');
         if (titleH2) titleH2.textContent = typeof window.openKittyT === 'function' ? window.openKittyT('pipelines', '工作流') : '工作流';

@@ -70,24 +70,8 @@
     #sidebarMorePanel .sidebar-nav-item:hover,.mac-window-restore:hover{background:#2b374b!important}
     .sidebar-all-tasks{color:#adb9cc!important}
     .sidebar-all-tasks:hover{color:#e0e6f0!important;background:#253246!important}
-    .owned-skill-card{background:#1a2332!important;border-color:#34445a!important}
-    .owned-skill-card:hover{border-color:#64856d!important}
-    .owned-skill-card h3,.skill-editor-form label{color:#d7eadb!important}
-    .owned-skill-description,.owned-skills-count,.skill-editor-hint{color:#adb9cc!important}
-    .owned-skill-name{color:#94a3b8!important;background:transparent!important}
-    .owned-skill-icon{color:#a6c9b0!important;background:#20382b!important;border-color:#45604d!important}
-    .owned-skill-source{color:#a6c9b0!important}
-    .owned-skills-categories{border-color:#34445a!important}
-    .owned-skill-category-filter{background:#202b39!important;color:#aebfba!important}
-    .owned-skill-category-filter:hover{background:#2a3b35!important;color:#d7eadb!important}
-    .owned-skill-category-filter[aria-pressed="true"]{background:#284235!important;border-color:#597d65!important;color:#d7eadb!important}
-    .owned-skill-category-count{color:#a3b5ac!important}
-    .owned-skill-category-label{background:#20382b!important;color:#b0cbb8!important}
-    .owned-skill-actions,.skill-editor-actions{border-color:#34445a!important}
-    .owned-skill-delete{color:#dba4a4!important}
-    .owned-skill-delete:hover{background:#37252c!important}
-    .owned-skills-search,.skill-editor-form input,.skill-editor-form textarea{background:#111c2b!important;border-color:#34445c!important;color:#e0e6f0!important}
-    .skill-editor-error{color:#fca5a5!important}
+    .skill-panel-mode,#skillEditorModal{--skill-surface:#1c2029;--skill-field:#171b23;--skill-text:#ececf0;--skill-muted:#acafb9;--skill-border:#363c49;--skill-hover-border:#75616b;--skill-accent:#e1a1b0;--skill-accent-hover:#f0bdca;--skill-accent-ink:#27151c;--skill-soft:#35232c;--skill-danger:#efa5b1}
+    #skillEditorModal .skill-editor-surface{background:var(--skill-surface)!important}
     .input-icon-btn{background:transparent!important;color:#a3a3a3!important;border-color:transparent!important}
     .input-icon-btn:hover{background:#2b3343!important;color:#f5f5f5!important}
     .send-btn{background:#e5e5e5!important;color:#171717!important;border-color:#e5e5e5!important;box-shadow:none!important}
