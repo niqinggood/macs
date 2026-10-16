@@ -4,6 +4,8 @@
 
 项目介绍提供[简体中文](../README.md)与[English](../README.en.md)版本。核心优势、与其他 Agent 产品的比较及证据边界见[产品定位与比较](product-positioning.md)（[English](product-positioning.en.md)）。
 
+查看实际操作界面与 Word 生成过程：[界面演示图集](showcase.md)（[English](showcase.en.md)）。
+
 初次阅读源码建议先看[核心代码导读](architecture/code-walkthrough.md)（[English](architecture/code-walkthrough.en.md)），按启动、请求、模型与工具循环、任务恢复、记忆和流程复用的顺序跟踪；完整细节再查 [`internal/README.md`](../internal/README.md)。
 
 手册覆盖首次启动、模型与智能体配置、任务执行、记忆管理、知识库、文档自动化、AI 员工、任务流、外部接入、备份与常见问题。

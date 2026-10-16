@@ -15,6 +15,8 @@
 </p>
 
 <p align="center">
+  <a href="#architecture">Architecture</a> ·
+  <a href="#screenshots-and-demos">Screenshots</a> ·
   <a href="#core-strengths">Core strengths</a> ·
   <a href="#positioning-and-comparison">Positioning</a> ·
   <a href="#capabilities">Capabilities</a> ·
@@ -47,6 +49,80 @@ The formal product name is **macs**, its Chinese name is **麦卡斯**, and its 
 | Project collaboration | Agents with different responsibilities for research, writing, analysis, and review |
 | Automation workbench | Document templates, browser and desktop actions, and reusable successful procedures |
 | Business task service | Asynchronous task submission, status, progress, results, and deliverables for existing applications |
+
+<p align="center">
+  <a href="docs/images/showcase/overview.png"><img src="docs/images/showcase/overview.png" alt="macs workbench with conversations, task suggestions, and the Agent composer" width="1000"></a>
+  <br><sub>macs workbench · V1.1.8 demo interface, click for the full-size image</sub>
+</p>
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Web["Web / messaging channels"] --> Gateway["Gateway"]
+    Business["Applications / SDKs"] --> AgentOS["AgentOS"]
+    Gateway --> Runtime["Agent runtime"]
+    AgentOS --> Runtime
+    Workflow["Pipeline / AI Employee"] --> Runtime
+    Runtime <--> Models["Configured model services"]
+    Runtime <--> Tools["Tool Registry / Middleware"]
+    Tools --> Actions["Files / network / code / browser / desktop"]
+    Context["Memory / RAG / session context"] --> Runtime
+    Runtime --> State["Tasks / checkpoints / tool receipts"]
+```
+
+| Concept | Responsibility |
+| --- | --- |
+| Agent | The executor driving the model/tool loop |
+| Tool | One concrete action, such as reading a file, searching, or running tests |
+| Skill | Activatable procedural instructions and capability constraints |
+| Pipeline | Multi-step Agent orchestration with contracts and checkpoints |
+| AI Employee | Business identity, routing, and workflow binding |
+| AgentOS | Identity, asynchronous tasks, and recovery contracts around the same runtime |
+
+| Path | Responsibility |
+| --- | --- |
+| [`cmd/macs/`](cmd/macs/) | Executable entry point and version injection |
+| [`internal/app/`](internal/app/) | Assembly, Gateway, and coordination across domains |
+| [`internal/agentloop/`](internal/agentloop/) | Turn state, leases, and recovery |
+| [`internal/agentos/`](internal/agentos/) | Protocol, durable tasks, and domain models |
+| [`internal/pipeline/`](internal/pipeline/) | Checkpoints and input/output contracts |
+| [`internal/memory/`](internal/memory/) | Long-term items, recall, corrections, and forgetting |
+| [`internal/tools/`](internal/tools/) | Workspace, network, content, development, and interface tools |
+| [`internal/toolregistry/`](internal/toolregistry/) | Discovery, registration, filtering, and execution |
+| [`pkg/`](pkg/) | Reusable public Go capabilities |
+| [`web/`](web/) | Native Web UI without a bundling step |
+| [`builtin/`](builtin/), [`default-skills/`](default-skills/) | Embedded Skills and runtime resources |
+| [`scripts/`](scripts/) | Build, quality, and publishing entry points |
+
+## Screenshots and demos
+
+See the interfaces for expert teams, workflow orchestration, knowledge retrieval, and Word document delivery. Click an image to open it at full size, or explore the [complete screenshot gallery](docs/showcase.en.md). These examples use the Chinese interface.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/expert-teams.png"><img src="docs/images/showcase/expert-teams.png" alt="macs expert team templates for research, coding, full-stack work, and review" width="480"></a>
+      <p><strong>Multi-Agent expert teams</strong><br>Organize research, coding, content, and review roles.</p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/pipelines.png"><img src="docs/images/showcase/pipelines.png" alt="macs Pipeline template library" width="480"></a>
+      <p><strong>Reusable workflows</strong><br>Turn business steps into configurable, trackable Pipelines.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/knowledge.png"><img src="docs/images/showcase/knowledge.png" alt="macs knowledge retrieval showing a question, an answer, and its source" width="480"></a>
+      <p><strong>Knowledge retrieval and RAG</strong><br>Find answers in imported material and inspect their sources.</p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/document-output.png"><img src="docs/images/showcase/document-output.png" alt="macs document automation with field mapping and a generated Word preview" width="480"></a>
+      <p><strong>Document automation and delivery</strong><br>Review mappings, preview Word results, and download files.</p>
+    </td>
+  </tr>
+</table>
+
+[Explore all 8 screenshots →](docs/showcase.en.md) · [简体中文图集](docs/showcase.md)
 
 ## Core strengths
 
@@ -342,46 +418,6 @@ Successful submission means acceptance. Read `links.self` for a durable snapshot
 The final task snapshot is authoritative. SSE only retains a bounded recent replay window; query the snapshot after `replay_reset`. Recovery occurs at established model or tool boundaries, and writes with uncertain outcomes stop automatic replay.
 
 Documentation: [deployment and calls](docs/agentos-quickstart.md), [API contract](docs/agent-os-api.md), [OpenAPI](docs/openapi-agentos.yaml), [SDKs](sdk/README.md), [Python SDK](sdk/python/README.md).
-
-## Architecture
-
-```mermaid
-flowchart LR
-    Web["Web / messaging channels"] --> Gateway["Gateway"]
-    Business["Applications / SDKs"] --> AgentOS["AgentOS"]
-    Gateway --> Runtime["Agent runtime"]
-    AgentOS --> Runtime
-    Workflow["Pipeline / AI Employee"] --> Runtime
-    Runtime <--> Models["Configured model services"]
-    Runtime <--> Tools["Tool Registry / Middleware"]
-    Tools --> Actions["Files / network / code / browser / desktop"]
-    Context["Memory / RAG / session context"] --> Runtime
-    Runtime --> State["Tasks / checkpoints / tool receipts"]
-```
-
-| Concept | Responsibility |
-| --- | --- |
-| Agent | The executor driving the model/tool loop |
-| Tool | One concrete action, such as reading a file, searching, or running tests |
-| Skill | Activatable procedural instructions and capability constraints |
-| Pipeline | Multi-step Agent orchestration with contracts and checkpoints |
-| AI Employee | Business identity, routing, and workflow binding |
-| AgentOS | Identity, asynchronous tasks, and recovery contracts around the same runtime |
-
-| Path | Responsibility |
-| --- | --- |
-| [`cmd/macs/`](cmd/macs/) | Executable entry point and version injection |
-| [`internal/app/`](internal/app/) | Assembly, Gateway, and coordination across domains |
-| [`internal/agentloop/`](internal/agentloop/) | Turn state, leases, and recovery |
-| [`internal/agentos/`](internal/agentos/) | Protocol, durable tasks, and domain models |
-| [`internal/pipeline/`](internal/pipeline/) | Checkpoints and input/output contracts |
-| [`internal/memory/`](internal/memory/) | Long-term items, recall, corrections, and forgetting |
-| [`internal/tools/`](internal/tools/) | Workspace, network, content, development, and interface tools |
-| [`internal/toolregistry/`](internal/toolregistry/) | Discovery, registration, filtering, and execution |
-| [`pkg/`](pkg/) | Reusable public Go capabilities |
-| [`web/`](web/) | Native Web UI without a bundling step |
-| [`builtin/`](builtin/), [`default-skills/`](default-skills/) | Embedded Skills and runtime resources |
-| [`scripts/`](scripts/) | Build, quality, and publishing entry points |
 
 ## Core code walkthrough
 

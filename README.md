@@ -15,6 +15,8 @@
 </p>
 
 <p align="center">
+  <a href="#系统架构">系统架构</a> ·
+  <a href="#界面与演示">界面演示</a> ·
   <a href="#核心优势">核心优势</a> ·
   <a href="#产品定位与比较">产品定位</a> ·
   <a href="#功能全景">功能全景</a> ·
@@ -47,6 +49,97 @@
 | 项目协作 | 组织不同职责的 Agent，分工研究、编写、分析和核对 |
 | 自动化工作台 | 处理文档模板、执行浏览器与桌面操作、复用成功流程 |
 | 企业任务后端 | 由业务系统提交异步任务，获取状态、进度、结果及交付物 |
+
+<p align="center">
+  <a href="docs/images/showcase/overview.png"><img src="docs/images/showcase/overview.png" alt="macs 主界面：对话列表、任务建议和 Agent 输入区" width="1000"></a>
+  <br><sub>macs 工作台 · V1.1.8 演示界面，点击查看原图</sub>
+</p>
+
+## 系统架构
+
+```mermaid
+flowchart LR
+    Web["Web / 聊天渠道"] --> Gateway["Gateway"]
+    Business["业务系统 / SDK"] --> AgentOS["AgentOS"]
+    Gateway --> Runtime["Agent 运行时"]
+    AgentOS --> Runtime
+    Workflow["Pipeline / AI Employee"] --> Runtime
+    Runtime <--> Models["已配置的模型服务"]
+    Runtime <--> Tools["Tool Registry / Middleware"]
+    Tools --> Actions["文件 / 网络 / 代码 / 浏览器 / 桌面"]
+    Context["记忆 / RAG / 会话上下文"] --> Runtime
+    Runtime --> State["任务 / 检查点 / 工具回执"]
+```
+
+| 概念 | 职责 |
+| --- | --- |
+| Agent | 执行主体，驱动模型与工具循环 |
+| Tool | 一次具体动作，例如读取文件、搜索资料或运行测试 |
+| Skill | 可激活的领域说明、操作方法和能力约束 |
+| Pipeline | 带步骤、输入输出契约和检查点的任务编排 |
+| AI Employee | 面向业务的身份、任务路由和工作流绑定 |
+| AgentOS | 在同一 Agent 运行时外提供身份、异步任务与恢复契约 |
+
+源码入口：
+
+```text
+cmd/macs/main.go
+  → internal/app.Main()
+  → 应用装配与 Gateway
+  → Agent 运行时
+  → 工具注册、中间件和具体工具
+  → 任务结果、会话与记忆持久化
+```
+
+目录导航：
+
+| 路径 | 主要内容 |
+| --- | --- |
+| [`cmd/macs/`](cmd/macs/) | 程序入口与版本注入 |
+| [`internal/app/`](internal/app/) | 应用装配、Gateway 与跨模块协调 |
+| [`internal/agentloop/`](internal/agentloop/) | Agent 回合状态、租约与恢复 |
+| [`internal/agentos/`](internal/agentos/) | AgentOS 协议、持久任务和领域模型 |
+| [`internal/pipeline/`](internal/pipeline/) | 流程检查点与输入输出契约 |
+| [`internal/memory/`](internal/memory/) | 长期记忆、召回、更正与遗忘 |
+| [`internal/tools/`](internal/tools/) | 文件、网络、内容、开发、界面自动化等工具 |
+| [`internal/toolregistry/`](internal/toolregistry/) | 工具发现、注册、筛选与执行 |
+| [`pkg/`](pkg/) | 可复用的公共 Go 能力 |
+| [`web/`](web/) | 无前端打包步骤的原生 Web 界面 |
+| [`builtin/`](builtin/) / [`default-skills/`](default-skills/) | 内嵌技能与运行资源 |
+| [`sdk/`](sdk/) | 外部系统接入客户端 |
+| [`docs/`](docs/README.md) / [`scripts/`](scripts/README.md) | 长期文档、构建和验证入口 |
+| [`testdata/`](testdata/) | 测试夹具与业务评测入口 |
+
+根目录 `assets.go` 集中声明内嵌资源；业务逻辑按领域存放。开发导读见 [`internal/README.md`](internal/README.md) 和 [Go 模块化说明](docs/architecture/go-modularization.md)。
+
+## 界面与演示
+
+从专家团队分工、工作流编排到知识检索和 Word 交付，下面展示 macs 的具体操作界面。点击图片可查看原图，更多操作过程见[完整演示图集](docs/showcase.md)。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/expert-teams.png"><img src="docs/images/showcase/expert-teams.png" alt="macs 专家团队模板：研究、编程、全栈开发与合同审查" width="480"></a>
+      <p><strong>多 Agent 专家团队</strong><br>按研究、编程、内容与审查等职责组织协作。</p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/pipelines.png"><img src="docs/images/showcase/pipelines.png" alt="macs 工作流模板目录" width="480"></a>
+      <p><strong>可复用的工作流</strong><br>把业务步骤组织成可配置、可跟踪的 Pipeline。</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/knowledge.png"><img src="docs/images/showcase/knowledge.png" alt="macs 知识库检索：提问、答案与来源片段" width="480"></a>
+      <p><strong>知识库与 RAG 问答</strong><br>从导入资料中检索答案，并展示相关来源。</p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="docs/images/showcase/document-output.png"><img src="docs/images/showcase/document-output.png" alt="macs 文档自动化：字段映射与已生成的 Word 结果" width="480"></a>
+      <p><strong>文档自动化与交付</strong><br>核对字段映射、预览 Word 结果并下载生成文件。</p>
+    </td>
+  </tr>
+</table>
+
+[查看全部 8 张演示截图 →](docs/showcase.md) · [English gallery](docs/showcase.en.md)
 
 ## 核心优势
 
@@ -346,63 +439,6 @@ curl -i --max-time 30 -X POST http://127.0.0.1:8081/api/v1/agent/tasks \
 最终状态以持久任务快照为准。SSE 只提供有界的近期重放；收到 `replay_reset` 后应重新查询快照。恢复发生在模型或工具的稳定边界，结果不确定的写操作会停止自动重放。
 
 接入文档：[部署与调用入门](docs/agentos-quickstart.md) · [API 契约](docs/agent-os-api.md) · [OpenAPI](docs/openapi-agentos.yaml) · [SDK](sdk/README.md) · [Python SDK](sdk/python/README.md)
-
-## 系统架构
-
-```mermaid
-flowchart LR
-    Web["Web / 聊天渠道"] --> Gateway["Gateway"]
-    Business["业务系统 / SDK"] --> AgentOS["AgentOS"]
-    Gateway --> Runtime["Agent 运行时"]
-    AgentOS --> Runtime
-    Workflow["Pipeline / AI Employee"] --> Runtime
-    Runtime <--> Models["已配置的模型服务"]
-    Runtime <--> Tools["Tool Registry / Middleware"]
-    Tools --> Actions["文件 / 网络 / 代码 / 浏览器 / 桌面"]
-    Context["记忆 / RAG / 会话上下文"] --> Runtime
-    Runtime --> State["任务 / 检查点 / 工具回执"]
-```
-
-| 概念 | 职责 |
-| --- | --- |
-| Agent | 执行主体，驱动模型与工具循环 |
-| Tool | 一次具体动作，例如读取文件、搜索资料或运行测试 |
-| Skill | 可激活的领域说明、操作方法和能力约束 |
-| Pipeline | 带步骤、输入输出契约和检查点的任务编排 |
-| AI Employee | 面向业务的身份、任务路由和工作流绑定 |
-| AgentOS | 在同一 Agent 运行时外提供身份、异步任务与恢复契约 |
-
-源码入口：
-
-```text
-cmd/macs/main.go
-  → internal/app.Main()
-  → 应用装配与 Gateway
-  → Agent 运行时
-  → 工具注册、中间件和具体工具
-  → 任务结果、会话与记忆持久化
-```
-
-目录导航：
-
-| 路径 | 主要内容 |
-| --- | --- |
-| [`cmd/macs/`](cmd/macs/) | 程序入口与版本注入 |
-| [`internal/app/`](internal/app/) | 应用装配、Gateway 与跨模块协调 |
-| [`internal/agentloop/`](internal/agentloop/) | Agent 回合状态、租约与恢复 |
-| [`internal/agentos/`](internal/agentos/) | AgentOS 协议、持久任务和领域模型 |
-| [`internal/pipeline/`](internal/pipeline/) | 流程检查点与输入输出契约 |
-| [`internal/memory/`](internal/memory/) | 长期记忆、召回、更正与遗忘 |
-| [`internal/tools/`](internal/tools/) | 文件、网络、内容、开发、界面自动化等工具 |
-| [`internal/toolregistry/`](internal/toolregistry/) | 工具发现、注册、筛选与执行 |
-| [`pkg/`](pkg/) | 可复用的公共 Go 能力 |
-| [`web/`](web/) | 无前端打包步骤的原生 Web 界面 |
-| [`builtin/`](builtin/) / [`default-skills/`](default-skills/) | 内嵌技能与运行资源 |
-| [`sdk/`](sdk/) | 外部系统接入客户端 |
-| [`docs/`](docs/README.md) / [`scripts/`](scripts/README.md) | 长期文档、构建和验证入口 |
-| [`testdata/`](testdata/) | 测试夹具与业务评测入口 |
-
-根目录 `assets.go` 集中声明内嵌资源；业务逻辑按领域存放。开发导读见 [`internal/README.md`](internal/README.md) 和 [Go 模块化说明](docs/architecture/go-modularization.md)。
 
 ## 核心代码导读
 
