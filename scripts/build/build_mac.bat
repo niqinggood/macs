@@ -90,6 +90,10 @@ for %%F in ("!INTEL_FILE!" "!APPLE_FILE!") do (
     )
 )
 for %%F in ("!INTEL_FILE!.build" "!APPLE_FILE!.build") do (
+    if exist "%%~F\" (
+        echo ERROR: Temporary output path is a directory: %%~F
+        goto :failed
+    )
     if exist "%%~F" del /f /q "%%~F" >nul 2>&1
     if exist "%%~F" goto :failed
 )
@@ -138,8 +142,8 @@ goto :cleanup
 set "BUILD_ERROR=!errorlevel!"
 if "!BUILD_ERROR!"=="0" set "BUILD_ERROR=1"
 :cleanup
-if defined INTEL_FILE if exist "!INTEL_FILE!.build" del /f /q "!INTEL_FILE!.build" >nul 2>&1
-if defined APPLE_FILE if exist "!APPLE_FILE!.build" del /f /q "!APPLE_FILE!.build" >nul 2>&1
+if defined INTEL_FILE if not exist "!INTEL_FILE!.build\" if exist "!INTEL_FILE!.build" del /f /q "!INTEL_FILE!.build" >nul 2>&1
+if defined APPLE_FILE if not exist "!APPLE_FILE!.build\" if exist "!APPLE_FILE!.build" del /f /q "!APPLE_FILE!.build" >nul 2>&1
 echo ERROR: Build stopped with exit code !BUILD_ERROR!.
 popd
 if defined INTERACTIVE pause

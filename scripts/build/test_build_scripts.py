@@ -169,6 +169,18 @@ class BuildScriptsTest(unittest.TestCase):
         self.assertNotEqual(self.run_script(WINDOWS, "2.0.0", "off"), 0, self.output)
         self.assertNotIn("Build complete:", self.output)
 
+    def test_temporary_output_directories_keep_their_contents(self):
+        for script, relative in ((WINDOWS, "openKitty.build.exe"),
+                                 (LINUX, "dist/openkitty_linux_amd64.build"),
+                                 (MAC, "openkitty-2.0.0-mac-intel.build")):
+            with self.subTest(script=script):
+                folder = self.project / relative
+                folder.mkdir(parents=True)
+                marker = folder / "keep.txt"
+                marker.write_bytes(b"unrelated contents")
+                self.assertNotEqual(self.run_script(script, "2.0.0"), 0, self.output)
+                self.assertEqual(marker.read_bytes(), b"unrelated contents")
+
     def test_rar_failure_is_not_success(self):
         self.assertEqual(self.run_script(WINDOWS, "2.0.0", "off", MACS_SKIP_RAR="0", FAKE_RAR_FAIL="1"), 23, self.output)
         self.assertNotIn("Build complete:", self.output)

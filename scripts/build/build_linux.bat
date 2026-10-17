@@ -100,6 +100,10 @@ if not exist "!OUTPUT_DIR!" (
     echo ERROR: Cannot create output directory: !OUTPUT_DIR!
     goto :failed
 )
+if exist "!TEMP_FILE!\" (
+    echo ERROR: Temporary output path is a directory: !TEMP_FILE!
+    goto :failed
+)
 if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
 if exist "!TEMP_FILE!" (
     echo ERROR: Cannot remove temporary output: !TEMP_FILE!
@@ -146,7 +150,7 @@ exit /b 0
 set "BUILD_ERROR=1"
 
 :failed_with_code
-if defined TEMP_FILE if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
+if defined TEMP_FILE if not exist "!TEMP_FILE!\" if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
 if defined INTERACTIVE pause
 popd
 exit /b !BUILD_ERROR!

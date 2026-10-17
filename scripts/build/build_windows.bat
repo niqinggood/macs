@@ -92,6 +92,10 @@ if errorlevel 1 goto :failed_with_current_code
 
 rem Compile and compress a temporary exe; preserve the last good exe on failure.
 set "TEMP_FILE=openKitty.build.exe"
+if exist "!TEMP_FILE!\" (
+    echo ERROR: Temporary output path is a directory: !TEMP_FILE!
+    goto :failed
+)
 if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
 if exist "!TEMP_FILE!" goto :failed
 echo [3/5] Building macs !VER! for windows/amd64...
@@ -132,6 +136,10 @@ if not defined RAR_CMD (
 )
 rem A new temporary archive avoids retaining stale entries from previous builds.
 set "TEMP_ARCHIVE=openKitty-!VER!-win.build.rar"
+if exist "!TEMP_ARCHIVE!\" (
+    echo ERROR: Temporary archive path is a directory: !TEMP_ARCHIVE!
+    goto :failed
+)
 if exist "!TEMP_ARCHIVE!" del /f /q "!TEMP_ARCHIVE!" >nul 2>&1
 if exist "!TEMP_ARCHIVE!" goto :failed
 rem -r- stops LICENSE/NOTICE names from matching unrelated subdirectories.
@@ -167,8 +175,8 @@ set "BUILD_ERROR=!errorlevel!"
 if "!BUILD_ERROR!"=="0" set "BUILD_ERROR=1"
 :cleanup
 echo ERROR: Build stopped with exit code !BUILD_ERROR!.
-if defined TEMP_FILE if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
-if defined TEMP_ARCHIVE if exist "!TEMP_ARCHIVE!" del /f /q "!TEMP_ARCHIVE!" >nul 2>&1
+if defined TEMP_FILE if not exist "!TEMP_FILE!\" if exist "!TEMP_FILE!" del /f /q "!TEMP_FILE!" >nul 2>&1
+if defined TEMP_ARCHIVE if not exist "!TEMP_ARCHIVE!\" if exist "!TEMP_ARCHIVE!" del /f /q "!TEMP_ARCHIVE!" >nul 2>&1
 if defined INTERACTIVE pause
 popd
 exit /b !BUILD_ERROR!
