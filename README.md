@@ -281,30 +281,50 @@ Web 中的 **AI 生图和 AI 音乐生成，是 macs 通过 Sicurrent API 接入
 
 ### 直接下载编译版
 
-**不需要自行编译时，可以从 [sicurrent-soft 软件下载仓库](https://github.com/niqinggood/sicurrent-soft) 获取 macs。** [统一下载页](https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads) 提供以下 macs 2.0.0 预览包，以及 SHA-256 校验清单；包内附构建记录。下载时请认准 `macs` 名称，页面中也保留其他软件和历史版本。
+**不需要自行编译时，直接前往 [macs 编译版下载页](https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads)。** 页面提供以下 macs 2.0.0 预览构建的原始可执行程序和 SHA-256 校验清单，无需安装 Go 或解压。下载时请认准 `macs` 名称，页面中也保留其他软件和历史版本。
 
 | 系统与处理器 | 下载文件 |
 | --- | --- |
-| Windows x64 | [下载 ZIP 包](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-windows-amd64.zip) |
-| Linux x64 | [下载 tar.gz 包](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-amd64.tar.gz) |
-| Linux ARM64 | [下载 tar.gz 包](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-arm64.tar.gz) |
-| macOS Intel | [下载 tar.gz 包](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-amd64.tar.gz) |
-| macOS Apple Silicon（M 系列） | [下载 tar.gz 包](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-arm64.tar.gz) |
+| Windows x64 | [macs-2.0.0-win.exe](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-win.exe) |
+| Linux x64 | [macs-2.0.0-linux-amd64](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-linux-amd64) |
+| Linux ARM64 | [macs-2.0.0-linux-arm64](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-linux-arm64) |
+| macOS Intel | [macs-2.0.0-mac-intel](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-mac-intel) |
+| macOS Apple Silicon（M 系列） | [macs-2.0.0-mac-apple](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-mac-apple) |
 
-解压到独立目录，压缩包内含可执行文件、配置模板和许可说明，无需安装 Go。首次运行时将 `openkitty-config.template.yaml` 复制为 `openkitty-config.yaml`，然后启动：
+将程序放入独立目录，按对应系统启动。程序会查找项目和用户配置；首次运行找不到配置时，会从内嵌模板在用户目录的 `.openkitty/` 中创建 `openkitty-config.yaml`。已有配置时继续使用原文件。
 
 ```powershell
 # Windows / PowerShell
-.\macs.exe --config .\openkitty-config.yaml --path . --port 8090
+.\macs-2.0.0-win.exe --path . --port 8090
 ```
 
 ```bash
-# Linux / macOS
-chmod +x ./macs
-./macs --config ./openkitty-config.yaml --path . --port 8090
+# Linux x64
+chmod +x ./macs-2.0.0-linux-amd64
+./macs-2.0.0-linux-amd64 --path . --port 8090
 ```
 
-打开 `http://127.0.0.1:8090/web/`，再按下文配置模型。预览版的构建与验证范围见发布说明；Linux 和 macOS 包由交叉编译生成，未代表已在对应系统运行验证。浏览器、模型服务和 Office/PDF 转换等外部依赖仍按所用功能配置。
+```bash
+# macOS Apple Silicon（Intel 将程序名换为 macs-2.0.0-mac-intel）
+chmod +x ./macs-2.0.0-mac-apple
+./macs-2.0.0-mac-apple --path . --port 8090
+```
+
+Linux ARM64 将示例中的程序名换为 `macs-2.0.0-linux-arm64`。打开 `http://127.0.0.1:8090/web/`，以终端报告的实际地址为准，再按下文配置模型。
+
+Windows 也可以双击 exe 启动，以启动日志中的地址为准。`--path .` 表示把当前目录作为工作目录；处理自己的项目时，可将 `.` 换为项目路径，路径含空格时用双引号包住。终端启动时按 `Ctrl+C` 停止服务；若 8090 已被占用，可将 `--port 8090` 改为其他空闲端口。
+
+### 下载后怎么用
+
+1. **打开工作台**：启动程序，在浏览器访问日志中的 `/web/` 地址。
+2. **配置模型**：进入 **设置 → 模型配置**，填写模型服务地址、模型名称和 API Key，保存后为助手选择模型。已有兼容接口或本地模型服务也可接入，详见下方配置示例。
+3. **选择工作方式**：日常提问使用对话问答模式；需要读写文件、编程、联网或完成多步骤任务时，选择 Agent 模式，并指定正确的工作目录。
+4. **给出目标和交付要求**：例如“阅读当前目录的资料，生成一份 Markdown 摘要，列出结论、引用文件和待确认问题”。执行后在对话中查看结果与交付文件。
+5. **按需使用扩展能力**：通过 `@Skill名` 使用指定技能，或配置专家团队、知识库和工作流。AI 生图、AI 音乐需要配置 Sicurrent 平台账号及可用服务；仅启动程序不会自动获得这些服务。
+
+首次使用建议先完成一次简单问答，再尝试一个范围明确的 Agent 任务。[完整使用手册](docs/macs-user-manual.md) 包含模型配置、记忆管理、文档自动化和备份恢复步骤。
+
+发布页也保留包含配置模板、构建记录和完整许可材料的压缩包，供需要时下载；使用前请阅读许可说明。预览版的构建与验证范围见发布说明，Linux 和 macOS 程序由交叉编译生成，尚未在对应系统运行验证。浏览器、模型服务和 Office/PDF 转换等外部依赖仍按所用功能配置。
 
 ### 1. 获取源码
 
@@ -408,6 +428,30 @@ Windows 生成根目录的 `macs.exe`，Linux/macOS 生成根目录的 `macs`。
 Web 界面和内置 Skills 已编入程序，无需运行 `npm build`。修改 `web/`、`builtin/` 或其他内嵌资源后，需重新编译；配置文件和运行数据仍保存在程序外部。
 
 使用编译好的程序无需安装 Go。正式平台打包、版本注入和交叉编译见 [构建脚本说明](scripts/README.md)，现有打包脚本的产物保留 `openkitty` 兼容文件名。
+
+#### Windows 批处理编译：abuild_windows.bat
+
+在源码根目录打开 PowerShell。先安装 Windows 图标与版本信息生成工具 `go-winres`，再从 [UPX 官方发布页](https://github.com/upx/upx/releases) 下载 Windows x64 版本，将解压后的 `upx.exe` 放入 PATH，或放在源码根目录。UPX 用来压缩可执行程序，不要将它提交进源码仓库。
+
+```powershell
+go install github.com/tc-hib/go-winres@latest
+.\abuild_windows.bat 2.0.0 require
+.\openKitty-2.0.0-win.exe --path . --port 8090
+```
+
+`require` 表示必须找到 UPX，并在压缩和完整性检查通过后交付 exe；缺少 UPX 或压缩失败会返回错误。双击 `abuild_windows.bat` 会提示输入版本，回车默认 `2.0.0`，使用 `auto` 模式：找到 UPX 就压缩，找不到则明确提示并生成未压缩程序。需要保留未压缩程序时使用 `off`。
+
+| 命令 | 用途与产物 |
+| --- | --- |
+| `.\abuild_windows.bat 2.0.0 require` | Windows x64；根目录 `openKitty.exe`、`openKitty-2.0.0-win.exe`；有 RAR 工具时另生成压缩包 |
+| `.\abuild_windows.bat 2.0.0 off` | Windows x64，不使用 UPX |
+| `.\scripts\build\build_linux.bat 2.0.0 amd64` | Linux x64；`dist/openkitty_linux_amd64` |
+| `.\scripts\build\build_linux.bat 2.0.0 arm64` | Linux ARM64；`dist/openkitty_linux_arm64` |
+| `.\scripts\build\build_mac.bat 2.0.0 fast` | 同时生成 Intel 和 Apple Silicon 两个 macOS 程序 |
+
+UPX 不在上述位置时，可先设置 `$env:MACS_UPX = "C:\Tools\upx\upx.exe"` 指向自己的工具路径。各脚本支持 `--help`。这些命令在 Windows 上运行；Linux/macOS 产物需复制到对应系统，执行 `chmod +x` 后使用。macOS 的 `release` 模式还会执行完整质量门，失败即停止；`fast` 只用于本地构建，仍执行发布凭据检查。
+
+脚本会剥离调试信息并注入版本、UTC 构建日期；Windows 是否经过 UPX 压缩会明显影响 exe 大小。直接使用前面的普通 `go build` 命令不会执行 UPX 压缩。上述单二进制程序与 Electron 桌面壳的打包方式不同，后者见[脚本说明](scripts/README.md)。
 
 Windows 的可执行程序支持双击启动。当前 macOS 与 Linux 构建为命令行程序，通常需先赋予执行权限并从终端启动；三平台统一的桌面应用打包仍待完善。
 

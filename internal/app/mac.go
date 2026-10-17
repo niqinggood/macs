@@ -370,7 +370,7 @@ func appendBinaryArtifactDeliveryFailure(output string, issues []string) string 
 var (
 	version        = "v0.31"
 	build          = "2026-05-11"
-	CurrentVersion = "1.1.8"
+	CurrentVersion = "2.0.0"
 )
 
 // NewConvertTool is the application composition point for the reusable

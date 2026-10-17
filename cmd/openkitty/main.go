@@ -4,7 +4,7 @@ package main
 import "mac/internal/app"
 
 // CurrentVersion is overridden by release builds through -ldflags.
-var CurrentVersion = "1.1.8"
+var CurrentVersion = "2.0.0"
 
 func main() {
 	app.CurrentVersion = CurrentVersion

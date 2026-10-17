@@ -260,30 +260,50 @@ Sign in with a Sicurrent account, choose an image or music model from the platfo
 
 ### Download a compiled build
 
-**Get macs from the [sicurrent-soft software download repository](https://github.com/niqinggood/sicurrent-soft) if you do not need to compile it yourself.** The [downloads page](https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads) provides the following macs 2.0.0 preview archives and a SHA-256 checksum list. Each archive includes a build record. Choose files named `macs`; the page also hosts other software and older versions.
+**Go directly to the [macs compiled downloads page](https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads) if you do not need to build from source.** It provides the following macs 2.0.0 preview executables and a SHA-256 checksum list, without requiring Go or archive extraction. Choose files named `macs`; the page also hosts other software and older versions.
 
 | System and processor | Download |
 | --- | --- |
-| Windows x64 | [Download ZIP](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-windows-amd64.zip) |
-| Linux x64 | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-amd64.tar.gz) |
-| Linux ARM64 | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-arm64.tar.gz) |
-| macOS Intel | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-amd64.tar.gz) |
-| macOS Apple Silicon (M series) | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-arm64.tar.gz) |
+| Windows x64 | [macs-2.0.0-win.exe](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-win.exe) |
+| Linux x64 | [macs-2.0.0-linux-amd64](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-linux-amd64) |
+| Linux ARM64 | [macs-2.0.0-linux-arm64](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-linux-arm64) |
+| macOS Intel | [macs-2.0.0-mac-intel](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-mac-intel) |
+| macOS Apple Silicon (M series) | [macs-2.0.0-mac-apple](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-mac-apple) |
 
-Extract into a separate directory. Each archive contains the executable, configuration template, and license notices; Go is not required. On first use, copy `openkitty-config.template.yaml` to `openkitty-config.yaml`, then start:
+Put the executable in a separate directory and start it as shown below. It looks for project and user configuration. If none exists on first run, it creates `openkitty-config.yaml` from the embedded template under `.openkitty/` in the user's home directory. Existing configuration is retained.
 
 ```powershell
 # Windows / PowerShell
-.\macs.exe --config .\openkitty-config.yaml --path . --port 8090
+.\macs-2.0.0-win.exe --path . --port 8090
 ```
 
 ```bash
-# Linux / macOS
-chmod +x ./macs
-./macs --config ./openkitty-config.yaml --path . --port 8090
+# Linux x64
+chmod +x ./macs-2.0.0-linux-amd64
+./macs-2.0.0-linux-amd64 --path . --port 8090
 ```
 
-Open `http://127.0.0.1:8090/web/` and configure a model as described below. See the release notes for the preview's build and validation scope. Linux and macOS archives are cross-compiled and have not been tested on those systems. Configure external browsers, model services, and Office/PDF conversion dependencies as needed.
+```bash
+# macOS Apple Silicon; use macs-2.0.0-mac-intel on Intel Macs
+chmod +x ./macs-2.0.0-mac-apple
+./macs-2.0.0-mac-apple --path . --port 8090
+```
+
+On Linux ARM64, replace the example filename with `macs-2.0.0-linux-arm64`. Open `http://127.0.0.1:8090/web/`, using the actual address reported by the process, and configure a model as described below.
+
+On Windows, you can also double-click the exe and open the address shown in its startup log. `--path .` selects the current directory as the workspace; replace `.` with your project path, quoting paths containing spaces. Press `Ctrl+C` in the startup terminal to stop the service. If port 8090 is occupied, choose another available `--port`.
+
+### Using macs after download
+
+1. **Open the workbench** at the `/web/` address shown in the startup log.
+2. **Configure a model** in **Settings → Model configuration**: enter the provider endpoint, model name, and API key, save, and select a model for the assistant. Compatible APIs and existing local model services are supported; see the example below.
+3. **Choose a mode**: use chat for questions; select Agent mode for files, coding, research, and multi-step work, with the correct workspace.
+4. **Describe the goal and expected output**, such as a Markdown summary of the workspace material with conclusions, source files, and unresolved questions. Review results and delivered files in the conversation.
+5. **Add capabilities as needed**: activate a Skill with `@SkillName`, or configure expert teams, knowledge bases, and workflows. Image and music generation require a configured Sicurrent account and available services.
+
+Start with a simple question, then a small Agent task. The [full user manual, Chinese](docs/macs-user-manual.md) covers models, memory, document automation, and backups.
+
+Optional archives with the configuration template, build record, and complete license material remain on the release page. Read the license notices before use. See the release notes for validation details: Linux and macOS executables are cross-compiled and have not been tested on those systems. Configure external browsers, model services, and Office/PDF conversion dependencies as needed.
 
 ### 1. Get the source
 
@@ -387,6 +407,30 @@ The output is `macs.exe` on Windows or `macs` on Linux/macOS, in the repository 
 The Web UI and built-in Skills are embedded, so no `npm build` is required. Recompile after changing `web/`, `builtin/`, or other embedded resources. Configuration and runtime data remain outside the executable.
 
 Running a compiled binary does not require Go. See the [build script guide](scripts/README.md) for release packaging, version injection, and cross-compilation. Existing packaging scripts retain `openkitty` compatibility filenames.
+
+#### Windows batch builds: abuild_windows.bat
+
+Open PowerShell in the source root. Install `go-winres` for Windows icons and version metadata. Download the Windows x64 version from the [official UPX releases](https://github.com/upx/upx/releases), then put the extracted `upx.exe` in PATH or the repository root. Keep the tool out of source control.
+
+```powershell
+go install github.com/tc-hib/go-winres@latest
+.\abuild_windows.bat 2.0.0 require
+.\openKitty-2.0.0-win.exe --path . --port 8090
+```
+
+`require` fails if UPX is missing, compression fails, or the integrity check fails. Double-clicking the batch file prompts for a version, defaulting to `2.0.0`, in `auto` mode: compress when UPX is found, otherwise report that the output is uncompressed. Use `off` to build without UPX.
+
+| Command | Output |
+| --- | --- |
+| `.\abuild_windows.bat 2.0.0 require` | Windows x64: `openKitty.exe`, `openKitty-2.0.0-win.exe`; an optional archive when RAR is available |
+| `.\abuild_windows.bat 2.0.0 off` | Windows x64 without UPX |
+| `.\scripts\build\build_linux.bat 2.0.0 amd64` | Linux x64: `dist/openkitty_linux_amd64` |
+| `.\scripts\build\build_linux.bat 2.0.0 arm64` | Linux ARM64: `dist/openkitty_linux_arm64` |
+| `.\scripts\build\build_mac.bat 2.0.0 fast` | Both Intel and Apple Silicon macOS executables |
+
+For another UPX location, set `$env:MACS_UPX = "C:\Tools\upx\upx.exe"` to your tool path. All scripts support `--help`. These commands run on Windows; copy Linux/macOS binaries to the appropriate system and grant execution permission with `chmod +x`. The macOS `release` mode runs the full quality gate and stops on failure; `fast` is for local builds and still runs the credential guard.
+
+The scripts strip debug information and inject the version and UTC build date. UPX compression substantially changes the Windows exe size; the plain `go build` examples above do not run UPX. Electron desktop packaging is described separately in the [script guide](scripts/README.md).
 
 Windows executables support double-click startup. Current macOS and Linux builds are command-line executables; grant execution permission and start from a terminal. Uniform desktop application packaging is still incomplete.
 
