@@ -20,7 +20,7 @@
   <a href="#core-strengths">Core strengths</a> ·
   <a href="#positioning-and-comparison">Positioning</a> ·
   <a href="#capabilities">Capabilities</a> ·
-  <a href="#download-a-compiled-build">Downloads</a> ·
+  <a href="https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads">Download builds</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#build-and-run-the-executable">Build and run</a> ·
   <a href="#memory-and-forgetting">Memory</a> ·

@@ -20,7 +20,7 @@
   <a href="#核心优势">核心优势</a> ·
   <a href="#产品定位与比较">产品定位</a> ·
   <a href="#功能全景">功能全景</a> ·
-  <a href="#直接下载编译版">下载</a> ·
+  <a href="https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads">下载编译版</a> ·
   <a href="#快速开始">快速开始</a> ·
   <a href="#从源码编译与运行">编译与运行</a> ·
   <a href="#记忆与遗忘">记忆与遗忘</a> ·
