@@ -20,6 +20,7 @@
   <a href="#core-strengths">Core strengths</a> ·
   <a href="#positioning-and-comparison">Positioning</a> ·
   <a href="#capabilities">Capabilities</a> ·
+  <a href="#download-a-compiled-build">Downloads</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#build-and-run-the-executable">Build and run</a> ·
   <a href="#memory-and-forgetting">Memory</a> ·
@@ -39,7 +40,7 @@ The product provides two main modes:
 - **Agent mode:** interpret goals, plan tasks, use tools, and coordinate multiple agents to perform complex work and verify deliverables.
 - **Conversational mode:** everyday questions, writing, and AI image and music generation integrated through the **Sicurrent API**. Image model examples include Nano Banana and `gpt-image2` from the platform catalog; availability depends on the account's model list.
 
-The application is primarily written in Go and embeds its native Web UI and built-in Skills. Chat, multi-agent collaboration, Pipelines, AI Employee, and AgentOS share the core Agent runtime, so methods validated in personal work can also support team and business workflows.
+The application is primarily written in Go and embeds its Web UI and built-in Skills. The same Agent tools and Skills can support personal tasks, specialist teams, and workflows, or become available to existing applications through AgentOS.
 
 The formal product name is **macs**, its Chinese name is **麦卡斯**, and its nickname is **openkitty**. Existing technical names such as `openkitty.exe`, `openkitty-config.yaml`, and `OPENKITTY_*` remain for compatibility.
 
@@ -73,14 +74,14 @@ flowchart LR
     Runtime --> State["Tasks / checkpoints / tool receipts"]
 ```
 
-| Concept | Responsibility |
+| Concept | What it does |
 | --- | --- |
-| Agent | The executor driving the model/tool loop |
-| Tool | One concrete action, such as reading a file, searching, or running tests |
-| Skill | Activatable procedural instructions and capability constraints |
-| Pipeline | Multi-step Agent orchestration with contracts and checkpoints |
-| AI Employee | Business identity, routing, and workflow binding |
-| AgentOS | Identity, asynchronous tasks, and recovery contracts around the same runtime |
+| Agent | Interprets the goal, decides what to do next, uses tools, and checks results |
+| Tool | Performs one concrete action, such as reading a file, searching, or running tests |
+| Skill | Supplies knowledge, procedures, and supporting resources for a particular kind of work |
+| Pipeline | Organizes repeatable workflows with step inputs, expected outputs, checks, and saved progress |
+| AI Employee | Configures a business role with responsibilities, Skills, and workflows, triggered by messages or schedules |
+| AgentOS | Lets applications call Agent roles through an API, run tasks in the background, track progress, retrieve results, and recover interrupted work |
 
 | Path | Responsibility |
 | --- | --- |
@@ -130,23 +131,23 @@ See the interfaces for expert teams, workflow orchestration, knowledge retrieval
 
 **macs brings natural-language tasks, real tool execution, recoverable workflows, result verification, and reusable experience into one deployable Agent system.** Coding, networking, and document processing are ways that system performs work.
 
-### 1. One runtime for personal use and business applications
+### 1. From personal tasks to team workflows and business applications
 
-Web conversations, multi-agent collaboration, Pipelines, AI Employee, and AgentOS reuse core execution capabilities. Tools, Skills, and business methods validated for one entry point can be used in team workflows or exposed through an API, reducing repeated assembly.
+Tools, Skills, and procedures validated in the Web workbench can also support specialist teams and Pipelines, or serve applications through AgentOS. For example, a report-generation procedure can be used directly by a person or configured as a business role that accepts material, exposes progress, and returns a report to an existing application.
 
 ### 2. Stateful long tasks with recovery and inspectable results
 
-Durable tasks, tool receipts, leases, and checkpoints describe execution. Pipelines also constrain step inputs, outputs, and rework. Applications can query final snapshots, add instructions, or cancel work. Recovery follows established boundaries; writes with uncertain outcomes stop automatic replay.
+Applications can inspect task state and progress, add requirements during execution, or cancel work. macs saves task state, checkpoints, and tool execution records to support recovery and result inspection. Pipelines can check step inputs and outputs and send unsuitable results back for rework. Recovery follows model and tool execution boundaries; writes with uncertain outcomes stop automatic replay.
 
-### 3. Connect flexible reasoning with repeatable execution
+### 3. Let Agents make judgments and run fixed steps by explicit rules
 
-Agents handle interpretation and exploration. Pipelines, declarative template mappings, and deterministic executors make reviewed procedures repeatable. For example, a model can propose Word field mappings while a shared DOCX engine fills the template and checks structure and completeness. Successful mappings can be reused for later batches.
+Agents interpret material, assess problems, and explore solutions. Reviewed fixed steps can be carried out by workflows or dedicated tools. For example, an Agent proposes Word template field mappings, and the DOCX engine fills the document and checks its structure and completeness. Once verified, the mapping can be saved and reused with new business data.
 
-### 4. Retain preferences, knowledge, and successful methods separately
+### 4. Reuse preferences, source material, and successful methods
 
 Memory retains applicable preferences and experience; RAG retrieves source material; Skills organize methods; template profiles retain mapping rules. `workflow_learner` can compile successful `computer` sessions into parameterized recipes with success assertions. Memory can be corrected and forgotten. Reuse still requires verification, and not every task automatically becomes a skill.
 
-### 5. Deliver an inspectable implementation with a usable workbench
+### 5. Deploy it yourself and adapt it to your business
 
 The Go application embeds the Web UI and built-in Skills and can use SQLite locally. Models, tools, and business logic can be extended through the provided interfaces and under the applicable license. Start on a personal computer and deploy as a service when needed. Browsers, Office/PDF conversion, and external platforms retain their own dependencies.
 
@@ -225,23 +226,25 @@ Use Web and messaging channels directly, or integrate through AgentOS, SDKs, Pip
 
 ## Capabilities
 
-| Area | Included capabilities |
+| Area | What you can do |
 | --- | --- |
-| Chat and models | Agent and simple-chat modes, message history, attachments, and configured cloud or local models |
-| Agent execution | Planning, model/tool loops, result checks, file delivery, timeouts, and cancellation |
-| Coding | Search, LSP, AST, cross-file changes, refactoring, tests, builds, and goal verification |
-| Research | Web search, page and platform reading, source checking, and research workflows |
-| Memory | Preferences, conventions, historical references, recall controls, corrections, and forgetting |
-| RAG | Import, chunking, keyword and vector retrieval, and configured enhanced retrieval and reranking |
-| Documents | Extraction, Word mappings, repeating rows, reports, and office artifacts |
-| Browser and desktop | Observation, interface actions, screenshots, verification, and parameterized reuse |
-| Multi-agent teams | Role-based division of work, sequential and parallel collaboration, team templates, and delegation |
-| Pipeline | Multi-step workflows, input/output contracts, conditions, approvals, and checkpoint recovery |
-| AI Employee | Business identity, routing, Skills and workflow bindings, and scheduled work |
-| Messaging channels | Configured Feishu, WeChat, DingTalk, WeCom, QQ, Telegram, email, and other integrations |
-| Multimodal and media | Image understanding and speech processing; AI image generation (Nano Banana, gpt-image2, and other catalog models) and music generation through the Sicurrent API; video through configured services |
-| MCP, Skills, and Hooks | Extend tools and information sources, organize methods, and connect lifecycle handling |
-| AgentOS and SDKs | Async submission, durable snapshots, SSE, idempotency, follow-ups, cancellation, and artifacts |
+| Chat and models | Ask questions or submit Agent tasks, review history, attach files, and configure cloud or local models |
+| Agent execution | Interpret goals, plan steps, use tools, check results, and deliver files, with timeouts and cancellation |
+| Coding | Search and analyze code, edit or refactor across files, run tests and builds, and verify completion |
+| Research | Search and read pages and platform content, organize material, and check sources for research or reports |
+| Memory | Retain preferences and project conventions, recall relevant history, and inspect, correct, or forget entries |
+| RAG | Import material and retrieve relevant passages and sources by keyword or meaning, with optional enhanced retrieval and reranking |
+| Documents | Extract content, fill Word templates, map fields, repeat table rows, and generate reports and office files |
+| Browser and desktop | Observe interfaces, operate controls, verify results with screenshots, and turn successful operations into reusable workflows |
+| Multi-agent teams | Assign roles to Agents, delegate tasks sequentially or in parallel, and reuse team templates |
+| Pipeline | Arrange steps with inputs, expected outputs, conditions, and approvals, saving checkpoints for recovery |
+| AI Employee | Configure role responsibilities, Skills, and workflows, and dispatch work from messages or schedules |
+| Messaging channels | Use Agents through configured Feishu, WeChat, DingTalk, WeCom, QQ, Telegram, email, and other channels |
+| Multimodal and media | Understand images and process speech; generate images (Nano Banana, gpt-image2, and other catalog models) and music through the Sicurrent API; use video features through configured services |
+| MCP extensions | Connect external MCP services and use their tools and information in tasks |
+| Skills | Install or activate domain Skills to reuse knowledge, procedures, and supporting resources |
+| Hooks | Add custom handling at session, model-call, and tool-execution events |
+| AgentOS and SDKs | Submit background tasks from applications, track progress, add requirements or cancel execution, and retrieve results and files |
 
 Specific tools, channels, and media features require their respective services, accounts, or runtimes. Installing the main application does not configure every extension backend.
 
@@ -254,6 +257,33 @@ Sign in with a Sicurrent account, choose an image or music model from the platfo
 [Read the user manual, Chinese](docs/macs-user-manual.md) · [Inspect the API integration](internal/auth/platform_media.go)
 
 ## Quick start
+
+### Download a compiled build
+
+**Get macs from the [sicurrent-soft software download repository](https://github.com/niqinggood/sicurrent-soft) if you do not need to compile it yourself.** The [downloads page](https://github.com/niqinggood/sicurrent-soft/releases/tag/downloads) provides the following macs 2.0.0 preview archives and a SHA-256 checksum list. Each archive includes a build record. Choose files named `macs`; the page also hosts other software and older versions.
+
+| System and processor | Download |
+| --- | --- |
+| Windows x64 | [Download ZIP](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-windows-amd64.zip) |
+| Linux x64 | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-amd64.tar.gz) |
+| Linux ARM64 | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-linux-arm64.tar.gz) |
+| macOS Intel | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-amd64.tar.gz) |
+| macOS Apple Silicon (M series) | [Download tar.gz](https://github.com/niqinggood/sicurrent-soft/releases/download/downloads/macs-2.0.0-preview.20261017-macos-arm64.tar.gz) |
+
+Extract into a separate directory. Each archive contains the executable, configuration template, and license notices; Go is not required. On first use, copy `openkitty-config.template.yaml` to `openkitty-config.yaml`, then start:
+
+```powershell
+# Windows / PowerShell
+.\macs.exe --config .\openkitty-config.yaml --path . --port 8090
+```
+
+```bash
+# Linux / macOS
+chmod +x ./macs
+./macs --config ./openkitty-config.yaml --path . --port 8090
+```
+
+Open `http://127.0.0.1:8090/web/` and configure a model as described below. See the release notes for the preview's build and validation scope. Linux and macOS archives are cross-compiled and have not been tested on those systems. Configure external browsers, model services, and Office/PDF conversion dependencies as needed.
 
 ### 1. Get the source
 
@@ -386,7 +416,9 @@ Details, currently in Chinese: [memory service](docs/architecture/memory-service
 
 ## Business system integration
 
-External applications use the **AgentOS asynchronous task contract**. A new task returns `202 + task_id + links`. Use the returned links to query state, subscribe to events, and retrieve results.
+**AgentOS is the macs task service for business applications.** An existing system can delegate document review, report generation, or code maintenance to a configured Agent role. macs handles the task in the background, while the application tracks progress, adds requirements, or retrieves results and files without keeping the original request open.
+
+Integration uses an asynchronous task API: a newly accepted task returns `202 + task_id + links`. Use the returned links to query state, subscribe to progress, and retrieve results.
 
 ```text
 Business application submits a task
@@ -398,10 +430,11 @@ Business application submits a task
 
 This supports:
 
-- Publishing Agents or business roles with capabilities determined by the caller identity.
+- Configuring callable Agent roles with responsibilities, available tools, and expected inputs and outputs.
+- Determining available roles and data ownership from the caller identity for different business services.
 - Retrying submission with an idempotency key to avoid duplicate tasks.
 - Inspecting progress, adding requirements during execution, and cancelling work.
-- Persisting tasks, leases, checkpoints, and tool receipts for recovery at established boundaries.
+- Saving task state, checkpoints, and tool execution records to continue work at recoverable execution boundaries.
 - Integration through Go/Python SDKs or HTTP and SSE.
 
 The following example follows the [AgentOS quick start](docs/agentos-quickstart.md), using its separate port `8081`, configured `document-assistant` role, and business service credential. Configure them in your own deployment first.
