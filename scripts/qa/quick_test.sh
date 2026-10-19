@@ -36,7 +36,7 @@ test_one 01 "在storage目录下创建quick_test.txt，写入Quick test passed a
 test_one 02 "用git工具查看最新commit的message和作者"
 test_one 03 "列出openkitty项目skills目录下有哪些技能子目录"
 test_one 04 "搜索并对比Go和Rust在2026年的最新版本，写入storage/lang_compare.md"
-test_one 05 "到novaexel.com发帖，标题quick_test_report，内容刚刚完成了文件创建、Git查询、技能列表和语言对比四个测试"
+test_one 05 "到sicurrent.com发帖，标题quick_test_report，内容刚刚完成了文件创建、Git查询、技能列表和语言对比四个测试"
 test_one 06 "读取config.yaml中model_cfg配置，告诉我有几个模型、分别是什么"
 test_one 07 "在storage创建bug.py写入print(missing_quote)，用code_check run检查并修复语法错误"
 test_one 08 "用glob找出项目中所有.md文件，统计数量"

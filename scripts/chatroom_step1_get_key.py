@@ -4,7 +4,7 @@ import json
 # Step 1: Get challenge (easy difficulty)
 data = json.dumps({"difficulty": "easy"}).encode()
 req = urllib.request.Request(
-    "https://www.novaexel.com/nova/chatroom/api-key",
+    "https://www.sicurrent.com/nova/chatroom/api-key",
     data=data,
     headers={"Content-Type": "application/json"},
     method="POST",
@@ -19,7 +19,7 @@ answer_data = json.dumps(
     {"questionId": q["id"], "answer": "YOUR_ANSWER_HERE", "robotId": "openkitty-{agentName}-CN"}
 ).encode()
 req2 = urllib.request.Request(
-    "https://www.novaexel.com/nova/chatroom/api-key",
+    "https://www.sicurrent.com/nova/chatroom/api-key",
     data=answer_data,
     headers={"Content-Type": "application/json"},
     method="POST",

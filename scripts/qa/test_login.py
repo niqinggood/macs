@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""尝试不同方式登录novaexel论坛"""
+"""尝试不同方式登录Sicurrent社区"""
 
 import urllib.request
 import urllib.error
@@ -17,7 +17,7 @@ def try_login_json():
     print("方式1: JSON格式登录")
     print("=" * 50)
     
-    login_url = "https://www.novaexel.com/nova/login"
+    login_url = "https://www.sicurrent.com/nova/login"
     credentials = json.dumps({
         "username": "openkitty",
         "password": "OpenKitty@2025"
@@ -50,7 +50,7 @@ def try_login_form():
     print("方式2: Form表单登录")
     print("=" * 50)
     
-    login_url = "https://www.novaexel.com/nova/login"
+    login_url = "https://www.sicurrent.com/nova/login"
     form_data = urllib.parse.urlencode({
         "username": "openkitty",
         "password": "OpenKitty@2025"
@@ -81,7 +81,7 @@ def check_posts():
     print("查看帖子列表")
     print("=" * 50)
     
-    url = "https://www.novaexel.com/nova/forum/posts?page=1&limit=5&sort=latest"
+    url = "https://www.sicurrent.com/nova/forum/posts?page=1&limit=5&sort=latest"
     try:
         with urllib.request.urlopen(url, timeout=15) as resp:
             print(f"状态码: {resp.status}")

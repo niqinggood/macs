@@ -108,7 +108,7 @@ func TestPipelineReferencedSourceKindKeepsProviderRoutingOutOfContract(t *testin
 			t.Fatalf("kind for %q = %q/%q, want described with no provider locator", input, kind, locator)
 		}
 	}
-	exactURL := "https://www.novaexel.com/nova/chatroom/posts/9001"
+	exactURL := "https://www.sicurrent.com/nova/chatroom/posts/9001"
 	if kind, locator := pipelineReferencedSourceKind("请改写 " + exactURL); kind != "url" || locator != exactURL {
 		t.Fatalf("exact provider URL must stay an exact URL, got %q/%q", kind, locator)
 	}
@@ -439,7 +439,7 @@ func TestCaptureNovaSourceRequiresRealChatroomReceiptNotWriteThenRead(t *testing
 	bundle := map[string]interface{}{
 		"status": "ready", "source": "nova_chatroom", "query": description, "fetched_at": fetchedAt, "match_count": 1,
 		"matches": []map[string]interface{}{{
-			"post_id": 9001, "source_url": "https://www.novaexel.com/nova/chatroom/posts/9001",
+			"post_id": 9001, "source_url": "https://www.sicurrent.com/nova/chatroom/posts/9001",
 			"content_sha256": contentSHA, "content": content,
 		}},
 	}
@@ -461,9 +461,9 @@ func TestCaptureNovaSourceRequiresRealChatroomReceiptNotWriteThenRead(t *testing
 	receipt := map[string]interface{}{
 		"ok": true, "source": "nova_chatroom", "query": description, "selected_post_id": 9001,
 		"selected": map[string]interface{}{
-			"post_id": 9001, "source_url": "https://www.novaexel.com/nova/chatroom/posts/9001", "content_sha256": contentSHA,
+			"post_id": 9001, "source_url": "https://www.sicurrent.com/nova/chatroom/posts/9001", "content_sha256": contentSHA,
 		},
-		"selected_source_url":     "https://www.novaexel.com/nova/chatroom/posts/9001",
+		"selected_source_url":     "https://www.sicurrent.com/nova/chatroom/posts/9001",
 		"selected_content_sha256": contentSHA, "output_path": fullPath,
 		"whole_file_sha256": bundleSHA, "file_sha256": bundleSHA, "file_bytes": len(data), "fetched_at": fetchedAt, "match_count": 1,
 	}
@@ -497,8 +497,8 @@ func TestCaptureNovaSourceRequiresRealChatroomReceiptNotWriteThenRead(t *testing
 	mixedBundle := map[string]interface{}{
 		"status": "ready", "source": "nova_chatroom", "query": description, "fetched_at": fetchedAt, "match_count": 2,
 		"matches": []map[string]interface{}{
-			{"post_id": 8000, "source_url": "https://www.novaexel.com/nova/chatroom/posts/8000", "content_sha256": hex.EncodeToString(fakeHash[:]), "content": fakeContent},
-			{"post_id": 9001, "source_url": "https://www.novaexel.com/nova/chatroom/posts/9001", "content_sha256": contentSHA, "content": content},
+			{"post_id": 8000, "source_url": "https://www.sicurrent.com/nova/chatroom/posts/8000", "content_sha256": hex.EncodeToString(fakeHash[:]), "content": fakeContent},
+			{"post_id": 9001, "source_url": "https://www.sicurrent.com/nova/chatroom/posts/9001", "content_sha256": contentSHA, "content": content},
 		},
 	}
 	mixedData, _ := json.Marshal(mixedBundle)
@@ -506,9 +506,9 @@ func TestCaptureNovaSourceRequiresRealChatroomReceiptNotWriteThenRead(t *testing
 	mixedReceipt := map[string]interface{}{
 		"ok": true, "source": "nova_chatroom", "query": description, "selected_post_id": 9001,
 		"selected": map[string]interface{}{
-			"post_id": 9001, "source_url": "https://www.novaexel.com/nova/chatroom/posts/9001", "content_sha256": contentSHA,
+			"post_id": 9001, "source_url": "https://www.sicurrent.com/nova/chatroom/posts/9001", "content_sha256": contentSHA,
 		},
-		"selected_source_url": "https://www.novaexel.com/nova/chatroom/posts/9001", "selected_content_sha256": contentSHA,
+		"selected_source_url": "https://www.sicurrent.com/nova/chatroom/posts/9001", "selected_content_sha256": contentSHA,
 		"output_path": fullPath, "whole_file_sha256": hex.EncodeToString(mixedHash[:]), "file_sha256": hex.EncodeToString(mixedHash[:]),
 		"file_bytes": len(mixedData), "fetched_at": fetchedAt, "match_count": 2,
 	}

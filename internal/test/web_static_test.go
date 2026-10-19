@@ -739,7 +739,7 @@ func TestWebTopbarAccountAuthIsOptionalAndUsesNovaDirectly(t *testing.T) {
 		"community-workspace-v2",
 		"account-center-v1",
 		"account-menu-v1",
-		"https://www.novaexel.com/login/",
+		"https://www.sicurrent.com/login/",
 	} {
 		if !strings.Contains(indexHTML, marker) {
 			t.Fatalf("topbar account UI missing %q", marker)
@@ -758,8 +758,8 @@ func TestWebTopbarAccountAuthIsOptionalAndUsesNovaDirectly(t *testing.T) {
 		"communityFeedLoading",
 		"/api/community/feed?limit=8",
 		"/api/account/config",
-		"https://www.novaexel.com/nova/check-login",
-		"https://www.novaexel.com/nova/logout",
+		"https://www.sicurrent.com/nova/check-login",
+		"https://www.sicurrent.com/nova/logout",
 		"data.account_center_url",
 		"accountEndpoints.center",
 		"readAccountDisplayName",
@@ -779,9 +779,9 @@ func TestWebTopbarAccountAuthIsOptionalAndUsesNovaDirectly(t *testing.T) {
 	}
 	for _, marker := range []string{
 		"/api/account/config",
-		"https://www.novaexel.com/nova/login",
-		"https://www.novaexel.com/nova/check-login",
-		"https://www.novaexel.com/nova/logout",
+		"https://www.sicurrent.com/nova/login",
+		"https://www.sicurrent.com/nova/check-login",
+		"https://www.sicurrent.com/nova/logout",
 		"注册账号",
 		"暂不登录",
 		"credentials: 'include'",

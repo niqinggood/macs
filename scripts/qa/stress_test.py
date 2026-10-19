@@ -21,8 +21,8 @@ tasks = [
     ("R1-Web搜索", "搜索今日中国科技领域最重要的3条新闻，把摘要写入storage/tech_news.md"),
 
     # === Round 2: 技能调用 (7-12) ===
-    ("R2-nova读取", "读取novaexel.com论坛最新5个帖子的标题和作者，写入storage/nova_posts.md"),
-    ("R2-nova发帖", '到novaexel.com发帖：标题"openkitty R2能力测试"，内容"刚完成6项基础测试：文件创建、Git历史、项目扫描、grep搜索、代码修复、Web搜索。所有测试通过。"'),
+    ("R2-nova读取", "读取sicurrent.com论坛最新5个帖子的标题和作者，写入storage/nova_posts.md"),
+    ("R2-nova发帖", '到sicurrent.com发帖：标题"openkitty R2能力测试"，内容"刚完成6项基础测试：文件创建、Git历史、项目扫描、grep搜索、代码修复、Web搜索。所有测试通过。"'),
     ("R2-天气查询", "查询上海和深圳今天天气，对比两地温差"),
     ("R2-股票查询", "查询特斯拉(TSLA)和英伟达(NVDA)最新股价"),
     ("R2-技能列表", "列出当前可用的所有skill，告诉我哪些是always_load的"),
@@ -41,7 +41,7 @@ tasks = [
     ("R4-错误恢复", "先读storage/nonexistent_file.txt(预期失败)，捕获错误后创建该文件并写入'recovered from error'"),
     ("R4-上下文记忆", "请记住：我的名字叫'压测员'。然后在storage创建my_profile.txt写入'Name: 压测员\nRole: QA Tester'，再读取验证"),
     ("R4-多步研究", "研究2026年AI Agent领域3大趋势，写300字报告到storage/ai_trends_2026.md"),
-    ("R4-nova综合", "先读novaexel论坛获取讨论热点，再搜索相关技术背景，最后发一个综合帖到novaexel"),
+    ("R4-nova综合", "先读Sicurrent社区获取讨论热点，再搜索相关技术背景，最后发一个综合帖到Sicurrent社区"),
     ("R4-工具链", "用glob找所有.md文件 -> grep搜索含'test'的 -> 把结果写入storage/md_with_test.txt"),
 
     # === Round 5: 边界与收尾 (25-30) ===
@@ -49,7 +49,7 @@ tasks = [
     ("R5-格式输出", "用Markdown表格格式总结项目依赖，包含：库名、版本、用途三列，写入storage/deps_table.md"),
     ("R5-多语言", "把'openkitty AI agent test'翻译成中文、日文、法文、德文，写入storage/translations.md"),
     ("R5-并行对比", "分别用web_fetch抓取github.com/trending/go和github.com/trending/python，对比两个页面的热门项目"),
-    ("R5-nova收尾", '到novaexel.com发最终帖：标题"openkitty 30项压测报告"，内容包含：完成的任务数、主要发现、系统能力评价'),
+    ("R5-nova收尾", '到sicurrent.com发最终帖：标题"openkitty 30项压测报告"，内容包含：完成的任务数、主要发现、系统能力评价'),
     ("R5-总报告", "生成一份完整的测试总报告写入storage/final_report.md，包含：所有已完成任务的序号和名称、通过的测试数、发现的问题、对openkitty能力的总体评价"),
 ]
 

@@ -16,7 +16,7 @@ def test_post_no_auth():
     print("尝试不登录直接发帖")
     print("=" * 50)
     
-    post_url = "https://www.novaexel.com/nova/forum/posts"
+    post_url = "https://www.sicurrent.com/nova/forum/posts"
     post_data = json.dumps({
         "title": "test",
         "content": "test content",
@@ -46,10 +46,10 @@ def test_chatroom_api():
     print("=" * 50)
     
     urls = [
-        "https://www.novaexel.com/api/chatroom/posts",
-        "https://www.novaexel.com/api/forum/posts",
-        "https://www.novaexel.com/api/posts",
-        "https://www.novaexel.com/chatroom/api/posts",
+        "https://www.sicurrent.com/api/chatroom/posts",
+        "https://www.sicurrent.com/api/forum/posts",
+        "https://www.sicurrent.com/api/posts",
+        "https://www.sicurrent.com/chatroom/api/posts",
     ]
     
     for url in urls:
@@ -73,7 +73,7 @@ def test_chatroom_page():
     print("=" * 50)
     
     try:
-        req = urllib.request.Request("https://www.novaexel.com/chatroom", 
+        req = urllib.request.Request("https://www.sicurrent.com/chatroom",
                                     headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=15) as resp:
             print(f"状态码: {resp.status}")

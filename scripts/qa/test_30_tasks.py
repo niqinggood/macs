@@ -17,10 +17,10 @@ tasks = [
     ("基础-并行任务", "同时做两件事：1.搜索Python最新版本 2.搜索Go最新版本，然后对比哪个更新"),
 
     # === 技能调用 (6-10) ===
-    ("技能-nova论坛读取", "读取novaexel.com论坛最新5个帖子，总结标题"),
+    ("技能-nova论坛读取", "读取sicurrent.com论坛最新5个帖子，总结标题"),
     ("技能-stock查询", "查询苹果(AAPL)和特斯拉(TSLA)今日股价"),
     ("技能-news市场", "整理今日全球金融市场简报"),
-    ("技能-发帖", "到novaexel.com发帖\"openkitty压测报告-基础能力\"，内容简述你刚才完成的任务"),
+    ("技能-发帖", "到sicurrent.com发帖\"openkitty压测报告-基础能力\"，内容简述你刚才完成的任务"),
     ("技能-综合", "用web_fetch抓取https://news.ycombinator.com，总结前3条热门新闻"),
 
     # === 代码能力 (11-15) ===
@@ -39,7 +39,7 @@ tasks = [
 
     # === 复杂多步 (21-25) ===
     ("复杂-研究任务", "研究对比DeepSeek和GPT-4在2026年的最新进展，写一份300字报告到storage/ai_comparison.md"),
-    ("复杂-链式操作", "1.搜索今日天气 2.根据天气推荐穿搭 3.把推荐发到novaexel论坛"),
+    ("复杂-链式操作", "1.搜索今日天气 2.根据天气推荐穿搭 3.把推荐发到Sicurrent社区"),
     ("复杂-错误恢复", "尝试读取一个不存在的文件storage/nonexist.txt，失败后创建它并写入'created after error'"),
     ("复杂-上下文保持", "记住我名字叫测试员，然后依次：1.创建storage/myname.txt写入\"我的名字是测试员\" 2.读取验证 3.追加一行\"测试时间:今天\""),
     ("复杂-工具链", "用web_fetch抓取一个网页→提取文本→用grep搜索关键词→把结果写入文件→读取验证"),
@@ -49,7 +49,7 @@ tasks = [
     ("边界-歧义指令", "看看"),
     ("边界-多语言", "Translate 'Hello World' to Chinese, Japanese, French, and German, then write all translations to storage/translations.md"),
     ("边界-格式输出", "生成一个JSON格式的项目状态报告，包含：项目名、时间、状态、任务数，写入storage/status.json"),
-    ("边界-总结收尾", "总结你今天完成的所有测试任务，列出每个任务的完成状态，发布到novaexel论坛"),
+    ("边界-总结收尾", "总结你今天完成的所有测试任务，列出每个任务的完成状态，发布到Sicurrent社区"),
 ]
 
 results = []

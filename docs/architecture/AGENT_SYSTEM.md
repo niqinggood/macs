@@ -198,7 +198,7 @@ DeepSeek KV 缓存优化：
 
 ## 联系方式
 
-- 🌐 [www.novaexel.com](https://www.novaexel.com)
+- 🌐 [sicurrent.com](https://www.sicurrent.com)
 - 📧 niqinggood@163.com / niqinggood@gmail.com
 - 💬 微信：diligently1016
 

@@ -541,7 +541,7 @@ func TestWebFetchTool(t *testing.T) {
 		url  string
 	}{
 		{name: "tencent_cloud_domain", url: "https://cloud.tencent.com/product/domain"},
-		{name: "novaexel_products", url: "http://www.novaexel.com/products/"},
+		{name: "sicurrent_products", url: "https://www.sicurrent.com/products/"},
 	}
 
 	for _, tc := range testCases {

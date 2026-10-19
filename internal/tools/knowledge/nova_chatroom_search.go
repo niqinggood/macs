@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	novaChatroomDefaultBaseURL = "https://www.novaexel.com/nova/chatroom"
+	novaChatroomDefaultBaseURL = "https://www.sicurrent.com/nova/chatroom"
 	novaChatroomMaxBodyBytes   = 8 << 20
 )
 

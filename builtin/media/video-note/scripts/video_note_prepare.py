@@ -239,8 +239,6 @@ def archive_urls(name: str) -> list[str]:
     machine = platform.machine().lower()
     urls: list[str] = []
     if system == "windows" and machine in {"amd64", "x86_64"}:
-        if name == "ffprobe":
-            urls.append("https://www.novaexel.com/download/ffprobe-6.1-win-64.zip")
         urls.append(f"https://github.com/ffbinaries/ffbinaries-prebuilt/releases/download/v{FFBINARIES_VERSION}/{name}-{FFBINARIES_VERSION}-win-64.zip")
     elif system == "darwin" and machine in {"amd64", "x86_64"}:
         urls.append(f"https://github.com/ffbinaries/ffbinaries-prebuilt/releases/download/v{FFBINARIES_VERSION}/{name}-{FFBINARIES_VERSION}-macos-64.zip")

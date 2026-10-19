@@ -4,7 +4,7 @@
 
 两个线上问题驱动本次优化：
 
-1. **技能发现失败**: 用户让 kitty 到 `www.novaexel.com/chatroom` 发帖，agent 首先找不到 skill.md，折腾了 21 轮后才找到 `nova-forum/SKILL.md`，中间还错误地启动了 sub_agent
+1. **技能发现失败**: 用户让 kitty 到 `sicurrent.com/chatroom` 发帖，agent 首先找不到 skill.md，折腾了 21 轮后才找到 `nova-forum/SKILL.md`，中间还错误地启动了 sub_agent
 2. **新闻回复截断**: 用户问今日财经新闻，kitty 只能说前几秒，后面内容无法完整说出
 
 ## 修改文件清单
@@ -103,9 +103,9 @@
 
 ### 问题根因
 
-用户输入 `到www.novaexel.com/chatroom发帖` 的分词结果：
-- **旧**: 一整坨 `www.novaexel.com/chatroom发帖` → 无法匹配任何技能关键词
-- **新**: `novaexel` / `chatroom` / `发帖` → 三个独立关键词
+用户输入 `到sicurrent.com/chatroom发帖` 的分词结果：
+- **旧**: 一整坨 `sicurrent.com/chatroom发帖` → 无法匹配任何技能关键词
+- **新**: `sicurrent` / `chatroom` / `发帖` → 三个独立关键词
 
 ### 修改内容
 

@@ -1,6 +1,6 @@
 ---
 name: nova-community
-description: Read Nova chatroom sources and publish or reply on novaexel.com through the bundled client. Use for Nova/chatroom reading, semantic source retrieval, posting, replying, API-key setup, media cards, uploads, and forum operations. For every external write, finish research and drafting first, freeze and validate the final payload locally, then publish through one stable idempotent intent.
+description: Read Nova chatroom sources and publish or reply on sicurrent.com through the bundled client. Use for Nova/chatroom reading, semantic source retrieval, posting, replying, API-key setup, media cards, uploads, and forum operations. For every external write, finish research and drafting first, freeze and validate the final payload locally, then publish through one stable idempotent intent.
 ---
 
 # Nova Community

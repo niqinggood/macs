@@ -30,8 +30,8 @@ ROUND1 = [
      "3.哪些文件被修改最多次 4.最近5次commit的详细message。"
      f"把分析结果写成一份报告保存到{OUTDIR}/git_analysis.md。"),
 
-    ("R1T5-novaexel综合发帖",
-     "先读取novaexel.com论坛现有的帖子了解社区风格，然后在novaexel发一个新帖: "
+    ("R1T5-Sicurrent社区综合发帖",
+     "先读取sicurrent.com论坛现有的帖子了解社区风格，然后在Sicurrent社区发一个新帖: "
      "标题'openkitty Round1 基础能力验证报告'，内容需要包含: "
      "1.刚才完成的工作区初始化、项目能力分析、Web深度搜索、Git深度分析四项任务的简述 "
      "2.每项任务的成功/失败状态 3.对openkitty当前能力的评价。"
@@ -49,9 +49,9 @@ ROUND2 = [
      "然后验证JSON文件是否正确生成。"),
 
     ("R2T7-论坛追踪和扩展",
-     "1.读取novaexel.com论坛，找到我们之前发的Round1报告帖子(标题含'Round1') "
+     "1.读取sicurrent.com论坛，找到我们之前发的Round1报告帖子(标题含'Round1') "
      "2.基于Round1报告中发现的项目能力，搜索相关的技术改进建议 "
-     "3.发一个'Round1追踪帖'到novaexel，包含:原始帖子的关键发现、新搜索到的改进建议、下一步测试计划。"
+     "3.发一个'Round1追踪帖'到Sicurrent社区，包含:原始帖子的关键发现、新搜索到的改进建议、下一步测试计划。"
      "如果找不到之前的帖子，就发一个新帖说明情况。"),
 
     ("R2T8-最大文件代码分析",
@@ -107,11 +107,11 @@ ROUND3 = [
      f"{OUTDIR}/project_overview.md，内容需要综合所有读取的文件信息，字数不少于500。"
      "注意: 中间不要丢失早期的文件信息，这测试的是上下文保持能力。"),
 
-    ("R3T15-novaexel社区分析",
-     "对novaexel.com论坛做全面分析: "
+    ("R3T15-Sicurrent社区分析",
+     "对sicurrent.com论坛做全面分析: "
      "1.读取所有论坛帖子(分页获取直到读完) "
      "2.统计:总帖数、作者分布、最活跃话题、帖子时间分布趋势 "
-     "3.写一份社区分析报告发到novaexel论坛(标题'openkitty novaexel社区分析报告') "
+     "3.写一份社区分析报告发到Sicurrent社区(标题'openkitty Sicurrent社区分析报告') "
      f"4.同时把报告保存到{OUTDIR}/community_analysis.md。"
      "注意: 发帖需要先登录，参考skills/nova-forum/SKILL.md的指引。"),
 ]
@@ -133,7 +133,7 @@ ROUND4 = [
      "2.重新读取config.yaml和go.mod，对比capability.md中的信息是否仍然准确 "
      "3.重新搜索'2026 AI agent framework'，对比ai_frameworks.md的内容是否需要更新 "
      "4.重新做git分析，对比git_analysis.md看是否有新commit "
-     "5.读取novaexel论坛验证Round1的帖子是否还在 "
+     "5.读取Sicurrent社区验证Round1的帖子是否还在 "
      f"将对比结果写成回归测试报告保存到{OUTDIR}/regression_test.md。"),
 
     ("R4T18-贡献者指南",
@@ -156,8 +156,8 @@ ROUND4 = [
      f"b)创建一份总索引INDEX.md在storage/round1/下，链接到所有报告并附一句话摘要 "
      "c)生成一份'openkitty最简测试报告'写入"
      f"{OUTDIR}/final_summary.md，包含:测试总数、通过率、发现的3个最大优势和3个最大不足"
-     "d)在novaexel发最终帖，标题'openkitty 20项综合能力测试完成报告'，总结全部测试 "
-     "e)读取novaexel论坛验证帖子发布成功。"),
+     "d)在Sicurrent社区发最终帖，标题'openkitty 20项综合能力测试完成报告'，总结全部测试 "
+     "e)读取Sicurrent社区验证帖子发布成功。"),
 ]
 
 ALL_ROUNDS = [

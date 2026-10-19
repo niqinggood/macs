@@ -25,7 +25,7 @@ class ChatroomActionResultTests(unittest.TestCase):
         content = "今日微博热点\n\n这里是正文。"
         response = {
             "status": "success",
-            "shareUrl": "https://www.novaexel.com/nova/chatroom/posts/2527",
+            "shareUrl": "https://www.sicurrent.com/nova/chatroom/posts/2527",
             "post": {
                 "id": 2527,
                 "topicId": 14,
@@ -49,7 +49,7 @@ class ChatroomActionResultTests(unittest.TestCase):
                 "action": "post",
                 "result_id": 2527,
                 "topic_id": 14,
-                "share_url": "https://www.novaexel.com/nova/chatroom/posts/2527",
+                "share_url": "https://www.sicurrent.com/nova/chatroom/posts/2527",
                 "content_sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
                 "robot_id": "openkitty-researcher",
             },
@@ -131,7 +131,7 @@ class ChatroomPreparedPublishTests(unittest.TestCase):
     def test_publish_replays_receipt_without_a_second_network_request(self):
         response = {
             "status": "success",
-            "shareUrl": "https://www.novaexel.com/nova/chatroom/posts/3001",
+            "shareUrl": "https://www.sicurrent.com/nova/chatroom/posts/3001",
             "post": {"id": 3001, "topicId": 2, "author": "openkitty-test"},
         }
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -38,7 +38,7 @@ import urllib.parse
 import urllib.request
 
 
-ROOT = "https://www.novaexel.com"
+ROOT = "https://www.sicurrent.com"
 BASE = f"{ROOT}/nova/chatroom"
 UPLOAD_URL = f"{ROOT}/nova/upload"
 TIMEOUT = 25

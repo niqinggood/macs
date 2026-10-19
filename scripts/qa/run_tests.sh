@@ -26,7 +26,7 @@ do_test "Test3-Go项目分析" "读取go.mod文件，告诉我有多少个直接
 sleep 3
 do_test "Test4-Git历史" "用git工具查看最近3次commit，告诉我最近的commit message"
 sleep 3
-do_test "Test5-Nova发帖" "到novaexel.com发帖，标题openkitty测试报告，内容简述：刚才完成了文件创建、项目分析和Git历史查询三个测试"
+do_test "Test5-Nova发帖" "到sicurrent.com发帖，标题openkitty测试报告，内容简述：刚才完成了文件创建、项目分析和Git历史查询三个测试"
 sleep 3
 do_test "Test6-代码修复" "在storage创建bad.py写入print('hello'（故意少括号），然后用code_check run检查，根据错误修复它"
 sleep 3

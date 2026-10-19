@@ -172,7 +172,7 @@ func (u *UpdateChecker) checkGitHubReleases() (*UpdateInfo, error) {
 }
 
 // checkCustomURL queries a self-hosted update manifest.
-// Supports both flat format (GitHub-style) and nested "latest" format (novaexel API).
+// Supports both flat format (GitHub-style) and nested "latest" format (Sicurrent API).
 func (u *UpdateChecker) checkCustomURL() (*UpdateInfo, error) {
 	resp, err := u.client.Get(u.updateURL)
 	if err != nil {
@@ -182,7 +182,7 @@ func (u *UpdateChecker) checkCustomURL() (*UpdateInfo, error) {
 
 	if resp.StatusCode != 200 {
 		msg := map[int]string{
-			502: "更新服务器暂时故障(502)，请稍后重试或访问 novaexel.com 手动下载",
+			502: "更新服务器暂时故障(502)，请稍后重试或访问 sicurrent.com 手动下载",
 			503: "更新服务器正在维护(503)，请稍后重试",
 			404: "未找到更新信息，可能产品未上架",
 			500: "更新服务器内部错误(500)，请稍后重试",
@@ -199,7 +199,7 @@ func (u *UpdateChecker) checkCustomURL() (*UpdateInfo, error) {
 		return nil, fmt.Errorf("read response: %w", err)
 	}
 
-	// Strategy 1: novaexel nested format {"latest":{"version":...,"url":...}}
+	// Strategy 1: Sicurrent nested format {"latest":{"version":...,"url":...}}
 	var nested struct {
 		Latest *struct {
 			Version      string `json:"version"`

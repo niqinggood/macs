@@ -12,7 +12,7 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 
 def try_login(username, password):
     """尝试登录"""
-    login_url = "https://www.novaexel.com/nova/login"
+    login_url = "https://www.sicurrent.com/nova/login"
     credentials = json.dumps({
         "username": username,
         "password": password
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # 看看登录页面的结构
     print("\n=== 查看登录页面 ===")
     try:
-        with urllib.request.urlopen("https://www.novaexel.com/nova/login", timeout=10) as resp:
+        with urllib.request.urlopen("https://www.sicurrent.com/nova/login", timeout=10) as resp:
             body = resp.read().decode('utf-8', errors='replace')
             print(f"状态码: {resp.status}")
             print(f"内容: {body[:500]}")

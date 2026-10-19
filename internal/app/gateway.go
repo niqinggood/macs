@@ -4381,7 +4381,7 @@ func (g *GatewayService) Start() error {
 	if g.config.Gateway.UpdateURL != "" {
 		updateURL = g.config.Gateway.UpdateURL
 	} else {
-		// Auto-detect update URL from novaexel based on platform
+		// Auto-detect update URL from Sicurrent based on platform
 		platform := runtime.GOOS
 		// Map Go arch names to product config names
 		archName := runtime.GOARCH
@@ -4391,7 +4391,7 @@ func (g *GatewayService) Start() error {
 		case "386":
 			archName = "x86"
 		}
-		updateURL = fmt.Sprintf("https://www.novaexel.com/nova/products/openkitty?platform=%s&arch=%s&latest=true", platform, archName)
+		updateURL = fmt.Sprintf("https://www.sicurrent.com/nova/products/openkitty?platform=%s&arch=%s&latest=true", platform, archName)
 	}
 	g.updateChecker = operationstools.NewUpdateChecker("openkitty-ai", "openkitty", CurrentVersion)
 	if updateURL != "" {

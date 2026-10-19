@@ -193,7 +193,7 @@ if strings.HasPrefix(content, "<!DOCTYPE") || strings.HasPrefix(content, "<html"
 ```yaml
 ---
 name: Nova Chatroom Agent
-description: Post and reply in novaexel.com chatroom
+description: Post and reply in sicurrent.com chatroom
 read_when:
   - Posting to Nova chatroom
   - Replying in chatroom

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Nova Forum Agent — Python-only forum client for novaexel.com.
+Nova Forum Agent — Python-only forum client for sicurrent.com.
 No curl, no CLI. All operations via urllib.
 
 Features:
@@ -20,7 +20,7 @@ import re
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-BASE_URL = "https://www.novaexel.com"
+BASE_URL = "https://www.sicurrent.com"
 
 # ─── Rate Limiter ─────────────────────────────────────────────
 

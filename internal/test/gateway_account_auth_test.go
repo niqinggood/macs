@@ -149,7 +149,7 @@ func TestAccountConfigReturnsExternalRegistrationURL(t *testing.T) {
 func TestAccountCenterURLCanBeConfiguredExplicitly(t *testing.T) {
 	t.Setenv("OPENKITTY_ACCOUNT_CENTER_URL", "")
 	config := &Config{Gateway: GatewayConfig{
-		AccountServiceURL: "https://www.novaexel.com/nova/login",
+		AccountServiceURL: "https://www.sicurrent.com/nova/login",
 		AccountCenterURL:  "https://sicurrent.com/account/",
 	}}
 	if got := accountCenterURL(config); got != "https://sicurrent.com/account/" {
@@ -163,18 +163,18 @@ func TestDefaultAccountServiceUsesNovaProductionOrigin(t *testing.T) {
 	if err != nil {
 		t.Fatalf("default account login URL: %v", err)
 	}
-	if loginURL != "https://www.novaexel.com/nova/login" {
+	if loginURL != "https://www.sicurrent.com/nova/login" {
 		t.Fatalf("default account login URL = %q", loginURL)
 	}
 }
 
 func TestAccountServiceEndpointAcceptsAFullLoginURL(t *testing.T) {
-	config := &Config{Gateway: GatewayConfig{AccountServiceURL: "https://www.novaexel.com/nova/login"}}
+	config := &Config{Gateway: GatewayConfig{AccountServiceURL: "https://www.sicurrent.com/nova/login"}}
 	checkURL, err := accountServiceEndpointURL(config, "/nova/check-login")
 	if err != nil {
 		t.Fatalf("derive check-login URL: %v", err)
 	}
-	if checkURL != "https://www.novaexel.com/nova/check-login" {
+	if checkURL != "https://www.sicurrent.com/nova/check-login" {
 		t.Fatalf("derived check-login URL = %q", checkURL)
 	}
 }

@@ -75,7 +75,7 @@ func validNovaSourceAcquireEvidence(call SourceAcquireCall, frozenPath, frozenFu
 	if strings.TrimSpace(receipt.Query) != strings.TrimSpace(params.Description) || receipt.Selected.SourceURL != receipt.SelectedSourceURL || !strings.EqualFold(receipt.Selected.ContentSHA256, receipt.SelectedContentSHA256) {
 		return false
 	}
-	urlMatch := regexp.MustCompile(`(?i)^https://www\.novaexel\.com/nova/chatroom/posts/(\d+)$`).FindStringSubmatch(receipt.SelectedSourceURL)
+	urlMatch := regexp.MustCompile(`(?i)^https://www\.sicurrent\.com/nova/chatroom/posts/(\d+)$`).FindStringSubmatch(receipt.SelectedSourceURL)
 	if len(urlMatch) != 2 {
 		return false
 	}
@@ -117,7 +117,7 @@ func validNovaSourceAcquireEvidence(call SourceAcquireCall, frozenPath, frozenFu
 	}
 	match := bundle.Matches[0]
 	contentHash := sha256.Sum256([]byte(match.Content))
-	matchURL := regexp.MustCompile(`(?i)^https://www\.novaexel\.com/nova/chatroom/posts/(\d+)$`).FindStringSubmatch(match.SourceURL)
+	matchURL := regexp.MustCompile(`(?i)^https://www\.sicurrent\.com/nova/chatroom/posts/(\d+)$`).FindStringSubmatch(match.SourceURL)
 	if match.PostID <= 0 || len(matchURL) != 2 || matchURL[1] != strconv.FormatInt(match.PostID, 10) {
 		return false
 	}

@@ -130,11 +130,6 @@ func ffmpegArchives(name string) ([]ffmpegArchive, error) {
 	case "windows":
 		switch runtime.GOARCH {
 		case "amd64":
-			if name == "ffprobe" {
-				archives = append(archives,
-					ffmpegArchive{url: "https://www.novaexel.com/download/ffprobe-6.1-win-64.zip"},
-				)
-			}
 			archives = append(archives,
 				ffmpegArchive{url: fmt.Sprintf("https://github.com/ffbinaries/ffbinaries-prebuilt/releases/download/v6.1/%s-6.1-win-64.zip", name)},
 				ffmpegArchive{url: "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"},
@@ -285,7 +280,6 @@ func ffmpegManualURLs(name string) []string {
 		case "amd64":
 			if name == "ffprobe" {
 				return []string{
-					"https://www.novaexel.com/download/ffprobe-6.1-win-64.zip",
 					"https://github.com/ffbinaries/ffbinaries-prebuilt/releases/download/v6.1/ffprobe-6.1-win-64.zip",
 				}
 			}
